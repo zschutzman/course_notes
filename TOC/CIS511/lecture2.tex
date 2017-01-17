@@ -110,6 +110,8 @@
 
 \section{More Finite Automata}
 
+
+\subsection*{NFAs are Equivalent to DFAs}
 Recall: every DFA recognizes some (regular) language, a language is regular if there exists some DFA recognizing it.  NFAs also recognize regular languages (every DFA is also an NFA).
 
 Question: are NFAs more powerful than DFAs?  They are certainly a broader class of machines, given that the set of all DFAs is a propers subset of the set of all NFAs.
@@ -125,17 +127,101 @@ Question: are NFAs more powerful than DFAs?  They are certainly a broader class 
 	
 	The start state of $M'$, $q_0 '$ is the state corresponding to $\{q_0\}$.  The final states of $M'$, $F'$ are the subsets of $Q$ containing at least one element of $F$.
 	
-	We can deal with $\epsilon$-transitions by extending $\delta '$ to also include all states reachable from reading $a$ and a following $\epsilon$.  Formally, define $E(q)$ as the set of states reachable from $q$ without consuming an input character (i.e. $0$ or more $\epsilon$-transitions).  Then make $\delta '(S,a) = \bigcup\limits_{p\in E(q)\  : \ q\in S}\delta(p,a)$.
+	We can deal with $\epsilon$-transitions by extending $\delta '$ to also include all states reachable from reading $a$ and a following $\epsilon$.  Formally, define $E(q)$ as the set of states reachable from $q$ without consuming an input character (i.e. $0$ or more $\epsilon$-transitions).  Then make $\delta '(S,a) = \bigcup\limits_{p\in E(q)  \ \forall \  q\in S}\delta(p,a)$.
 	
+	
+
+	
+\end{proof}
+
+
+\subsection*{Closure Properties}
+
+\theorem{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cup L_2$.}
+
+\begin{proof}
+	
+	Let $M_1$ and $M_2$ be DFAs that recognize $L_1$ and $L_2$, respectively.  Add a new start state and add an $\epsilon$-transition to the start states of $M_1$ and $M_2$.  This NFA now accepts exactly the strings in either $L_1$ or $L_2$ (or both).
+	
+	Since this is an NFA recognizing it, 	$L_1\cup L_2$ is regular.
+	
+	
+\end{proof}
+
+\theorem{If $L_1$ and $L_2$ are regular languages, then so is their concatenation, denoted $L_1 L_2$ or $L_1 \circ L_2$.}
+
+\begin{proof}
+	
+		Let $M_1$ and $M_2$ be DFAs that recognize $L_1$ and $L_2$, respectively.  Add $\epsilon$-transitions from the final states of $M_1$ to the start state of $M_2$.  The new start state is the original start state of $M_1$ and the final states are those from $M_2$.  This NFA now non-deterministically tries to split the string into its $L_1$ and $L_2$ parts.
+		
+	Since this is an NFA recognizing it, 	$L_1\circ L_2$ is regular.
+	
+	
+\end{proof}
+
+\theorem{The Kleene Star of a regular language $L$, denoted $L^*$, is regular.}
+
+The Kleene Star is a generalization of concatenation.  $L^*$ is the set of strings that are an arbitrary (finite) number of concatenations of $L$ with itself (including zero, i.e. $\epsilon\in L^*$ for all $L$).
+
+\begin{proof}
+	
+	Let $M$ be a DFA recognizing $L$.  Add a new start state which is also a final state, and add an $\epsilon$-transition to the original start state.  Then, add $\epsilon$-transitions from all of the original final states to the new start state.
+	
+		Since this is an NFA recognizing it, 	$L^*$ is regular.
+	
+\end{proof}
+
+\theorem{The complement of a regular language $L$, denoted $\bar{L}$ or $L^c$ is regular.}
+
+\begin{proof}
+	Given a DFA $M$ recognizing $L$, make all the accept states non-final and all non-final states final.  This is now a DFA recognizing $L^c$.
+\end{proof}
+
+
+\theorem{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cap L_2$.}
+
+\begin{proof}
+	This follows directly from the proofs of closure under union and complement and applying DeMorgan's Laws.
 	
 \end{proof}
 
 
 
 
+\subsection*{Regular Expressions}
 
 
 
+We are going to define regular expressions inductively.
+
+\begin{enumerate}
+	\item[] $\emptyset$ is a regular expression
+	\item[] $\epsilon$ is a regular expression
+	\item[] For each $a\in\Sigma$, $a$ is a regular expression
+	\item[] If $r_1,r_2$ are regular expressions, so are $r_1 r_2$, $r_1\cup r_2$, $r_1^*$
+	
+\end{enumerate}
+
+
+\theorem{A language $L$ is regular if and only if it is described by some regular expression.}
+
+\begin{proof}
+	
+	The first direction is easy.  We can make NFAs accepting nothing, $\epsilon$, and any single character, and we have already shown the construction for NFAs for the three operations.  Therefore, any regular expression can be converted into an NFA by this inductive construction.
+	
+	To see that any DFA can be converted into a regular expression, we will use an inductive construction.  We are going to transform the DFA by merging states and associating them with simpler regular expressions.
+	
+	Let $L$ be our regular language and $M$ a DFA accepting it.  Let's let $Q=[n]$, such that the states are numbered, in order to keep better track of them.
+	
+	Define $R_{i,j}^{(k)}:=\{x|x \ takes \ M \ from \ i \ to \ j\ without\ passing \ through\ any \ state\ labelled \ greater \ than \ k \}$
+	
+	We know $R^{(0)}_{i,j} = \{a|\delta(i,a) = j\} \ if \ i\neq j$.  $R^{(0)}_{i,j} = \{a|\delta(i,a) = j\}\cup\{\epsilon\} \ if \ i= j$.  Let's proceed inductively.  Suppose we know $R_{i,j}^{(k)}$ for all $i,j$.  To compute $R_{i,j}^{(k+1)}$, observe that this is a superset of $R_{i,j}^{(k)}$, and it also contains those strings passing through $(k+1)$ at least once.  The strings that go from $(i)$ to $(k+1)$ are captured by $R_{i,k+1}^{(k)}$, the strings that go from $(k+1)$ to another occurence of $(k+1)$ are captured by $(R_{k+1,k+1}^{(k)})^*$ and the strings from $(k+1)$ to $(j)$ are captured by $R_{k+1,j}^{(k)}$.  So $R_{i,j}^{(k+1)}$ is  $R_{i,j}^{(k)} \ cup 
+	R_{i,k+1}^{(k)} (R_{k+1,k+1}^{(k)})^*R_{k+1,j}^{(k)}$.
+	
+	This is a regular expression describing the language accepted by $M$.
+
+
+\end{proof}
 
 
 
