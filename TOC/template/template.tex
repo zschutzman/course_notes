@@ -1,0 +1,225 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CS 378 Intro to Theory of Computation
+                        \hfill Fall 2015} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Chapter #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are a revised version of those taken during Dale Skrein's CS 378 course at Colby College in Fall 2015.  The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{0}{Math Review}{Dale Skrien}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section{Set Theory}
+
+Set theory is the foundation of modern mathematics.  As such, it is relevant and important to the material in this course.  We're going to move very quickly through some foundational elements (heh) of set theory to establish a mathematical language (hah) with which to precisely communicate in this course.
+
+
+
+\definition {A \textbf{set} is a collection of distinct objects, called \textbf{elements}.}
+
+\definition {A \textbf{subset} $S$ of some set $\mathcal{A}$ is a set such that every element of $S$ is also an element of $\mathcal{A}$.  This is denoted $S\subset \mathcal{A}$.}
+
+
+We often talk about sets as being implicitly a subset of some \textbf{universal set}.  For example, if I asked you to name some things that are not prime numbers, you might list $6,14,100$, but probably not $apple$ or $-.5$, because you assume, possibly incorrectly, that the universe is postitive integers.  In this course, the implicit universe is probably the correct one, and if there is any ambiguity, the universe will be made explicit.
+
+\definition {The \textbf{empty set}, denoted \textbf{$\emptyset$}, is the set containing no elements.  Note that it is a (vacuously) true statement that the empty set is a subset of every set.}
+
+\definition {A \textbf{function} $f$ is a mapping between two sets $\mathcal{A}$ and $\mathcal{B}$, called the \textbf{domain} and \textbf{codomain}, respectively, which satisfies the following two properties:
+
+	 \begin{enumerate}
+	 \item For all $z\in\mathcal{A}$, $f(z)\in\mathcal{B}$
+	 \item If $f(x) = f(y)$, then $x=y$
+\end{enumerate}
+
+}
+
+\definition {A function is an \textbf{injection} if all elements of the domain map to unique elements of the codomain.  A function is a \textbf{surjection} if all elements of the codomain are equal to $f{x}$ for some $x$ in the domain.  A function is a \textbf{bijection} if it is both an injection and a surjection.}
+
+\definition {The \textbf{cardinality} of a set is, in some sense, a measure of the number of elements of that set.  For two sets $\mathcal{A},\mathcal{B}$, we say $card(\mathcal{A})\leq card(\mathcal{B})$ if there exists some injection from $\mathcal{A}$ to $\mathcal{B}$.  Informally, this means that $\mathcal{A}$ is 'no bigger' than $\mathcal{B}$.  The cardinality of a finite set is the number of elements in that set.}
+
+\definition {The \textbf{natural numbers}, denoted $\mathbb{N}$, is the set ${0,1,2,3\dots}$.  Importantly, the natural numbers can be identified by the following inductive definition (Peano Axions):
+
+	\begin{enumerate}
+		\item $0$ is a natural number.
+		\item For any natural number $n$, $n+1$ is a natural number.
+		\item For any non-zero natural number $m$, $m=n+1$ for some natural number $n$.
+	\end{enumerate} 
+}
+
+\definition {A set $\mathcal{A}$ is \textbf{countable} if $card(\mathcal{A})\leq card(\mathbb{N})$.  All finite sets are countable.  The natural numbers are \textbf{countably infinite}.  A set $\mathcal{B}$ is countably infinite if there exists a bijection between $\mathcal{B}$ and $\mathbb{N}$.  A set $\mathcal{C}$ is \textbf{uncountably infinite} if it is infinite and such a bijection does not exist.}
+
+\definition {The textbf{power set} of a set $\mathcal{A}$, denoted $\mathcal{P}(\mathcal{A})$, is the set of all subsets of $\mathcal{A}$.}
+
+\claim {The real numbers (denoted $\mathbb{R}$) are uncountable.}\\
+
+\begin{proof}(Cantor)
+	Consider the interval $[0,1]$ as a subset of $\mathbb{R}$.  We will show that this subset is uncountable, therefore all of $\mathbb{R}$ is as well.
+	
+	Suppose, for the sake of contradiction, that this set is countable.  Then we identify each real number in the interval with some natural number $i$.  Consider the decimal expansions of all of these real numbers.  For rational numbers, which have multiple decimal representations (i.e. $.25 = .249999\dots$), we consider the non-terminating one.  Now, construct the following real number in the interval $[0,1]$.  For each natural number $i$, consider the $i^{th}$ digit in the corresponding real number's decimal expansion.  If this number is not a $5$, put a $5$ in that position.  If it is already a $5$, put a $6$ in that position.  
+	
+	By construction, this real number is not identified with a natural number, which is a contradiction, so the set of real numbers must have strictly larger cardinality than the real numbers.
+	
+\end{proof}
+
+\claim {$\mathcal{P}({\mathbb{N}})$ is uncountable.}\\
+
+\begin{proof}
+	We will show there exists a bijection between $\mathcal{P}(\mathbb{N})$ and the interval $[0,1]\subset \mathbb{R}$.
+	
+	Consider binary decimal representations of the elements of $[0,1]$ and the indicator function on the subsets of natural numbers where the digit in the $i^{th}$ position is a $1$ if and only if $i$ is in the corresponding subset.  We can therefore map between subsets of $\mathbb{N}$ and real numbers in $[0,1]$.  Because this map is invertible, it is a bijection and the power set of $\mathbb{N}$ is uncountable.
+	
+\end{proof}
+
+
+\section{Relations}
+
+\textit{Relations} are a way to formalize a way of comparing elements of a set.
+
+\definition {An \textbf{equivalence relation} $ \sim $ on a set $\mathcal{A}$ is a binary relation satisfying three properties, for $x,y,z\in\mathcal{A}$:
+	
+	\begin{enumerate}
+		\item \textbf{Reflexive}: $x\sim x$, for all $x\in\mathcal{A}$.
+		\item \textbf{Symmetric}: if $x \sim y$, then $y \sim x$.
+		\item \textbf{Transitive}: if $x \sim y$ and $y \sim z$, then $x \sim z$.
+	\end{enumerate}
+}
+
+\definition {A \textbf{total order} $\leq$ on a set $\mathcal{B}$ is a binary relation satisfying three properties, for $x,y,x\in\mathcal{B}$:
+	
+		\begin{enumerate}
+			\item \textbf{Reflexive}: $x\leq x$, for all $x\in\mathcal{B}$.
+			\item \textbf{Antisymmetric}: either $x\leq y$, or $y\leq x$, for all $x,y\in\mathcal{B}$.
+			\item \textbf{Transitive}: if $x\leq y$ and $y\leq z$, then $x \leq z$.
+		\end{enumerate}
+	
+}
+
+Equality of rational numbers ($\frac{1}{2} = \frac{3}{6} = \frac{34}{68}$) is a commonly understood equivalence relation, and the ordering of the integers is a commonly understood total order.
+
+\definition {An \textbf{equivalence class} of some element $x\in\mathcal{A}$ under some equivalence relation $\sim$, denoted $[x]$ is the subset of $\mathcal{A}$ such that every element of $[x]$ is equivalent to $x$ under the relation}
+
+\claim {Equivalence classes partition a set.  That is, for all elements $x,y\in\mathcal{A}$, either $[x] = [y]$ or $[x] \cap [y] = \emptyset$.}\\
+
+\begin{proof}
+	Consider some equivalence class $[x]$ and some element $[y]$.  If $x \sim y$, then $y\in[x]$ and $y \sim z$ for all $z\in [x]$.  Therefore, by transitivity, $[y]=[x]$.  Otherwise, $x$ and $y$ are not equivalent, so $[x]\neq [y]$. If there existed some $w$ in both $[x]$ and $[y]$, then it must be $w\sim x$ and $w \sim y$. But by transitivity, that implies $y \sim x$, so their equivalence classes must be equal.  Therefore, no such $w$ exists and $[x]$ is disjoint from $[y]$.
+\end{proof}
+
+
+\section{Graphs}
+
+\definition {A \textbf{graph} $G = \langle V,E\rangle$ is a pair of sets $V$, the vertex set, and $E$, the edge set.  An edge $e\in E$ is a pair of vertices $u,v\in V$.  In an \textbf{undirected graph}, $u$ and $v$ are an unordered pair.  In a \textbf{directed graph}, $u$ and $v$ are an ordered pair, corresponding to an edge (often called an \textbf{arc}) from $u$ into $v$.}
+
+\definition {A \textbf{subgraph} $H=\langle V',E'\rangle$ of a graph $G=\langle V,E\rangle$ is a graph such that $V'\subset V$ and $E' \subset E$.}
+
+\definition {The \textbf{degree} of a vertex $v$ is the number of edges $e$ such that $e={v,a}$ for some $a\in V$.  In a directed graph, the \textbf{indegree} is the number of arcs into $v$ and the \textbf{outdegree} is the number of arcs leaving $v$.}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
