@@ -160,7 +160,7 @@ We often use families of distributions to make this easier to work with.
 \subsubsection*{Mallows Model}
 
 
-\definition{The Mallows distribution is a probability distribution that looks like $\frac{1}{Z(\theta)} \exp{-\theta d_K (\sigma,\sigma_0)}$, where $\sigma_0\in S_n$ is the modal permutation, $\theta\geq 0$ is the dispersion parameter.  $Z$ is a normalizer.}
+\definition{The Mallows distribution is a probability distribution that looks like $\frac{1}{Z(\theta)} \exp{-\theta d_K (\sigma,\sigma_0)}$, where $\sigma_0\in S_n$ is the modal permutation, $\theta\geq 0$ is the dispersion parameter.  $Z$ is a normalization function of the parameters.}
 
 This looks kind of Gaussian, as the distribution is a function of the distance from the mean/mode.
 
@@ -176,7 +176,7 @@ Parameters $\boldmath{w} = (w_1,\dots,w_n)^T \in \mathbb{R}^+$.
 
 We have $p(\sigma;\boldmath{w}) = \frac{w_{i_1}}{w_{i_1} + \dots w_{i_n}} \frac{w_{i_2}}{w_{i_2} + \dots w_{i_n}} \dots$
 
-We can also find a log-likelihood function, but there is no closed-form expression for the maximizing $\boldmath{\hat{w}}$.  Early algorithms used Newton-Raphson root-finding.  Faster algorithms do minorization-maximization.  Recent work has developed faster spectral methods. Other approaches include method-of-moments.
+We can also find a log-likelihood function, but there is no closed-form expression for the maximizing $\boldmath{\hat{w}}$.  Early algorithms used Newton-Raphson root-finding.  Faster algorithms do minorization-maximization.  Recent work has developed even faster spectral methods. Other approaches include method-of-moments.
 
 \subsubsection*{Random Utility Models}
 
