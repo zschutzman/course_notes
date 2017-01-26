@@ -1,0 +1,202 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Jan 26, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{5}{Nondeteminism in Turing Machines}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section{Nondeterministic Turing Machines}
+
+What if our TMs can explore a variety of possible transitions simultaneously.
+
+\definition{A \textbf{non-deterministic Turing Machine} (NTM) is a Turing machine $M$ where 
+	\\$\delta_M : Q\times \Gamma \rightarrow 2^{Q\times \Gamma \times \{L,R\}}$.}
+
+
+Why do we care?
+
+\claim{NTMs are equivalent in power to regular TMs.}
+\theorem{If $M$ is a NTM recognizing language $L$, then there exists a deterministic TM $D$ recognizing $L$.}
+
+\begin{proof}
+	
+	The idea is to have $D$ simulate the behavior of $M$.  We can think of $M$'s computation as a tree of configurations, branching when it makes non-deterministic choices.  We might be tempted to fully explore each branch sequentially, but we have to be careful as there may be some branches that loop forever, and we don't want to get stuck on these.
+	
+	Our solution will be to explore in a breadth-first manner.  This way, if there is some accepting path, we will eventually find it without getting stuck in an infinite loop.
+	
+	Formally, let $D$ be a 3-tape Turing machine.  The first tape will be a read-only input tape.  The second will be a work tape that actually simulates $M$.  The third tape will be used to address where we are in the configuration tree.  We can upper-bound the number of children a configuration can have by $B$ by observing that at each transition, there are no more than $B$ possible resultant configurations.  Tape $3$ will store address values $x_1\dots x_k$, which tell you, from the root, which child to explore.  We will skip over invalid addresses.
+	
+	Begin by copying the initial configuration from Tape 1 to Tape 2.  Then look at Tape 3 and get $x_1$, then process that, then do it for $x_2$, until we reach $x_k$.  When we reach the end, increment the value on Tape 3 and start over.  If we reach $q_r$, we terminate that branch. If we reach $q_a$ on some branch, we accept. 
+	
+	This runs slowly, but it deterministically simulates $M$, and therefore recognizes $L$.
+	
+	
+\end{proof}
+
+
+\corollary{Turing machines can simulate other Turing machines.}
+
+
+The Turing machine was 'invented' by Alan Turing partly as a result of one of Hilbert's questions of finding solutions to Diophantine equations.  Turing wanted to figure out how to show that no possible algorithm exists.
+
+Meanwhile, Alonzo Church created the $\lambda$-calculus, which is a functional view of computability that is equivalent to Turing's algorithmic view, proved by Church and Turing.  These are both equivalent to something in logic called \textup{partial recursive functions}.
+
+Is there a stronger model of computability?  The \textbf{Church-Turing Thesis} proposes that anything computable by any physical device is computable under the notions of Turing machines or $\lambda$-calculus.  Presently, there has not been any evidence that there exists a physical device that is more powerful than a Turing machine.
+
+\section{Turing Machine Computations = Algorithms}
+
+
+Imagine a Turing machine $E$ hooked up to a printer (write-only output tape)
+
+\definition{Such a Turing machine $E$ \textbf{enumerates} a language $L$ if for each $x\in L$, $E$ eventually outputs $x$ and for each $y\notin L$, $E$ never outputs $y$.}
+
+\theorem{A language $L$ is recognizable by a TM if and only if there exists some TM that enumerates $L$.}
+
+\begin{proof}
+	
+	Suppose $L$ is recognized by a machine by a TM $M$.  We want to build an enumerator $E$ for $L$.  Order the strings in $\Sigma^*$ by length then by dictionary order (for example).  In order, for each $x\in\Sigma*$, run $M$ on $x$, and if $M$ accepts, print $x$.  We need to be careful about looping forever on some string.  We will take a variable $k$ and increment it as $E$ runs.  For $k=1,2\dots,\infty$, run $M$ on each of the first $k$ strings for $k$ steps, printing those that $M$ accepts on.
+	
+	To see that for every string $y\in L$, we know that $y$ is the $i^{th}$ string in language for some finite $i$, so for some $k = j$, $M$ will run on $y$.  Since $M$ accepts $y$ in a finite amount of steps, less than or equal to the $\max\{i,j\}$.  Since this is finite, $E$ eventually outputs $y$.
+	
+	Now suppose $L$ can be enumerated by an enumerator $E$.  We want to build a machine $M$ to recognize $L$.  This is easy.  $M$ does the following: given a string $x$, every time $E$ prints a string, compare it to $x$.  If these values are equal, accept.  
+	
+	$E$ never prints a string not in $L$, so $M$ loops forever on strings not in $L$, which is fine.
+	
+	The proof is complete and we can say the class of languages recognized by Turing machines is exactly the \textbf{recursively enumerable languages}.
+	
+	
+\end{proof}
+
+\corollary{A language is decidable if and only if the enumerator prints the strings in the lexicographic order.}
+
+\section{Decidable Languages}
+
+A language is decidable if there is a Turing machine that recognizes it and halts on all inputs.
+
+Let's think about the problem of finding a minimum spanning tree in a weighted graph.  We have an efficient algorithm that always terminates to do this.  How do we translate a problem into a language?
+
+Viewing this as a language, we can encode the graph $G$ and tree $T$ as strings and define the language as $L=\langle G,T\rangle$ such that $T$ is the MST of $G$.  
+
+Alternatively, we can encode $G$ and an integer $K$ and define the language as $L = \langle G,K\rangle$ such that there exists a MST of $G$ with weight at most $K$.
+
+Using this second approach, we can do binary search (for example) to find the correct value of $K$.  We can then find the tree itself by iteratively removing edges to find the edges in the tree by trial-and-error.
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
