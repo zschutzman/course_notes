@@ -189,7 +189,7 @@ We can think about this as trying to learn something about the underlying permut
 
 \textbf{Dueling bandits} as a form of active learning.  
 
-For $t=1,2\dots$, choose a pair $(i_t,j_t)$, receive feedback $y_t\boldmath{1}(i\succ j)$, where $y_t$ follows a Bernoulli distribution with parameter $p=P_{ij}$, update internal model.
+For $t=1,2\dots$, choose a pair $(i_t,j_t)$, receive feedback $y_t\boldmath{1}(i\succ j)$, where $y_t$ follows a Bernoulli distribution with parameter $p=P_{i_tj_t}$, update internal model.  We might be interested in the arm with the highest payoff, finding a ranking on the arms, etc.
 
 
 

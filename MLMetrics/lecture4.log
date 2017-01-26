@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.12.27)  24 JAN 2017 14:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.12.27)  26 JAN 2017 13:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**lecture3.tex
-(./lecture3.tex
+**lecture4.tex
+(./lecture4.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -55,8 +55,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 )
 \c@lecnum=\count88
 \c@theorem=\count89
- (./lecture3.aux)
-\openout1 = `lecture3.aux'.
+ (./lecture4.aux)
+\openout1 = `lecture4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 98.
 LaTeX Font Info:    ... okay on input line 98.
@@ -135,101 +135,27 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 119.
+[1
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 119.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 130.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 130
-.
-
-
-Underfull \vbox (badness 1132) has occurred while \output is active []
-
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 153.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 153
-.
-
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 156.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 156
-.
-
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 156.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 156
-.
-
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 156.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 156
-.
-
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 181.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 181
-.
-
-[2]
-
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 192.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 192
-.
-
-[3] (./lecture3.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./lecture4.aux) ) 
 Here is how much of TeX's memory you used:
- 1513 strings out of 493029
- 21366 string characters out of 6136233
- 83305 words of memory out of 5000000
- 5052 multiletter control sequences out of 15000+600000
- 7556 words of font info for 29 fonts, out of 8000000 for 9000
+ 1482 strings out of 493029
+ 20861 string characters out of 6136233
+ 79301 words of memory out of 5000000
+ 5035 multiletter control sequences out of 15000+600000
+ 4899 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,5n,24p,352b,141s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on lecture3.pdf (3 pages, 180725 bytes).
+ 37i,5n,24p,234b,133s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on lecture4.pdf (1 page, 57984 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 28 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
