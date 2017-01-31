@@ -1,0 +1,173 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Jan 31, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{6}{Decidability and Undecidability}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Decidable Languages}
+
+\definition{Recall, a language is \textbf{decidable} if it can be recognized by a Turing Machine which always halts.}
+
+\textbf{Examples of Decidable languages}:
+\begin{itemize}
+	\item The language of bipartite graphs: $\{\langle G\rangle \ | \ g\ is \ bipartite\}$\\
+	A TM to decide if a graph is bipartite: use a second tape as a work tape, which will store two arrays.  Begin by putting vertex $v_1$ on the `left' side.  Iteratively choose a vertex whose label we know, and add its neighbors to the other side.  If we ever put a vertex on both sides, reject.  If we successfully classify every vertex, accept.\\
+	
+	
+	\item The language of $3SAT$: $\{\langle \Phi \rangle \ | \ \Phi \ is \ a \ boolean  \ formula \ in \ $3-CNF$ \ with \ a \ satisfying \ assignment\}$\\
+	This is our classic NP-Complete problem.  CNF (conjunctive normal form) means that the formula is written as the $AND$ of several clauses, each containing the $OR$ of several literals (variables and/or their complements).  3-CNF is CNF where each clause has at most 3 literals.  A TM to decide this language is to enumerate the $2^n$ possibilities for all assignments.  If we find one that is true, accept.  If we exhaust all possibilities, reject.
+	
+	\item Every regular language (and context-free language) is decidable.
+	
+\end{itemize}
+
+
+\claim{A Turing machine can be designed to simulate any other Turing machine.  Essentially, we can describe a Turing machine as a string encoding its 7-tuple.}
+
+Now, we can talk about Turing machines that take another TM as input and performs some computation with respect to that machine.  A Turing machine $T$ can take as input a a machine and a string $\langle M,w\rangle$, we can think of $T$ like an interpreter and executer and $M$ as a program with input $w$.  $T$ outputs $M(w)$ (if such a result can be obtained in finite time).
+
+  At a high level, $T$ has a work tape that keeps the current configuration of $M$.  It starts with the start state of $M$ and the input string $w$.  $T$ consults the transition function of $M$ and updates the work tape accordingly.  At the end of execution, the work tape contains the output of $M$ (with some extra configuration information).
+
+\definition{We call this $T$ a \textbf{Universal Turing Machine}.}
+
+\section*{Undecidable Languages}
+
+Is there even a language that is undecidable?
+
+\claim{Yes!}
+
+\begin{proof}
+	
+	We use a counting argument to show the existence of an undecidable language (actually, there are uncountably many non-decidable languages).  If $\Sigma$ is a finite alphabet, $\Sigma^*$ is countably infinite, as it can be enumerated in lexicographic order, for example.  
+	
+	The set of all Turing machines is also countable, as we can encode it as a string over some alphabet, say $\{0,1,\#\}$.  Conversely, we can show $\mathcal{P}(\Sigma^*)$, the set of all subsets of $\Sigma^*$, i.e. the set of all languages, is uncountable.  
+	
+	By Cantor's diagonal argument, we can show the set of binary functions on $\mathbb{N}$ is uncountable.  This set is in bijection with $\mathcal{P}(\mathbb{N})$.  Since there is a bijection  $\Sigma^* \longleftrightarrow \mathbb{N}$, and a bijection $\mathcal{P}(\mathbb{N}) \longleftrightarrow \mathcal{P}(\Sigma^*)$ and no  bijection  $\mathcal{P}(\mathbb{N})\longleftrightarrow \mathbb{N}$, there is no bijection $\mathcal{P}(\Sigma^*) \longleftrightarrow \mathbb{N}$, because the composition of bijections is a bijection.
+	
+	To show the same thing, we can explicitly construct a diagonalization case by allowing the columns to correspond with each string in $\Sigma^*$ and each row is a binary function on $\Sigma^*$, i.e. a language.  By the Diagonal Argument directly, we see the set of languages is uncountable.
+	
+	Since the set of Turing machines is countable and the set of all languages is uncountable, there must be an uncountable set of languages not decidable (or even recognizable) by some Turing machine.
+	
+	
+\end{proof}
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
