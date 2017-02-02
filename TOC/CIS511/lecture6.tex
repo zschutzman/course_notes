@@ -150,11 +150,11 @@ Is there even a language that is undecidable?
 	
 	The set of all Turing machines is also countable, as we can encode it as a string over some alphabet, say $\{0,1,\#\}$.  Conversely, we can show $\mathcal{P}(\Sigma^*)$, the set of all subsets of $\Sigma^*$, i.e. the set of all languages, is uncountable.  
 	
-	By Cantor's diagonal argument, we can show the set of binary functions on $\mathbb{N}$ is uncountable.  This set is in bijection with $\mathcal{P}(\mathbb{N})$.  Since there is a bijection  $\Sigma^* \longleftrightarrow \mathbb{N}$, and a bijection $\mathcal{P}(\mathbb{N}) \longleftrightarrow \mathcal{P}(\Sigma^*)$ and no  bijection  $\mathcal{P}(\mathbb{N})\longleftrightarrow \mathbb{N}$, there is no bijection $\mathcal{P}(\Sigma^*) \longleftrightarrow \mathbb{N}$, because the composition of bijections is a bijection.
+	By Cantor's Diagonal Drgument, we can show the set of binary functions on $\mathbb{N}$ is uncountable.  This set is in bijection with $\mathcal{P}(\mathbb{N})$.  Since there is a bijection  $\Sigma^* \longleftrightarrow \mathbb{N}$, and a bijection $\mathcal{P}(\mathbb{N}) \longleftrightarrow \mathcal{P}(\Sigma^*)$ and no  bijection  $\mathcal{P}(\mathbb{N})\longleftrightarrow \mathbb{N}$, there is no bijection $\mathcal{P}(\Sigma^*) \longleftrightarrow \mathbb{N}$, because the composition of bijections is a bijection.
 	
 	To show the same thing, we can explicitly construct a diagonalization case by allowing the columns to correspond with each string in $\Sigma^*$ and each row is a binary function on $\Sigma^*$, i.e. a language.  By the Diagonal Argument directly, we see the set of languages is uncountable.
 	
-	Since the set of Turing machines is countable and the set of all languages is uncountable, there must be an uncountable set of languages not decidable (or even recognizable) by some Turing machine.
+	Since the set of Turing machines is countable and the set of all languages is uncountable, there must be some (uncountable set of) languages not decidable (or even recognizable) by some Turing machine.
 	
 	
 \end{proof}
