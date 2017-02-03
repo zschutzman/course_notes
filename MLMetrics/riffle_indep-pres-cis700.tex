@@ -1,0 +1,544 @@
+\documentclass{beamer} % "Beamer" is a word used in Germany to mean video projector. 
+
+\usetheme{Penn} % Search online for beamer themes to find your favorite or use the Berkeley theme as in this file.
+
+
+\usepackage{multicol}
+\usepackage{color} % It may be necessary to set PCTeX or whatever program you are using to output a .pdf instead of a .dvi file in order to see color on your screen.
+\usepackage{graphicx} % This package is needed if you wish to include external image files.
+\usepackage{collcell}
+\theoremstyle{definition} % See Lesson Three of the LaTeX Manual for more on this kind of "proclamation."
+\newtheorem*{dfn}{A Reasonable Definition}     
+
+\def \pausenl {\pause $ \ $\\}          
+
+\title{Riffled Independence for Ranked Data}
+\subtitle{Jonathan Huang and Carlos Guestrin \\ NIPS, 2009}
+\author{Zachary Schutzman} 
+\institute{University of Pennsylvania}
+%\date{January 6, 2012} 
+% Remove the % from the previous line and change the date if you want a particular date to be displayed; otherwise, today's date is displayed by default.
+
+\AtBeginSection[]  % The commands within the following {} will be executed at the start of each section.
+{
+\begin{frame} % Within each "frame" there will be one or more "slides."  
+\frametitle{Presentation Outline} % This is the title of the outline.
+\tableofcontents[currentsection]  % This will display the table of contents and highlight the current section.
+\end{frame}
+} % Do not include the preceding set of commands if you prefer not to have a recurring outline displayed during your presentation.
+
+\begin{document}
+
+\begin{frame} 
+\titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+	\frametitle{High-Level Idea}
+	
+	\pause
+	Distributions over permutations show up in a lot of contexts
+	\pause
+	\begin{itemize}
+		\item Object tracking
+		\item Feature mapping
+		\item \textbf{RANKED DATA!}
+	\end{itemize}
+	\pausenl
+	
+	Are there any mathematical techniques that can tease out useful information from distributions?
+	\pausenl
+	
+	\begin{itemize}
+		\item Yes!
+	\end{itemize}
+	
+	
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Notation!}
+	
+	\pause
+	\begin{itemize}
+		\item[] $S_n$ is the symmetric group on $n$ elements \\(the set of bijections $\pi : [n]\rightarrow [n]$)
+		\pause
+		\item[] A distribution over $S_n$ is a function $h:S_n\rightarrow \mathbb{R}$ such that:\\
+		
+		\begin{itemize}	
+			\item for all $\sigma\in S_n$, $h(\sigma)\geq 0$
+			\item $\sum\limits_{\sigma\in S_n}h(\sigma) = 1$
+			\end{itemize}
+			
+	%	\item[] For two permutations $\pi\in S_p$ and $\tau\in S_q$,  $\pi\oplus\tau$ is the element of $S_{p+q}$ you get by `gluing' $\pi$ and $\tau$ together.\\
+%	\begin{itemize}
+%			\item E.g. if $\pi = 1423$ and $\tau = 576$, then $\pi\oplus\tau = 1423576$
+%	\end{itemize}
+	
+	\end{itemize}
+	
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Full Independence}
+	
+	
+	Let $h$ be a distribution over $S_n$ and let $\sigma_P$ be a $p$-subset of $[n]$, and $\sigma_Q$ its complement\\
+	
+	\pausenl
+	$h$ is \textbf{probabilistically independent} if there exist distributions $f$ and $g$ over $S_p$ and $S_q$ such that\\
+	$h(\sigma)  = f(\sigma_P)\cdot g(\sigma_Q)$\\
+	
+	\pausenl
+	Why is this nice?\\
+	\pause
+	If $h$ is probabilistically independent, it only has $p! + q!$ parameters\\
+	\pausenl
+	But!\\
+	\pause
+	This is a \textit{very} strong assumption to make for ranked data
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Riffle Independence}
+	
+	Let's define a looser form of independence\\
+	
+	
+	\pausenl
+	
+	A $(p,q)$-interleaving is an element of $S_n$ which preserves the ordering within the $p$- and $q$-subsets.  Call $\Omega_{p,q}\subset S_n$ the set of such permutations
+	
+	\pausenl
+	
+	A \textbf{riffle distribution} over $\Sigma_n$ is a distribution which assigns non-zero probability only to elements of $\Omega_{p,q}$\\
+	\pausenl
+	
+	$h$ is \textbf{riffle independent} if there exist distributions $f$ and $g$ and a riffle distribution $m$ such that\\
+	$h(\sigma) = m \ast (f(\sigma_P)\cdot g(\sigma_Q))$\\
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Riffle Shuffles}
+	
+	$m$ can be an arbitrary distribution on $\Omega_{p,q}$, but we might find it useful to think about some restrictions\\
+	
+	
+	\pausenl
+	
+	A \textbf{uniform} riffle distribution $m^{unif}$ assigns probability $\frac{1}{|\Omega_{p,q}|}$ to each element of $\Omega_{p,q}$
+	
+	\pausenl
+	
+	A \textbf{biased} riffle distribution with parameter $\alpha$ as an interleaving with an $\alpha$-weighted preference for items in group $p$ over those in group $q$
+	\pausenl
+	\begin{itemize}
+		\item if $\alpha = .5$, we get the uniform distribution
+		\item if $\alpha = 1$ we `interleave' by putting all the items in $p$ first, then all the items in $q$ ($m(123\dots n) = 1$)
+		\item if $\alpha = 0$, we put all the items in $q$ first
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Riffle Shuffles}
+	
+	
+	
+	$h$ is \textbf{riffle independent} if there exist distributions $f$ and $g$ and a riffle distribution $m$ such that\\
+	$h(\sigma) = m \ast (f(\sigma_P)\cdot g(\sigma_Q))$\\
+	
+	\pausenl
+	
+	The authors present \textbf{Fourier-domain algorithms} to analyze and interpret riffle distributions\\
+	
+\end{frame}
+
+
+\section{A Short Detour to Group Theory}
+
+\begin{frame}
+	
+	\frametitle{Groups}
+	
+	What is a group?\\
+	\pause
+	\begin{itemize}
+		\item A group $G$ is a set and an operation $\circ$ satisfying the following properties:\\
+		\pause
+		\begin{itemize}
+			\item Closure: for all $g,h\in G$, $g\circ h\in G$
+			\pause
+			\item Identity: there is a unique $e\in G$ such that for all $g\in G$, $e\circ g = g \circ e = g$
+			\pause
+			\item Inverses: for each $g\in G$, there is a unique $g^{-1}$ such that $g^{-1}\circ g = g\circ g^{-1} = e$
+			\pause 
+			\item Associativity: for all $f,g,h\in G$, $f\circ(g\circ h) = (f\circ g)\circ h$
+		\end{itemize}
+		
+		
+		
+		
+	\end{itemize}
+	\end{frame}
+	\begin{frame}
+		\frametitle{The Symmetric Group}
+		
+		$S_n$ forms a group with respect to the operation of composition of permutations\\
+		
+		\pausenl
+		
+		We can write group elements in \textup{cycle notation}, which describes a way of shifting the objects to form a permutation.\\
+		
+		\pausenl
+		\begin{itemize}
+			\item \textbf{Example:} The permutation $15324$ \pause can be written as $(1)\pause (2\pause 4 \pause 5 \pause)\pause (3)$
+			\pause
+			\item The identity element is $(1)(2)\dots (n)$
+		\end{itemize}
+	\end{frame}	
+	
+	\begin{frame}
+		
+		\frametitle{Group Representations}
+		
+		It is useful to be able to think about group elements as matrices, rather than objects in a set.
+		\pause
+		We know how to do a lot of math with matrices\\
+		
+		\pausenl
+		
+		A \textbf{representation} of a group is a function $\rho : G \rightarrow \mathbb{C}^{k\times k}$ such that for all $g,h\in G$, $\rho(gh) = \rho(g)\rho(h)$\\
+		
+		\pausenl
+		
+		A representation is \textbf{irreducible} if it cannot be written as the direct sum of two other representations
+		
+		
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Representations of $S_3$ (a worked example)}
+		
+		
+		
+		
+		
+		Let's think about the group $S_3$.  There are only six elements and three irreducible representations
+		
+		\pause
+		
+	\begin{center}
+			\begin{tabular}{c<{\onslide<3->}c<{\onslide<4->}c<{\onslide<5->}c<{\onslide<6->}c<{\onslide<2->}}
+				$\pi$ & $g$ &           $\rho_{triv}$ 	& $\rho_{sgn}$ 		& $\rho_{std}$ 			\\
+				$123$   & $()$   & $1$ 			& $1$      			& $\begin{pmatrix} 1 & 0  \\ 0 & 1 \end{pmatrix} $ \\
+				$213$   & $(12)$   	& $1$ 			& $-1$      		& $\begin{pmatrix} -1 & 1  \\ 0 & 1 \end{pmatrix} $     		\\
+				$132$   & $(23)$   	& $1$ 			& $-1$      		& $\begin{pmatrix} 1 & 0  \\ 1 & -1 \end{pmatrix} $    												\\
+				$321$   & $(13)$   		& $1$ 			& $-1$      		& $\begin{pmatrix} 0 & -1  \\ -1 & 0 \end{pmatrix} $     \\			
+				$231$   & $(132)$   	& $1$ 			& $1$      			&$\begin{pmatrix} -1 & 1  \\ -1 & 0 \end{pmatrix} $     		\\
+				$312$   & $(123)$   	& $1$ 			& $1$      			& $\begin{pmatrix} 0 & -1  \\ 1 & -1 \end{pmatrix} $     		
+			
+			\end{tabular}
+
+		\end{center}		
+		
+		
+	\end{frame}
+
+\begin{frame}
+	\frametitle{The Fourier transform}
+	
+	We can define the \textbf{Fourier transform} of a function at a representation as follows:\\
+	\pausenl
+	
+	Let $f(g)$ be a function mapping group elements to real numbers and let $\rho$ be any representation of $G$\\
+	
+	\pausenl
+	
+	Then the Fourier transform of $f$ at $\rho$ is equal to $\hat{f}_\rho = \sum\limits_{g\in G}f(g)\rho(g)$\\
+	
+	\pausenl
+	
+	If $f$ is a distribution ($h$ from before), then $\hat{h}$ at the irreducibles systematically encodes $h$.
+	
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{A simple worked example:}
+	
+	\begin{columns}
+		\begin{column}{.2\textwidth}
+
+		
+
+
+			\begin{tabular}{c<{\onslide<2->}c<{\onslide<1->}}
+				$\pi$ & $h(\pi)$          \\
+				$()$   & $2/12$   \\
+				$(12)$   & $2/12$  \\
+				$(23)$   & $3/12$  \\
+				$(13)$   & $1/12$  \\
+				$(132)$   & $1/12$  	\\
+				$(123)$   & $3/12$    			
+			\end{tabular}
+\end{column}
+
+\begin{column}{.8\textwidth}
+	\pause
+	\begin{equation*}
+	\resizebox{\textwidth}{!}{$\hat{h}_{\rho_{triv}} = 
+		\frac{2}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+		\frac{2}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+		\frac{3}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+		\frac{1}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+		\frac{1}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+		\frac{3}{12}\begin{bmatrix} 1 \end{bmatrix} = 
+		\begin{bmatrix} 1 \end{bmatrix}$}
+	\end{equation*}
+	
+	\pausenl
+	
+	
+	\begin{equation*}
+	\resizebox{\textwidth}{!}{$\hat{h}_{\rho_{std}} = 
+		\frac{2}{12}\begin{pmatrix} 1 & 0  \\ 0 & 1 \end{pmatrix} + 
+		\frac{2}{12}\begin{pmatrix} -1 & 1  \\ 0 & 1 \end{pmatrix}  +
+		\frac{3}{12}\begin{pmatrix} 1 & 0  \\ 1 & -1 \end{pmatrix} + 
+		\frac{1}{12}\begin{pmatrix} 0 & -1  \\ -1 & 0 \end{pmatrix}+ 
+		\frac{1}{12}\begin{pmatrix} -1 & 1  \\ -1 & 0 \end{pmatrix}  + 
+		\frac{3}{12}\begin{pmatrix} 0 & -1  \\ 1 & -1 \end{pmatrix}   = 
+		\frac{1}{12}\begin{pmatrix} 2 & -1  \\ 4 & -2 \end{pmatrix}$}
+	\end{equation*}	
+	
+	\pausenl 
+	
+	
+	\begin{equation*}
+		\resizebox{\textwidth}{!}{$\hat{h}_{\rho_{sgn}} = 
+			\frac{2}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+			\frac{2}{12}\begin{bmatrix} -1 \end{bmatrix} + 
+			\frac{3}{12}\begin{bmatrix} -1 \end{bmatrix} + 
+			\frac{1}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+			\frac{1}{12}\begin{bmatrix} 1 \end{bmatrix} + 
+			\frac{3}{12}\begin{bmatrix} -1 \end{bmatrix}  = 
+			\frac{1}{12}\begin{bmatrix} 0 \end{bmatrix}$}
+	\end{equation*}
+	
+\end{column}
+	\end{columns}		
+
+	
+	\end{frame}
+	
+
+\begin{frame}
+	
+	\frametitle{Example, continued}
+	
+	We have our three Fourier matrices:\\\pausenl
+	
+	$\hat{h}_{\rho_{triv}} = \begin{bmatrix} 1 \end{bmatrix}$\\
+	\pause
+	$\hat{h}_{\rho_{std}} = 	\frac{1}{12}\begin{pmatrix} 2 & -1  \\ 4 & -2 \end{pmatrix}$\\
+	\pause
+	$\hat{h}_{\rho_{sgn}} = 	 \begin{bmatrix} 0 \end{bmatrix}$\\
+	
+	\pausenl
+	Let's glue them together\pause[7] and change the basis\\
+	\pause[5]
+	
+\resizebox{\textwidth}{!}{
+		\pause[8]$\begin{pmatrix} 
+		1 & 0 & 0 & 0 \\
+		0 &  1 & 0 & 1\\
+		0 & -1 & 1 & 1\\
+		0 & 0 & -1 & 1
+		\end{pmatrix}$			\pause[6]$\frac{1}{12}\begin{pmatrix} 
+		\boldsymbol{0} & 0 & 0 & 0 \\
+		
+		 0 &\boldsymbol{2} & \boldsymbol{-1} & 0 \\
+		0 & \boldsymbol{4} & \boldsymbol{-2} & 0 \\ 
+		0 & 0 & 0 & \boldsymbol{1} \end{pmatrix}$		\pause[8]$\begin{pmatrix} 
+		1 & 0 & 0 & 0 \\
+		0 &  1 & 0 & 1\\
+		0 & -1 & 1 & 1\\
+		0 & 0 & -1 & 1
+		\end{pmatrix}^{-1}$ \pause[9]$= \frac{1}{12}\begin{pmatrix} 0 & 0 & 0 & 0 \\
+											   0 & 5 & 3 & 4 \\
+											   0 & 5 & 3 & 4 \\
+											   0 & 2 & 6 & 4 \end{pmatrix}$
+											   
+											}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example, interpreted:}
+	
+	\begin{columns}
+		\begin{column}{.2\textwidth}
+			
+			Distribution:\\$ \ $\\
+			
+			\begin{tabular}{c<{\onslide<1->}c<{\onslide<1->}}
+				$\pi$ & $h(\pi)$          \\
+				$()$   & $2/12$   \\
+				$(12)$   & $2/12$  \\
+				$(23)$   & $3/12$  \\
+				$(13)$   & $1/12$  \\
+				$(132)$   & $1/12$  	\\
+				$(123)$   & $3/12$    			
+			\end{tabular}
+		\end{column}
+		
+		\begin{column}{.8\textwidth}
+			
+			\pause
+			Recall we had $\hat{h}_{\rho_{triv}} = \begin{pmatrix} 1 \end{pmatrix}$.  This confirms the values of $h$ sum to 1.\\
+			\pausenl
+			
+			Our transformed matrix is\\$ \ $\\
+			
+			\begin{center}
+		$	\frac{1}{12}\begin{pmatrix} 0 & 0 & 0 & 0 \\
+				0 & 5 & 3 & 4 \\
+				0 & 5 & 3 & 4 \\
+				0 & 2 & 6 & 4 \end{pmatrix}$\\
+				\end{center}
+
+			
+
+		
+			
+			
+
+
+		\end{column}
+		\end{columns}
+		
+		
+		
+		\end{frame}
+		
+		
+\section{Properties of Riffle Independence}
+
+\begin{frame}
+	\frametitle{Back to our regularly scheduled paper}
+	
+	Let's quickly remind ourselves:\\
+	
+	\pausenl
+	
+	Fully independent: $h = f \cdot g$\\
+	
+	Riffle independent: $h = m \ast (f\cdot g)$\\
+	$\Omega_{p,q}$ is the set of interleavings
+	
+	\pausenl
+	Riffle independence is a generalization of full independence.  Indeed, if $m$ is a delta distribution, we recover full independence.
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Biased riffle shuffles}
+	
+	Let's think about $m^{unif}$ as the uniform distribution over $\Omega_{p,q}$.  This in a sense reflects preferences within groups, but indifference across groups.\\
+	
+	\pausenl
+	
+	What if we want to think about preferences \textup{across} groups?
+	
+	\pausenl
+	
+	The authors introduce the idea of a \textbf{biased riffle shuffle}, with bias parameter $\alpha$.\\\pause
+	This weights objects in the $p$-subset proportional to $\alpha p$.
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Between conditional and full independence}
+	
+	Let's recall that to specify a full distribution over $S_n$ we need $n!$ parameters.\\
+	\pausenl
+	Full independence requires only $p! + q!$.\\
+	\pausenl
+	So how about conditional independence?  Is riffle independence the same?\\
+	\pausenl
+	No!  To see this, notice that conditional independence, where we pick a subset and condition $f$ and $g$ on that subset has $\binom{n}{p} \times (p! + q!)$ parameters while riffle independence requires $\binom{n}{p} + p! + q!$\\
+	\pausenl
+	
+	Nevertheless, we can do things like MAP estimation and probabilistic decomposition over the $f$ and $g$ riffle factors as if we had conditional independence.
+\end{frame}
+
+\section{Fourier Domain Algorithms}
+\begin{frame}
+\frametitle{RiffleJoin and RiffleSplit}
+
+The authors define two algorithms to combine riffle factors $f,g,m$ into an $h$ and to split an $h$ into $f,g$.\\
+
+\pausenl
+
+These algorithms are really complicated and (I think) unintuitive without a lot of knowledge of Fourier analysis.\\
+
+See citations [6],[7],[8] for the math.\\
+
+\pausenl
+
+I hope that the example from before at least convinces you that such a decomposition may be possible in the Fourier domain.
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Some experiments}
+	
+	The authors tested their algorithm on two data sets: the American Psychological Association election and the Sushi Data Set.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Experiment 1: APA Election}
+	
+	The data:  5738 ballots of ranked preferences across 5 candidates for president of the APA\\
+	\pause
+	The hypothesis: {C1,C3} and {C4,C5} fall on opposite ends of a political spectrum.  Voters may express a preference for one group over the other, then express preferences within the group.\\\pause
+	The experiment: ignoring C2, decompose the full distribution into riffle factors.\\
+	\pausenl
+	
+	The results:  The authors find that {C1,C3} and {C4,C5} are nearly riffle independent, and that fitting a mixture-of-riffles model yields bias parameters that strongly suggest their hypothesis is correct. 
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Experiement 2: Sushi}
+	The data: 5000 full rankings of 10 different kinds of sushi (note, WAY fewer than 10! observations).  The authors divide this into two groups of five. \\\pause
+	The hypothesis: the full distribution can be approximated by combining an optimal $m$ with two factor subsets and/or by finding an optimal bias parameter $\alpha$.\\\pause
+	
+	The experiment: Try to learn the true distribution using these two methods\\
+	\pausenl
+	
+	The results:  Assuming riffle independence significantly lowers the sample complexity required to learn the distribution.\\
+	\pause Biased riffle shuffles are a useful tool for learning on small samples.
+\end{frame}
+
+\section{Questions and discussion}
+\begin{frame}
+	\frametitle{Discussion}
+	What are some problems where riffle independence might lend some new insight?\\$\ $\\
+	
+	What if the riffle factors are non-obvious?\\$\ $\\
+	
+	How about if there are 3+ subsets we want to study?\\$\ $\\
+	
+	Anything else?
+	\end{frame}
+\end{document}
+
