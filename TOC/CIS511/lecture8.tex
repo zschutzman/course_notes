@@ -1,0 +1,219 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 7, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{8}{More on Reducibility}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+\section*{Mapping Reducibility}
+
+Consider languages $A\subseteq\Sigma^*$, and $B\subseteq\Sigma^*$.  
+
+Recall the idea of a reduction is $A$ reduces to $B$ means that we can use $B$ to solve $A$.  If $A$ is hard, then $B$ must be (at least as) hard.  If $B$ is easy, then $A$ must be easier.
+
+
+
+
+
+\definition{A Turing machine \textbf{computes} a function $f:\Sigma^*\rightarrow\Sigma^*$ if on all inputs $x$ it halts with exactly $f(x)$ on its output tape.}
+
+\definition{A function $f$ is \textbf{Turing computable} if there exists a Turing machine which computes it.}
+
+
+\definition{A \textbf{mapping reduction} is a Turing computable function $f:\Sigma^*\xrightarrow{TC}\Sigma^*$ such that if $x\in A$, then $f(x)\in B$.  Similarly, if $y\notin A$, then $f(y) \notin B$.}
+
+Recall last time we constructed a Turing reduction from $A_{TM} = \{\langle M,w\rangle | M \ accepts \ w\}$ to $E_{TM} \{\langle M \rangle|L(M)=\emptyset\}$.  Note that this was not a mapping reduction as we had to take the complement of the solver for $E_{TM}$ at the end to properly complete the reduction.
+
+
+\claim{If we have a mapping reduction from $A$ to $B$ and $A$ is not Turing recognizable, then $B$ is not Turing recognizable.}
+
+\begin{proof}
+	If $B$ is Turing recognizable, let $B=L(M)$.  Then we construct a recognizer for $A$ by using the mapping function on the input for $A$ and running $M$ on it.
+	
+\end{proof}
+
+
+
+
+\textbf{Example:} let $L_{AE} = \{\langle M \rangle | \epsilon\in L(M)\}$.  We want to find a mapping reduction from $A_{TM}$ to $L_{AE}$.  
+
+\begin{proof} 
+	A typical input to $A_{TM}$ is of the form $\langle M,w\rangle$.  Our function $f$ should map $\langle M,w\rangle$ to $\langle M' \rangle$.  $M'$, on any input, prints $w$ on its input tape and runs $M$.
+
+We can see that $M'$ either accepts everything or nothing, but it accepts if and only if $\langle M,w\rangle\in A_{TM}$.  Because $A_{TM}$ is undecidable, we must have $L_{AE}$ undecidable as well.
+\end{proof}
+\claim{If $A \preceq_m B$, then $\bar{A} \preceq_m \bar{B}$.}
+
+
+\begin{proof}
+	
+	We can use the same reduction as the original for the complement, because the function $f$ preserves membership in sets.
+	
+	
+\end{proof}
+
+\textbf{Example:} let $EQ_{TM}=\{\langle M_1,M_2\rangle|L(M_1)=L(M_2)  \}$.  We will show this is unrecognizable by a mapping reduction.
+
+
+\begin{proof}
+We will reduce from $\overline{A_{TM}}$.  $\overline{A_{TM}}$ takes input of the form $\langle M,w\rangle$.  We want to make a construction that builds two equivalent TMs if $M$ accepts $w$ and two inequivalent TMs if $M$ does not accept $w$.
+
+Let $L(M_1) = \emptyset$ and $M_2$ be a machine that on any input, runs $M$ on $w$.  This machine either accepts every string or no strings, depending on whether $M$ accepts $w$.  
+
+$M_1\sim M_2$ if and only if $M$ rejects $w$, which is exactly what we wanted to show.  Therefore, $EQ_{TM}$ is unrecognizable.
+\end{proof}
+
+\textbf{Example:} let's also prove that $\overline{EQ_{TM}}$ is also not recognizable, via mapping reduction.  
+
+\begin{proof}
+	
+If we can show a mapping reduction from $A_{TM}$ to $EQ_{TM}$ then we know that $\overline{A_{TM}}$ has a mapping reduction to $\overline{EQ_{TM}}$, and $EQ_{TM}$ is therefore unrecognizable.
+
+Let's make $L(M_1) = \Sigma^*$ and $M_2$ works exactly as before.  The same process shows that $M_1\sim M_2$ if and only if $M$ accepts $w$.  Therefore, by examining the complements of these languages, we have a reduction from $\overline{A_{TM}}$ to $\overline{EQ_{TM}}$, so neither $EQ_{TM}$ nor its complement are recognizable.
+\end{proof}
+
+\definition{A \textbf{property} of Turing machines is a function from TM descriptions to $\{0,1\}$}
+
+
+
+\definition{A property of Turing machines is a \textbf{language property} if only depends on the language recognized by the TM and not on the description of the TM itself.  That is, the property is true for any machine $M$ recognizing a language $L$.}
+
+
+
+Let $L_P = \{ \langle M \rangle | M \ has\ property \ P \}$
+
+\definition{A property is \textbf{non-trivial} if there is some Turing machine that has the property and some that does not.  That is, $L_P$ is not the set of all TMs nor is it empty.}
+
+\claim{(Rice's Theorem) $L_P$ for any non-trivial language property of Turing machines is undecidable.}
+
+\begin{proof}
+	
+	Let $P$ be a non-trivial language property and $L_P$ be the language of the property.  We will show, by constructing a mapping reduction, that $L_P$ is undecidable.
+	
+	Consider $A_{TM}$.  Assume that a Turing machine that accepts the empty language does not have property $P$ (this is without loss of generality, because we can always consider $\overline{P}$ instead).  On input $\langle M,w\rangle$, create a machine $M'$ which, on any input $x$, first runs $M$ on $w$.  If $M$ rejects, then $M'$ rejects.  Otherwise, then, runs some Turing machine $T$ with property $P$ on input $x$.
+	
+	If $M$ does not accept $w$, it may be because it rejects, or runs forever.  In both cases, $M'$ rejects.  In the first, it explicitly does so.  In the second, it never gets to the second step, and therefore rejects.  So $L(M') = \emptyset$, which does not have property $P$.
+	
+	If $M$ accepts $w$, then $L(M') = L(T)$.  $T$ has property $P$, but since $P$ is a language property, $M'$ has the property as well.  Therefore, the reduction results in $M'$ having property $P$ if and only if $M$ accepts $w$.  Since $A_{TM}$ is undecidable, $L_P$ must be as well.
+	
+	
+	
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
