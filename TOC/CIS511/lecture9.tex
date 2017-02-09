@@ -1,0 +1,185 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 9, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{9}{Finishing Decidability; Starting Complexity}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Finishing Undecidablility}
+
+Recall Rice's Theorem states that any non-trivial language property of Turing machines is undecidable.  We showed this via mapping reduction from $A_{TM}$. 
+
+Let's look at one more undecidable language.  We'll think about randomness.  Consider a Turing machine $M$ on input $x$.  At the end of computation, the tape has $y$ on it.  
+
+\definition{ The \textbf{descriptive} or \textbf{Kolmogorov-Chaitin complexity} of a string $\mathcal{K}(y)$ is the length of the shortest description $\langle M\rangle,w$ such that $M$ on input $w$ halts with $y$ on its tape. }
+
+How do we go about writing the description of a Turing machine?  One simple solution would be to duplicate each symbol in the representation, then terminate with a non-duplicated pair.  For example, $10110101$ becomes $110011110011001110$, where $10$ is the terminating pair.  Alternatively, we can write the length of the machine with the doubling, finished with a non-duplicate pair. 
+
+For any $x$, $\mathcal{K}(x) \leq |x| + c$, for some constant $c$.  To see this, just let $M$ be the machine that immediately halts.  It has some length $c'$, which is fixed and should be fairly small.  Using our first naive encoding, $2c' + |x| + 2$ is sufficient to encode $x$.
+
+\definition{A string $x$ is \textbf{incompressible by $c$} if $\mathcal{K}(x) \geq |x|-c$.  That is, $x$ has no description that is $c$ shorter than itself.}
+
+\definition{A string is \textbf{incompressible} if $\mathcal{K}(x) \geq |x|$.}
+
+\claim{There exist incompressible strings of every length.}
+
+\begin{proof}
+	Note that there are $2^n$ strings of length $n$ (on a binary alphabet).  The number of shorter descriptions is $\sum\limits_{i=0}^{n-1} 2^i = 2^n - 1$.  There are strictly fewer descriptions than strings, so there must be some string not representable by a shorter length, i.e. incompressible.
+	
+\end{proof}
+
+How many strings of length $n$ are compressible by 2?  We want a description of length at most $n-3$.  So $\sum\limits_{i=0}^{n-3} = n^{n-2} -1$.  That is, at least three quarters of strings of any length are incompressible by 2.\\
+
+If $x,y$ are strings, and $c$ a constant:  
+\begin{itemize}
+\item $\mathcal{K}(xx) = \mathcal{K}(x) + c$
+\item $\mathcal{K}(xy) \leq \mathcal{K}(x) + \mathcal{K}(y) + 2\log_2(\mathcal{K}(x)) + c$, because we need to encode a length for $x$ at the beginning.
+\end{itemize}
+
+Let $L = \{ x | x \ is \ incompressible \ by \ 2\}$.  Is $L$ decidable?
+
+\claim{No.}
+
+\begin{proof}
+	
+	Assume, for the sake of contradiction, that $L$ is decidable, and has a decider $D$.  $D$ has description length $c$.  Define a machine $M$, which generates each string of length $N$, then calls $D$ on that string.  $M$ halts at the first string which $D$ says is incompressible.  $M$ needs $N$ as input, which has length $\log_2(N)$, plus it has $D$'s description, of length $c$, plus some other constant piece to describe $M$ with length $c'$.  So we have input of string $2(c+c'+\log(N))$ which $D$ says is incompressible.  But this string of length $2(c+c'+\log(N))$ is shorter, therefore the string is compressible, which is a contradiction.
+	
+	
+	
+\end{proof}
+
+\section*{Time Complexity}
+
+\definition{A \textbf{step} of a Turing machine is one execution of a transition.}
+
+Suppose $M$ is a deterministic TM to decide $L$.
+
+\definition{We say $M$ \textbf{runs in time $\boldmath{f(n)}$} if for any input of length $n$, $M$ terminates in at most $f(n)$ steps.}
+
+\definition{The complexity class \textbf{DTIME($\boldmath{f(n)}$)} is the set of all languages $L$ for which a deterministic Turing machine takes $O(f(n))$ steps and decides $L$.}
+
+\textbf{Example:} DTIME($n$)$\subset $ DTIME($n^2$)
+
+\textbf{Example:} Let $L = \{ 0^k1^k | k\geq 0 \}$.  A TM to decide this can do our usual matching thing, where we move back and forth, matching characters.  This requires $O(n^2)$ steps.  We therefore have $L\in$DTIME($n^2$).  Can we do better?  Yes. Cross off every other $0$, then every other $1$, and at each pass, check the parity of the number remaining characters.  If this is ever odd, reject.  If we ever cross out all of one character and have some of the others, reject.  Otherwise, accept.  To do this, we do $\log(n)$ rounds of crossing out, and we need 2 passes of $n$ steps to do each round, for complexity of $n\log(n)$.  We can therefore say that $L\in$DTIME($n\log n$).
+
+It turns out we can't do better than this.  Any language that a single-tape deterministic TM decides in time $o(n\log n)$ is regular.  We know $L$ is not regular, so we can't do better than $O(n\log n)$. 
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
