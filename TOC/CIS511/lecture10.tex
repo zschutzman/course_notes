@@ -1,0 +1,176 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 14, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{10}{Time Complexity, Continued}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+\section*{Asymptotics}
+
+\definition{An algorithm with running time $t(n)$ takes no more than $O(t(n))$ steps on any input of size $n$.  This is sometimes called \textbf{worst-case complexity}.}
+
+Recall the class DTIME($t(n)$) is the set of languages $L$ for which there exists a single-tape Turing machine that decides $L$ in $O(t(n))$ time.
+
+What about a multi-tape machine?  We have seen that the language $L = \{ww^R|w\in\{0,1\}^*\}$ can be decided in $O(n)$ on a two-tape TM but is in $\Omega(n^2)$ on a single-tape machine.  This language is in DTIME($n^2$) because we consider only single-tape machines.
+
+\section*{The Class $P$}
+
+\definition{The class $P$ is equal to $\bigcup\limits_{k\geq 0} DTIME(n^k)$.  That is, the class of languages decided in polynomial time on a single-tape deterministic Turing machine.}
+
+Why is $P$ an important class?  First, a problem being in $P$ implies there is a method of solving that problem without enumerating all possible solutions, which would typically require exponential time.  Second, $P$ is a robust class with a lot of nice compositional properties.  The sum, product, and composition of polynomials is a polynomial.  This means that if we have a polynomial-time subroutine, if we call it a polynomial number of times, our algorithm is still polynomial-time.  Thirdly, we have the Extended Church-Turing Thesis, which states that every reasonable model of computation can simulate any other reasonable model of computation with only polynomial-time slowdown.  This implies that the class $P$ is invariant under models of computation (numbers of tapes, modern computers, quantum computers).  We don't actually know that if is true, but there is no proof yet that it isn't correct.
+
+Some languages we know are in $P$:
+\begin{itemize}
+	\item $PATH = \{\langle G,s,t\rangle | G \ a \ digraph \ s,t\ vertices, \ there \ is \ an \ s- t\ path\}$.  
+	
+	If $G$ has $m$ vertices, then there may be $m^m$ paths to explore.  But, we can run BFS from $G$ starting at $s$.  If there exists a path, we eventually reach $t$.  As a side note, BFS requires $m$ bits of space, keeping track of whether we have visited a node or not.  Open question: can we do better?
+	\item $UPATH$ - the same, but for undirected paths.
+	\item $GCD$: given $a,b\in\mathbb{N}$, find the greatest common divisor of $a$ and $b$.  The input size is $\log{a} + \log{b}$.  The Euclidean algorithm is actually in $P$.  
+
+\end{itemize}
+
+The jury is still out on:
+\begin{itemize}
+	\item $FACTORING = \{\langle N,K \rangle | N \ has \ a \ factor \ strictly \ between \ 1  \ and \ K \}$.  This is a sufficient subroutine to factor an integer, and if this is in $P$, then integer factorization is as well.  Note that the language $PRIME$, which determines if a number is prime is actually in $P$, but is not sufficient to do factorization (as far as we know).
+\end{itemize}
+
+\section*{The Class $NP$}
+
+\definition{A non-deterministic Turing machine is called a \textbf{decider} if it halts on every branch.}
+
+\definition{The running time of a non-deterministic Turing machine on an input $x$ is the maximum number of steps taken on any branch.}
+
+\definition{A language $L$ is in $NTIME(t(n))$ if there is an NTM $M$ that decides $L$ in time $O(t(n))$ on all inputs of length $n$.}
+
+Let $M$ be an NTM that runs in time $f(n)$.  Then on all of its branches, $M$ halts in time at most $f(n)$ on all of its branches.  We showed earlier how to make a deterministic TM that simulates an NTM.  The branching tree has height at most $f(n)$, and the number of possible transitions at each step was some number $B$.  Then the number of nodes in the tree is at most $b^{f(n)}$. This is no longer polynomial.  To our knowledge, simulating a non-deterministic decider on a deterministic decider results in an exponential blowup in running time.
+
+We therefore can say that $NTIME(f(n)) \subseteq DTIME(2^{O(f(n))})$
+
+\definition{The class $NP$ is equal to $\bigcup\limits_{k\geq0}NTIME(n^k)$. That is, the class of languages decided in polynomial time on a non-deterministic Turing machine.}
+
+Some languages in $NP$:
+\begin{itemize}
+	\item $SAT = \{\phi | \phi \ is \ a \ Boolean \ formula \ with\ some \ satisfying \ assignment  \}$
+	\item $TSP$: given a weighted graph, does there exist a tour with cost at most $B$?  We can get around the branching factor being a function of the input by introducing a $\log n$ depth factor at each step to identify each vertex with a binary index.
+	
+\end{itemize}
+
+
+
+\end{document}
+
+
+
+
+
+
+
