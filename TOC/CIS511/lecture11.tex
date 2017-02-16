@@ -1,0 +1,202 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+\usepackage{amsmath}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 16, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{11}{Even More Time Complexity}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{More About $NP$}
+
+Recall, a language is in $NP$ if it can be decided by a non-deterministic Turing machine in polynomial time.
+
+Recall the language $SAT=\{\phi|\phi \ is \ satisfiable\}$.  If $\phi$ is satisfiable, then there exists some satisfying assignment, and if an oracle gave you some satisfying assignment, you could very easily use this to verify that $\phi$ is satisfiable (just plug in).
+
+\definition{Alternatively, a language $L$ is in $NP$ if there is a polynomial time deterministic Turing machine $V$ such that $L=\{x|\exists y:\ V \ accepts \ (x,y)    \}$.  In English, $V$ is a verifier and $y$ a certificate.  $NP$ is the class of languages which, given a certificate, a verifier takes a language and a solution and decides whether $x$ belongs to $L$. $y$ is a `proof' of $x$ being in $L$.}
+
+
+Some more example of languages in $NP$:
+\begin{itemize}
+	
+	\item A clique is a set of vertices in a graph which are all pairwise adjacent.  
+	
+	The language $CLIQUE = \{   \langle G,k\rangle | G \ has \ a \ k\mhyphen clique \}$ is in $NP$.  We can see this alternatively by thinking about an NTM that guesses which nodes are in the clique or by considering a certificate, we can check whether the provided vertices actually form a clique by verifying that each pair of vertices are actually pairwise adjacent.
+
+\end{itemize}
+
+
+\claim{The two definitions for $NP$ are equivalent.}
+
+\begin{proof}
+	Let $M$ be an NTM that recognizes $L$ in polynomial time.  Therefore, there is some accepting path in the branching tree, with path length polynomial in the input length.  Specifying this path is an encoding of the address of the leaf at the end of the path.  Since the height of the path is at most polynomial in the length of the input, we can encode this address in polynomial length.  A verifier can then simulate $M$ only on that branch, which decides in polynomial time.
+	
+	We can see the other direction by having the NTM non-deterministically guess the certificate.  Since this is polynomial in length, it can be done in polynomial depth.
+\end{proof}\\
+
+
+\section*{$\boldsymbol{NP\mhyphen Complete}$ Languages}
+$NP$ contains many problems that are important in practical optimization and decision problems.  We would love to be able to solve problems in $NP$ in polynomial time.  The big question in computer science is ``IS $P=NP$?''
+
+$NP$-Complete languages are in a sense the hardest languages in $NP$.  If a language $NP$-Complete and there is a polynomial time algorithm for $L$, then $P=NP$.
+
+\definition{A language is called $NP$-Complete if it is in $NP$ and there exists a polynomial time mapping reduction from any language in $NP$ to it.}
+
+To find $NP$-Complete languages, we need to identify one first.  $SAT$ was the first proven $NP$-Complete language (Cook-Levin Theorem).  Then, if $A$ is $NP$-Complete and $A$ mapping reduces to $B$ in polynomial time, then $B$ is called $NP$-Hard.  If we also have that $B$ is in $NP$, then $B$ is $NP$-Complete.
+
+\definition{A language $B$ is $\boldsymbol{NP \mhyphen Hard}$ if there is a polynomial time mapping reduction from a language $A\in NP$ to $B$}
+
+
+\begin{proof}
+	A sketch of the proof of Cook-Levin ($SAT\in NP\mhyphen Complete$):
+	
+	We've already seen that $SAT$ is in $NP$.
+	
+	Let $L$ be any language in $NP$ and $V$ be the polynomial time verifier for $L$.  View the computation of $V$ as a sequence of configurations (snapshots of tape and state after each transition).  We want to construct a mapping reduction that transforms an input $x$ to $V$ with into a boolean formula $\phi$ that is satisfiable if and only if $x$ is in $L$.  
+	
+	Call the certificate of $L$ $y$.  We don't know $y$, but we can think about its bits as unknown boolean variables $y_1,y_2\dots$.  The initial configuration of $V$ looks like $q_o x \# y_1y_2\dots$.  We can say that $x$ is in $L$ if we end up in $q_{accept}$.  
+	
+	We need to make sure that $V$ can't be fooled.  We need to be sure that $w$ is a valid input and that if we are given a sequence of configurations, that sequence must be legal according to the transition function of $V$.
+	
+	$V$ runs in polynomial time, and its input is polynomial in length and for polynomially many steps.  Bound the length of the input by $l$ and the number of steps taken by $l$ (one of these can be a loose upper bound).  Let's make boolean variables $x_{ij\sigma}$ where $i,j \leq l$ and $\sigma \in \Gamma\cup Q$.  Set $x_{ij\sigma}$ equal to 1 if cell $i$ at step $j$ contains $\sigma$ and 0 otherwise.
+	
+	We can say that $x\in L$ if and only if there exists an accepting table of $V$ on $w$, where an accepting table refers to the legal sequence of tape configurations ending in an accept state.  We want to create a formula which is satisfiable if and only if there is an accepting table of $V$ on $w$.
+	
+	We will build the corresponding $\phi$:
+	
+	These conditions define a legal beginning and end configuration:
+	
+	$\bigwedge\limits_{i,j} \bigvee\limits_\sigma x_{ij\sigma}$ - at least one symbol in each cell
+	
+	$\bigwedge\limits_{\sigma_1 , \sigma_2} \lnot x_{ij\sigma_1} \lor \lnot x_{ij\sigma_2}$ - at most one symbol in each cell
+	
+	$\bigwedge (x_{11q_0})\bigwedge(x_{12w_1})\dots$- the input row contains $q_0$ and the correct value for the input $w$
+	
+	$ \bigwedge (x_{l1q_{accept}})$ - $V$ takes exactly $l$ steps and brings head to leftmost cell
+	
+	We need to make sure the steps are consistent with legal transitions:
+	
+We also AND some variables constructed from the transition function to ensure the value at cell $i,j$ is either the same, or influenced by the ones just left or right at the previous step
+
+
+If this formula is satisfiable, then we have a legal table, hence $w$ is in $L$.  If there is no table, then the formula cannot be satisfiable.
+\end{proof}
+
+
+\end{document}
+
+
+
+
+
+
+
