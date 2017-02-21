@@ -1,0 +1,159 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+\usepackage{amsmath}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 21, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{12}{$NP\mhyphen Complete$ness}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Cook-Levin and $NP\mhyphen Complete$ Languages}
+
+From last time, we sketched a proof of the Cook-Levin Theorem - any problem in $NP$ can be converted into an instance of $SAT$ in time and size polynomial in the original input.
+
+Let's show that $3SAT = \{ \phi | \phi \ is  \ a \ satisfiable \  Boolean \ formula \ in \ 3\mhyphen CNF\}$ is $NP\mhyphen Complete$.
+
+\begin{proof}
+	We will show that $SAT$ reduces to $3SAT$ and $3SAT$ is in $NP$ to show $3SAT$ is $NP\mhyphen Complete$, because Cook-Levin gives us the reduction from any $NP$ language to $SAT$, by the transitivity of composition of polynomial reductions.
+	
+	The reduction is as follows:
+	
+	Take some instance $\phi$ of $SAT$.  If we want $y \Leftrightarrow x_1\land x_2$, then we can say $(\lnot x_1 \lor \lnot x_2 \lor y)$.  We don't need to worry about the $OR$s.  Taking the $AND$ of all of these clauses gets us a logically equivalent $\phi'\in 3SAT$.
+	
+	For the same reason $SAT$ is in $NP$, $3SAT$ is as well, as it is easily verifiable.
+	
+	
+	
+\end{proof}
+
+Karp took Cook's proof and showed a number of problems are $NP\mhyphen Complete$.  Some of these are:
+
+\begin{itemize}
+	\item Independent Set - a subset of vertices, no two of which are adjacent (inputs are $\langle G,k\rangle$, for IS of size $k$).  The reduction from $3SAT$ involves creating triangle for each clause and connecting negations of corresponding variables.  Set $k$ to the number of clauses.
+	
+	\item $CLIQUE$ is $NP\mhyphen Complete$.  Take a $\langle G,k\rangle$ instance of $IS$.  Create $G^C$ where two vertices are adjacent in $G^C$ if and only if they are not adjacent in $G$.  Now, the $IS$ in $G$ is exactly a $k$-clique in $G^C$.
+	
+	\item $VERTEX\ COVER$ is a vertex set of size $k$ such that every edge is incident to some element in the set.  The complement of an independent set is a vertex cover, by definition, so a $|V|-k$ independent set is a $k$ vertex cover.
+	
+	
+	
+\end{itemize}
+
+
+\end{document}
+
+
+
+
+
+
+
