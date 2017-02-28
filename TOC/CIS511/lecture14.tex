@@ -1,0 +1,169 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+\usepackage{amsmath,amssymb,trimclip,adjustbox}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Feb 28, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{14}{More Space Complexity}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+\section*{$DSPACE$ v $NSPACE$}
+
+Recall, we showed last time that $SAT\in DSPACE(n)$.
+
+We were thinking about the language $NA_{NFA}=\{ \langle M \rangle | M \ is \ an \ NFA, \ L(M)\neq \Sigma^*  \}$.  We showed in homework that the shortest string not accepted by an NFA can be exponential in the number of states of the machine.  Recall also that for the DFA problem, the upper bound is simply the number of states in the machine.  We can transform a $k$-state NFA into a DFA with at most $2^k$ states, so we can upper bound the length of the shortest non-accepted string by $2^k -1$.
+
+Our input is an NFA with description length $n$.  The number of states is approximately equal to $n$ (maybe $n^2$, we don't really care).  A naive deterministic approach involves checking every string.  Let's design a non-deterministic space algorithm to do the search.  We non-deterministically guess one symbol at a time.  The depth of the tree is $2^n-1$, which is still exponential.  But we don't really need to remember the whole path, just the current possible states and the counter of the depth.  This count is length order $n$ and the set of current states is also order $n$.  We therefore have an $NSPACE(n)$ algorithm to solve this, hence $NA_{NFA}\in NSPACE(n)$.
+
+
+\claim{Savitch's Theorem: $NSPACE(f(n)) \subseteq DSPACE(f(n)^2)$.  That is, we only get a quadratic increase by moving to a deterministic model.}
+
+\begin{proof}
+	
+	
+	(For space $f(n)=\Omega(n)$)
+	
+	Given an $O(f(n))$-space NDTM $M$, we will design an $O(f(n)^2)$-space DTM $D$ which recognizes the same language.
+	
+	The input $x$ determines the initial configuration of $M$, $C_{init}$.  We are interested in whether $M$ can get to some accepting configuration with the $q_a$ state in the first cell and the rest of the tape blank (canonically).  We have an upper bound of $2^{O(f(n))}$ steps needed to reach such a configuration.
+	
+	Write $C_i \vDash^M_t C_j$ to say that there is some valid computation in $M$ that moves from configuration $C_i$ to configuration $C_j$ on some branch in at most $t$ steps.  We want to know if $C_{init} \vDash^M_{2^{O(f(n))}}C_{accept}$.  We can approach this with divide-and-conquer by asking whether $C_{init} \vDash^M_{\frac{2^{O(f(n))}}{2}}C_{m} \vDash^M_{\frac{2^{O(f(n))}}{2}}C_{accept}$ for some intermediate configuration $C_m$.
+	
+	At each step, we need to check whether the start configuration can reach the end configuration.  Since we can reuse space, we need to remember $\log2^{O(f(n))} = O(f(n))$ intermediary configurations, each of length $O(f(n))$.  This requires total space of $O(f(n)^2)$
+	
+	
+\end{proof}
+
+\definition{$PSPACE$ is defined as $\bigcup\limits_k DSPACE(n^k)$.  $NPSPACE$ is $\bigcup\limits_k NSPACE(n^k)$.}
+
+\corollary{By Savitch's Theorem, $PSPACE = NPSPACE$.  Nobody talks about $NPSPACE$ because it is a redundant name for $PSPACE$.}
+
+\section*{Space vs Time Complexity}
+
+We have $DTIME(f(n))\subseteq DSPACE(f(n))$, as if you can only take $f(n)$ steps, you are only using $f(n)$ cells (at most).  The same holds for the non-deterministic case.
+
+We also have that $DSPACE(f(n))\subseteq DTIME(2^{O(f(n))})$, because we can enumerate all of the $2^{O(f(n))}$ configurations of the machine in $f(n)$ space, one at a time.  To see that we only see each configuration at most once, observe that even in the non-deterministic setting, if two branches have the same configuration, the continuations of those branches must be identical, so we don't need to check it more than once.  Therefore, without loss of generality, there is some accepting path that does not contain repeated configurations.  We can keep a `timer' that terminates a branch when it has exceeded $2^{O(f(n))}$ steps, thus ensuring that every branch terminates in at most $2^{O(f(n))}$ steps.  The same holds for the non-deterministic case.
+
+We now have $P\subseteq NP \subseteq PSPACE$.  We don't know if $P=PSPACE$, but this should be easier to prove than $P = NP$.
+
+\section*{The Class $PSPACE\mhyphen Complete$}
+
+\definition{A language $L$ is $PSPACE\mhyphen Complete$ if $L$ is in $PSPACE$ and for all $A\in PSPACE$, there exists a mapping reduction from $A$ to $L$ in polynomial time.}
+
+\claim{The language of True Quantified Boolean Formulas ($TQBF$) is $PSPACE\mhyphen Complete$.}
+
+
+
+
+\end{document}
+
