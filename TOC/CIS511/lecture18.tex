@@ -106,7 +106,7 @@
 \begin{document}
 %FILL IN THE RIGHT INFO.
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\chno{18}{Space Hierarchy, Continued}{Sampath Kannan}{Zach Schutzman}
+\chno{18}{Randomized Complexity}{Sampath Kannan}{Zach Schutzman}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -118,6 +118,50 @@
 
 
 
+\section*{Randomized Algorithms}
+
+\definition{A \textbf{randomized algorithm} is one in which we can toss random coins.}
+
+We don't worry about \textit{how} this randomness is produced, we just take it as given that we can make these queries from an idealized source of randomness.
+
+\definition{A \textbf{randomized} or \textbf{probabilistic Turing machine} may either move deterministically or reach a state where it can flip a coin and move according to the random output.  A probabilistic Turing machine $M$ is said to accept a string $x\in L$ with probability equal to the sum of the probabilities of the leaves where $M$ produces the correct answer.}
+
+\definition{The class \textbf{Bounded Probabilistic Polynomial time (BPP)} is the class of languages recognizable by a randomized Turing machine which accept on inputs $x\in L$ with probability at least $\frac{2}{3}$.}
+
+\claim{We can equivalently define $BPP$ as having error $0\leq \epsilon < \frac{1}{2}$.}
+
+\begin{proof}
+	Suppose we have a machine $M$ with error $\epsilon < \frac{1}{2}$.  Then we show there is an $M'$ with error $\frac{1}{2^n}$ on inputs of size $n$.  We simply have $M'$ run $M$ $2k$ times on input $x$ and outputs the majority answer, where $k$ is constructed as follows:
+	
+	To see this, consider our sequence of $M$'s outputs, e.g. $cccwwcwccwc\dots$.  A sequence with more than $k$ $w$s will cause an error in $M'$.  We want this to occur with probability at most $\frac{1}{2^n}$.  Any particular sequence with some number of $c$s and $w$s is $\epsilon^{\#w}(1-\epsilon)^{\#c}$.  So $M'$ makes a mistake when $\#w\geq k$.  But this is less than $\epsilon^k (1-\epsilon)^{k}$.  There are at most $2^{2k}$ `bad' sequences (this is all of them!).  Thus, the total probability of all bad sequences is less than or equal to $2^{2k}\epsilon^k (1-\epsilon)^k = (4\epsilon(1-\epsilon))^k$.  This is strictly less than one whenever $\epsilon<\frac{1}{2}$.
+	
+	We can then choose $k$ to make the lower bound as low as we want for an equivalent definition of $BPP$.
+\end{proof}
+
+What is the space complexity of probabilistic Turing machines?
+
+Consider the language $UPATH = \{ \langle G,s,t \rangle | \ \ there \ is \ an \ st \ path \ in \ G     \}$.  This is in randomized log-space ($RL$).  We can do this by randomly choosing a neighbor at each step, not exceeding $n^3$ steps on any branch.
+
+
+
+
+\subsection*{Polynomial Identity}
+The problem of polynomial identity testing asks whether two multivariate polynomials $f$ and $g$ on $n$ variables are exactly identical.  We have two black boxes, one for $f$ and one for $g$.  We want to know if $f=g$.
+
+Denote $L_{non-id}=\{ \langle f, g \rangle | f\neq g   \}$ for polynomials $f$ and $g$.  If $f$ and $g$ are univariate of degree less than or equal to $d$, we can know if $f=g$ just by testing $d+1$ different values.  
+
+\lemma{(Schwartz-Zippel)  Let $h$ be a non-zero polynomial on $n$ variables of degree $d$.  If values $x_1\dots x_n$ are chosen uniformly and independently at random from a set $S$ of size $n$, then the probability that $h(x)=0$ is less than or equal to $\frac{d}{n}$.}
+
+
+
+If we think of $h=f-g$, then we have the `bad' event of getting unlucky of picking $d+1$ points where $f(x)=g(x)$ even when $f\neq g$ is sufficiently small.
+
+Now we can come up with a randomized algorithm to recognize $L_{not-id}$.  We choose a set $S$ of $3d$ points from the domain of the variables.  For each $x_i$ pick uniformly at random some $r_i\in S$.  Now, evaluate $f(r)$ and $g(r)$.  If we get different answers, accept.  Otherwise, reject.  If $f$ and $g$ are identical, then the algorithm always correctly rejects.  If $f$ and $g$ are different, the probability we picked a `bad' point and make a mistake is at most $\frac{1}{3}$, because we have $\frac{d}{3d}$ probability by the lemma.
+
+
+\definition{The language $L$ is in \textbf{Probabilistic Polytime (PP)}if there is a probabilistic Turing machine that gets the answer wrong with probability less than $\frac{1}{2}$.}
+
+This class is not really interesting.  A $PP$ algorithm for $SAT$ picks a random assignment.  If it satisfies the formula, we accept.  If not, flip a coin with probability marginally less than $\frac{1}{2}$ to come up heads.  If we get heads, reject, otherwise, accept.
 
 
 \end{document}
