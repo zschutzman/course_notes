@@ -172,7 +172,19 @@ Space-constructible functions include all the familiar ones, like monotonic poly
 	
 \end{proof}
 
+We know $L\subsetneq PSPACE$, and by Savitch's Theorem, $NL\subsetneq PSPACE$.  We also have, if $r_1<r_2\in \mathbb{R}^+$, then $DSPACE(n^{r_1}) \subsetneq DSPACE(n^{r_2})$.
 
+Similar results hold for $NSPACE$.
+
+\section*{Time Hierarchy (briefly)}
+
+We want to say that if $g(n)\in o(f(n))$, for time-constructible function $f(n)$, there is a language in $DTIME(f(n))$ that is not in $DTIME(g(n))$, but this isn't necessarily true.  If we try the same idea as for Space Hierarchy, we run $M$ on $x$ for $f(n)$ steps, but the problem is that we need to somehow count the steps, which requires keeping a counter of size $O(log(f(n)))$, which may all need to be altered after a step.  Additionally, we need access to the transition function of $x$, which we can keep in space, but in time, we need to track back and forth for lookups, which again adds a quadratic blowup.  We can keep this description along with us, but the counter is still a problem to update.  
+
+We therefore need to rephrase the statement of the theorem to be
+
+\claim{If there is a language in $g(n) \in o(f(n))/log(f(n))$, then there is a language in $DTIME(f(n))$ not in $DTIME(g(n))$.}
+
+The proof follows the same structure as the Space Hierarchy Theorem, including $log(f(n))$ additional steps to update the counter.
 
 
 
