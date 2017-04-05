@@ -169,5 +169,13 @@ We will think of corruption of $x$ as adversarial.  If the length of $x$ and $y$
 \end{proof}
 
 
+Let's think of a randomized protocol that uses fewer bits.  Consider $S=\{2,3,5,7\dots\}$ the set of the first $2n$ primes.  Bob picks a random prime $p$ from $S$ and sends $y\mod p$ and $p$.  Alice computes $x\mod p$ and accepts if $x\mod p = y\mod p$.  Since the $2n^{th}$ prime is around $2n\ln(2n)$, so we need $O(log(n))$ bits to send it.  Additionally, $y\mod p$ is no bigger than $p$, so it is also $O(log(n))$ in size.  We have one sided correctness; if $x=y$, Alice always accepts.  But what happens when $x\neq y$?
+
+Assume $x\neq y$ are both $n$-bit strings.  A bad situation would be our protocol failing because $x\mod p = y\mod p$.  We chose $p$ randomly, so we want to know for how many primes in $S$ do we have this bad case?  If $x\mod p_i = y\mod p_i$ and $x\mod p_j = y\mod p_j$, then $p_i$  and $p_j$ divide $x-y$.  So $p_ip_j$ divides $x-y$ (this holds for cases with more than two factors).  The product of any $n$ primes in $S$ is at least $2^n$.  If $x\neq y$, then $x-y\neq 0$.  We also have $x-y \leq 2^n$.  If $x$ and $y$ agree modulo $n$ different primes, then $x\cong y \mod \prod p_k$, but this product is greater than $2^n$, which is impossible, hence $x$ must be exactly equal to $y$.
+
+We therefore know that $x$ and $y$ can be congruent modulo at most $n$ primes in $S$.  Since we pick a prime from $S$ at random, our probability of picking a bad one is at most $\frac{1}{2}$, which is what we wanted to show.
+
+
+
 \end{document}
 
