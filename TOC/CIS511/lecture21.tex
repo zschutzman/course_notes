@@ -1,0 +1,163 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+\usepackage{amsmath,amssymb,trimclip,adjustbox}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CIS 511: Theory of Computation
+                        \hfill Apr 4, 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Professor #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{21}{}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+\section*{Interactive Proof (continued)}
+
+We were in the middle of proving that there is an interactive proof for $\#SAT$.
+\begin{proof}
+Recall $\phi$ was our original formula over $x_1,\dots, x_m$ and its arithmetization $\Phi$, where $\phi(\vec{x})=\Phi(\vec{x})$ if $\vec{x}$ is a binary vector/boolean assignment.  We didn't say this last time, but the polynomial verifier can do this arithmetization.
+
+The prover wants to convince the verifier that $\phi$ has $k$ satisfying assignments.  Equivalently, $\sum\limits_{i=1}^m\sum\limits_{v_i\in\{0,1\}}\phi(x_1,\dots,x_k)=k$.  If we replace $\phi$ with $\Phi$, we should have the same thing, and the verifier can do just that.
+
+Let's decompose the sum.  We have $\sum\limits_{v_2\in\{0,1\}}\sum\limits_{v_3\in\{0,1\}}\dots \sum\limits_{v_m\in\{0,1\}} \Phi(z,x_2,x_3,\dots,x_m)=F_1(z)$.  There are $2^{m-1}$ possible assignments for the remaining $m-1$ variables.  We therefore have a polynomial over our finite field $\mathcal{F}$ in $z$ of degree no more than the number of times $x_1$ occurs, which is no more than the length of the input, $n$.
+
+The prover sends $F_1(z)$ to the verifier. $F_1(0)+F_1(1)$ should equal $k$.  The verifier can plug these in for $z$ and check that the sum is equal to $k$.  If not, the verifier rejects.  The verifier then picks an element $r_1\in\mathcal{F}$ at random, and asks the prover to prove that $F_1(r_1)$ has the value it is supposed to have.
+
+The prover then looks at $F_2(r_1,z)$, which is the summation over $x_3\dots x_m\in\{0,1\}$ of $\Phi(r_1,z,x_3\dots)$.  The prover sends the coefficients of $F_2(r_1,z)$ to the verifier.  The verifier checks that $F_2(r_1,0)+F_2(r_1,1)=F_1(r_1)$.  Then, it picks a random $r_2\in\mathcal{F}$, and asks the prover to prove that $F_2(r_1,r_2)$ has the value it should.  This procedure repeats until we get to $F_m$.
+
+We now need to verify correctness.  Suppose the prover is honest and $\#\phi=k$, then the prover will convince the verifier of this fact.  Suppose the prover may be dishonest.  We will show that with high probability, the verifier will catch a lie.  If the prover $\tilde{P}$ claims $\#\phi\tilde{k}\neq k$, let  $\tilde{F}_1(z)$ be the polynomial that $\tilde{P}$ sends the verifier in the first round.  The correct polynomial is $F_1(z)$.  Could $\tilde{F}_1(z)=F_1(z)$?  No!  Because then $\tilde{F}_1(0) + \tilde{F}_1(1) = F_1(0)+F_1(1)=k$.  $\tilde{F}_1(z)$ must be different, otherwise $\tilde{P}$ would be caught immediately.
+
+Then, $\tilde{F}_1(z) - F_1(z)\not\equiv0$.  This difference polynomial has degree less than or equal to $n$.  The verifier picks $r_1$ at random.  Then, at most $n$ values for $r_1$ will be a root of $\tilde{F}_1(z) - F_1(z)$.  Therefore, the probability that $r_1$ is a root is at most $\frac{n}{|\mathcal{F}|}$.  If $r_1$ is not a root of this difference, then $\tilde{F}_1(r_1) \neq F_1(r_1)$, and the prover is still trying to prove something false.  At any round, the prover is only off the hook if the verifier happens to pick a root of this difference for $r_i$.
+
+At the end, $\tilde{P}$ claims $\tilde{F}_m(r_1,r_2,\dots,r_m) = \tilde{k}$, but this is equal to $\Phi(r_1,r_2,\dots,r_m)$, which the verifier can check itself, catching a lie.  What is the probability that a lying prover does not get caught?  The probability that a prover escapes detection is no more than $\frac{n}{|\mathcal{F}|}$.  Therefore, the probability that the verifier catches a dishonest prover is $1-\frac{n}{|\mathcal{F}|}$.
+
+As long as we pick a field of size at least $3n^2$, we have a valid interactive proof.
+
+\end{proof}
+
+To complete the proof that $IP=PSPACE$, we need to show $PSPACE\subseteq IP$ by taking a $PSPACE$-Complete language and showing it has an interactive proof.  We can do this for TQBF.  The structure of the proof will take a formula $\psi=q_1x_1q_2x_2\dots q_mx_m \phi(x_1,x_2\dots x_m)$ and perform arithmetization to strip variables off and reduce the problem.  For the quantifiers, we can replace the $FOR\ ALL$s by $AND$ing two formulas and the $THERE \ EXISTS$ by $OR$ing two formulas.  The degrees of this polynomial will grow quickly by this process, so it may take exponential space to write the polynomial down.  Therefore, the verifier can't compute the arithmetization.  We fix this by replacing high degrees of variables with lower degrees, because they will still agree on $x=0,1$.  This is subtle and a little tricky, but doable.
+
+
+
+
+\section*{Zero Knowledge Proofs}
+
+Interactive proof is important in cryptography.  We are interested in cases where Alice uses a `secret' to perform a task to convince Bob that the she knows the secret without revealing it to Bob.
+
+We want to show that zero-knowledge proofs are sound (a dishonest prover gets caught), complete (if both parties are honest, the prover can convince the verifier), and zero-knowledge (an honest verifier doesn't reveal the secret).  
+
+Let's suppose we have a graph $G=(V,E)$.  The prover wants to convince $V$ in zero knowledge that $G$ is 3-colorable, which it knows.  If we didn't have the zero-knowledge requirement, we could just treat this as an $NP$ language and be done in one step.
+
+Here's the interactive proof.  At each round, the prover creates a random graph $H$ isomorphic to $G$ and permutes the colors.  The prover correctly 3-colors $H$ and hides the colors and the edges.  The prover could be lying in a couple of ways: $H$ could not be isomorphic to $G$ or the coloring it picked is not a valid 3-coloring.  The verifier knows the original graph $G$ and the three colors that should be used.
+
+The verifier is allowed to make one of two challenges at each round.  It can ask the prover to prove that the presented graph is isomorphic to $G$.  This can be done by revealing the edges and giving a short proof of isomorphism.  The second challenge is that the verifier can pick any two vertices and ask the prover to show that they are properly colored.  This can be done by revealing at most the edge between them and the respective coloring.
+
+
+\end{document}
+
