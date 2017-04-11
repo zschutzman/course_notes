@@ -57,7 +57,7 @@
    \framebox{
       \vbox{\vspace{2mm}
     \hbox to 6.28in { {\bf CIS 511: Theory of Computation
-                        \hfill Apr 4, 2017} }
+                        \hfill Apr 6, 2017} }
        \vspace{4mm}
        \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
        \vspace{2mm}
@@ -106,7 +106,7 @@
 \begin{document}
 %FILL IN THE RIGHT INFO.
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\chno{21}{}{Sampath Kannan}{Zach Schutzman}
+\chno{21}{Interactive Proof, Continued}{Sampath Kannan}{Zach Schutzman}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -156,7 +156,11 @@ Let's suppose we have a graph $G=(V,E)$.  The prover wants to convince $V$ in ze
 
 Here's the interactive proof.  At each round, the prover creates a random graph $H$ isomorphic to $G$ and permutes the colors.  The prover correctly 3-colors $H$ and hides the colors and the edges.  The prover could be lying in a couple of ways: $H$ could not be isomorphic to $G$ or the coloring it picked is not a valid 3-coloring.  The verifier knows the original graph $G$ and the three colors that should be used.
 
-The verifier is allowed to make one of two challenges at each round.  It can ask the prover to prove that the presented graph is isomorphic to $G$.  This can be done by revealing the edges and giving a short proof of isomorphism.  The second challenge is that the verifier can pick any two vertices and ask the prover to show that they are properly colored.  This can be done by revealing at most the edge between them and the respective coloring.
+The verifier is allowed to make one of two challenges at each round.  It can ask the prover to prove that the presented graph is isomorphic to $G$.  This can be done by revealing the edges and giving a short proof of isomorphism.  The second challenge is that the verifier can pick any two vertices and ask the prover to show that they are properly colored.  This can be done by revealing at most the edge between them and the respective coloring.  If the prover succeeds in showing something valid, then we move to the next round.  Otherwise, the verifier catches a lie and rejects.
+
+What is the probability the cheating prover gets caught?  If the graph is not isomorphic, then the prover gets caught with probability $\frac{1}{2}$.  If the prover is lying about the colorabilty of the graph, then there is some pair of vertices colored illegally.  The verifier will catch this with probability $O(\frac{1}{n^2})$.  Therefore, in $n^3$ rounds, the probability of failing to catch a lying prover is $O(e^{-n})$.
+
+Where does zero-knowledge come in?  An IP is zero-knowledge if the transcript could have been generated without the verifier actually looking at the graph.  Since challenges and vertex pairs are chosen at random, it could commit, a priori, to a (secret) order of challenges, so the verifier doesn't really learn anything from the prover.  Since the verifier can simulate the protocol, it is zero-knowledge.
 
 
 \end{document}
