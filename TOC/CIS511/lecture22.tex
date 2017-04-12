@@ -165,7 +165,9 @@ One-way functions are good for passwords.  The user computes the encryption of t
 
 We can do encryption with this by doing the following: Bob picks primes $p,q$ and publishes $N=pq$, but not $p$ or $q$.  When Alice wants to send a message $m$, she computes $c=m^2\mod N$ and sends $c$ to Bob.  Since Bob can factor $N$, he can easily invert the computation and recover one of the four square roots of $m^2$.  If Alice makes sure her message is shorter than $\frac{N}{2}$, then we reduce to only two possible roots, and the Jacobi symbol can further reduce it to one.  Bob can then read $m$.
 
-This is a form of public-key cryptography called the \textbf{Rabin cryptosystem}.
+This is a form of public-key cryptography called the \textbf{Rabin cryptosystem}, and is algorithmically equivalent to factoring.  The drawback is the four-to-one mapping, and we don't like this potential for collision.
+
+
 
 
  
