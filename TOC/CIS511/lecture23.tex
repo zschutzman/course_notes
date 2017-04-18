@@ -158,5 +158,11 @@ In actuality, the PRNG can't truly mimic the uniform distribution.  There are $2
 
 \textbf{PRNG from Rabin:} Start with a seed $x\in\{0,1\}^m \ mod \ N$.  Take $x^2\ mod\ N$ and output the most significant bit, then repeat.  The proof that this works is difficult.
 
+\definition{A generator is \textbf{next-bit unpredictable} if no algorithm can do negligibly better than random guessing for the $i$th bit of a string given the first $i-1$.}
+
+\claim{A generator is a PRNG is it is next-bit unpredictable.}
+
+
+
 \end{document}
 
