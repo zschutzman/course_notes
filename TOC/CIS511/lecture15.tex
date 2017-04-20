@@ -1,0 +1,148 @@
+%
+% This is the LaTeX template file for lecture notes for CS294-8,
+% Computational Biology for Computer Scientists.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+% This template is based on the template for Prof. Sinclair's CS 270.
+
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{IEEEtrantools}
+\usepackage{amsmath,amssymb,trimclip,adjustbox}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+
+\usetikzlibrary{chains,fit,shapes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\chno}[4]{
+	\pagestyle{headings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{lecnum}{#1}
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf CIS 511: Theory of Computation
+						\hfill Feb 30, 2017} }
+				\vspace{4mm}
+				\hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+				\vspace{2mm}
+				\hbox to 6.28in { {\it Professor #3 \hfill #4} }
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{Lecture #1: #2}{Lecture #1: #2}
+	{\bf NB}: {\it These notes are from CIS511 at Penn. The course followed Michael Sipser's \textit{Introduction to the Theory of Computation (3ed)} text.}
+	\vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+		{[\arabic{equation}]}{\usecounter{equation}
+			\setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+			\setlength{\labelwidth}{1.6truecm}}}
+	\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+	\vspace{#2}
+	\begin{center}
+		Figure \thelecnum.#1:~#3
+	\end{center}
+}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+	%FILL IN THE RIGHT INFO.
+	%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+	\chno{15}{PSPACE Completeness}{Sampath Kannan}{Zach Schutzman}
+
+
+
+\section*{The Class $PSPACE\mhyphen Complete$}
+
+\definition{A language $L$ is $PSPACE\mhyphen Complete$ if $L$ is in $PSPACE$ and for all $A\in PSPACE$, there exists a mapping reduction from $A$ to $L$ in polynomial time.}
+
+\definition{A \textbf{quantified boolean formula} is a formula of the form $\forall x_1 \exists x_2 \forall x_3 \dots \phi(x_1,x_2,\dots)$, where $\phi$ is a boolean formula over the $x_i$.}
+
+\claim{The language of True Quantified Boolean Formulas ($TQBF$) is $PSPACE\mhyphen Complete$.}
+
+\begin{proof}
+	
+	We'll think of a machine that decides this language as taking a quantified boolean formula as input and accepting if it is true, rejecting if it is false.
+	
+	This language is obviously in $PSPACE$, we can simply check each allowable assignment and accept if the formula is true.
+	
+	To show that it is $PSPACE$-Complete, we need to show that every other $PSPACE$ language can be reduced to it in polynomial time.  Let $L$ be a language in $PSPACE$.  Without loss of generality, we can say that a decider for $L$ takes $O(2^{n^k})$ time. 
+	
+	We saw in the Cook-Levin Theorem how to think of states of computation as boolean formulas, and we will do something similar here.  Let $C_{init}$ the initial configuration and $C_{accept}$ as the canonical accepting configuration.  We write $\Phi(C_a,C_b,t)$ to denote the quantified boolean formula corresponding to `there exists a sequence of computation steps of length at most $t$ such that the machine moves from configuration $C_a$ to $C_b$.  We want to find formula equivalent to $\Phi(C_{init},C_{accept},2^{n^k})$ which is true if and only if the input $x$ to the decider for $L$ is in $L$.
+	
+	We start by observing that if $x\in L$, then there must be some intermediate configuration $C_m$ which the machine passes through in its computation.  We can then write \[\Phi(C_{init},C_{accept},2^{n^k}) \iff \Phi(C_{init},C_{m},\frac{2^{n^k}}{2})\land \Phi(C_{m},C_{accept},\frac{2^{n^k}}{2})\]
+	
+	We can also consider quarter-way and eighth-way points, and so on and do the same thing, however, we get an exponentially large formula by the time we get down to step sizes of $t=1$.
+	
+	We get around this by introducing two new variables $C_3,C_4$ and universally quantifying them over our configuration pairs $(C_1,m),(m,C_2)$ such that we have 
+
+	\[ \Phi(C_1,C_2,t)=\exists m \forall(C_3,C_4)\in \{ (C_1,m),(m,C_2) \} (\Phi(C_3,C_4,\frac{t}{2})) \]
+	
+	We only need polynomial space for this, hence $L$ is reducible to $TQBF$, and $TQBF$ is $PSPACE$-Complete.
+\end{proof}
+
+
+
+\textbf{Example:} The language Generalized Geography ($GG$) is $PSPACE$-Complete.  $GG$ is a two player game on a directed graph.  One player picks a node, then the other picks a node for which there exists an arc from the previous player's choice into that node.  A player loses if there are no nodes for her to legally choose (i.e. the previous player picked a node with out degree zero).  Player One's first choice is a designated start node.  The language $GG$ is the decision problem of whether, given a directed graph with a start node, Player One can always win given perfect play.
+
+We can think of this as a $TQBF$ in the following way:  Player One has a winning strategy if there exists a node with out-degree zero such that for any previous choice made by Player Two there exists a previous choice by Player One, and so on.
+
+\end{document}

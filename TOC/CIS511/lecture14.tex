@@ -154,7 +154,7 @@ We have $DTIME(f(n))\subseteq DSPACE(f(n))$, as if you can only take $f(n)$ step
 
 We also have that $DSPACE(f(n))\subseteq DTIME(2^{O(f(n))})$, because we can enumerate all of the $2^{O(f(n))}$ configurations of the machine in $f(n)$ space, one at a time.  To see that we only see each configuration at most once, observe that even in the non-deterministic setting, if two branches have the same configuration, the continuations of those branches must be identical, so we don't need to check it more than once.  Therefore, without loss of generality, there is some accepting path that does not contain repeated configurations.  We can keep a `timer' that terminates a branch when it has exceeded $2^{O(f(n))}$ steps, thus ensuring that every branch terminates in at most $2^{O(f(n))}$ steps.  The same holds for the non-deterministic case.
 
-We now have $P\subseteq NP \subseteq PSPACE$.  We don't know if $P=PSPACE$, but this should be easier to prove than $P = NP$.
+We now have $P\subseteq NP \subseteq PSPACE$.  We don't know if $P\neq PSPACE$, but this should be easier to prove than $P \neq  NP$.
 
 \section*{The Class $PSPACE\mhyphen Complete$}
 
