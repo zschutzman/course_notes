@@ -2,3 +2,7 @@
 *.log
 *.synctex.gz
 *.aux
+
+##other folders##
+TOCnotes
+TOC/chapter*
