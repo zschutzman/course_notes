@@ -1,0 +1,74 @@
+
+
+
+
+
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{26}{Relativization}{Sampath Kannan}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Relativization}
+
+Relativization is the idea of asking which problems are easily solved when given a black box for some other language $A$.  We can visualize this as adding a query tape and query state to our Turing machine.  The machine writes some string $w$ on the query tape and enters the query state.  Then, in one step the black box answers $w\in A$.
+
+\definition{An \textbf{oracle} is the proper name for a black box to answer membership queries in one step.}
+
+\definition{An \textbf{oracle Turing machine} is a Turing machine with access to some oracle.}
+
+\textbf{Example:} If the oracle language is $SAT$, what can we decide in polynomial time with a $SAT$ oracle? (This is denoted $P^{SAT}$)
+
+\claim{$NP\subseteq P^{SAT}$}
+
+\begin{proof}
+	
+	Our machine can do the polynomial reduction from any $NP$ language $L$ to $SAT$, then query the oracle.
+	
+	\end{proof}
+	
+	\claim{$Co$-$NP\subseteq P^{SAT}$}
+	
+	
+	\begin{proof}
+		
+		The oracle is not bound by non-determinism.  The  oracle answering $NO$ to a $SAT$ query establishes membership in $UNSAT$.  Since $UNSAT$ is $Co$-$NP$-Complete, we have any $Co$-$NP$ problem also in $P^{SAT}$.
+		
+		
+	\end{proof}	
+	
+
+We don't know anything further than this.
+
+What about $NP^{SAT}$?  We don't actually know if $P^{SAT}=NP^{SAT}$.  The problem $\overline{MinFormula} = \{ \phi \ | \ \exists \phi' \ \phi=\phi',\ |\phi|>|\phi'|\}$, asking whether there exists a smaller equivalent formula for some boolean formula $\phi$, is in $NP^{SAT}$.  The algorithm to do this non-deterministically guesses a smaller formula equivalent to $\phi$.  Showing two formulas are not equivalent is in $NP$, so equivalence is in $Co$-$NP$, which we can handle with our $SAT$ oracle. It is not known whether there exists a $P^{SAT}$ algorithm to decide this language, but we don't think there is.
+
+Suppose we have two oracles $A$ and $B$.  $A$ is an oracle such that $P^A=NP^A$ and $B$ is an oracle such that $P^B\subsetneq NP^B$, even if $P=NP$.
+
+$A$ will be an oracle for some $PSPACE$-Complete language, say $TQBF$.  The class $NP^{TQBF}$.  A $NPSPACE$ machine can recognize any language in $NP^{TQBF}$ by replacing oracle queries with $PSPACE$ computations, so $NP^{TQBF}\subseteq NPSPACE\subseteq PSPACE$.  Additionally, containment goes the other way.  Any $PSPACE$ language can be reduced to $TQBF$ in polynomial time, and then the oracle queried for the answer.  Hence $P^{TQBF} = NP^{TQBF}=PSPACE=NPSPACE$.
+
+Now, we'll create an oracle $B$ as the following:
+\begin{enumerate}
+	 
+	
+	\item[] Let $L_B=\{ 1^n \ | \ \exists x \ s.t.|x|=n,x\in B    \}$.  That is, $L_B$ contains all unary strings of length $n$ such that the oracle language also has a string of length $n$.  $L_B\in NP^B$.  On input $1^k$, a $NP$ machine guesses a string of length $k$ and calls the oracle to check membership.
+
+\item[] We also have $L_B\notin P^B$.  Enumerate all polynomial time machines with time bounds.  Assume that the $i^{th}$ machine runs in time $n^i$.  Consider machine $M_i$, and pick a length $n$ large enough such that we haven't considered whether any strings of length $n$ are in $B$ and that $n^i<2^n$.  Simulate $M_i$ on $1^n$.  If $M_i$ ever asks about a string of length $n$, the oracle should say $NO$.  $M_i$ can only ask about $n^i$ strings.  If $M_i$ says that $B$ contains no strings of length $n$, we include one of that length.  If $M_i$ says that $B$ does contain a string of that length, we make $B$ not have any strings of that length.
+
+\item[] Suppose, for the sake of contradiction, that $L_B\in P^B$.  Then there exists some machine $M_i$ such that $L_B$ such that $L_B=L(M_i^B)$.  However, we constructed $L_B$ such that this cannot happen.
+
+\end{enumerate}
+
+Therefore, there are some oracles that separate $P$ from $NP$.
+
+To show $\mathcal{C}_1$ and $\mathcal{C}_2$ are equal, we typically used \textbf{simulation} arguments.  A simulation argument to prove $\mathcal{C}_1 = \mathcal{C}_2$ will also prove that $\mathcal{C}_1^B=\mathcal{C}_2^B$ for any oracle $B$.  We therefore know that we can not prove $P=NP$ by a simulation argument.  
+
+The most common argument for showing $\mathcal{C}_1 \subsetneq \mathcal{C}_2$ is diagonalization.  The same argument works for oracles, showing that $\mathcal{C}_1^A\subsetneq \mathcal{C}_2^A$ for any oracle $A$.  We have an oracle under which $P^A=NP^A$, therefore, we cannot prove $P\neq NP$ via diagonalization.
+	
+
+
+
