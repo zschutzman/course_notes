@@ -99,9 +99,9 @@ Let $B=\{w\#w | w\in\Sigma^*\}$.  Here is a TM to accept this language:
 
 How robust is the TM?  Turns out, very!
 
-\definition{Define a \textbf{stay}-TM as one with move commands expanded to $\{L,R,S\}$, where $S$ denotes no-move.}
+\defn{Define a \textbf{stay}-TM as one with move commands expanded to $\{L,R,S\}$, where $S$ denotes no-move.}
 
-\claim{A stay-TM is equal in power to the regular TM.}
+\clm{A stay-TM is equal in power to the regular TM.}
 
 \begin{proof}
 	
@@ -145,9 +145,9 @@ How robust is the TM?  Turns out, very!
 	
 \end{proof}
 
-\definition{A \textbf{multi-tape TM} is a Turing machine with a finite number ($k$) of tapes.  Each transition in $\delta$ reads the character under each head and writes and moves independently on each tape.  Formally, $\delta$ is now a function $\delta : Q\times \Gamma^k \rightarrow Q \times \Gamma^k \times \{L,R\}^k$.}
+\defn{A \textbf{multi-tape TM} is a Turing machine with a finite number ($k$) of tapes.  Each transition in $\delta$ reads the character under each head and writes and moves independently on each tape.  Formally, $\delta$ is now a function $\delta : Q\times \Gamma^k \rightarrow Q \times \Gamma^k \times \{L,R\}^k$.}
 
-\claim{A multi-tape TM is no more or less powerful than a regular TM.}
+\clm{A multi-tape TM is no more or less powerful than a regular TM.}
 
 \begin{proof}
 	
@@ -177,7 +177,7 @@ Observe that if $M$ has taken at most $T$ steps, then it uses at most $T$ cells 
 
 Is it possible for a multi-tape TM to have a truly quadratic speedup?
 
-\claim{Let $L=\{w\#w^R|w\in\Sigma^2\}$.  This language gains a quadratic speedup on a 2-tape machine versus the naive implementation on a single tape machine.}
+\clm{Let $L=\{w\#w^R|w\in\Sigma^2\}$.  This language gains a quadratic speedup on a 2-tape machine versus the naive implementation on a single tape machine.}
 
 \begin{proof}
 	

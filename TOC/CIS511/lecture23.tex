@@ -38,24 +38,24 @@ Bob can do all of his computations and decryption in polynomial time, and Alice 
 RSA doesn't work if the messages are too short (drawn from a small space).  An eavesdropper can brute-force it and/or we run into trouble with the exponent not causing the values to wrap around $N$.
 
 Suppose our eavesdropper Eve sees the ciphertext and knows that the message being transmitted is one of $m_1$ or $m_2$, which she has access to in plaintext.
-\definition{A public-key encryption scheme is called \textbf{semantically secure} if Eve has only a negligible advantage over random guessing at determining whether the true message is $m_1$ or $m_2$.}
+\defn{A public-key encryption scheme is called \textbf{semantically secure} if Eve has only a negligible advantage over random guessing at determining whether the true message is $m_1$ or $m_2$.}
 
 Semantic security is obviously impossible for any deterministic encryption scheme.  One randomized scheme is to add random padding to the message before encrypting it.  It is conjectured that RSA with random padding is semantically secure.
 
 \section*{Pseudorandom Number Generation}
 
-\definition{A \textbf{pseudorandom number generator} (PRNG) is a deterministic function which takes as input a string of a short length ($m$) and produces a string of a much larger length ($n$) such that the output string looks random. That is, the distribution of the output strings is indistinguishable from a draw from a uniform distribution over strings of length $n$.}
+\defn{A \textbf{pseudorandom number generator} (PRNG) is a deterministic function which takes as input a string of a short length ($m$) and produces a string of a much larger length ($n$) such that the output string looks random. That is, the distribution of the output strings is indistinguishable from a draw from a uniform distribution over strings of length $n$.}
 
 In actuality, the PRNG can't truly mimic the uniform distribution.  There are $2^n$ possible uniform strings, but the PRNG has output space of size $2^m$.  
-\definition{A PRNG is \textbf{pseudorandom} if for any probabilistic poly-time algorithm $A$ which outputs $0$ or $1$, the probability that $A$ outputs $1$ given input from the PRNG minus the probability that $A$ outputs $1$ given input drawn from the uniform distribution is negligible.  That is, there is no such $A$ which can meaningfully differentiate between draws from the PRNG and a true uniform distribution.}
+\defn{A PRNG is \textbf{pseudorandom} if for any probabilistic poly-time algorithm $A$ which outputs $0$ or $1$, the probability that $A$ outputs $1$ given input from the PRNG minus the probability that $A$ outputs $1$ given input drawn from the uniform distribution is negligible.  That is, there is no such $A$ which can meaningfully differentiate between draws from the PRNG and a true uniform distribution.}
 
-\claim{If one-way functions exist, then PRNGs exist.}
+\clm{If one-way functions exist, then PRNGs exist.}
 
 \textbf{PRNG from Rabin:} Start with a seed $x\in\{0,1\}^m \ mod \ N$.  Take $x^2\ mod\ N$ and output the most significant bit, then repeat.  The proof that this works is difficult.
 
-\definition{A generator is \textbf{next-bit unpredictable} if no algorithm can do negligibly better than random guessing for the $i$th bit of a string given the first $i-1$.}
+\defn{A generator is \textbf{next-bit unpredictable} if no algorithm can do negligibly better than random guessing for the $i$th bit of a string given the first $i-1$.}
 
-\claim{A generator is a PRNG is it is next-bit unpredictable.}
+\clm{A generator is a PRNG is it is next-bit unpredictable.}
 
 
 

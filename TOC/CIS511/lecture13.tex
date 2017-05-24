@@ -21,7 +21,7 @@ $SUBSETSUM$, the question of whether a set of numbers contains a subset that sum
 
 We know that $P\subseteq NP$, $NP\mhyphen Complete \subset NP$
 
-\definition{A language $L$ is in $Co\mhyphen NP$ if its complement is in $NP$.  Equivalently, given $x\notin L$, a verifier can check non-membership given the right certificate (easy to check that something is not a solution).}
+\defn{A language $L$ is in $Co\mhyphen NP$ if its complement is in $NP$.  Equivalently, given $x\notin L$, a verifier can check non-membership given the right certificate (easy to check that something is not a solution).}
 
 \textbf{Example:} $TAUT = \{ \phi | \phi \ is  \ satistfied \ by \ every \ assignment\}$ is in $Co\mhyphen NP$.  If a $\phi$ is not in $L$, then any non-satisfying assignment can be quickly checked.
 
@@ -35,11 +35,11 @@ If $NP\neq Co\mhyphen NP$, then $P\neq NP$.
 
 \section*{Space Complexity}
 
-\definition{\textbf{Space complexity} refers to the number of cells of tape scanned by the head of a Turing machine in running an input.}
+\defn{\textbf{Space complexity} refers to the number of cells of tape scanned by the head of a Turing machine in running an input.}
 
-\definition{$DSPACE(s(n))$ is the set of languages recongized by a deterministic TM in $O(s(n))$ space.}
+\defn{$DSPACE(s(n))$ is the set of languages recongized by a deterministic TM in $O(s(n))$ space.}
 
-\definition{$NSPACE(s(n))$ is the set of languages recognized by a non-deterministic TM in $O(s(n))$ space.}
+\defn{$NSPACE(s(n))$ is the set of languages recognized by a non-deterministic TM in $O(s(n))$ space.}
 
 Let's look at $SAT\in NP$.  What is its space complexity?  Let's say $n$ is the length of the input and $k$ is the number of variables.  If we don't care about time, we can represent the assignment as a $k$-bit number and try one assignment at a time.  We only need $n+k+c$ (where $c$ is some small fixed workspace).  Therefore, $SAT\in DSPACE(n)$.
 

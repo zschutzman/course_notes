@@ -19,7 +19,7 @@ Last time we defined $BPP$ as the class of algorithms with probabilistic polynom
 
 We also have the class $PP$, which is not very interesting.  $PP$ allows error as high as $\frac{1}{2}-\frac{1}{2^n}$.  Things like $SAT$ and beyond are in $PP$.
 
-\definition{A language $L$ is in  \textbf{Randomized Polynomial} ($RP$) if there is a probabilistic polynomial time Turing machine $M$ such that given $x\in L$, $M$ accepts with probability greater than or equal to $\frac{1}{2}$, and if $x\notin L$, $M$ always rejects.}
+\defn{A language $L$ is in  \textbf{Randomized Polynomial} ($RP$) if there is a probabilistic polynomial time Turing machine $M$ such that given $x\in L$, $M$ accepts with probability greater than or equal to $\frac{1}{2}$, and if $x\notin L$, $M$ always rejects.}
 
 We say $RP$ has one-sided error, because we only make mistakes on strings in the language.  If the algorithm accepts, we know for certain that the string is in the language.  If it rejects, we cannot say for sure.
 
@@ -48,7 +48,7 @@ We'll use cryptographic convention and call the spaceship player Alice (A) and t
 
 We will think of corruption of $x$ as adversarial.  If the length of $x$ and $y$ is $n$, to do this deterministically, we need to exchange at least $n$ bits to verify the whole string.  To see this, suppose $x_1\neq x_2$ are two $n$-bit strings.  
 
-\claim{We claim that any communication transcript on input $(x_1,x_1)$ must be different from the transcript on $(x_2,x_2)$.}
+\clm{We claim that any communication transcript on input $(x_1,x_1)$ must be different from the transcript on $(x_2,x_2)$.}
 
 \begin{proof}
 	

@@ -35,20 +35,20 @@ One drawback is that each pair of parties needs a separate key, agreed upon befo
 
 For cryptography to work, we need functions that are easy to compute but hard to compute.
 
-\definition{A function $f:\{0,1\}^*\rightarrow \{0,1\}^*$ is \textbf{length-preserving} if $|f(w)=|w|$ for all $w\in\{0,1\}^*$.}
+\defn{A function $f:\{0,1\}^*\rightarrow \{0,1\}^*$ is \textbf{length-preserving} if $|f(w)=|w|$ for all $w\in\{0,1\}^*$.}
 
-\definition{A function $f$ is a \textbf{permutation} if it is bijective on $\{0,1\}^n$ for all $n$ (bijective and length-preserving).}
+\defn{A function $f$ is a \textbf{permutation} if it is bijective on $\{0,1\}^n$ for all $n$ (bijective and length-preserving).}
 
 
 A probabilistic Turing machine $M$ on input $x$, we can talk about the probability that $M$ outputs $y$.  By definition, $\sum\limits_y (M \ outputs \ y)\leq 1$.
 
-\definition{A length-preserving function $f$ is a \textbf{one-way function} if there is a poly-time deterministic Turing machine $M$ that on input $w$ outputs $f(w)$ and for $n$ large enough, if $w$ is chosen uniformly at random from $\{0,1\}^n$, and $k$ is any constant, and $D$ is any probabilistic poly-time Turing machine, the probability that $D$ on input $f(w)$ computes $y$, such that $f(y)=f(w)$ is less than or equal to $\frac{1}{n^k}$.}
+\defn{A length-preserving function $f$ is a \textbf{one-way function} if there is a poly-time deterministic Turing machine $M$ that on input $w$ outputs $f(w)$ and for $n$ large enough, if $w$ is chosen uniformly at random from $\{0,1\}^n$, and $k$ is any constant, and $D$ is any probabilistic poly-time Turing machine, the probability that $D$ on input $f(w)$ computes $y$, such that $f(y)=f(w)$ is less than or equal to $\frac{1}{n^k}$.}
 
 Basically, the function is easily computed but a decoder can find an inverse with extremely low probability.
 
 One-way functions are good for passwords.  The user computes the encryption of the password and sends that ciphertext to the system.  At login, the system only needs to check that the ciphertexts match, and you never reveal the plaintext of the password.
 
-\definition{A \textbf{trapdoor function} is a one-way function which is easy to invert given that you know a certain `secret'.}
+\defn{A \textbf{trapdoor function} is a one-way function which is easy to invert given that you know a certain `secret'.}
 
 \textbf{Example:} let $N=pq$, where $p,q$ are $n$-bit primes.  Then, the set $Z_N^*$ is the set of all numbers less that $N$ and relatively prime to $N$. (E.g. $Z_{10}^*=\{1,3,7,9\}$, $Z_7^*=\{1,2,3,4,5,6\}$).  We have a function $f$ which maps $x\in Z_N^*$ to $x^2\in Z_N^*$.  $f$ is a trapdoor function.  This is believed to be one-way because if we could do it quickly, we could factor integers.
 

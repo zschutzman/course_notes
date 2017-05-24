@@ -23,7 +23,7 @@ How can we determine that a language is \textit{not} regular?
 
 
 
-\theorem{\textbf{The Pumping Lemma} (for regular languages): If $L$ is a regular language, then there exists a constant $p$, called its $\textbf{pumping length}$, such that if $x\in L$ and $|x|\geq p$, then $x$ can be written as $x=uvw$, where $v$ is non-empty, $|uv|\leq p$, and $uv^iw\in L$ for any $i \in \mathbb{N}$.}
+\thrm{\textbf{The Pumping Lemma} (for regular languages): If $L$ is a regular language, then there exists a constant $p$, called its $\textbf{pumping length}$, such that if $x\in L$ and $|x|\geq p$, then $x$ can be written as $x=uvw$, where $v$ is non-empty, $|uv|\leq p$, and $uv^iw\in L$ for any $i \in \mathbb{N}$.}
 
 \begin{proof}
 	Suppose $L$ is regular.  Then there exists a DFA $M$ that recognizes $L$.  Say $M$ has $p$ states ($|Q|=p$).  Suppose $L$ contains some string $x$, $|x| > p$.  Then by the Pigeonhole Principle, the path of $x$ must pass through at least one state at least twice.  Equivalently, the path of $x$ contains some cycle.  
@@ -34,11 +34,11 @@ How can we determine that a language is \textit{not} regular?
 	
 \end{proof}
 
-\corollary{A language is not regular if there does not exist any way to break a string of length greater than $p$ into a satisfactory $uvw$.}
+\corly{A language is not regular if there does not exist any way to break a string of length greater than $p$ into a satisfactory $uvw$.}
 
 
 
-\textbf{Example:} \claim{The language $L=\{0^n 1^n | n\in \mathbb{N}  \}$ is not regular.}
+\textbf{Example:} \clm{The language $L=\{0^n 1^n | n\in \mathbb{N}  \}$ is not regular.}
 
 \begin{proof}
 	
@@ -52,7 +52,7 @@ How can we determine that a language is \textit{not} regular?
 
 
 
-\textbf{Example:} \claim{The language $L=\{x\# y | |x| = |y|  \}$ is not regular.}
+\textbf{Example:} \clm{The language $L=\{x\# y | |x| = |y|  \}$ is not regular.}
 
 \begin{proof}
 	
@@ -95,7 +95,7 @@ How can we determine that a language is \textit{not} regular?
 	
 \end{proof}
 
-\corollary{\textbf{DFAs can't count!}}
+\corly{\textbf{DFAs can't count!}}
 
 
 
@@ -116,7 +116,7 @@ For a Turing machine, we lift all three of these limitations.  The head can move
 
 We are going to expand the tape alphabet $\Gamma$ to be a proper superset of $\Sigma$, and also containing a blank symbol $\sqcup$.
 
-\claim{Our language $L = \{0^n \# 1^n | n\in \mathbb{N}\}$ can be recognized by a Turing Machine.}
+\clm{Our language $L = \{0^n \# 1^n | n\in \mathbb{N}\}$ can be recognized by a Turing Machine.}
 
 \begin{proof}
 	
@@ -177,7 +177,7 @@ We are going to expand the tape alphabet $\Gamma$ to be a proper superset of $\S
 
 
 
-\definition{A \textbf{Turing Machine} is a 7-tuple $(Q,q_0,\Sigma,\Gamma,\delta,q_a, q_r)$.}
+\defn{A \textbf{Turing Machine} is a 7-tuple $(Q,q_0,\Sigma,\Gamma,\delta,q_a, q_r)$.}
 
 \begin{enumerate}
 	\item[] $Q$ is the set of states
@@ -192,7 +192,7 @@ We are going to expand the tape alphabet $\Gamma$ to be a proper superset of $\S
 
 The transition function maps the current state and the currently read character to the next state, the character to write on that cell, and a LEFT or RIGHT move.  The machine halts when it reaches $q_a$ or $q_r$, by definition.
 
-\definition{Given a Turing machine $M$, the language \textbf{recognized} by $M$ is the set of all strings that cause $M$ to move to $q_a$.}
+\defn{Given a Turing machine $M$, the language \textbf{recognized} by $M$ is the set of all strings that cause $M$ to move to $q_a$.}
 
 If $M$ recognizes $L$ and $x\notin L$, there are two possibilities:
 
@@ -203,10 +203,10 @@ If $M$ recognizes $L$ and $x\notin L$, there are two possibilities:
 
 In both of these cases, we say that $M$ doesn't recognize $x$, but in the second case, how do we know if $M$ really won't halt on $x$, rather than just taking a really long time?
 
-\definition{A Turing machine $M$ \textbf{decides} a language $L$ if for all $x\in L$, $M$ reaches $q_a$ and for all $x\notin L$, $M$ reaches $q_r$.  The set of Turing decidable languages is a subset of the Turing recognizable languages.}
+\defn{A Turing machine $M$ \textbf{decides} a language $L$ if for all $x\in L$, $M$ reaches $q_a$ and for all $x\notin L$, $M$ reaches $q_r$.  The set of Turing decidable languages is a subset of the Turing recognizable languages.}
 
 
-\definition{The \textbf{current configuration} of a Turing machine $M$ is the current state, the tape contents, and the head position at some point in time.}
+\defn{The \textbf{current configuration} of a Turing machine $M$ is the current state, the tape contents, and the head position at some point in time.}
 
 The notation for this is:\\
 	\begin{center}

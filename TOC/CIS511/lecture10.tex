@@ -13,7 +13,7 @@
 
 \section*{Asymptotics}
 
-\definition{An algorithm with running time $t(n)$ takes no more than $O(t(n))$ steps on any input of size $n$.  This is sometimes called \textbf{worst-case complexity}.}
+\defn{An algorithm with running time $t(n)$ takes no more than $O(t(n))$ steps on any input of size $n$.  This is sometimes called \textbf{worst-case complexity}.}
 
 Recall the class DTIME($t(n)$) is the set of languages $L$ for which there exists a single-tape Turing machine that decides $L$ in $O(t(n))$ time.
 
@@ -21,7 +21,7 @@ What about a multi-tape machine?  We have seen that the language $L = \{ww^R|w\i
 
 \section*{The Class $P$}
 
-\definition{The class $P$ is equal to $\bigcup\limits_{k\geq 0} DTIME(n^k)$.  That is, the class of languages decided in polynomial time on a single-tape deterministic Turing machine.}
+\defn{The class $P$ is equal to $\bigcup\limits_{k\geq 0} DTIME(n^k)$.  That is, the class of languages decided in polynomial time on a single-tape deterministic Turing machine.}
 
 Why is $P$ an important class?  First, a problem being in $P$ implies there is a method of solving that problem without enumerating all possible solutions, which would typically require exponential time.  Second, $P$ is a robust class with a lot of nice compositional properties.  The sum, product, and composition of polynomials is a polynomial.  This means that if we have a polynomial-time subroutine, if we call it a polynomial number of times, our algorithm is still polynomial-time.  Thirdly, we have the Extended Church-Turing Thesis, which states that every reasonable model of computation can simulate any other reasonable model of computation with only polynomial-time slowdown.  This implies that the class $P$ is invariant under models of computation (numbers of tapes, modern computers, quantum computers).  We don't actually know that if is true, but there is no proof yet that it isn't correct.
 
@@ -42,17 +42,17 @@ The jury is still out on:
 
 \section*{The Class $NP$}
 
-\definition{A non-deterministic Turing machine is called a \textbf{decider} if it halts on every branch.}
+\defn{A non-deterministic Turing machine is called a \textbf{decider} if it halts on every branch.}
 
-\definition{The running time of a non-deterministic Turing machine on an input $x$ is the maximum number of steps taken on any branch.}
+\defn{The running time of a non-deterministic Turing machine on an input $x$ is the maximum number of steps taken on any branch.}
 
-\definition{A language $L$ is in $NTIME(t(n))$ if there is an NTM $M$ that decides $L$ in time $O(t(n))$ on all inputs of length $n$.}
+\defn{A language $L$ is in $NTIME(t(n))$ if there is an NTM $M$ that decides $L$ in time $O(t(n))$ on all inputs of length $n$.}
 
 Let $M$ be an NTM that runs in time $f(n)$.  Then on all of its branches, $M$ halts in time at most $f(n)$ on all of its branches.  We showed earlier how to make a deterministic TM that simulates an NTM.  The branching tree has height at most $f(n)$, and the number of possible transitions at each step was some number $B$.  Then the number of nodes in the tree is at most $b^{f(n)}$. This is no longer polynomial.  To our knowledge, simulating a non-deterministic decider on a deterministic decider results in an exponential blowup in running time.
 
 We therefore can say that $NTIME(f(n)) \subseteq DTIME(2^{O(f(n))})$
 
-\definition{The class $NP$ is equal to $\bigcup\limits_{k\geq0}NTIME(n^k)$. That is, the class of languages decided in polynomial time on a non-deterministic Turing machine.}
+\defn{The class $NP$ is equal to $\bigcup\limits_{k\geq0}NTIME(n^k)$. That is, the class of languages decided in polynomial time on a non-deterministic Turing machine.}
 
 Some languages in $NP$:
 \begin{itemize}

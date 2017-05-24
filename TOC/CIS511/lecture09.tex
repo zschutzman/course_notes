@@ -15,17 +15,17 @@ Recall Rice's Theorem states that any non-trivial language property of Turing ma
 
 Let's look at one more undecidable language.  We'll think about randomness.  Consider a Turing machine $M$ on input $x$.  At the end of computation, the tape has $y$ on it.  
 
-\definition{ The \textbf{descriptive} or \textbf{Kolmogorov-Chaitin complexity} of a string $\mathcal{K}(y)$ is the length of the shortest description $\langle M\rangle,w$ such that $M$ on input $w$ halts with $y$ on its tape. }
+\defn{ The \textbf{descriptive} or \textbf{Kolmogorov-Chaitin complexity} of a string $\mathcal{K}(y)$ is the length of the shortest description $\langle M\rangle,w$ such that $M$ on input $w$ halts with $y$ on its tape. }
 
 How do we go about writing the description of a Turing machine?  One simple solution would be to duplicate each symbol in the representation, then terminate with a non-duplicated pair.  For example, $10110101$ becomes $110011110011001110$, where $10$ is the terminating pair.  Alternatively, we can write the length of the machine with the doubling, finished with a non-duplicate pair. 
 
 For any $x$, $\mathcal{K}(x) \leq |x| + c$, for some constant $c$.  To see this, just let $M$ be the machine that immediately halts.  It has some length $c'$, which is fixed and should be fairly small.  Using our first naive encoding, $2c' + |x| + 2$ is sufficient to encode $x$.
 
-\definition{A string $x$ is \textbf{incompressible by $c$} if $\mathcal{K}(x) \geq |x|-c$.  That is, $x$ has no description that is $c$ shorter than itself.}
+\defn{A string $x$ is \textbf{incompressible by $c$} if $\mathcal{K}(x) \geq |x|-c$.  That is, $x$ has no description that is $c$ shorter than itself.}
 
-\definition{A string is \textbf{incompressible} if $\mathcal{K}(x) \geq |x|$.}
+\defn{A string is \textbf{incompressible} if $\mathcal{K}(x) \geq |x|$.}
 
-\claim{There exist incompressible strings of every length.}
+\clm{There exist incompressible strings of every length.}
 
 \begin{proof}
 	Note that there are $2^n$ strings of length $n$ (on a binary alphabet).  The number of shorter descriptions is $\sum\limits_{i=0}^{n-1} 2^i = 2^n - 1$.  There are strictly fewer descriptions than strings, so there must be some string not representable by a shorter length, i.e. incompressible.
@@ -42,7 +42,7 @@ If $x,y$ are strings, and $c$ a constant:
 
 Let $L = \{ x | x \ is \ incompressible \ by \ 2\}$.  Is $L$ decidable?
 
-\claim{No.}
+\clm{No.}
 
 \begin{proof}
 	
@@ -54,13 +54,13 @@ Let $L = \{ x | x \ is \ incompressible \ by \ 2\}$.  Is $L$ decidable?
 
 \section*{Time Complexity}
 
-\definition{A \textbf{step} of a Turing machine is one execution of a transition.}
+\defn{A \textbf{step} of a Turing machine is one execution of a transition.}
 
 Suppose $M$ is a deterministic TM to decide $L$.
 
-\definition{We say $M$ \textbf{runs in time $\boldmath{f(n)}$} if for any input of length $n$, $M$ terminates in at most $f(n)$ steps.}
+\defn{We say $M$ \textbf{runs in time $\boldmath{f(n)}$} if for any input of length $n$, $M$ terminates in at most $f(n)$ steps.}
 
-\definition{The complexity class \textbf{DTIME($\boldmath{f(n)}$)} is the set of all languages $L$ for which a deterministic Turing machine takes $O(f(n))$ steps and decides $L$.}
+\defn{The complexity class \textbf{DTIME($\boldmath{f(n)}$)} is the set of all languages $L$ for which a deterministic Turing machine takes $O(f(n))$ steps and decides $L$.}
 
 \textbf{Example:} DTIME($n$)$\subset $ DTIME($n^2$)
 

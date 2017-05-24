@@ -14,7 +14,7 @@
 
 \section*{Finishing up $NL=Co\mhyphen NL$}
 
-\claim{$NL = Co\mhyphen NL$ (continued from last time)}
+\clm{$NL = Co\mhyphen NL$ (continued from last time)}
 
 \begin{proof}
 	
@@ -46,11 +46,11 @@ We can say that Savitch's Theorem still applies.  That is, $NSPACE(f(n)) \subset
 
 We now are ready to show our first proper separation of time and space classes.
 
-\definition{A function $f(n)$ is `nice' if it is \textbf{fully space-constructible}. That is, there is a Turing machine which given input, say $1^n$, can compute $f(n)$ using no more than $f(n)$ space.}
+\defn{A function $f(n)$ is `nice' if it is \textbf{fully space-constructible}. That is, there is a Turing machine which given input, say $1^n$, can compute $f(n)$ using no more than $f(n)$ space.}
 
 Space-constructible functions include all the familiar ones, like monotonic polynomials, exponentials, logarithms, roots, etc.
 
-\claim{(\textbf{The Space Hierarchy Theorem}) Let $f(n)$ be a `nice' function.  Then there is a language $L$ which can be decided by an $f(n)$-space deterministic Turing machine, but not by any deterministic Turing machine using $o(f(n))$ space.  That is, for $f(n)$, there is a language requiring at least $O(f(n))$ space to decide by a deterministic Turing machine.}
+\clm{(\textbf{The Space Hierarchy Theorem}) Let $f(n)$ be a `nice' function.  Then there is a language $L$ which can be decided by an $f(n)$-space deterministic Turing machine, but not by any deterministic Turing machine using $o(f(n))$ space.  That is, for $f(n)$, there is a language requiring at least $O(f(n))$ space to decide by a deterministic Turing machine.}
 
 \begin{proof}
 	
@@ -77,7 +77,7 @@ We want to say that if $g(n)\in o(f(n))$, for time-constructible function $f(n)$
 
 We therefore need to rephrase the statement of the theorem to be
 
-\claim{If there is a language in $g(n) \in o(f(n))/log(f(n))$, then there is a language in $DTIME(f(n))$ not in $DTIME(g(n))$.}
+\clm{If there is a language in $g(n) \in o(f(n))/log(f(n))$, then there is a language in $DTIME(f(n))$ not in $DTIME(g(n))$.}
 
 The proof follows the same structure as the Space Hierarchy Theorem, including $log(f(n))$ additional steps to update the counter.
 

@@ -14,7 +14,7 @@ Recall, we showed last time that, by a cardinality argument, that there must exi
 
 \textbf{Example:}  Let the language $A_{TM} = \{ \langle M,w\rangle | M(w) \ accepts  \}$, the language of machines and words such that $M$ reaches its $q_a$ on input $w$.
 
-\claim{$A_{TM}$ is not decidable.}
+\clm{$A_{TM}$ is not decidable.}
 
 \begin{proof}
 	Assume for the sake of contradiction that $A_{TM}$ is decidable, and let $H$ be the TM that decides it.  We will show that $H$ cannot exist.
@@ -32,12 +32,12 @@ What about an unrecognizable language?
 
 \section*{An Unrecognizable Language}
 
-\claim{A language $L$ is decidable if and only if $L$ and $L^C$ are both recognizable.}
+\clm{A language $L$ is decidable if and only if $L$ and $L^C$ are both recognizable.}
 
 \begin{proof}
 	
 	If $L$ is decidable, then clearly it is recognizable.  Additionally, $L^C$ must be decidable, as it is decided by a machine that simulates a decider for $L$ and outputs the complement of the result.
-	\corollary{The class of decidable languages is closed under complement.}
+	\corly{The class of decidable languages is closed under complement.}
 	Hence, $L^C$ is recognizable.
 	
 	Now, assume that $L$ and $L^C$ are both recognizable.  We will construct a decider for $L$.  Let $M$ and $M_C$ be recognizers for $L$ and $L^C$, respectively.  Let $M_D$ be a TM that works by alternating simulating $M$ and $M_C$ one step at a time.  Because $L$ and $L^C$ are both recognizable, if a string $x$ is in $L$, then $M$ halts and accepts on $x$.  If $x$ is not in $L$, then $M_C$ halts and accepts on $x$.  Since $M_D$ alternates steps of $M$ and $M_C$, it halts in a finite amount of time, and outputs an answer corresponding to the submachine that accepted.  $M_D$ accepts if $M$ accepts or $M_C$ rejects.  $M_D$ rejects when $M$ rejects or $M_C$ accepts.
@@ -52,7 +52,7 @@ Is $A_{TM}$ recognizable?  Yes!  The simple approach of simulating $M$ on $w$ wi
 
 Let's define $\overline{A_{TM}}$ as the language where $M$ does not accept $w$.  Is this language Turing recognizable?
 
-\claim{$\overline{A_{TM}}$ is not recognizable.}
+\clm{$\overline{A_{TM}}$ is not recognizable.}
 
 \begin{proof}
 	
@@ -69,7 +69,7 @@ The idea of reductions is ubiquitous in mathematics and computer science.  Funda
 
 Suppose we have two languages $A$ and $B$.
 
-\definition{A reduction from $A$ to $B$ is a method for using a procedure for solving/deciding/recognizing $B$ to solve/decide/recognize $A$.}
+\defn{A reduction from $A$ to $B$ is a method for using a procedure for solving/deciding/recognizing $B$ to solve/decide/recognize $A$.}
 
 We can think about a subroutine that can solve $B$ being used to solve $A$.
 
@@ -82,7 +82,7 @@ A reduction from $A$ to $B$: given a TM $S$ for solving $B$, construct a TM $R$ 
 
 \textbf{Example:}  Define $HALT_{TM} = \{ \langle M,w \rangle \ | M \ halts \ on \ w  \}$.  This is the set of pairs $\langle M,w\rangle$ such that $M$ halts on $w$.
 
-\claim{$H_{TM}$ is undecidable}
+\clm{$H_{TM}$ is undecidable}
 
 \begin{proof}
 	We prove this by reduction.  We will show that, if we assume $HALT_{TM}$ is decidable, we can use it to decide $HALT_{TM}$.  This is a reduction from $A_{TM}$ to $HALT_{TM}$.
@@ -98,7 +98,7 @@ A reduction from $A$ to $B$: given a TM $S$ for solving $B$, construct a TM $R$ 
 
 \textbf{Example:}  Define $E_{TM} = \{ \langle M \rangle  \ | M \ recognizes \ \emptyset\}$ be the language of TMs that accept no strings.
 
-\claim{$E_{TM}$ is undecidable}
+\clm{$E_{TM}$ is undecidable}
 
 \begin{proof}
 	We proceed again by reduction from $A_{TM}$ to $E_{TM}$.

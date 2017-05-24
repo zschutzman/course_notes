@@ -16,7 +16,7 @@ Recall: every DFA recognizes some (regular) language, a language is regular if t
 
 Question: are NFAs more powerful than DFAs?  They are certainly a broader class of machines, given that the set of all DFAs is a propers subset of the set of all NFAs.
 
-\theorem{NFAs recognize exactly the class of regular languages.}
+\thrm{NFAs recognize exactly the class of regular languages.}
 
 \begin{proof}
 	\textit{(A rough sketch)}
@@ -37,7 +37,7 @@ Question: are NFAs more powerful than DFAs?  They are certainly a broader class 
 
 \subsection*{Closure Properties}
 
-\theorem{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cup L_2$.}
+\thrm{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cup L_2$.}
 
 \begin{proof}
 	
@@ -48,7 +48,7 @@ Question: are NFAs more powerful than DFAs?  They are certainly a broader class 
 	
 \end{proof}
 
-\theorem{If $L_1$ and $L_2$ are regular languages, then so is their concatenation, denoted $L_1 L_2$ or $L_1 \circ L_2$.}
+\thrm{If $L_1$ and $L_2$ are regular languages, then so is their concatenation, denoted $L_1 L_2$ or $L_1 \circ L_2$.}
 
 \begin{proof}
 	
@@ -59,7 +59,7 @@ Question: are NFAs more powerful than DFAs?  They are certainly a broader class 
 	
 \end{proof}
 
-\theorem{The Kleene Star of a regular language $L$, denoted $L^*$, is regular.}
+\thrm{The Kleene Star of a regular language $L$, denoted $L^*$, is regular.}
 
 The Kleene Star is a generalization of concatenation.  $L^*$ is the set of strings that are an arbitrary (finite) number of concatenations of $L$ with itself (including zero, i.e. $\epsilon\in L^*$ for all $L$).
 
@@ -71,14 +71,14 @@ The Kleene Star is a generalization of concatenation.  $L^*$ is the set of strin
 	
 \end{proof}
 
-\theorem{The complement of a regular language $L$, denoted $\bar{L}$ or $L^c$ is regular.}
+\thrm{The complement of a regular language $L$, denoted $\bar{L}$ or $L^c$ is regular.}
 
 \begin{proof}
 	Given a DFA $M$ recognizing $L$, make all the accept states non-final and all non-final states final.  This is now a DFA recognizing $L^c$.
 \end{proof}
 
 
-\theorem{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cap L_2$.}
+\thrm{If $L_1$ and $L_2$ are regular languages, then so is $L_1\cap L_2$.}
 
 \begin{proof}
 	This follows directly from the proofs of closure under union and complement and applying DeMorgan's Laws.
@@ -103,7 +103,7 @@ We are going to define regular expressions inductively.
 \end{enumerate}
 
 
-\theorem{A language $L$ is regular if and only if it is described by some regular expression.}
+\thrm{A language $L$ is regular if and only if it is described by some regular expression.}
 
 \begin{proof}
 	

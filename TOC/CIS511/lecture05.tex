@@ -12,14 +12,14 @@
 
 What if our TMs can explore a variety of possible transitions simultaneously.
 
-\definition{A \textbf{non-deterministic Turing Machine} (NTM) is a Turing machine $M$ where 
+\defn{A \textbf{non-deterministic Turing Machine} (NTM) is a Turing machine $M$ where 
 	\\$\delta_M : Q\times \Gamma \rightarrow 2^{Q\times \Gamma \times \{L,R\}}$.}
 
 
 Why do we care?
 
-\claim{NTMs are equivalent in power to regular TMs.}
-\theorem{If $M$ is a NTM recognizing language $L$, then there exists a deterministic TM $D$ recognizing $L$.}
+\clm{NTMs are equivalent in power to regular TMs.}
+\thrm{If $M$ is a NTM recognizing language $L$, then there exists a deterministic TM $D$ recognizing $L$.}
 
 \begin{proof}
 	
@@ -37,7 +37,7 @@ Why do we care?
 \end{proof}
 
 
-\corollary{Turing machines can simulate other Turing machines.}
+\corly{Turing machines can simulate other Turing machines.}
 
 
 The Turing machine was 'invented' by Alan Turing partly as a result of one of Hilbert's questions of finding solutions to Diophantine equations.  Turing wanted to figure out how to show that no possible algorithm exists.
@@ -51,9 +51,9 @@ Is there a stronger model of computability?  The \textbf{Church-Turing Thesis} p
 
 Imagine a Turing machine $E$ hooked up to a printer (write-only output tape)
 
-\definition{Such a Turing machine $E$ \textbf{enumerates} a language $L$ if for each $x\in L$, $E$ eventually outputs $x$ and for each $y\notin L$, $E$ never outputs $y$.}
+\defn{Such a Turing machine $E$ \textbf{enumerates} a language $L$ if for each $x\in L$, $E$ eventually outputs $x$ and for each $y\notin L$, $E$ never outputs $y$.}
 
-\theorem{A language $L$ is recognizable by a TM if and only if there exists some TM that enumerates $L$.}
+\thrm{A language $L$ is recognizable by a TM if and only if there exists some TM that enumerates $L$.}
 
 \begin{proof}
 	
@@ -70,7 +70,7 @@ Imagine a Turing machine $E$ hooked up to a printer (write-only output tape)
 	
 \end{proof}
 
-\corollary{A language is decidable if and only if the enumerator prints the strings in the lexicographic order.}
+\corly{A language is decidable if and only if the enumerator prints the strings in the lexicographic order.}
 
 \section*{Decidable Languages}
 

@@ -20,17 +20,17 @@ Recall the idea of a reduction is $A$ reduces to $B$ means that we can use $B$ t
 
 
 
-\definition{A Turing machine \textbf{computes} a function $f:\Sigma^*\rightarrow\Sigma^*$ if on all inputs $x$ it halts with exactly $f(x)$ on its output tape.}
+\defn{A Turing machine \textbf{computes} a function $f:\Sigma^*\rightarrow\Sigma^*$ if on all inputs $x$ it halts with exactly $f(x)$ on its output tape.}
 
-\definition{A function $f$ is \textbf{Turing computable} if there exists a Turing machine which computes it.}
+\defn{A function $f$ is \textbf{Turing computable} if there exists a Turing machine which computes it.}
 
 
-\definition{A \textbf{mapping reduction} is a Turing computable function $f:\Sigma^*\xrightarrow{TC}\Sigma^*$ such that if $x\in A$, then $f(x)\in B$.  Similarly, if $y\notin A$, then $f(y) \notin B$.}
+\defn{A \textbf{mapping reduction} is a Turing computable function $f:\Sigma^*\xrightarrow{TC}\Sigma^*$ such that if $x\in A$, then $f(x)\in B$.  Similarly, if $y\notin A$, then $f(y) \notin B$.}
 
 Recall last time we constructed a Turing reduction from $A_{TM} = \{\langle M,w\rangle | M \ accepts \ w\}$ to $E_{TM} \{\langle M \rangle|L(M)=\emptyset\}$.  Note that this was not a mapping reduction as we had to take the complement of the solver for $E_{TM}$ at the end to properly complete the reduction.
 
 
-\claim{If we have a mapping reduction from $A$ to $B$ and $A$ is not Turing recognizable, then $B$ is not Turing recognizable.}
+\clm{If we have a mapping reduction from $A$ to $B$ and $A$ is not Turing recognizable, then $B$ is not Turing recognizable.}
 
 \begin{proof}
 	If $B$ is Turing recognizable, let $B=L(M)$.  Then we construct a recognizer for $A$ by using the mapping function on the input for $A$ and running $M$ on it.
@@ -47,7 +47,7 @@ Recall last time we constructed a Turing reduction from $A_{TM} = \{\langle M,w\
 
 We can see that $M'$ either accepts everything or nothing, but it accepts if and only if $\langle M,w\rangle\in A_{TM}$.  Because $A_{TM}$ is undecidable, we must have $L_{AE}$ undecidable as well.
 \end{proof}
-\claim{If $A \preceq_m B$, then $\bar{A} \preceq_m \bar{B}$.}
+\clm{If $A \preceq_m B$, then $\bar{A} \preceq_m \bar{B}$.}
 
 
 \begin{proof}
@@ -77,19 +77,19 @@ If we can show a mapping reduction from $A_{TM}$ to $EQ_{TM}$ then we know that 
 Let's make $L(M_1) = \Sigma^*$ and $M_2$ works exactly as before.  The same process shows that $M_1\sim M_2$ if and only if $M$ accepts $w$.  Therefore, by examining the complements of these languages, we have a reduction from $\overline{A_{TM}}$ to $\overline{EQ_{TM}}$, so neither $EQ_{TM}$ nor its complement are recognizable.
 \end{proof}
 
-\definition{A \textbf{property} of Turing machines is a function from TM descriptions to $\{0,1\}$}
+\defn{A \textbf{property} of Turing machines is a function from TM descriptions to $\{0,1\}$}
 
 
 
-\definition{A property of Turing machines is a \textbf{language property} if only depends on the language recognized by the TM and not on the description of the TM itself.  That is, the property is true for any machine $M$ recognizing a language $L$.}
+\defn{A property of Turing machines is a \textbf{language property} if only depends on the language recognized by the TM and not on the description of the TM itself.  That is, the property is true for any machine $M$ recognizing a language $L$.}
 
 
 
 Let $L_P = \{ \langle M \rangle | M \ has\ property \ P \}$
 
-\definition{A property is \textbf{non-trivial} if there is some Turing machine that has the property and some that does not.  That is, $L_P$ is not the set of all TMs nor is it empty.}
+\defn{A property is \textbf{non-trivial} if there is some Turing machine that has the property and some that does not.  That is, $L_P$ is not the set of all TMs nor is it empty.}
 
-\claim{(Rice's Theorem) $L_P$ for any non-trivial language property of Turing machines is undecidable.}
+\clm{(Rice's Theorem) $L_P$ for any non-trivial language property of Turing machines is undecidable.}
 
 \begin{proof}
 	

@@ -37,11 +37,11 @@ Should know:
 	\item Graphs
 \end{enumerate}
 
-\definition{An \textbf{alphabet} is a non-empty, finite set of characters.}
-\definition{A \textbf{string} $s$ (over an alphabet $\Sigma$) is a finite ordered sequence of elements of $\Sigma$.}
-\definition{The \textbf{empty string}, $\epsilon$, is the sequence of no symbols, and is in fact a valid string.}
-\definition{Let \textbf{$\Sigma^*$} be the set of all strings over $\Sigma$.}
-\definition{A \textbf{language} over $\Sigma$ is any subset of $\Sigma^*$.}
+\defn{An \textbf{alphabet} is a non-empty, finite set of characters.}
+\defn{A \textbf{string} $s$ (over an alphabet $\Sigma$) is a finite ordered sequence of elements of $\Sigma$.}
+\defn{The \textbf{empty string}, $\epsilon$, is the sequence of no symbols, and is in fact a valid string.}
+\defn{Let \textbf{$\Sigma^*$} be the set of all strings over $\Sigma$.}
+\defn{A \textbf{language} over $\Sigma$ is any subset of $\Sigma^*$.}
 
 The empty set is a language.  This is \textit{not} the same as the language only containing the empty string.
 
@@ -52,7 +52,7 @@ Scalability (asymptotics) is a requirement for any interesting model.
 
 To compute on larger and larger inputs, a computer needs memory.  What is the minimum amount of memory you need to do something interesting?
 
-\definition{A \textbf{finite state machine} will be a model with a constant amount of memory.}
+\defn{A \textbf{finite state machine} will be a model with a constant amount of memory.}
 
 The states of an FSM correspond to memory (a machine with k states can have $2^k$ 'bits' of memory).
 
@@ -87,7 +87,8 @@ Example: define the language $\mathcal{L} = \{s\in\Sigma^* | s\ has\ an\ odd\ nu
 
 
 
-\definition{A \textbf{deterministic finite automaton (DFA), $M$, is a 5-tuple $(Q,\Sigma , \delta , q_0, F)$.}
+\defn{A \textbf{deterministic finite automaton (DFA), $M$, is a 5-tuple $(Q,\Sigma , \delta , q_0, F)$.}}
+	
 	\begin{enumerate}
 		\item[] $Q$, the set of states.
 		\item[] $\Sigma$, the alphabet
@@ -97,12 +98,12 @@ Example: define the language $\mathcal{L} = \{s\in\Sigma^* | s\ has\ an\ odd\ nu
 	\end{enumerate}
 	
 	
-\definition{$M$ \textbf{accepts} a string $s=s_1 s_2 \dots s_k$ if there is a sequence of states in $M$ starting with $q_0$ and ending in a final state $q_0 q_1 \dots q_k$ such that $\delta(q_i,s_{i+1}) = q_{i+1}$.}
+\defn{$M$ \textbf{accepts} a string $s=s_1 s_2 \dots s_k$ if there is a sequence of states in $M$ starting with $q_0$ and ending in a final state $q_0 q_1 \dots q_k$ such that $\delta(q_i,s_{i+1}) = q_{i+1}$.}
 
-\definition{If $\mathcal{L} = \{s | M \ accepts \ s\}$, the we say $M$ \textbf{recognizes} $\mathcal{L}$.}
-\definition{If a language $\mathcal{L}$ is recognized by some DFA, then it is \textbf{regular}.}
+\defn{If $\mathcal{L} = \{s | M \ accepts \ s\}$, the we say $M$ \textbf{recognizes} $\mathcal{L}$.}
+\defn{If a language $\mathcal{L}$ is recognized by some DFA, then it is \textbf{regular}.}
 
-\definition{A \textbf{nondeterministic finite automaton (NFA), $M$, is a 5-tuple $(Q,\Sigma , \delta , q_0, F)$.}
+\defn{A \textbf{nondeterministic finite automaton (NFA), $M$, is a 5-tuple $(Q,\Sigma , \delta , q_0, F)$.}}
 	\begin{enumerate}
 		\item[] $Q$, the set of states.
 		\item[] $\Sigma$, the alphabet
@@ -113,8 +114,8 @@ Example: define the language $\mathcal{L} = \{s\in\Sigma^* | s\ has\ an\ odd\ nu
 	
 	Now, $\delta$ maps the current state and input character or $\epsilon$ to some subset of states.
 
-\definition{A string $s$ is \textbf{accepted} by and NFA $M$ if there is some path for $s$ from the start state to a final state.}
-\definition{$M$ \textbf{recognizes} a language $\mathcal{L}$ consisting of all strings it accepts.}
+\defn{A string $s$ is \textbf{accepted} by and NFA $M$ if there is some path for $s$ from the start state to a final state.}
+\defn{$M$ \textbf{recognizes} a language $\mathcal{L}$ consisting of all strings it accepts.}
 
 Example: let $\mathcal{L} = \{s\ |\ the \ 3rd \ last \ character \ is \ a \ 1\}$.
 

@@ -15,7 +15,7 @@ Recall, $L$ and $NL$ are the classes of problems recognizable in logarithmic spa
 
 The language $PATH = \{\langle G,s,t\rangle | G \ is \ a \ digraph \ with \ a \ path \ from \ s \ to \ t\}$.
 	
-\claim{$PATH$ is in $NL$}.
+\clm{$PATH$ is in $NL$}.
 
 \begin{proof}
 	Nondeterministically guess a sequence of neighboring vertices, for at most $n$ steps. This needs only $O(log(n))$ space to track the current vertex and a counter.
@@ -31,11 +31,11 @@ It turns out, $PATH$ is one of the `hardest' languages in $NL$, that is, it is $
 	 We need to show that $PATH$ is in $NL$ (done) and that any $NL$ language can be reduced to it.  What is our notion of reduction?  Before, we had polynomial time reductions, but $NL\subset P$, so a polynomial time (and hence polynomial space) could be powerful enough to solve our language.  We therefore restrict our reductions to the class $L$, that is, a log-space reduction.
 	 
 	 
-	 \definition{A \textbf{log-space transducer} is a machine with a read-only input, a read-write work tape, and a write-only output tape.  The work tape has size $O(log(n))$ and the write tape can have polynomial length in $n$.}
+	 \defn{A \textbf{log-space transducer} is a machine with a read-only input, a read-write work tape, and a write-only output tape.  The work tape has size $O(log(n))$ and the write tape can have polynomial length in $n$.}
 	 
-	 \definition{A language $A$ \textbf{log-space reduces} to a language $B$ (written $A\preceq_m^L B$) if there is a log-space transducer computing a function $f$ such that $x\in A \iff f(x)\in B$.}
+	 \defn{A language $A$ \textbf{log-space reduces} to a language $B$ (written $A\preceq_m^L B$) if there is a log-space transducer computing a function $f$ such that $x\in A \iff f(x)\in B$.}
 	 
-	\claim{$PATH$ is $NL\mhyphen Complete$}. 
+	\clm{$PATH$ is $NL\mhyphen Complete$}. 
 \begin{proof}	 
 	
 	Let $A$ be any language in $NL$.  We show that there exists a log-space transducer reducing $A$ to $PATH$.
@@ -59,7 +59,7 @@ It turns out, $PATH$ is one of the `hardest' languages in $NL$, that is, it is $
 
 Note that any function computable by a log-space transducer can be computed in polynomial time, a transducer can never repeat a configuration (else it would not be a decider), and there are only polynomially many configurations.
 
-\claim{$NL\subseteq P$}
+\clm{$NL\subseteq P$}
 
 \begin{proof}
 	We know that $PATH \in P$ (we can do breadth-first search). Therefore, given any $A\in NL$ and input $w$, we can, in polynomial time, log-space reduce $A$ to an instance of $PATH$ with input $f(w)$ and use a polynomial time algorithm for $PATH$.  This gives a polynomial time algorithm for $A$.
@@ -70,12 +70,12 @@ Note that any function computable by a log-space transducer can be computed in p
 
 \section*{The Class $Co\mhyphen NL$}
 
-\definition{A language $A$ is in $Co\mhyphen NL$ if its complement is in $NL$.}  
+\defn{A language $A$ is in $Co\mhyphen NL$ if its complement is in $NL$.}  
 
 From before, a language $B$ is in $NL$ if there is a nondeterministic log-space Turing machine $M$ such that given $w$ in $B$, $M(w)$ accepts on some path.  If $w\notin B$, all computation paths reject.  $Co\mhyphen NL$ is the opposite.  If $w\in C\in Co\mhyphen NL$, then all paths accept.  If $w\notin C$, there exists at least one rejecting path.
 
 
-\claim{$NL = Co\mhyphen NL$}
+\clm{$NL = Co\mhyphen NL$}
 
 \begin{proof}
 	

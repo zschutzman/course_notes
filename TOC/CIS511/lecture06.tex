@@ -10,7 +10,7 @@
 
 \section*{Decidable Languages}
 
-\definition{Recall, a language is \textbf{decidable} if it can be recognized by a Turing Machine which always halts.}
+\defn{Recall, a language is \textbf{decidable} if it can be recognized by a Turing Machine which always halts.}
 
 \textbf{Examples of Decidable languages}:
 \begin{itemize}
@@ -26,19 +26,19 @@
 \end{itemize}
 
 
-\claim{A Turing machine can be designed to simulate any other Turing machine.  Essentially, we can describe a Turing machine as a string encoding its 7-tuple.}
+\clm{A Turing machine can be designed to simulate any other Turing machine.  Essentially, we can describe a Turing machine as a string encoding its 7-tuple.}
 
 Now, we can talk about Turing machines that take another TM as input and performs some computation with respect to that machine.  A Turing machine $T$ can take as input a a machine and a string $\langle M,w\rangle$, we can think of $T$ like an interpreter and executer and $M$ as a program with input $w$.  $T$ outputs $M(w)$ (if such a result can be obtained in finite time).
 
   At a high level, $T$ has a work tape that keeps the current configuration of $M$.  It starts with the start state of $M$ and the input string $w$.  $T$ consults the transition function of $M$ and updates the work tape accordingly.  At the end of execution, the work tape contains the output of $M$ (with some extra configuration information).
 
-\definition{We call this $T$ a \textbf{Universal Turing Machine}.}
+\defn{We call this $T$ a \textbf{Universal Turing Machine}.}
 
 \section*{Undecidable Languages}
 
 Is there even a language that is undecidable?
 
-\claim{Yes!}
+\clm{Yes!}
 
 \begin{proof}
 	

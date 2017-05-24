@@ -16,13 +16,13 @@
 
 Optimization problems usually minimize or maximize things.  We would like ways to solve $NP$-Complete optimization problems, like minimum Vertex Cover, maximum clique, etc.
 
-\definition{An algorithm $A$ achieves an \textbf{approximation ratio} of $C$ if for all inputs $x$, $\frac{A(x)}{OPT(x)}\leq C$, where $A(x)$ is $A$'s result and $OPT(x)$ is the optimal result.}
+\defn{An algorithm $A$ achieves an \textbf{approximation ratio} of $C$ if for all inputs $x$, $\frac{A(x)}{OPT(x)}\leq C$, where $A(x)$ is $A$'s result and $OPT(x)$ is the optimal result.}
 
 
 \subsection*{Vertex Cover}
 Let's think about Vertex Cover.  Given a graph $G$, we want to find the smallest set of vertices such that every edge of $G$ is incident to a vertex in the cover.  
 
-\definition{A \textbf{maximal matching} is a set of edges in a graph which form a matching such that no other edge can be added and have it still remain a matching.}
+\defn{A \textbf{maximal matching} is a set of edges in a graph which form a matching such that no other edge can be added and have it still remain a matching.}
 
 A maximal matching can be found efficiently by a greedy algorithm.  Let $M$ be a maximal matching and $V(M)$ be the set of vertices in the matching.  We have $|V(M)|=2|M|$, so $OPT(G)\geq |M|$.  We claim $V(M)$ is a Vertex Cover.  To see this, suppose that it is not.  Then some edge $(u,v)$ is not covered by $V(M)$.  But then we could add $(u,v)$ to $M$, contradicting the assumption that $M$ is a maximal matching.
 

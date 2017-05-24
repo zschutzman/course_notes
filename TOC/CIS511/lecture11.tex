@@ -15,7 +15,7 @@ Recall, a language is in $NP$ if it can be decided by a non-deterministic Turing
 
 Recall the language $SAT=\{\phi|\phi \ is \ satisfiable\}$.  If $\phi$ is satisfiable, then there exists some satisfying assignment, and if an oracle gave you some satisfying assignment, you could very easily use this to verify that $\phi$ is satisfiable (just plug in).
 
-\definition{Alternatively, a language $L$ is in $NP$ if there is a polynomial time deterministic Turing machine $V$ such that $L=\{x|\exists y:\ V \ accepts \ (x,y)    \}$.  In English, $V$ is a verifier and $y$ a certificate.  $NP$ is the class of languages which, given a certificate, a verifier takes a language and a solution and decides whether $x$ belongs to $L$. $y$ is a `proof' of $x$ being in $L$.}
+\defn{Alternatively, a language $L$ is in $NP$ if there is a polynomial time deterministic Turing machine $V$ such that $L=\{x|\exists y:\ V \ accepts \ (x,y)    \}$.  In English, $V$ is a verifier and $y$ a certificate.  $NP$ is the class of languages which, given a certificate, a verifier takes a language and a solution and decides whether $x$ belongs to $L$. $y$ is a `proof' of $x$ being in $L$.}
 
 
 Some more example of languages in $NP$:
@@ -28,7 +28,7 @@ Some more example of languages in $NP$:
 \end{itemize}
 
 
-\claim{The two definitions for $NP$ are equivalent.}
+\clm{The two definitions for $NP$ are equivalent.}
 
 \begin{proof}
 	Let $M$ be an NTM that recognizes $L$ in polynomial time.  Therefore, there is some accepting path in the branching tree, with path length polynomial in the input length.  Specifying this path is an encoding of the address of the leaf at the end of the path.  Since the height of the path is at most polynomial in the length of the input, we can encode this address in polynomial length.  A verifier can then simulate $M$ only on that branch, which decides in polynomial time.
@@ -42,11 +42,11 @@ $NP$ contains many problems that are important in practical optimization and dec
 
 $NP$-Complete languages are in a sense the hardest languages in $NP$.  If a language $NP$-Complete and there is a polynomial time algorithm for $L$, then $P=NP$.
 
-\definition{A language is called $NP$-Complete if it is in $NP$ and there exists a polynomial time mapping reduction from any language in $NP$ to it.}
+\defn{A language is called $NP$-Complete if it is in $NP$ and there exists a polynomial time mapping reduction from any language in $NP$ to it.}
 
 To find $NP$-Complete languages, we need to identify one first.  $SAT$ was the first proven $NP$-Complete language (Cook-Levin Theorem).  Then, if $A$ is $NP$-Complete and $A$ mapping reduces to $B$ in polynomial time, then $B$ is called $NP$-Hard.  If we also have that $B$ is in $NP$, then $B$ is $NP$-Complete.
 
-\definition{A language $B$ is $\boldsymbol{NP \mhyphen Hard}$ if there is a polynomial time mapping reduction from a language $A\in NP$ to $B$}
+\defn{A language $B$ is $\boldsymbol{NP \mhyphen Hard}$ if there is a polynomial time mapping reduction from a language $A\in NP$ to $B$}
 
 
 \begin{proof}

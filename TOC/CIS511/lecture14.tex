@@ -19,7 +19,7 @@ We were thinking about the language $NA_{NFA}=\{ \langle M \rangle | M \ is \ an
 Our input is an NFA with description length $n$.  The number of states is approximately equal to $n$ (maybe $n^2$, we don't really care).  A naive deterministic approach involves checking every string.  Let's design a non-deterministic space algorithm to do the search.  We non-deterministically guess one symbol at a time.  The depth of the tree is $2^n-1$, which is still exponential.  But we don't really need to remember the whole path, just the current possible states and the counter of the depth.  This count is length order $n$ and the set of current states is also order $n$.  We therefore have an $NSPACE(n)$ algorithm to solve this, hence $NA_{NFA}\in NSPACE(n)$.
 
 
-\claim{Savitch's Theorem: $NSPACE(f(n)) \subseteq DSPACE(f(n)^2)$.  That is, we only get a quadratic increase by moving to a deterministic model.}
+\clm{Savitch's Theorem: $NSPACE(f(n)) \subseteq DSPACE(f(n)^2)$.  That is, we only get a quadratic increase by moving to a deterministic model.}
 
 \begin{proof}
 	
@@ -37,9 +37,9 @@ Our input is an NFA with description length $n$.  The number of states is approx
 	
 \end{proof}
 
-\definition{$PSPACE$ is defined as $\bigcup\limits_k DSPACE(n^k)$.  $NPSPACE$ is $\bigcup\limits_k NSPACE(n^k)$.}
+\defn{$PSPACE$ is defined as $\bigcup\limits_k DSPACE(n^k)$.  $NPSPACE$ is $\bigcup\limits_k NSPACE(n^k)$.}
 
-\corollary{By Savitch's Theorem, $PSPACE = NPSPACE$.  Nobody talks about $NPSPACE$ because it is a redundant name for $PSPACE$.}
+\corly{By Savitch's Theorem, $PSPACE = NPSPACE$.  Nobody talks about $NPSPACE$ because it is a redundant name for $PSPACE$.}
 
 \section*{Space vs Time Complexity}
 
@@ -51,9 +51,9 @@ We now have $P\subseteq NP \subseteq PSPACE$.  We don't know if $P\neq PSPACE$, 
 
 \section*{The Class $PSPACE\mhyphen Complete$}
 
-\definition{A language $L$ is $PSPACE\mhyphen Complete$ if $L$ is in $PSPACE$ and for all $A\in PSPACE$, there exists a mapping reduction from $A$ to $L$ in polynomial time.}
+\defn{A language $L$ is $PSPACE\mhyphen Complete$ if $L$ is in $PSPACE$ and for all $A\in PSPACE$, there exists a mapping reduction from $A$ to $L$ in polynomial time.}
 
-\claim{The language of True Quantified Boolean Formulas ($TQBF$) is $PSPACE\mhyphen Complete$.}
+\clm{The language of True Quantified Boolean Formulas ($TQBF$) is $PSPACE\mhyphen Complete$.}
 
 
 

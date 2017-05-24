@@ -18,13 +18,13 @@
 
 Relativization is the idea of asking which problems are easily solved when given a black box for some other language $A$.  We can visualize this as adding a query tape and query state to our Turing machine.  The machine writes some string $w$ on the query tape and enters the query state.  Then, in one step the black box answers $w\in A$.
 
-\definition{An \textbf{oracle} is the proper name for a black box to answer membership queries in one step.}
+\defn{An \textbf{oracle} is the proper name for a black box to answer membership queries in one step.}
 
-\definition{An \textbf{oracle Turing machine} is a Turing machine with access to some oracle.}
+\defn{An \textbf{oracle Turing machine} is a Turing machine with access to some oracle.}
 
 \textbf{Example:} If the oracle language is $SAT$, what can we decide in polynomial time with a $SAT$ oracle? (This is denoted $P^{SAT}$)
 
-\claim{$NP\subseteq P^{SAT}$}
+\clm{$NP\subseteq P^{SAT}$}
 
 \begin{proof}
 	
@@ -32,7 +32,7 @@ Relativization is the idea of asking which problems are easily solved when given
 	
 	\end{proof}
 	
-	\claim{$Co$-$NP\subseteq P^{SAT}$}
+	\clm{$Co$-$NP\subseteq P^{SAT}$}
 	
 	
 	\begin{proof}
