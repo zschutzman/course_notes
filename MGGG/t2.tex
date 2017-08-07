@@ -1,6 +1,6 @@
 
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\chno{2}{}{Professor Q Fictional}{Zach Schutzman}
+\chno{2}{Partisan Gerrymandering}{Steve Ansolabehere}{Zach Schutzman}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -12,9 +12,52 @@
 
 
 
+\section*{How to Gerrymander (Revisited)}
+
+Suppose we have a square state where the Purple Party members all lives in a square in the center and the Yellow Party members all live in the surrounding region.  You get hired to draw the districts (four of them) by the Yellow Party, how do you do it?  Packing or cracking does the job here.  If the Purples are a slight majority, draw one district that is all Purple, and the Yellow Party can win three districts.  If the Purples are a minority, crack them across the four districts so that Yellow can win four.
+
+\defn{A \textbf{wasted vote} is a vote for the losing candidate or a vote for the winning candidate beyond the $50\%+\epsilon$ threshold for victory.}
+
+At the base, packing puts "too many" people of one party into a district and "packing" puts too few, if we are thinking about how representative our districts are of the population.  In our toy examples, we can think of drawing districts to waste as many Purple votes as possible.  In the packing case, the Purple waste a lot of votes by winning unanimously in their district while the Yellow waste a smaller proportion of their votes in their winning districts, and waste none in the Purple district.  In cracking, all of the Purple votes are wasted, while not all of the Yellow votes are.
 
 
+\section*{How to Detect Gerrymandering (Revisited)}
 
+\defn{\textbf{Distortion} is a quantification of how non-representative the legislature is of the voting populace.}
+
+\defn{\textbf{Partisan bias} is the difference between the proportion of the vote that a party wins and the number of seats that the party wins if the vote is split 50/50. An equivalent definition is that if one party earns $x$ share of the vote statewide, they in half of the districts they earn more than $x$ and half less than $x$ share of the vote.}
+
+For an example, think of FL, NC, or PA, where the Congressional vote is split fairly evenly, but Republicans won a majority of seats.
+
+We can also think of \textit{symmetry}, which considers how much one party wastes votes compared to the other.
+
+\defn{The \textbf{efficiency gap} is the ratio of the difference between the wasted votes for each party to the total votes.}
+
+The efficiency gap concept gained traction in the current Wisconsin SCOTUS case.  We have to ask whether this concept actually captures the notion of equal protection as enshrined in the Constitution and Voting Rights Act.  The case is notable because it was the first time a court found a violation of the 14th Amendment as a result of \textit{partisan} (as opposed to racial or populational) gerrymandering.
+
+One thing that has been measured is \textit{historical gerrymandering}.  Before the 1960s (particularly in the South), partisan gerrymandering was bad.  In the 1960s and 1970s, that declined to the point that by the 1990s, partisan bias was minimal at the national level.  We see an uptick in the 2010s
+
+\section*{Making Good Maps}
+
+We see evidence of distortion when all three branches of a state government are controlled by the same party.  The REDMAP effort in 2010 led to Republicans taking control of many states, which contributed to the partisan bias increase this decade.
+
+Every 10 years, Congressional districts are up for being redrawn.  Since \textit{Reynolds v Sims}, this process is really strict, as zero population deviation is tolerated at the Congressional district level.  This process is long and slow in buildup, but districts are drawn quickly, requiring lots of government bureaucracy, then they get the data, then they only have a few months to actually draw the lines.
+
+Public mapping has been a powerful and important change in recent years.  Now that data and GIS is available widely, public mapping will only become more important.
+
+AZ and CA have removed the power of redistricting from their legislatures.  CA used an independent commission with members not permitted to be themselves or relatives of State employees.  While this sounds crazy, it did a a really good job making fair maps.  In AZ, they had three Dems, three Reps, and one Independent member who was targeted by politicians and court cases, although she eventually succeeded. ("Fairness" here refers to partisan bias and efficiency metrics).
+
+The VRA and its interpretation of the 14th Amendment present an "equal treatment" idea of representation, which may come into play when SCOTUS hears arguments later this year.
+
+\section*{Going to Court}
+
+Compactness is an important tool, because it is a mathematical tool which is easy to understand, easy to understand, and easy to interpret.  NC-12 got thrown out partially because of arguments of it being the least compact district in the US, and one of the least compact in history.
+
+Courts care about equal treatment.  Expert witnesses are employees of the court, and cannot be seen to be taking sides. 
+
+Historians have (unfortunately) been largely absent through these cases.  Historians are good at evaluating how (un)equal treatment and intentionality has impacted people.
+
+We also need to think about consequences.  Stranding minorities isn't illegal, but it has profound implications on outcomes and is an important argument in a courtroom setting as potential evidence of gerrymandering.
 
 
 
