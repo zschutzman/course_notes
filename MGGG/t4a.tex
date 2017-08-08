@@ -1,0 +1,65 @@
+
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{1.4}{Mathematics - Compactness and Curvature}{Moon Duchin}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+
+
+
+\section*{Discrete Curvature}
+
+\defn{$\delta$-hyperbolicity is a large-scale, metric version of sectional curvature.  Formally, a space is $\delta$-hyperbolic if the sides of every geodesic triangle are within a $\delta$-neighborhood of each other at all points along the sides.}  
+
+We can think of this as a measurement-based analysis of how ``thin" triangles are.  This has a nice correspondence with the concept of negative curvature.  $\delta$ is a measure of how "thin" the triangles are.  This comes from geometric group theory, and we'd like to figure out how to apply this kind of thing to finite graphs.
+
+\defn{\textbf{Ricci curvature} asks whether the distance between the neighbors of $x$ and the neighbors of $y$ is greater than the distance between $x$ and $y$ for two points $x,y$ in a metric space.}
+
+In the discrete case, we lose the nice pairwise correspondence between points.  Instead, we think about an $L_1$ transportation distance from neighbors of $x$ to neighbors of $y$ (the cost to move one unit of weight one unit of distance is one).
+
+\defn{The \textbf{transportation distance} is the minimum over all transport plans.} 
+
+\subsection*{Inspirational Theorems}
+
+\thrm{Gromov: (For infinite groups) A region is $\delta$-hyperbolic if and only if its area and perimeter grow at the same rate.  Otherwize, area grows at least proportionally to the square of the perimeter.}
+
+\thrm{Duchin:(For infinite groups) If a ball is $\delta$-hyperbolic, then the average distance between two points is proportional to the maximum distance between any two points.}
+
+
+
+We'd like to prove large-scale (but finite) theorems about the discrete setting.
+
+
+Bottlenecks in graphs could create negative curvature, meaning that negative curvature edges are good ones to cut when we're drawing our districts.
+
+
+\section*{Optimal Partitioning}
+
+Two Morals:
+\begin{itemize}
+	\item Eigenvalues tell you a lot of things about geometry
+	\item Optimal partitioning is computationally hard and not something that produces good districts
+\end{itemize}
+
+What if we try to minimize the first eigenvalue $\lambda_1$ of the laplacian over the region?  This does have a nice connection to curvature (bounds on curvature imply bounds on the eigenvalue).
+
+\thrm{Faber-Krahn: A ball minimizes $\lambda_1$.}
+
+Large $\lambda_1$ corresponds to high eccentricity (in the elliptical sense).
+
+There is also a notion for graphs, where a graph gradient looks like a discrete difference between adjacent points (we'll take squares).  Boundaries of a subset correspond to those nodes outside the subset adjacent to ones in the subset.
+
+\defn{A collection of regions $\Omega_1\dots \Omega_n$ is an optimal partition of $\Omega$ if the $\Omega_i$ is a proper partition, each is of equal size, and  $\sum\lambda_i$ is minimal across all proper equal size partitions.}
+
+In the redistricing setting, population plays the role of ``area".
+
+\thrm{Ramos-Tavres-Terracini: The minimizer always exists and we get nice regularity properties, but we don't get the property that our districts are connected.}
+
+\thrm{Quantitative Stability: If your domain $\Omega$ is the same size as the unit ball, then $\lambda_1$ of $\Omega$ tells you how close to being a ball $\Omega$ is.}

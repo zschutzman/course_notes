@@ -1,6 +1,6 @@
 
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\chno{1}{Situating Redistricting}{Moon Duchin (Tufts)}{Zach Schutzman}
+\chno{1.1}{Situating Redistricting}{Moon Duchin (Tufts)}{Zach Schutzman}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -38,13 +38,13 @@ Mathematically, we are interested in partitioning a population with attributes
 
 We have a population of nodes, each with attributes
 
-We want to partition the sets into blocks ("districts") and think about how the attribute patterns at the district level compare to that at the population model.
+We want to partition the sets into blocks (``districts") and think about how the attribute patterns at the district level compare to that at the population model.
 
 In practice, we also have geographic features to think about ($S^2$ embedding).
 
 \subsection*{What are the goals?}
 
-We can think about proportionality - can we get the districts to "look like" the population at large?
+We can think about proportionality - can we get the districts to ``look like" the population at large?
 
 We can gerrymander! - can we maximize/minimize the incidence of some attribute at the district level?
 
@@ -65,7 +65,7 @@ Any goal or constraint represents a mathematization of a normative ideal of poli
 	\item[] Geographical division - bare majorities shouldn't dominate (appeal to the Law of Large Numbers - if people are assigned to a district randomly, a scant majority should make scant majorities in each district)
 	\item[] Shape - may indicate gerrymandering or some other extreme agenda
 	\item[] Proportionality - government should reflect the populace
-	\item[] Competitiveness - elections should be "fair"
+	\item[] Competitiveness - elections should be ``fair"
 	\item[] Partisan favor - prevent government deadlock
 \end{enumerate}
 
@@ -84,7 +84,7 @@ Together, Packing and Cracking looks like taking members of one group and making
 
 Intuitively, any weird agenda should make weird looking districts.
 
-At the legal level, districts are usually only stipulated to be "reasonably compact".  What does that mean?
+At the legal level, districts are usually only stipulated to be ``reasonably compact".  What does that mean?
 
 Mathematically, there are numerous definitions for compactness.
 \subsection*{Compactness}
@@ -92,7 +92,7 @@ Mathematically, there are numerous definitions for compactness.
 \subsubsection*{Isoperimetry}
 \defn{\textbf{Isoperimetry} is a measure of how close to being circular a region is. The  Poslby-Popper score is $0\leq 400\frac{\pi A}{P^2} \leq 100$ and is one way to measure this.}
 
-  This is weak because "perimeter" isn't really a thing.  We have a Coastline Paradox effect at play.
+  This is weak because ``perimeter" isn't really a thing.  We have a Coastline Paradox effect at play.
 
 \subsubsection*{Convexity}
 
@@ -105,7 +105,7 @@ Look at things like moment of inertia or how spread the district is.  The failin
 	
 All of this is based on old mathematics.
 
-Courts have discarded maps based on "weird" shapes, but there is no standard.  This is the "Eyeball Test".
+Courts have discarded maps based on ``weird" shapes, but there is no standard.  This is the ``Eyeball Test".
 
 \subsection*{Race as Issue}
 
@@ -117,10 +117,10 @@ People of Color tend to vote for Democrats. We have to think about the issue of 
  
 \subsection*{Density and Splittability}
 
-Density of population creates "natural gerrymandering (Chen and Rodden).  How you draw the lines in and around cities decides how much packing and cracking you end up doing.  In this sense, density and shape both contribute to how easy or hard it is to draw nice lines.
+Density of population creates ``natural gerrymandering" (Chen and Rodden).  How you draw the lines in and around cities decides how much packing and cracking you end up doing.  In this sense, density and shape both contribute to how easy or hard it is to draw nice lines.
 
 
-\subsection*{Thinking about District "Guts"}
+\subsection*{Thinking about District ``Guts"}
 
 What abstraction should we be thinking about to capture the information we care about?
 
@@ -131,7 +131,7 @@ We can think about Census units like vertices in a graph - but what are the edge
 \begin{enumerate}
 	\item[] Adjacency - the spatially obvious thing to do
 	\item[] Distance or travel time
-	\item[] Commonalities - edge between blocks that "look similar"
+	\item[] Commonalities - edge between blocks that ``look similar"
 \end{enumerate}
 
 \subsection*{Curvature as an Approach to Compactness}
