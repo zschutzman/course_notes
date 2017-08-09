@@ -1,1 +1,61 @@
-\chno{11}{Geometric Something}{Justin Solomon (MIT)}{Zach Schutzman}{August 9th, 2017}
+\chno{11}{Geometry and Data: Algorithmic Approaches to Redistricting}{Justin Solomon (MIT)}{Zach Schutzman}{August 9th, 2017}
+
+
+
+\section*{Preliminaries}
+
+Justin's group uses tools from geometry to think about application problems in areas like graphics, learning, and optimization.  
+
+The redistricting problem has a significant geometric component, so computational geometers may have something to offer.  There is a wide range of views on the difficulty and approachability of the problem.  Computationally, gerrymandering is NP-Complete (at least).  What is the role of computation in the redistricting problem?
+
+
+We can think of this gap between computers, which can do computations quickly but have no legal understanding or emotional/moral guidance.  Legislatures are the opposite, with a poor ability to do computations, but a good understanding of the law and (ideally) some moral compass.  
+
+Computers are good at things like data collection and visualization, okay at things like improving and evaluating plans and sampling the space of possible plans, and not great at finding ``optimal" plans (NP-Hard).
+
+Our computational desiderata should include stability or robustness, a resilience to perturbations in the data, and efficiency, or easy to compute in the allotted time frame of the problem.
+
+\section*{How Geometry Helps}
+
+435 districts means 435 shapes.  There are millions of Census blocks, and while not every partition is a valid districting, there are still an insurmountably large number of possible plans.
+
+\subsection*{Stability}
+
+\defn{\textit{Stability} generally means that a small change to the input to an algorithm should result in a small or no change in the output.}
+
+Some calculations are resilient to noise, rounding, errors, etc. and others are not.  As an example, consider the point-in-polygon problem.  One way to do this is to draw a ray from your point and count the number of times your ray hits the boundary, with an odd number of intersections indicating your point is in the interior and an even number being exterior.  What happens if your ray intersects at an infinite number of points?  This is an edge case, and computational geometry is \textit{all about edge cases}.
+
+We also need to think about disconnected regions, like coastal blocks or islands, topological holes, like blocks contained entirely within another bloc, and discretization artifacts, like Census tracts not being equipopulous.  We can think of the redistricting problem as one that is primarily combinatorial, rather than numerical.  We can do things like give confidence intervals regarding how likely a point is to be inside a region, using tools from $\epsilon$-geometry and optimal transport.
+
+We have to worry about small-scale instabilities.  These include things like numerical precision in computations (rounding, underflow). The Polsby-Popper score ($\frac{400\pi A}{P^2} \leq 100\%$) is a measure of circularity of a region.  What if your district is very circular, but the resolution of the perimeter is very fine?  You get a score that looks bad, just because you used a more detailed measurement.  Pessimistically, we can think of a devious politician choosing which maps to use in order to get the best score for her proposed gerrymander.  There are also discrepancies with alignment of units if one partition is done at a finer level than the other.  Adjacencies are also things we have to worry about with respect to resolution, as regions which meet at things that look like corners may not actually meet at a single point at a finer resolution, and slight perturbations can dramatically change the underlying structure we are building our districting on.
+
+
+Large-scale instabilities include things like inaccurate map projections, poor measurement equipment, the resolution of the map, data privacy and security, and data collection techniques.
+
+Fairness and stability measures must be informative.  If $f(x)$ is a function evaluating the fairness of a district, we hope that small changes to $x$ only causes small changes in $f(x)$.  There are multiple measures of similarity we can think of, like Frechet distance, Killing energy, and the $(K,\alpha)$-Hoelder Property.  These are just examples, and none/all may be informative and useful.
+
+\section*{Tractability}
+
+Some problems are inherently difficult or impossible to do on a computer.  Using reductions from $PARTITION$, $SUBSET-SUM$, or $LP$, we can easily show that optimal redistricting is NP-Hard in the most basic cases.  Thinking about Euclidean $k$-means, we can even show that it is hard to approximate optimal districting.
+
+We need to be careful about computational redistricting.  Claims like ``This Computer Programmer Solved Gerrymandering in his Spare Time" (WaPo) should be met with skepticism.
+
+While searching for optimality may not be a great approach, we still have computational tools to bring to this problem.  We can algorithmically evaluate and compare plans fairly easily and we can do local optimization and improvement with hill-climbing algorithms which only search a small space.  
+
+We also need to think about what `optimal' means, and which metrics we will use to judge plans.  Concepts like Pareto optimality may be useful for attacking this problem, and may be computationally tractable.  Sampling the space of plans is also non-trivial, as Wendy and Yan discussed yesterday.  
+
+We need to be careful with introducing bias in our algorithms as well, both in how we sample things and how we process and evaluate solutions.
+
+
+
+\section*{Open Problems!}
+
+(Other than $P \ v \ NP \ \dots$)
+
+How do we communicate advantages and drawbacks of computational redsitricting?
+
+What is the role of machine learning, both in  data collection and processing and in the drawing of districts?
+
+How complicated is the energy landscape regarding these political problems?
+
+How do we make sure our algorithms are fair, accountable, transparent, and understandable?
