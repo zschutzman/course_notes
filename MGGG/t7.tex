@@ -1,0 +1,55 @@
+
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{7}{Computational Issues in Partisan Gerrymandering}{Wendy Cho}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Preliminaries}
+
+Gerrymandering is inherently suspicious (\textit{gerrymandering} is a loaded term) and there are not a lot of legal constraints on the process.
+
+Most elections are non-competitive (over 90\% of Congress gets reelected every cycle)
+
+There are wide gaps in WI, NC, PA between proportion of the vote and proportion of the seats won by each party
+
+SCOTUS has never declared a districting to be unconstitutional, partially because there isn't a good test for it.
+
+Redistricting is a very interdisciplinary problem
+
+\section*{Computational Issues}
+
+Even in the most basic case, redistricting is NP-Hard and the computational complexity becomes an issue as more is added to the problem
+
+Why do we want to draw maps, as opposed to just evaluating existing ones?  No map exists in isolation.  Deciding if something is a partisan gerrymander depends on \textit{what else could have been done} and what a sensible baseline is.  Just saying that something has ``unfairness value of 5'' doens't tell you anything about how good or bad your map is.  Is 5 an outlier? Is it within the expected range of your distribution?  In a sense, we need to be able to look at the entire space of maps.
+
+This problem is hard and old.  Vickrey and others tried in the 1960s, but it could only be computed for toy problems.  Can we draw a random sample of maps?  What about a search algorithm which looks for good/optimal maps?  Our goal should be a very large sample of high-quality, independent maps.  
+
+\begin{itemize}
+	\item Very large here means we want on the order of billions of maps
+	\item High-quality means that the maps need to satisfy legal constraints and look like something a human could have done
+	\item Independent here is in the statistical sense
+\end{itemize}
+
+\section*{Local Redistricting}
+	Markov Chain Monte Carlo does a good job in theory, but the size of the problem is still an issue.  Current approaches look at sampling around a fixed center rather than searching the whole space, i.e. \textit{local redistricting}, which preserves the core of the district.  Even these restrictions still yield a problem that is computationally expensive, and doesn't produce samples on the order of billions.
+	
+	One big issue is that if the current map is an egregious gerrymander, does it even make sense to use that as the center for drawing our new map.  The reverse can be true as well. Something can be locally very bad, but actually be a good plan with respect to the entire space of maps.
+	
+	Chen and Rodden drew random maps which started with certain boundaries that were predefined to be included, but this still suffers from the same issue of bias.
+	
+	The moral is that simplification isn't a solution.
+	
+	
+\section*{Evolutionary Algorithms}
+
+Since MCMC isn't tractable as a method to search the whole space of maps, we need another approach.  Wendy works on a massively parallel evolutionary algorithm which runs on a supercomputer called PEAR.  PEAR doesn't require a random walk, as each processor actually runs an independent process.  More about this will be discussed in the afternoon talk (next).
+
+We can sample maps with or without weights on certain features.  For example, we can tell the algorithm to ignore partisanship and then evaluate how partisan the distribution looks.  We can examine how introducing partisanship then affects the draws from the distribution.
+
+Information is changing society very quickly, but the fields of social science have been slower to respond.  We can bring computational tools into these domains to affect positive change in the political process.

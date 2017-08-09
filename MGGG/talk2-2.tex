@@ -1,0 +1,69 @@
+
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{6}{The Quantitative Anatomy of a Sec. 2 Case}{Megan Gall}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+\section*{Redistricting Criteria}
+
+Redistricting is a relatively quantitative process in the legal world.  There are federal requirements, such as equipopulous, single-member districts and VRA provisions, each state has its own laws, and there are some local groups which also have goals and input on the process.  The general process is to follow the state rules until you hit a federal violation, then take a step back.  These requirements necessitate prioritization and thoughtfulness in the procedure.
+
+\textit{Baker} and \textit{Sims} found that Congressional and State legislative districts must be equipopulous, and single-member.  Federal districts must be `substantially equal' in population, state districts must be `as equal as practically possible'.  This differs because on the scale of hundreds of thousands of voters, it's easier to draw equipopulous districts along reasonable lines as compared to small state districts which have hundreds of voters.  Conversely, a 10\% deviation at the state level is a difference of maybe a few dozen voters, whereas at the federal level, you might have some districts with tens of thousands more or fewer voters than others.  The moral is that large deviations aren't necessarily a problem, but should be scrutinized.  Most states have deviations under 10\%, but a few are larger. Rulings are also squishy about who gets counted, such as non-citizens, prisoners, and nonresident military.
+
+There are some traditional principles for redistricting.  These include
+
+\begin{itemize}
+	\item[] Compactness
+	\item[] Contiguity
+	\item[] Preservation of Political Subdivisions (don't split towns/counties/wards)
+	\item[] Preservation of Communities of Interest (does not include race or voting blocs)
+	\item[] Preservation of District Cores (new lines shouldn't be too far from old lines)
+	\item[] Protection of Incumbents
+\end{itemize}
+
+There are many tests for compactness and very few jurisdictions where it is precisely defined.  These can be useful for comparing plans.
+
+There isn't any jurisprudence surrounding splitting political subdivisions.  Do we split as few as possible, potentially many times, do we split many areas into few chunks?
+
+Communities of interest can include pretty much anything except race.  It's broad and loosely defined.
+
+Some states prohibit, others require protecting incumbents.
+
+There are also local rules, which do not carry the force-of-law, but can have critical influence on the process.  The over 8000 jurisdictions which will be redistricting for the first time without Sec. 5 of the VRA will be an important experiment for local districting principles.
+
+\section*{The VRA}
+
+The system of slavery is a sad, but critical piece of US history.  Following the Civil War, the 13th, 14th, and 15th Amendments which granted new political power to Black citizens.  Following Reconstruction, tools like literacy tests, poll taxes, and grandfather clauses were used to suppress the Black vote.  Notably, in the Delta region in Mississippi, a largely poor, Black region, was becoming a less safe seat for White incumbents as Black enfranchisement grew.  The State House rejected a serious cracking effort as being `too obvious' and came up with a plan with a slight White majority, and gridlock ensued.  The result was that one district that was by population a scant Black majority, but Whites still held the majority of voting-age citizens and registered voters.  The VRA was designed to correct issues like this.
+
+
+In \textit{Thornburg v Gingles} established preconditions to demonstrate a violation of the VRA.  These three criteria are
+
+\begin{enumerate}
+	\item Is the racial or language minority large and compact enough to be able to draw a majority-minority district?
+	\item Is voting racially polarized?  If so, who is their candidate of choice?
+	\item Are the minority voters' candidates of choice usually defeated?
+  \end{enumerate}
+  
+All three of these must be satisfied for a claim of violation.
+
+The first criterion requires little more than Census data and voter registration information.
+
+Since ballots are secret, getting data for the second and third criteria is not quite so straightforward.  Since ballots are secret, we need to build a statistical model to figure out whether minorities are voting as a bloc for losing candidates.  We need candidate vote totals, we need candidate race/ethnicity, party ID, incumbency, and other relevant features.  We also need electorate breakdown by race/ethnicity.  We also need the shapefiles to do the GIS analysis, and these aren't always easy to get.  Getting all of this data and cleaning it is one of the biggest hurdles in the process.
+
+There are numerous statistical methods for estimating whether minority voters vote as a bloc. One basic one is assumption of homogeneous precincts, which is a strong assumption, but is a good way of eyeballing the data to reveal some trends.
+
+More complex is bivariate ecological regression, which relates the ethnic/racial composition of a precinct and the votes.  This is more sophisticated, but can produce results which are `out of bounds'.
+
+Ecological inference introduces bounds with maximum likelihood estimation.  This works well for places with two racial groups and also provides confidence intervals, which are nice.
+
+Newer models are more computational and lean on Bayesian hierarchical models, which works nicely for more than two racial groups.
+
+\section*{A Case Study}
+
+IL-4 is the `earmuffs' district which unites a northern and southern Latino neighborhood via a stretch of highway.  This could have been drawn compactly, but not without disrupting a district that was majority Black.  It would be impossible to draw a plan with a majority Latino and three majority Black districts without at least one being a little weird.  Illinois doesn't require compactness in congressional districting, and in this case, the state's interest in having a majority Latino district supercedes the interest in compact districts, so it holds up to court scrutiny.

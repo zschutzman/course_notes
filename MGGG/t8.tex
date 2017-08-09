@@ -1,0 +1,45 @@
+
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\chno{8}{Sampling the Space of Maps}{Wendy Cho and Yan Liu}{Zach Schutzman}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+This is the thrilling conclusion to the previous talk.
+
+\section*{Introduction to Computational Methods} 
+
+
+
+We can think of redistricting as a combinatorial optimization problem, were we want to minimize or maximize an objective subject to allocation and spatial constraints.  We can attack these with industrial solvers, which use heuristic approaches.  Some of these include local search, simulated annealing, genetic or evolutionary algorithms, particle swarms, ant colonies, and MCMC.  We need to worry about convergence and solution quality.  There is often a trade-off between speed of convergence and the quality of the solution, as implementations which converge quickly do not explore a large amount of the search space.  For any of these methods, there are numerous knobs we can turn to adjust these features.
+
+
+\section*{Some Details About the Genetic Algorithm}
+
+In general, GAs/EAs mimic an evolutionary process.  You begin with an initial population and use operators to build a new population based on the original population.  These are selection, mutation, crossover, and replacement.  We have a fitness function which evaluates the quality of solutions, and we also have a stopping criterion to determine a terminating point of the algorithm.
+
+The added constraint of spatial contiguity makes this problem a little less straightforward.  In general, a crossover operation, which combines parts of two solutions to generate a new one, or mutation, which randomly flips a bit in a single solution, will probably not give you a new solution which has contiguous districts.
+
+How do we express contiguity as a linear constraint?  We can pick a reference point and direct a graph towards that point, but this isn't trivial and wasn't developed until last decade.
+
+How we embed spatial features is also an interesting question.  We can roll them into the fitness function, but classic genetic algorithms are pretty bad for spatial optimization, so we need some new ideas.
+
+
+The various measures we use are important.  We include population deviation, compactness, boundary preservation rate, and others.  We also need to choose how we incorporate these, such as which ones we want to optimize against, and how to combine multiple measures.
+
+Our data structure will be an adjacency graph with the boundary units of each zone.  We stipulate that every solution must be hole-free and contiguous.  
+
+The first step in a GA is to pick an initial population.  The authors approach is to randomly seed the districts, then grow them into equipopulous districts in a round-robin, semigreedy way.  Mutation is done by making small random adjustments at the boundaries of districts.  This maintains contiguity.  Crossover is a little more complex.  We could try to overlay the two parent solutions, then allocate the stuff that doesn't quite fit, but this doesn't work, because you might end up with a lot of small pieces that don't contribute a lot to your objective, or some big chunks that are unchanged.  The current (unpublished) approach is to overlay two solutions, pick one as a reference and do a walk towards that solution, and along that walk there are many solutions you can pick.
+
+
+\section*{Massive Parallelization}
+
+Now we need to think about how to parallelize this procedure in order to get a very large number of maps.  We need to worry about communication at this scale, because being able to choose parents globally give a huge boost to potential solution diversity, computing in parallel the fitness evaluation can improve runtime, and we need a way to globally do replacement in a sensible way. The way we do this is by imposing a communication topology on the network of processors, and only letting processes talk to their neighbors.  Every few iterations, a process can send to its neighbor a good solution, a bad solution, information about where it got stuck, or some random noise to avoid repetition in the search.
+
+This all has some technical hurdles at the scale of hundreds of thousands of processes.  Challenges include maintaining a high rate of iterations, effective initialization of the population, fast manipulation of spatial data, and efficient optimization of multiple objectives simultaneously.
