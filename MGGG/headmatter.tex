@@ -35,7 +35,7 @@
 %
 % The following macro is used to generate the header.
 %
-\newcommand{\chno}[4]{
+\newcommand{\chno}[5]{
 	\pagestyle{headings}
 	\thispagestyle{fancy}
 	\newpage
@@ -46,9 +46,9 @@
 		\framebox{
 			\vbox{\vspace{2mm}
 				\hbox to 6.28in { {\bf MGGG Workshop at Tufts University
-						\hfill Tufts University} }
+						\hfill #5} }
 				\vspace{4mm}
-				\hbox to 6.28in { {\Large \hfill Talk #1: #2  \hfill} }
+				\hbox to 6.28in { {\Large \hfill #2  \hfill} }
 				\vspace{2mm}
 				\hbox to 6.28in { {\it  #3 \hfill #4} }
 				\vspace{2mm}}
