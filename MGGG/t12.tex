@@ -1,0 +1,37 @@
+\chno{12}{Optimal Transport}{Nestor Guillen (UMass) and Justin Solomon (MIT)}{Zach Schutzman }{August 9th, 2017}
+
+
+\section*{What is Optimal Transport?}
+
+What is the state of affairs?  We don't really know!  This is a place where math is interfacing with experimental science, so we'll throw the math at the problem while respecting the social and legal constraints and see if we get anywhere.
+
+Let's consider a different perspective on good maps, one that considers a resource allocation problem.  Thinking about a toy example like where to place a fixed number of fire stations given information about population density, we can take a few approaches.  If we evenly space them, or cluster them near the dense areas, or something in between, we face different trade-offs.  How can we treat this as an optimization problem?
+
+Suppose we have $N$ blocks in a city of $M$ people, a distance function $c_{ij}$ between pairs of blocks, a population for each block $f_i$, and a function $\sigma(i)$ which tells you which fire station is assigned to block $i$.  One possible criterion is to minimize the average distance between any person and a station, or $\frac{1}{M}\sum_{i\sigma_i}f_i$.
+
+Optimal transport is a field of mathematics with an array of tools which are increasingly popular.  At a high level, it is concerned with ways of taking one shape and transforming it into another in a way that preserves volume or transforming one distribution into another by moving mass in an optimal way.  This is fundamentally the same idea as earthmover's distance.
+
+The problem began as a physics problem in which Gaspard Monge was interested in moving cannonballs and became of interest to economists like Leonidas Kantorovich in the 20th century.  Monge considered a problem where we have $X$ squares and $Y$ circles in the plane and we want to move the circles to the squares, incurring a cost of $c(x,y)$ for $x\in X$ and $y\in Y$.  An optimal transport map is a bijective function  $T:X\rightarrow Y$ minimizing $J(T)=\sum (c(x_i,y_i))$ for each $T(x_i)=T(y_i)$.  If $X$ and $Y$ are finite, then there is some minimizing choice of this function.  We can also observe that if $T$ is optimal, then any permutation of the elements in $X$ must give a solution which is weakly worse than $T$.
+
+The continuous version of the problem has two distributions $f(x)$ and $g(y)$, and a transport map looks like a function $T:X\rightarrow Y$ such that $\int_{E}f(x)dx  = \int_{T(E)} g(y)dy$.  
+
+Kantorovich's variation imposed a constraint that $\sum f(x) = \sum g(y)$.  The problem is now that since $X$ and $Y$ aren't the same size, asking to preserve measure is not going to work.  We then have to allow points to split mass.  The analogy is a collection of mines and factories.  The output of the mines must equal the input of the factories, but we don't need each mine to send all of their output to the same factory.  A transport plan $\pi(x,y)$ is now a function which sends all of the mass from $X$ to $Y$ such that no node sends or receives more than its capacity.  The opimization problem is now to minimize $J(\pi) = \sum\sum c(x,y)\pi(x,y)$.  This is a linear optimization problem, which means we can prove some things about it.
+
+We can move to an even more general case.  $X,Y$ are now compact domains with distributions $\mu,\nu$ and minimize over an integral of $X\times Y$.  
+
+\thrm{Brenier: If we also assume that $X,Y\subset \mathbb{R}^d$, $\mu$ has compact support and is absolutely continuous with respect to its Lebesgue measure, then the optimal transport plan is unique and given by a map $T$.}
+
+A consequence of this is that if we are trying to move a uniform distribution of mass to a distribution with finite support, we get a nice convex result, in a way that looks like Voronoi partitioning.  Throwing back to Moon's talk, this method gives components with positive curvature, whereas we suspect that negative curvature may be evidence of gerrymandering.
+
+The takeaway here is that optimal transport partitions the space.
+
+In the discrete world, we can think of a transport plan as a matrix $T$ such that each row sums to the mass at the corresponding source and the columns sum to the mass at the corresponding targets.
+
+\section*{Optimal Transport and Redistricting}
+
+
+We introduce an idea of population bias.  Now we have $\mu=\mu_B+\mu_R$ and we throw a family of constraints into our optimization which limits the proportion of Blue voters we want in each district.  Not a lot is known about what things look like when we do this.  We'd like a nice relationship between the unconstrained problem and this new one.
+
+We also run into problems where our linear program gets too big to be practically solvable if we have a very large number of blocks.
+
+
