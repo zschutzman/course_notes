@@ -2,6 +2,8 @@
 *.log
 *.synctex.gz
 *.aux
+*.out
+*.toc
 
 ##other folders##
 TOCnotes
