@@ -1,0 +1,2 @@
+\contentsline {section}{Lecture 1 (2017-08-30)}{1}{section*.1}
+\contentsline {section}{Lecture 2 (2017-09-01)}{3}{section*.2}

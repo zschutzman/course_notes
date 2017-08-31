@@ -1,0 +1,29 @@
+\classheader{}
+
+\section*{The Generating Function for the Binomial Numbers}
+
+Let's more closely examine the binomial numbers $\binom{n}{k} = \frac{n(n-1)\dots (n-k+1)}{k!}$.  What does it look like for a set of size 1?  There is one way to pick a subset of size zero and one way to pick a subset of size one, so the generating function is $1+x$.  For two elements, we see something similar, where we can choose to either include or not include an element, so our generating function is $(1+x)(1+x)=(1+x)^2$.  In general, the generating function for size $n$ is $(1+x)^n = \sum\limits_{k=0}^{n}\binom{n}{k}x^k$.
+
+\section*{Revisiting Compositions}
+
+\definition{A \textbf{weak composition} is a composition where some of the parts are allowed to be zero.}
+
+How many weak $k$-compositions are there?  Now we are allowed to put more than one comma between two adjacent numbers, as long as we only use $k-1$ of them in total.  If we still think about there being a plus between 1's where we don't have a comma, we have a number of weak $k$-compositions equal to the number of sequences of $n$ 1's and $k-1$ commas.  There are $\binom{n+k-1}{k-1}$ of these, and this is in bijection with the set of weak $k$-compositions, so we are done.
+
+
+\definition{A \textbf{lattice path} from the origin to a point $(a,b)\preceq(0,0)$ is a sequence of steps up ($\uparrow$) and right ($\rightarrow$) along the $\mathbb{Z}\times\mathbb{Z}$ lattice beginning at the origin and ending at $(a,b)$.}
+
+It's natural to ask how many lattice paths there are.  We can think of a path from the origin to $(a,b)$ as requiring $a$ steps right and $b$ steps up.  Therefore, we can biject this with the set of binary sequences of length $a+b$ where exactly $a$ of the bits are $1$, and there are $\binom{a+b}{a}$ of these (equivalently by the symmetry of the binomial coefficients, we can think of exactly $b$ of the bits being $1$ instead and use $\binom{a+b}{b}$).
+
+\section*{Multinomial Coefficients}
+
+Given some weak $k$-composition of $n$, $c_1,c_2,\dots,c_k \geq 0$, we might want to ask about how we can break $[n]$ into $k$ disjoint parts such that each subset $S_i\subset [n]$ has exactly $c_i$ elements.  The number of ways to do this is to take $c_1$ elements from the set of size $n$, then take $c_2$ of the remaining $n-c_1$, and so on, giving the expression $\binom{n}{c_1,c_2,\dots,c_k} = \binom{n}{c_1}\binom{n-c_1}{c_2}\dots \binom{n-c_1-c_2-\dots -c_{k-1}}{c_k}$. A little bit of algebra (lots of things cross-cancel) reveals this to be $\frac{n!}{c_1!c_1!\dots c_{k-1}!}$.  Using a similar argument to the construction of the generating function for the vanilla binomial numbers, we can think about the multinomial as looking like $(x_1+x_2+\dots+x_k)^n$, where picking an $x_i$ from the $j$th term in the expansion corresponds to putting element $i$ into subset $S_j$.  We can therefore see that the generating function looks like $\sum \binom{n}{c_1\dots c_k}x_1^{c_1}\dots x_k^{c_k}$.
+
+\section*{Permutations}
+
+\definition{A \textbf{permutation} $\omega$ is a bijective map $\omega: [n]\rightarrow [n]$.}
+
+The number of permutations is $n!$.  We can write each permutation in as a product of disjoint cycles (uniquely, up to ordering the cycles), and then look at how many cycles of each length there are.  The function $c(\omega) = (c_1,c_2,c_3\dots, c_n)$ is the ordered tuple where $c_i$ is the number of cycles of length $i$.  Obviously, $\sum ic_i = n$ as each element of $[n]$ must appear in exactly one cycle.
+ There are $n!$ total permutations, but there are $c_1c_2\dots c_n$ ways to order the cycles, so we need to divide by this quantity.  We also have to worry about rotating the values within a cycle.  For example, $(123)$ is the same as $(231)$ and $(312)$, and we don't want to count these multiple times.  Each $1$-cycle can be written one way.  Each $2$-cycle two ways, each $3$-cycle three ways, and so on.  We therefore also have to divide by $1^{c_1} 2^{c_2} \dots n^{c_n}$ to account for all of the ways to shift the $c_k$ $k$-cycles.  All together, the number of permutations with a particular $c(\omega)$ is equal to $\frac{n!}{c_1c_2\dots c_n1^{c_1} 2^{c_2} \dots n^{c_n}}$.
+ 
+ What does the generating function for this thing look like?  Let's start by defining a variable $Z_n = \frac{1}{n!}\sum\limits_{\omega\in S_n}t^{c(\omega)}$, where $t^{c(\omega)} = t_1^{c_1}t_2^{c_2}\dots t_n^{c_n}$.  We're interested in $\sum\limits_{n=0}^\infty Z_nx^n$.  By plugging in what we did above, we get $\sum\limits_{n=0}^\infty Z_nx^n = \sum\limits_{c_1,c_2,\dots,c_n}\frac{t_1^{c_1}\dots t_n^{c_n}x^n}{1^{c_1}c_1!2^{c_2}c_2!\dots n^{c_n} c_n!}$.  We can factor this apart as $\prod\limits_{k=1}^\infty\sum\limits_{c_k = 0}^\infty \left( \frac{t_kx^k}{k} \right) ^{c_k}$.

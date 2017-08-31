@@ -1,0 +1,457 @@
+%---------------------------------------------------------------------%
+%  LaTeX Course Notes Template                                        %
+%                                                                     %
+%  Copyright (C) 2012 Zev Chonoles                                    %
+%  zevchonoles@gmail.com                                              %
+%  http://math.uchicago.edu/~chonoles/                                %
+%                                                                     %
+%  Please leave this information in the source code as                %
+%  attribution if you choose to edit or redistribute this file.       %
+%                                                                     %
+%  This work is licensed under the Creative Commons Attribution-      %
+%  ShareAlike 3.0 Unported License. To view a copy of this license,   %
+%  visit http://creativecommons.org/licenses/by-sa/3.0/.              %
+%                                                                     %
+%---------------------------------------------------------------------%
+
+\documentclass[11pt]{article}
+
+
+
+
+
+
+%----------%
+%  Basics  %
+%----------%
+
+
+%  Specfies basic information.
+%  In the metadata section of the preamble, you can specify the subject and a list of keywords for the PDF.
+%
+\newcommand{\coursetitle}{Math 500 - Topology and Geometry}
+\newcommand{\lecturer}{Brian Weber}
+\newcommand{\notetaker}{Zach Schutzman}
+\newcommand{\notetakersemail}{ianzach+notes@seas.upenn.edu}
+\newcommand{\courseterm}{Fall 2017}
+\newcommand{\institution}{University of Pennsylvania}
+
+
+%  array provides more column styles for the tabular and array environments.
+%  (http://ctan.org/pkg/array)
+%
+%  parskip sets block paragraphs as the default, instead of indentation.
+%  (http://www.ctan.org/pkg/parskip)
+%
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,array,parskip}
+
+
+%  Allows equation, align, gather, etc. environments to split across pages.
+\allowdisplaybreaks
+
+
+%  Sets date formatting to the ISO 8601 standard, YYYY-MM-DD.
+\usepackage{datetime} \renewcommand{\dateseparator}{-} \yyyymmdddate
+
+
+
+
+
+
+%---------%
+%  Fonts  %
+%---------%
+
+
+%  Defines \cal for standard calligraphy, \eucal for Euler calligraphy, and \frak for Fraktur.
+\usepackage{eucal}  \let\eucal\mathcal  \let\cal\CMcal  \renewcommand{\frak}{\mathfrak}
+
+
+%  Removes ligatures (e.g. the connection ordinarily made between the two f's in "differentiable").
+\usepackage{microtype} \DisableLigatures{encoding=*,family=*}
+
+
+%  Removes extra space after periods.
+
+
+
+
+%-------------------------------%
+%  Environments and Sectioning  %
+%-------------------------------%
+
+
+%  Defines some standard theorem environments, in both numbered and non-numbered versions. The numbering of each enviroment will be reset for each lecture.
+\newcounter{lecture}       \setcounter{lecture}{0}
+\newcounter{tN}[lecture]   \newcounter{dN}[lecture]
+\newcounter{lN}[lecture]   \newcounter{rN}[lecture]
+\newcounter{cN}[lecture]   \newcounter{eN}[lecture]
+\newcounter{pN}[lecture]
+
+\newtheorem*{theorem}{Theorem}          \newtheorem{theorem-N}[tN]{Theorem}
+\newtheorem*{lemma}{Lemma}              \newtheorem{lemma-N}[lN]{Lemma}
+\newtheorem*{corollary}{Corollary}      \newtheorem{corollary-N}[cN]{Corollary}
+\newtheorem*{proposition}{Proposition}  \newtheorem{proposition-N}[pN]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}    \newtheorem{definition-N}[dN]{Definition}
+\newtheorem*{remark}{Remark}            \newtheorem{remark-N}[rN]{Remark}
+\newtheorem*{example}{Example}          \newtheorem{example-N}[eN]{Example}
+
+
+%  Modifies the spacing above theorem environments, which is messed up when using the parskip package.
+%  (http://tex.stackexchange.com/questions/22119)
+%
+\makeatletter \def\thm@space@setup{\thm@preskip=\parskip \thm@postskip=0pt} \makeatother
+
+
+%  Modifies the spacing above the proof environment.
+%  (http://tex.stackexchange.com/questions/49801)
+%
+\makeatletter \renewenvironment{proof}[1][\proofname]{\pushQED{\qed}\normalfont
+	\partopsep=\z@skip \topsep=\z@skip \trivlist \item[\hskip\labelsep\itshape #1\@addpunct{.}]
+	\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
+
+
+%  Removes extra space before and after section headings.
+\usepackage[compact]{titlesec}
+
+
+
+
+
+
+%-------------------------%
+%  Pictures and Diagrams  %
+%-------------------------%
+
+
+%  Allows for the use of colors.
+%  (http://www.ctan.org/pkg/xcolor)
+%
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{myred}{rgb}{0.9,0.2,0.2}
+\definecolor{mygreen}{rgb}{0.2,0.6,0.2}
+\definecolor{myblue}{rgb}{0.2,0.2,0.8}
+
+
+%  graphicx provides advanced graphics options.
+%  (http://ctan.org/pkg/graphicx)
+%
+\usepackage{graphicx}
+
+
+%  tikz is for drawing all sorts of pictures and diagrams.
+%  tikz-cd makes creating commutative diagrams in tikz a bit easier.
+%  (http://www.ctan.org/pkg/pgf)
+%  (http://www.ctan.org/pkg/tikz-cd)
+%
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgf,pgfplots}
+\usetikzlibrary{arrows,calc,decorations,decorations.markings,fadings,positioning,patterns,shapes}
+\tikzset{>=latex}
+\tikzstyle{mypoint}=[inner sep=0pt,outer sep=0pt,minimum size=5pt,fill,circle]
+
+
+\definecolor{ttqqqq}{rgb}{0.2,0.,0.}
+\definecolor{ffffff}{rgb}{1.,1.,1.}
+%\usetikzlibrary{external}
+%\tikzexternalize
+
+
+
+%------------------------%
+%  Commands and Symbols  %
+%------------------------%
+
+
+%  Creates commands by running over a comma-separated list. For example,
+%
+%     \forcsvlist{\define{\newcommand}{\textbf}{bold}}{A,B}
+%
+%  would create
+%
+%     \newcommand{\boldA}{\textbf{A}}    \newcommand{\boldB}{\textbf{B}}
+%
+%  (http://tex.stackexchange.com/a/5776/20882)
+%
+\usepackage{etoolbox}
+\newcommand{\define}[4]{\expandafter#1\csname#3#4\endcsname{#2{#4}}}
+\forcsvlist{\define{\DeclareMathOperator}{}{}}{im,coker,rad,nil,Ann,Ass,codim,Spec,mSpec,diam,ord,Supp,supp,disc,Ob,vol,rank,Sym,Alt,Ind}
+\forcsvlist{\define{\newcommand}{\mathrm}{}}{Hom,Mor,id,GL,SL,SO,SU,U,M,Mat,Ext,Tor,Res,Cor,Inf,End,Irr,Aut,Gal,lcm,tr,sign,triv,diag,Map,op,ev,act,alg,sep,unr,nr,ab}
+
+%  Creates commands for some names of categories in the sans-serif font.
+\forcsvlist{\define{\newcommand}{\mathsf}{}}{Set,Grp,Ab,CRing,Mod,Vect,Cat,Top,PreSh,Sh,Sch,Nat,Fun,Diff}
+
+%  Creates commands for some blackboard bold letters.
+\forcsvlist{\define{\newcommand}{\mathbb}{}}{N,Z,Q,R,C,F,G,T,A,B,D}
+
+
+%  Saves the section symbol, paragraph symbol, Hungarian accent, and Scandanavian O in the macros \SS, \PP, \HH, and \OO, then redefines \S, \P, \H, and \O to be the corresponding blackboard bold letters.
+%
+\let\SS\S  \let\PP\P  \let\HH\H  \let\OO\O
+\forcsvlist{\define{\renewcommand}{\mathbb}{}}{S,P,H,O}
+
+
+%  latexsym defines some alternative versions of amssymb symbols.
+%  (http://www.bakoma-tex.com/doc/latex/base/latexsym.pdf)
+%
+\usepackage{latexsym}
+
+
+%  Defines a copyright symbol that is a bit nicer than the built-in one.
+\newcommand{\mycopyrightsymbol}{\raisebox{-0.3ex}{\tikz{\node[inner sep=0pt,outer sep=0pt] at (0,0) {\textsc{c}};\draw (0,0) circle (0.18);}}}
+
+
+%  Defines commands for real and complex projective space.
+\newcommand{\RP}{\mathbb{R}\mathrm{P}}  \newcommand{\CP}{\mathbb{C}\mathrm{P}}
+
+
+%  Defines a bordered matrix with square bracket delimiters instead of parentheses.
+%  (http://tex.stackexchange.com/questions/55054)
+%
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+
+
+%  Calls one of the mathabx font families so that it is possible to use its symbols without making a global change.
+%  (http://www.ctan.org/pkg/mathabx)
+%  (http://tex.stackexchange.com/questions/14386)
+%
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{<5> <6> <7> <8> <9> <10> gen * mathb
+	<10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12}{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+
+
+%  Defines circular arrows.
+\DeclareMathSymbol{\lcirclearrow}{0}{mathb}{'366}
+\DeclareMathSymbol{\rcirclearrow}{0}{mathb}{'367}
+\newcommand{\leftcirclearrow}{\mathrel{\ensuremath{\raisebox{0.1ex}{\scalebox{0.9}{\rotatebox[origin=c]{90}{$\lcirclearrow$}}}}}}
+\newcommand{\rightcirclearrow}{\mathrel{\ensuremath{\raisebox{0.1ex}{\scalebox{0.9}{\rotatebox[origin=c]{270}{$\rcirclearrow$}}}}}}
+
+
+%  Gives semantic names for some common math symbols.
+\newcommand{\iso}{\cong}
+\newcommand{\htop}{\sim}
+\newcommand{\htopequiv}{\simeq}
+\newcommand{\cupprod}{\mathbin{\smallsmile}}
+\newcommand{\capprod}{\mathbin{\smallfrown}}
+\newcommand{\wedgesum}{\mathbin{\vee}}
+\newcommand{\boundary}{\partial}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\characteristic}{\mathrm{char}}
+\newcommand{\symdiff}{\mathbin{\vartriangle}}
+\newcommand{\convolute}{\mathbin{\ast}}
+\newcommand{\actson}{\rightcirclearrow}
+\newcommand{\actedonby}{\leftcirclearrow}
+\newcommand{\directsum}{\oplus}
+\newcommand{\bigdirectsum}{\bigoplus}
+\newcommand{\tensor}{\otimes}
+\newcommand{\bigtensor}{\bigotimes}
+\newcommand{\free}{\mathbin{\ast}}
+\newcommand{\bigfree}{\mathop{\ensuremath{\raisebox{-0.7ex}{\scalebox{2.3}{$\ast$}}}}}
+\renewcommand{\complement}[1]{{#1}^{\mathsf{c}}}
+\newcommand{\transpose}[1]{{#1}^{\textsf{T}}}
+\newcommand{\union}{\cup}
+\newcommand{\intersect}{\cap}
+\newcommand{\transverse}{\mathrel{\raisebox{1.1ex}{$-$}\mathllap{\pitchfork\hspace{0.22mm}}}}
+
+
+
+\def\multiset#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+
+
+%-----------------------------------%
+%  Things Specific to Course Notes  %
+%-----------------------------------%
+
+
+%  Formatting for the table of contents. The first line allows for multi-column environments, the second line removes the heading "Contents".
+\usepackage{multicol} \setlength{\columnsep}{3cm}
+\makeatletter \renewcommand\tableofcontents{\@starttoc{toc}} \makeatother
+
+
+%  Sets the page style.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\setlength{\headheight}{14pt}
+\lfoot{\parbox[t]{1in}{\centering Last edited\\ \today}}
+\cfoot{\parbox[t]{3in}{\centering \coursetitle}}
+\rfoot{\parbox[t]{0.9in}{\centering Page \thepage\\ Lecture \arabic{lecture}}}
+
+
+%  Sets the inputs for \maketitle.
+\author{%Lectures by \lecturer\\ 
+	Notes by \notetaker}
+\title{\coursetitle}
+\date{\institution, \courseterm}
+
+
+%  Defines headings for each day's notes.
+\newcommand{\classheader}[1]{\stepcounter{lecture}\newpage\section*{Lecture \arabic{lecture} (#1)}
+	\phantomsection \addcontentsline{toc}{section}{Lecture \arabic{lecture} (#1)}}
+
+
+%---------------------------------------%
+%  Miscellaneous Additions to Template  %
+%---------------------------------------%
+
+% http://tex.stackexchange.com/questions/18359
+\pgfplotsset{compat=newest}
+
+\newcommand{\Cinfty}{\ensuremath{C^{\infty}}}
+\newcommand{\Crit}{\mathrm{Crit}}
+\usepackage{mathtools}
+\newcommand{\Or}{\mathrm{Or}}
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
+\usepackage{mathrsfs}
+\newtheorem*{examples}{Examples}
+\newtheorem*{exercise}{Exercise}
+\usepackage{pdfpages}
+\newcommand{\Lie}{\mathrm{Lie}}
+\newcommand{\Diffeo}{\mathrm{Diffeo}}
+
+\newcommand{\connection}{\nabla}
+\newcommand{\new}{\mathrm{new}}
+
+
+\newcommand{\review}{{\huge\color{myred}{$\star$}}}
+
+
+%---------------------------%
+%  Hyperlinks and Metadata  %
+%---------------------------%
+%
+% (this section must come last!)
+
+
+%  hyperref enables for the creation of hyperlinks, and also specifies the metadata of the PDF file.
+%  hyperxmp allows more metadata to be specified.
+%  (http://www.ctan.org/pkg/hyperref)
+%  (http://www.ctan.org/pkg/hyperxmp)
+%  (http://tex.stackexchange.com/questions/41461)
+%
+\usepackage{hyperref}
+\usepackage{hyperxmp}
+\hypersetup{
+	pdfauthor={\notetaker},
+	pdftitle={\coursetitle},
+	pdfproducer={LaTeX},
+	%pdfcopyright={Copyright (C) \the\year\ \notetaker. This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. All attribution should be to \lecturer\ as the lecturer, and to \notetaker\ as the person taking these notes.},
+	pdfsubject={differential topology},
+	pdfkeywords={},
+	%pdflicenseurl={http://creativecommons.org/licenses/by-sa/3.0/},
+	colorlinks=true,
+	linkcolor=myred,
+	citecolor=mygreen,
+	urlcolor=myblue,
+	linktoc=page,
+	pdfstartview=FitH
+}
+
+
+
+
+
+
+%------------%
+%  Document  %
+%------------%
+
+
+\begin{document}
+	
+	
+	%  The command
+	%
+	%  \thispagepdflabel{text}
+	%
+	%  sets the PDF page number (*not* the internal LaTeX page number) to be "text". This does not have to be a numeral; it could be a word, e.g. "Title". This lets one avoid the issue of having the PDF's page numbering not aligning with the page numbering LaTeX used in the document.
+	%
+	%  (http://tex.stackexchange.com/questions/85558)
+	
+	
+	%  Title
+	%
+	\maketitle
+	\thispdfpagelabel{Title}
+	\thispagestyle{empty}
+	\setcounter{page}{-1}
+	\vspace{0.3in}
+	
+	
+	
+	%  Table of Contents
+	%
+	\begin{center}
+		\begin{minipage}[t]{0.9\textwidth}
+			\begin{multicols}{2}
+				\tableofcontents
+			\end{multicols}
+		\end{minipage}
+	\end{center}
+	
+	
+	
+	\newpage
+	\thispdfpagelabel{-}
+	\thispagestyle{empty}
+	
+	
+	
+	%  Introduction
+	%
+	\section*{Introduction}
+	Math 500 is a Masters-level first-course in Topology and Geometry.  The course follows James Munkres' \textit{Topology, 2ed.} and this set of notes is based on the Fall 2017 offering.
+	
+	These notes are being live-TeXed, though I edit for typos and add diagrams requiring the Ti\textit{k}Z package separately. I am using the editor TeXstudio.  The template for these notes was created by Zev Chonoles and is made available (and being used here) under a Creative Commons License. 
+	
+	I am responsible for all faults in this document, mathematical or otherwise; any merits of the material here should be credited to the lecturer, not to me.
+	
+	Please email any corrections or suggestions to \expandafter\href{mailto:\notetakersemail}{\texttt{\notetakersemail}}.
+	
+	%\medskip
+	%
+	%\section*{Acknowledgments}
+	%
+	%Thank you to all of my fellow students who sent me suggestions and corrections, and who lent me their own notes from days I was absent. My notes are much improved due to your help.
+	
+	
+	%%  Copyright
+	%%
+	%\section*{Copyright}
+	%Copyright \mycopyrightsymbol\ 2012 \notetaker.
+	%
+	%This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. This means you are welcome to do essentially anything with this work, including editing, %adapting, distributing, and making commercial use of it, as long as you
+	%\begin{itemize}
+	%\item include an attribution of \lecturer\ as the lecturer of the course these notes are based on, and \notetaker\ as the person taking the notes,
+	%\item do so in a way that does not suggest either of us endorses you or your use of this work, and
+	%\item if you alter, transform, or build upon this work, you must apply to your work the same, or similar, license to this one.
+	%\end{itemize}
+	%More details are available at \href{https://creativecommons.org/licenses/by-sa/3.0/deed.en\_US}{\texttt{https://creativecommons.org/licenses/by-sa/3.0/deed.en\_US}}.
+	
+	\newpage
+	
+	
+	%  Make a separate file for each lecture, for example, using a naming scheme like this:
+	%
+	%  lecture1.tex, lecture2.tex, ...
+	%
+	%  and keep them in the same folder as this main file. By doing it this way (instead of keeping all the notes in the main file), if you're only working on the notes for one lecture, you can easily comment out the lines corresponding to the other lectures.
+	%
+	
+	\include{lec1}
+	\include{lec2}
+	
+	
+	\end{document}
+	

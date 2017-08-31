@@ -1,0 +1,51 @@
+\classheader{2017-08-30}
+
+\section*{What is Topology?}
+
+\definition{A \textbf{topology} is a set $X$ with a collection of subsets $\mathcal{A}\subset \mathcal{P}(X)$ such that:
+	
+	\begin{itemize}
+		\item[1] $\emptyset,X\in \mathcal{A}$
+		\item[2] $\mathcal{A}$ is closed under finite intersection (the intersection of a finite subset of $\mathcal{A}$ is in $\mathcal{A}$)
+		\item[3] $\mathcal{A}$ is closed under arbitrary union (the union of any (possibly infinite) subset of $\mathcal{A}$ is in $\mathcal{A}$)
+	\end{itemize}
+	
+}
+
+The phrases ``$\mathcal{A}$ is a topology on $X$", ``$X$ is a topological space with topology $\mathcal{A}$, and the notation $(X,\mathcal{A})$ all refer to the same concept.
+
+\definition{The \textbf{standard topology} (also called the euclidean topology or metric topology) on $\mathbb{R}^n$ is the set of subsets $U\subset\mathbb{R}^n$ such that for every $U$, every point $x\in U$ is interior, meaning that there exists some radius $r>0$ such that the ball of radius $r$ centered at $x$ is entirely contained in $U$.}
+
+\definition{A set is \textbf{open} in a topological space $X$ if it belongs to the topology on $X$.}
+
+\example{The standard topology is a topology over $\mathbb{R}^n$:
+	
+	\begin{itemize}
+		\item[1] Every point in the empty set is vacuously interior, and every point of $\mathbb{R}^n$ is trivially interior
+		\item[2] If we take two open sets and intersect them, any point in the intersection must be an interior point in both constituent sets.  The smaller of the two balls witnessing this must lie entirely within both constituent sets, and therefore entirely within the intersection.  By induction, we have the finite intersection of open sets being open.
+		\item[3] Intuitively, taking any union of open sets only creates a bigger set.  The ball witnessing any point as interior to some open set clearly lies in any union including that open set.
+	\end{itemize}
+	
+}
+
+We can see from this example why it's important to specify closure under \textit{finite} intersection.  Singleton sets are not open in the standard topology on $\mathbb{R}^n$, but the Nested Interval Theorem gives us a way to construct a singleton set from the countable intersection of open intervals.
+
+\example{If $X$ is our topological space, $\{\emptyset , X\}$ is a topology, called the \textbf{trivial topology}.}
+
+\example{Similarly, all of $\mathcal{P}(X)$ is a topology, called the \textbf{discrete topology}.}
+
+\example{The \textbf{Zariski topology} on $\mathbb{R}^n$ is a little more interesting.  A set is open in the Zariski topology if it is the complement of the root set of some polynomial.  Open sets in the one-dimensional case look like the real line minus a finite number of points.  It gets a little more complicated in higher dimensions, as we can have zeroes along entire dimensions of a euclidean space.  Let's verify that this is a topology:
+	
+	\begin{itemize}
+		\item[1] The empty set is the complement of the root set of the zero function, and the entire space $\mathbb{R}^n$ is the complement of the root set of a polynomial which has no real roots, such as $f(\vec{x})=6$.
+		\item[2]  The intersection of two open sets, corresponding to polynomials $P$ and $Q$ is, by DeMorgan's Laws, $\mathbb{R}^n \setminus \{x\ | \ x \ is \ a \ root \ of \ P \ or \ Q\}$.  Something is a root of $P$ or $Q$, it must be a root of the product $PQ$.  Since the product of polynomials is a polynomial, our set is still the complement of the root set of some polynomial, and is therefore open.  Since the finite product of polynomials is still polynomial, we have closure under finite intersection.
+		\item[3] Again by DeMorgan's Laws, the union of two open sets corresponding to polynomials $P$ and $Q$ is the set $\mathbb{R}^n \setminus\{ x \ | \ x  \ is \ a \ root \ of \ P \ and \ Q\}$.  The set of points which are roots of $P$ and $Q$ are the roots of the greatest common polynomial divisor of $P$ and $Q$.  Since this is also a polynomial, our set is the complement of the root set of a polynomial and is therefore open. Since the greatest common polynomial divisor of any set of polynomials has root set no greater than any of the constituent polynomials, we properly have closure under arbitrary union.
+	
+	\end{itemize}
+}
+
+The Zariski topology is an object of importance in the area of algebraic geometry.
+
+\definition{If $X$ is a topological space with topology $\mathcal{A}$ and $Y\subset X$, then $\mathcal{B}$ is a topology on $Y$ where a subset $V\subset Y$ is open in $\mathcal{B}$ if and only if there is a $U$ open in $\mathcal{A}$ such that $V=U\cap Y$.  This is called the \textbf{subset} or \textbf{subspace topology}.}
+
+\example{Let $H^2$ denote the closed upper-half plane in  $\mathbb{R}^2$.  That is, the set of points $(x,y)\in \mathbb{R}^2$ such that $y\geq 0$.  Any set which was open in $\mathbb{R}^2$ and does not intersect the $x$-axis is still open in $H^2$.  However, a set like an open half-disk against the $x$-axis together with the line segment where it rests up against the $x$-axis was not an open set in $\mathbb{R}^2$, as the boundary points are not interior, but it is open in $H^2$ with the subspace topology, as it is the intersection of an open disk in $\mathbb{R}^2$ with the upper half-plane.}
