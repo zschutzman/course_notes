@@ -1,1 +1,68 @@
 \classheader{2017-09-01}
+
+\section*{Continuous Maps}
+
+Continuous maps are the standard morphisms in topology.
+
+In Analysis, we have a definition of continuity which looks like:
+ \definition{A function $f:X\rightarrow Y$ is \textbf{continuous} at $x\in X$ if for any $\delta>0$ there exists an $\epsilon>0$ such that $\lVert x-y\rVert < \epsilon$ implies $\lVert f(x)-f(y)\rVert < \delta$}.
+ 
+ The issue with this definition is that we have no natural notion of distance in topology.  Instead, we use the definition:
+ 
+ \definition{A function $f:X\rightarrow Y$ is \textbf{continuous} if the inverse image of an open set in $Y$ is open in $X$.  Equivalently, the inverse image of closed sets are closed.}
+ 
+ It turns out that in metric spaces like $\mathbb{R}^n$ with the standard topology, these definitions are equivalent.
+ 
+ \example{Let's consider two topological spaces: $(\mathbb{R},std)$, the real numbers with the standard topology, and $(\mathbb{R},\mathcal{P}(\mathbb{R}))$, the real numbers with the discrete topology.  The map $f: (\mathbb{R},\mathcal{P}(\mathbb{R}))\rightarrow (\mathbb{R},std)$, where $f(x)=x$ is continuous.  Since every set is open in the discrete topology, the inverse image of any set, in particular any open set, is open.  The map $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $, where $g(x)=x$ is not continuous.  To see this, take any set that is closed with respect to the standard topology.  This set is open in the discrete topology, but its inverse image is closed.}
+ 
+ This raises the question: is there any $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $ which is continuous?
+ 
+ \theorem{The only continuous functions $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $ are the constant maps.}
+ 
+ \begin{proof}
+ 	
+ 	First, it is easy to see that a constant map is continuous.  Without loss of generality, we'll assume that $g(x)=0$.  Let $V$ be open in the discrete topology.  If $V$ contains $0$, then the inverse image of $V$ is all of $\mathbb{R}$.  If $V$ does not contain zero, then the inverse image of $V$ is the empty set.  Since both of these are open in the standard topology, the inverse image of any open set is open, and the map is continuous.
+ 	
+ 	To see that such a continuous map must be constant, first observe that $\mathbb{R}$ and $\emptyset$ are the only sets which are both closed and open with respect to the standard topology.  Let $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $ be a continuous map and pick some $x\in \mathbb{R}$.  The set $\{g(x)\}$ is both closed and open in the discrete topology, so its inverse image must be, in particular, open.  But the inverse image cannot be empty, as we know for sure it contains $x$, and the only non-empty closed and open set in the standard topology is the entire space.  Therefore, for any $x,y\in\mathbb{R}$, we have $g(x)=g(y)$, which is only true for constant maps.
+ 	
+ 	
+ \end{proof}
+ 
+ 
+ 
+ 
+ 
+ \definition{A \textbf{homeomorphism} is a continuous bijection between two topological spaces such that the inverse is also continuous.}
+ 
+ Under a homeomorphism, we also have the property that the image of open sets is open.  This induces a bijection between the open sets of the two topological spaces.  In a sense, the existence of a homeomorphism means that two topological spaces are the same.
+ 
+ \example{The two spaces $(-1,1)$ and $(-2,2)$ with the standard topology are homeomorphic under the map $f(x)=2x$.}
+ \example{The two spaces $(-1,1)$ and $\mathbb{R}$ with the standard topology on each are homeomorphic under the map $f(x)=tan(\frac{\pi}{2}x)$.}
+ 
+ \example{Let $S^n = \mathbb{R}^n\cup\{\infty\}$.  A set $U\subset S^n$ is open if:
+ 	
+ 	\begin{enumerate}
+ 		\item[] $U=\emptyset$ or $U=S^n$
+ 		\item[] $U\subset \mathbb{R}^n$ and $U$ is open with respect to the standard topology.
+ 		\item[] $\infty \in U$ and $U\cap \mathbb{R}^n$ is the complement of a compact subset of $\mathbb{R}^n$.  That is, $U$ looks like all of $\mathbb{R}^n$ with a closed and bounded chunk removed, and an additional point $\infty$.
+ 	\end{enumerate}
+ 	
+ 
+ 
+ 
+ This forms a topology, and the set $S^n$ is the surface of the $n$-dimensional sphere.  If we think about $S^2$, there's a natural embedding in $\mathbb{R}^3$, but it turns out that $S^2\setminus\{(0,0,1)\}$ is homeomorphic to $\mathbb{R}$.  If we use the (north polar) stereographic projection, which maps points in $S^2$ to the point in the $\mathbb{R}^2$ plane according to the straight line passing through the north pole and that point, we get a nice homeomorphism, and this is easy to see from the subspace topology that $S^2$ inherits from $\mathbb{R}^3$.  If we then include that the north pole maps to our added point $\infty$, we get a map from all of $S^2$ to the set $\mathbb{R}^2\cup\{\infty \}$ which is a homeomorphism.}
+
+
+\section*{The Quotient Topology}
+
+Let $(X,\mathcal{A})$ be a topological space and $\sim$ an equivalence relation on $X$.  Then $X/\sim$ inherits a topology, which is that $U'\subset X/\sim$ is open if and only if there is some open set $U\subset X$ such that $U'=U/\sim$.
+
+\definition{This topology is called the \textbf{quotient topology}.}
+
+\example{Take $\mathbb{R}^2$ with the standard topology and define an equivalence relation $(x,y)\sim (x,-y)$.  The quotient space looks like the closed (upper or lower) half-plane.}
+ 
+\example{$\mathbb{R}^2$ with the standard topology quotiented by the equivalence relation $(x,y)\sim(-x,-y)$ looks like a cone, and is actually homeomorphic to $\mathbb{R}^2$.}
+
+\example{$\mathbb{R}^2$ with the standard topology and the equivalence relation $(x,y)\sim(x+1,y)\sim(x,y+1)$ has a quotient space that looks like the unit square with opposite sides glued together.  This is homeomorphic to a (genus 1) torus.}
+ 
+ 
