@@ -23,7 +23,7 @@ In Analysis, we have a definition of continuity which looks like:
  	
  	First, it is easy to see that a constant map is continuous.  Without loss of generality, we'll assume that $g(x)=0$.  Let $V$ be open in the discrete topology.  If $V$ contains $0$, then the inverse image of $V$ is all of $\mathbb{R}$.  If $V$ does not contain zero, then the inverse image of $V$ is the empty set.  Since both of these are open in the standard topology, the inverse image of any open set is open, and the map is continuous.
  	
- 	To see that such a continuous map must be constant, first observe that $\mathbb{R}$ and $\emptyset$ are the only sets which are both closed and open with respect to the standard topology.  Let $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $ be a continuous map and pick some $x\in \mathbb{R}$.  The set $\{g(x)\}$ is both closed and open in the discrete topology, so its inverse image must be, in particular, open.  But the inverse image cannot be empty, as we know for sure it contains $x$, and the only non-empty closed and open set in the standard topology is the entire space.  Therefore, for any $x,y\in\mathbb{R}$, we have $g(x)=g(y)$, which is only true for constant maps.
+ 	To see that such a continuous map must be constant, first observe that $\mathbb{R}$ and $\emptyset$ are the only sets which are both closed and open with respect to the standard topology.  Let $g: (\mathbb{R},std)\rightarrow (\mathbb{R},\mathcal{P}(\mathbb{R})) $ be a continuous map and pick some $x\in \mathbb{R}$.  The set $\{g(x)\}$ is both closed and open in the discrete topology (as every set is closed and open), so its inverse image must be, in particular, open.  But the inverse image cannot be empty, as we know for sure it contains $x$, and the only non-empty closed and open set in the standard topology is the entire space.  Therefore, for any $x,y\in\mathbb{R}$, we have $g(x)=g(y)$, which is only true for constant maps.
  	
  	
  \end{proof}
@@ -50,14 +50,14 @@ In Analysis, we have a definition of continuity which looks like:
  
  
  
- This forms a topology, and the set $S^n$ is the surface of the $n$-dimensional sphere.  If we think about $S^2$, there's a natural embedding in $\mathbb{R}^3$, but it turns out that $S^2\setminus\{(0,0,1)\}$ is homeomorphic to $\mathbb{R}$.  If we use the (north polar) stereographic projection, which maps points in $S^2$ to the point in the $\mathbb{R}^2$ plane according to the straight line passing through the north pole and that point, we get a nice homeomorphism, and this is easy to see from the subspace topology that $S^2$ inherits from $\mathbb{R}^3$.  If we then include that the north pole maps to our added point $\infty$, we get a map from all of $S^2$ to the set $\mathbb{R}^2\cup\{\infty \}$ which is a homeomorphism.}
+ This forms a topology, and the set $S^n$ is the surface of the $n$-dimensional sphere.  If we think about $S^2$, there's a natural embedding in $\mathbb{R}^3$, but it turns out that $S^2\setminus\{(0,0,1)\}$ is homeomorphic to $\mathbb{R}^2$.  If we use the (north polar) stereographic projection, which maps points in $S^2$ to the point in the $\mathbb{R}^2$ plane according to the straight line passing through the north pole and that point, we get a nice homeomorphism, and this is easy to see from the subspace topology that $S^2$ inherits from $\mathbb{R}^3$.  If we then include that the north pole maps to our added point $\infty$, we get a map from all of $S^2$ to the set $\mathbb{R}^2\cup\{\infty \}$ which is a homeomorphism.}
 
 
 \section*{The Quotient Topology}
 
 Let $(X,\mathcal{A})$ be a topological space and $\sim$ an equivalence relation on $X$.  Then $X/\sim$ inherits a topology, which is that $U'\subset X/\sim$ is open if and only if there is some open set $U\subset X$ such that $U'=U/\sim$.
 
-\definition{This topology is called the \textbf{quotient topology}.}
+\definition{This topology is called the \textbf{quotient topology}, or the \textbf{identification map}.}
 
 \example{Take $\mathbb{R}^2$ with the standard topology and define an equivalence relation $(x,y)\sim (x,-y)$.  The quotient space looks like the closed (upper or lower) half-plane.}
  

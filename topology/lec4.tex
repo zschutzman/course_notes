@@ -1,0 +1,41 @@
+\classheader{09-08-2017}
+
+
+\section*{Mapping Cylinders and Tori}
+
+
+\definition{Let $I$ denote the closed unit interval $[0,1]$.  The \textbf{mapping cylinder} of a continuous map $:fX\rightarrow Y$ is the quotient space defined by $X\times I/\sim$, where $(x,0)\sim (f(x),1)$.}
+
+
+\definition{The \textbf{mapping torus} of a map $f:X\rightarrow X$ is similar, except that we require that the map be from a space to a copy of itself and we define the equivalence relation as $(x,0)\sim(f(x),0)$.}
+
+\example{The mapping cylinder of $f:\mathbb{S}^1\rightarrow \mathbb{S}^1$ where $f(x)=x$ is a regular old cylinder.  The mapping torus is a regular old torus.}
+
+\example{We can equivalently think of $\mathbb{S}^1$ as $\{ (x,y)|x^2+y^2=1 \}$ in Euclidean space or as $\{(r,\theta)|r=1  \}$ in polar coordinates.  Using this second formulation, consider the map $f:\mathbb{S}^1\rightarrow \mathbb{S}^1$ where $f(\theta)=2\theta$.  This is a two-to-one map which maps antipodal points to each other.  The mapping cylinder of $f$ is a Moebius strip.}
+
+\example{What about the three-to-one map $f(\theta)=3\theta$?  The mapping cylinder of this looks like a three-bladed wing with a one-third twist and the ends glued together.}
+
+\section*{Boundaries and Exteriors}
+
+Let $(X,\mathcal{A})$ be a topological space and let $K\subseteq X$.
+
+\definition{The \textbf{interior} of $K$ is the largest open subset contained in $K$.  That is, it is the union of all $U\subset K$ such that $U\in \mathcal{A}$.}
+
+\definition{The \textbf{closure} of $K$ is the smallest closed subset containing $K$.  That is, it is the intersection of all $V\superset K$ such that $(X-V)\in \mathcal{A}$.}
+
+\definition{The \textbf{boundary} of $K$ is the intersection of the closure of $K$ with the closure of the complement of $K$, that is $Bd(K) = \overline{K}\cap \overline{X-K}$.  If $K$ is open, then $Bd(K) = \overline{K}-K$.  If $K$ is closed, then $Bd(K)=\emptyset$.}
+
+
+\example{Take $K = \mathbb{Q}\cap [0,1]\subset \mathbb{R}$ with the standard topology on $\mathbb{R}$.  The interior of this set is empty, as there is no open interval which doesn't contain an irrational number, so $\emptyset$ is the largest open subset in $K$.  The closure of $K$ is the entire interval $[0,1]$, as there is no smaller closed set which contains all of the rationals in that interval.  We also have that the boundary $Bd(K) = [0,1]$.}
+
+\example{Take $K=\mathbb{R}-\{0\}$ with the Zariski topology on $\mathbb{R}$.  The interior of $K$ is $K$, as $K$ is open.  The closure of $K$ is all of $\mathbb{R}$, and the boundary is $\{0\}$.}
+
+\definition{A point $x$ is a \textbf{limit point} of $K\subset X$ if every open set containing $x$ has non-empty intersection with $K$.  Equivalently, $x$ is a limit point of $K$ if $x\in \overline{K-\{x\}}$.}
+
+
+
+\example{Take $\mathbb{R}$ with the Zariski topology.  If $U$ is an open set, then every $x\in\mathbb{R}$ is a limit point of $U$.  In fact, for any infinite subset of $\mathbb{R}$, every point in $\mathbb{R}$ is a limit point.}
+
+
+
+	
