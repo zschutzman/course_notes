@@ -21,7 +21,7 @@ Let $(X,\mathcal{A})$ be a topological space and let $K\subseteq X$.
 
 \definition{The \textbf{interior} of $K$ is the largest open subset contained in $K$.  That is, it is the union of all $U\subset K$ such that $U\in \mathcal{A}$.}
 
-\definition{The \textbf{closure} of $K$ is the smallest closed subset containing $K$.  That is, it is the intersection of all $V\superset K$ such that $(X-V)\in \mathcal{A}$.}
+\definition{The \textbf{closure} of $K$ is the smallest closed subset containing $K$.  That is, it is the intersection of all $V\supset K$ such that $(X-V)\in \mathcal{A}$.}
 
 \definition{The \textbf{boundary} of $K$ is the intersection of the closure of $K$ with the closure of the complement of $K$, that is $Bd(K) = \overline{K}\cap \overline{X-K}$.  If $K$ is open, then $Bd(K) = \overline{K}-K$.  If $K$ is closed, then $Bd(K)=\emptyset$.}
 
@@ -35,6 +35,18 @@ Let $(X,\mathcal{A})$ be a topological space and let $K\subseteq X$.
 
 
 \example{Take $\mathbb{R}$ with the Zariski topology.  If $U$ is an open set, then every $x\in\mathbb{R}$ is a limit point of $U$.  In fact, for any infinite subset of $\mathbb{R}$, every point in $\mathbb{R}$ is a limit point.}
+
+\definition{A \textbf{neighborhood} of a point $x\in X$ is an open set containing $x$.}
+
+\example{In the either-or topology on $[-1,1]\subset\mathbb{R}$ has open sets $\emptyset$, $[-1,1]$, a set is open if and only if it does not contain $0$ or it contains $(-1,1)$.  If $U$ is an open set and $0\in U$, then $U=(-1,1),\ [-1,1),\ (-1,1],\ or \ [-1,1]$.  Closed sets are subsets of $\{-1,1\}$, all of $[-1,1]$, $\emptyset$, and any set that contains $0$.
+	
+	What are the continuous functions?  From $EO$ to $std$, constant functions are continuous.  Anything else?  From $std$ to $EO$, continuous functions look like $f(x)=\frac{1}{2}sgn(x)$.}
+
+\example{Take $\frac{1}{2}\in [-1,1]$ with the either-or topology. Is $\frac{1}{2}$ a limit point of $[-1,1]-\{\frac{1}{2} \}$?  No!  That set is already closed, so it contains all of its limit points.
+	
+	Is $0$ a limit point of $(\frac{1}{2},\frac{3}{4})$? Yes!  Every open set containing $0$ contains $(-1,1)$, so it obviously also contains $(\frac{1}{2},\frac{3}{4})$.
+	
+}
 
 
 
