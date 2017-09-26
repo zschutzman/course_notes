@@ -29,8 +29,8 @@
 %  Specfies basic information.
 %  In the metadata section of the preamble, you can specify the subject and a list of keywords for the PDF.
 %
-\newcommand{\coursetitle}{Math 500 - Topology and Geometry}
-\newcommand{\lecturer}{Brian Weber}
+\newcommand{\coursetitle}{Geometric Group Theory}
+\newcommand{\lecturer}{}
 \newcommand{\notetaker}{Zach Schutzman}
 \newcommand{\notetakersemail}{ianzach+notes@seas.upenn.edu}
 \newcommand{\courseterm}{Fall 2017}
@@ -289,7 +289,7 @@
 \setlength{\headheight}{14pt}
 \lfoot{\parbox[t]{1in}{\centering Last edited\\ \today}}
 \cfoot{\parbox[t]{3in}{\centering \coursetitle}}
-\rfoot{\parbox[t]{0.9in}{\centering Page \thepage\\ Lecture \arabic{lecture}}}
+\rfoot{\parbox[t]{0.9in}{\centering Page \thepage\\ Chapter \arabic{lecture}}}
 
 
 %  Sets the inputs for \maketitle.
@@ -300,8 +300,8 @@
 
 
 %  Defines headings for each day's notes.
-\newcommand{\classheader}[1]{\stepcounter{lecture}\newpage\section*{Lecture \arabic{lecture} (#1)}
-	\phantomsection \addcontentsline{toc}{section}{Lecture \arabic{lecture} (#1)}}
+\newcommand{\classheader}[1]{\stepcounter{lecture}\newpage\section*{Chapter \arabic{lecture} #1}
+	\phantomsection \addcontentsline{toc}{section}{Chapter \arabic{lecture} #1}}
 
 
 %---------------------------------------%
@@ -415,11 +415,11 @@
 	%  Introduction
 	%
 	\section*{Introduction}
-	Math 500 is a Masters-level first-course in Topology and Geometry.  The course follows James Munkres' \textit{Topology, 2ed.} and this set of notes is based on the Fall 2017 offering.
+	Taking notes and working through proofs is the best way for me to teach myself advanced mathematics.  Typing (and thoroughly backing up) notes is the best way to make sure they are preserved and readable well into the future.  As such, these notes are from my process of working through \textit{Topics in Geometric Group Theory} by Pierre de la Harpe.
 	
-	These notes are being live-TeXed, though I edit for typos and add diagrams requiring the Ti\textit{k}Z package separately. I am using the editor TeXstudio.  The template for these notes was created by Zev Chonoles and is made available (and being used here) under a Creative Commons License. 
+	These notes are being written intermittently, as learning Geometric Group Theory is something that must come after my required coursework, research, and teaching. I am using the editor TeXstudio.  The template for these notes was created by Zev Chonoles and is made available (and being used here) under a Creative Commons License. 
 	
-	I am responsible for all faults in this document, mathematical or otherwise; any merits of the material here should be credited to the lecturer, not to me.
+	I am responsible for all faults in this document, mathematical or otherwise; any merits of the material here should be credited to Professor de la Harpe and those mathematicians he references.
 	
 	Please email any corrections or suggestions to \expandafter\href{mailto:\notetakersemail}{\texttt{\notetakersemail}}.
 	
@@ -452,15 +452,7 @@
 	%
 	%  and keep them in the same folder as this main file. By doing it this way (instead of keeping all the notes in the main file), if you're only working on the notes for one lecture, you can easily comment out the lines corresponding to the other lectures.
 	%
-	
-	\include{lec1}
-	\include{lec2}
-	\include{lec3}
-	\include{lec4}
-	\include{lec5}
-	\include{lec6}
-	\include{lec7}
-	\include{lec8}
-	
+	\include{ch1}
+
 	\end{document}
 	

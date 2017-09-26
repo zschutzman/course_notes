@@ -1,0 +1,25 @@
+\classheader{09-20-2017}
+
+\section*{The Cantor set}
+
+The Cantor set is one of those pathological examples in mathematics.  Consider the interval $C_0=[0,1]\subset\mathbb{R}$.  Given $C_k$, define $C_{k+1}$ as $C_k$ with the middle third of each constituent interval removed.  So $$C_1=[0,\frac{1}{3}]\cup[\frac{2}{3},1]$$ $$C_2=[0,\frac{1}{9}]\cup[\frac{2}{9},\frac{1}{3}]\cup[\frac{2}{3},\frac{7}{9}]\cup[\frac{8}{9},1]$$ and so on.
+
+While we don't have a precise definition for what it means to take a limit to $C_\infty$, we can define $C_\infty=\bigcap C_i$ and this is totally fine from a topological point of view.
+
+
+
+\definition{The \textbf{Cantor set} is the name given to $C_\infty$.}
+
+The Cantor set is not empty, it's actually uncountable.  To see this, consider all reals in $[0,1]$ expressed in their ternary expansion.  The Cantor set contains all numbers which do not have any $1$s in this representation.  This is obviously an uncountable set.  We also note that the Cantor set doesn't contain any intervals.  
+
+The Cantor set inherits a subspace topology from $\mathbb{R}$.  It is an exercise on the homework to show that the map $f:C_\infty \rightarrow [0,1]$ where we replace all of the $2$s in the ternary representation with $1$s and interpret it as the binary representation of a real number is a continuous function.
+
+The Cantor set has no interior points, so the complement of the Cantor set is dense and open.
+
+\definition{Denote the \textbf{measure} of the set $C_k$ as $mC_k$. Here we'll use measure as `total length', although in a proper, measure-theoretic sense, this definition isn't quite correct.}
+
+What is the measure of the Cantor set?  The measure of $C_0=[0,1]$ is $1$.  We can define a recurrence, where $mC_k=1-\frac{1}{2}\sum\limits_{i=1}^{k}(\frac{2}{3})^i$.  Then, $mC_\infty = 1-\frac{1}{2}\sum\limits_{i=1}^{\infty}(\frac{2}{3})^i = 1-\frac{1}{2}\frac{\frac{2}{3}}{1-\frac{2}{3}}=0$.
+
+What if at each stage we remove a little less than $\frac{1}{3}$ of each interval?  Say we remove $\frac{\alpha}{3}$, where $0<\alpha<1$.  We still get a Cantor-like set, but here we get a recurrence which looks like $mC_k=mC_{k-1}-2^{k-1}\alpha(\frac{1}{3})^k$.  Here, the measure of $C_\infty$ is $1-\alpha$, but its interior is still empty, so its complement is open and dense.
+
+We can even make a Cantor-like set of full measure by putting a smaller copy of the Cantor set into each gap created by removing an interval.  This set is uncountable, has measure $1$, and is nowhere dense.
