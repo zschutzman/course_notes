@@ -1,0 +1,179 @@
+\classheader{}
+
+\section*{Free Products of Groups}
+
+\definition{A \textbf{monoid} is a set $M$ with an operation $\circ$ such that:
+	
+	\begin{enumerate}
+		\item for all $a,b\in M$, $a\circ b\in M$
+		\item there exists an $e\in M$ such that for all $a\in M$, $e\circ a=a\circ e = a$
+		\item the operation $\circ$ is associative
+	\end{enumerate}
+}
+
+\definition{ The \textbf{free monoid} on a set $A$, also called the \textbf{set of words on $\boldsymbol{A}$} is the set $W(A)$ of finite sequences of elements of $A$.}
+
+An element of $W(A)$ is typically written $w=a_1a_2a_3\dots a_n$ where each $a_i\in A$.
+
+\definition{For a word $w=a_1a_2\dots a_n$, $n$ is called the \textbf{length} of $w$.}
+
+The set $A$ is itself the set of words of length $1$.
+
+Let $\Gamma_i$ be a family of groups indexed by $i\in I$.  Let $A=\bigsqcup\limits_{i\in I}\Gamma_i$ be the disjoint union of all the $\Gamma_i$.  We can define an equivalence relation $\sim$ on $W(A)$ as:
+
+\begin{enumerate}
+	
+	\item[] $we_iw' \sim ww'$.  That is, two words are equivalent if we can make one into the other by throwing out identity elements
+	\item[] $wabw' \sim wcw'$ if $a,b,c$ are all in the same group $\Gamma_i$ and $c=ab$.  That is, two words are equivalent if we can make one into the other by performing multiplication on adjacent elements which come from the same group.
+	
+\end{enumerate}
+
+\claim{The quotient $W(A)/\sim$ forms a monoid (actually a group).}
+
+	
+	
+In order to turn a monoid into a group, we need to assert the existence of inverses.  Since our $W(A)$ is a free monoid on a family of groups, each letter already has an inverse, so we can easily verify that the inverse of the words in the class associated with the word $w=a_1a_2\dots a_{n-1}a_n$ is $w^-{-1}=a_n^{-1}a_{n-1}^{-1}\dots a_{2}^{-1}a_1^{-1}$ by the shoes-and-socks principle.
+
+\definition{This quotient $W(A)/\sim$ forms a group called \textbf{the free product} of the groups $\Gamma_i$, which is denoted $*_{i\in I}\Gamma_i$.}
+
+
+\definition{A word in $W(A)$ is called \textbf{reduced} if none of its letters are the identity in any of the $\Gamma_i$ and for any two adjacent letters $a_i,a_{i+1}$, $a_i$ and $a_{i+1}$ come from different groups.  That is, they cannot be multiplied together to form a single letter.}
+
+\claim{Let $\Gamma_i$ be a family of groups and let $W(A)$, $\sim$, and $*_{i\in I}\Gamma_i = W(A)/\sim$ be as above. Then any element in $W(A)/\sim$ is equivalent to a unique reduced word in $W(A)$.}
+
+\begin{proof}
+	
+	To see the existence of such a reduced word, let $w=a_1a_2\dots$ be some reduced word in $W(A)$, $a$ be a letter from some group, and $aw$ be the word formed by concatenating $a$ and $w$.
+	
+	Then, set 
+	
+	\[
+	\mathcal{R}(w) = \left\{
+	\begin{array}{ll}
+	w & a \ is \ the\ identity \ in \ some \ \Gamma_i \\
+	aa_1a_2\dots  & a \ is \ not \ the  \ identity \ in \ any\ \Gamma_i \ and \ a \ and \ a_1 \ come \ from \ different \ \Gamma_i\\
+	ba_2a_3\dots & a \ and \ a_1 \ come \ from \ the \ same \ group \ \Gamma_j  \ and \ aa_1=b \ and \ b \ is\ not \ the\ identiy  \ in \ \Gamma_j\\
+	a_2a_3\dots & a \ and \ a_1 \ come \ from \ the \ same \ group \ \Gamma_j  \ and \ aa_1=e_j \ and \ e_j \ is\ \ the\ identiy  \ in \ \Gamma_j\
+	\end{array}
+	\right.
+	\]
+	
+Then $\mathcal{R}(aw)$ is a reduced word and is equivalent to $aw$.  By inducting on the length of $w$, we can show that every word is equivalent to some reduced word.
+
+To see uniqueness, for each letter $a$ in $A$, denote the mapping $w\mapsto \mathcal{R}(aw)$ as $T(a)$, which is a function from the set of reduced words into itself.  For any word $x=b_1b_2\dots$ in $W(A)$ (reduced or not), call $T(w)=T(b_1)T(b_2)\dots$.  For $a,b,c$ in the same group $\Gamma_i$ with  $ab=c$, we have that $T(a)=T(b)T(c)$ and that if $e_i$ is the identity element in some group, $T(e_i)$ is the identity map.  Therefore, $T(w_1)=T(w_2)$ if and only if $w_1\sim w_2$.  Let $\epsilon$ denote the empty word.  For each reduced word $w$, we have that $T(w)\epsilon = w$, so if $w_1$ and $w_2$ are two equivalent reduced words, we have that $T(w_1)=T(w_2)$, so $w_1=T(w_1)\epsilon = T(w_2)\epsilon = w_2$, so $w_1=w_2$ and we have uniqueness.
+\end{proof}
+
+
+\claim{Pick some $\Gamma_j$ and let $\Gamma$ denote the free product over all of the $\Gamma_i$.  Then the canonical homomorphism $\phi: \Gamma_i\rightarrow \Gamma$ where $\phi(\gamma) = \gamma$ is injective.}
+
+\begin{proof}
+	If $\gamma$ is the identity element, then $\phi(\gamma)$ is the empty word. Otherwise, $\phi(\gamma)$ is a one-letter word which is (clearly) reduced and not equivalent to the empty word.  Since we have uniqueness of reduced word equivalence, each $\gamma$ maps to a unique element in the free product, and $\phi$ is injective.
+\end{proof}
+
+\definition{The \textbf{free group} over a set $X$ is the free product of copies of $\mathbb{Z}$ indexed by $X$, denoted $F(X)$.}
+
+We identify each $x\in X$ with the generator $+1$ in the corresponding copy of $\mathbb{Z}$.  We can view $X$ as a subset of the free product and $F(X)$ as the set of reduced words in $X\cup X^{-1}$, where we can reduce words by performing the appropriate multiplication for adjacent letters.
+
+\definition{The \textbf{rank} of the free group $F(X)$ is the cardinality of $X$.}
+
+\definition{If $\Gamma$ is a group, a \textbf{free subset} of $\Gamma$ is an $X\subset \Gamma$ such that the extension of the inclusion $X\xhookrightarrow[]{} F(X)$ is an isomorphism between the subgroup of $\Gamma$ generated by $X$ onto $F(X)$.
+	
+}
+
+
+\example{The fundamental group of a wedge of $k$ circles is the free group of rank $k$.}
+
+
+\begin{theorem}(The Universal Property of Free Groups)
+	
+	Let $\Gamma$ be a group and $(\Gamma_i)_{i\in I}$ a family of groups indexed by $I$.  Next, let $(h_i:\Gamma_i\rightarrow\Gamma)_{i\in I}$ be a family of homomorphisms indexed by $I$ such that $h_i$ is a homomorphism from $\Gamma_i$ into $\Gamma$.  Then there exists a unique homomorphism $h$ such that for each $\Gamma_j$, applying $h_j$ is equivalent to taking $\Gamma_j$ to the free product $*_{i\in I}\Gamma_i$ and applying $h$.
+	
+	That is, if $\Gamma$ is a group and $X$ a set, and $\phi:X\rightarrow \Gamma$ is any function, there exists a unique homomorphism $\Phi:F(X)\rightarrow \Gamma$ such that $\phi(x)=\Phi(x)$ for all $x\in X$.
+	
+\end{theorem}
+
+\begin{proof}
+	
+	Let $w = a_1a_2a_3\dots$ be a reduced word in the free product of the $\Gamma_i$ and let $a_{i_j}$ denote that letter $i$ comes from group $\Gamma_j$.  Then let $h(w) = h_i(a_{1_i})h_j(a_{2_j})\dots$ where we define $h(w)$ to be the corresponding homomorphism from the group that each letter comes from.
+	
+	This defines $h$ uniquely in terms of the $h_i$, so given some family of homomorphisms $h_i$ there is a unique homomorphism $h$ satisfying this relationship.
+\end{proof}
+
+
+Let $X$ and $Y$ be two sets.  This universal property tells us that any mapping $X\rightarrow Y$ has a canonical extension to a group homomorphism $F(X)\rightarrow F(Y)$.  In particular, if the mapping $X\rightarrow Y$ is bijective, the extension is a group isomorphism between $F(X)$ and $F(Y)$. 
+
+\begin{corollary}
+	Any group can be realized as the quotient of a free group.
+\end{corollary}
+
+\begin{proof}
+	A group $\Gamma$ can be thought of, in particular, as a set, and we can consider $\Gamma$ as a group a quotient of $F(\Gamma)$ where the relations of $\Gamma$ are the kernel of the quotient map.
+	
+\end{proof}
+
+\exercise[7 (Universal Property of Free Monoids)]{
+	
+	The universal property of free monoids is almost identical to that of free groups.  Let $A$ be a set and $W(A)$ the free monoid on that set.  Then for any monoid $M$ and a map $f:A\rightarrow M$, there exists a unique monoid homomorphism $\phi:W(A)\rightarrow M$ which satisfies the property that applying $f$ to some element of $A$ is equivalent to first realizing that element as a letter in $W(A)$ then applying $\phi$ to that letter.
+	
+	\begin{proof}
+		
+		Let $w=a_1a_2\dots a_n$ be a  word in $W(A)$.  Then $\phi(w) = f(a_1)f(a_2)\dots f(a_n)$ so $\phi$ is defined as an application of $f$ to each letter, which uniquely determines $\phi$ with respect to some $\alpha$.
+		
+		
+	\end{proof}
+	
+	Consequently, if $X$ and $Y$ are sets of equal cardinality, there is a monoid isomorphism between $W(X)$ and $W(Y)$ which can be built from any bijection $X\rightarrow Y$.
+	
+	
+	}
+	
+\exercise[8]{
+	
+	A submonoid of a free monoid need not be free (unlike subgroups of free groups).
+	
+	
+	
+	}
+	
+\exercise[9]{
+	
+	We wish to show that the generating function of the free monoid on a finite set of size $k$, corresponding to the number of words of a given length is rational.
+	
+	\begin{proof}
+		
+		Recall that a sequence has a rational generating function if and only if it is a finite linear recurrence.  The free monoid has $1$ word of length $0$, and $k$ words of length $1$.  To make a word of length $n+1$, we take a word of length $n$ and add one more letter to it, which has recurrence $f(n+1)=kf(n)$.
+		
+		The $n$th term in the sequence is $k^n$, if we wanted a closed-form expression.
+		
+		
+	\end{proof}
+	
+	}
+	
+\exercise[10]{
+	
+	We wish to show that two free groups are isomorphic if and only if they have the same rank.
+	
+	\begin{proof}
+		One direction is easy.  We have from the universal property that if we have two sets of equal cardinality, the free groups on those sets are isomorphic.  Since the rank of a free group is precisely the cardinality of the underlying set, we have that two free groups having the same rank implies they are isomorphic.
+		
+		Now assume that we have two free groups $F,G$ which are isomorphic.  We will show they have the same rank.  Since these groups are isomorphic, the size of the set of homomorphisms between $F$ and $\mathbb{Z}_2$ is the same as the size of the set of homomorphisms between $G$ and $\mathbb{Z}_2$.  Observe that for a group of rank $r$, there are $2^r$ such homomorphisms, as we can just identify each one with some function from the underlying set into $\mathbb{Z}_2$ and use the universal property to extend that map to a homomorphism.  If $r,s$ are the ranks of $F,G$, we have that $2^r=|\hom(F,\mathbb{Z}_2)|=|\hom(G,\mathbb{Z}_2)|=2^s$, hence $r=s$.
+		
+
+	\end{proof}
+	
+	
+	}
+	
+	
+	
+\exercise[13]{
+		
+		We wish to show that the center of a free group of rank at least $2$ where none of the factors are trivial is trivial.
+		
+		\begin{proof}
+			Assume, for the sake of contradiction, that such a free group has an element in its center $w$, and assume that $w$ is reduced and that its first letter is $a$.  Then the word $bw$, where $b$ comes from a different group as $a$ is not the same as $wb$, as the reduced word for $bw$ starts with $b$ and the reduced word for $wb$ starts with $a$.  Hence $w$ does not commute with $b$ and it is not in the center.
+			
+		\end{proof}
+		
+		}

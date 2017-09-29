@@ -1,7 +1,304 @@
 \classheader{}
-\section*{What is Geometric Group Theory?}
+
 
 
 \section*{The Gauss Circle Problem}
 
+Suppose we have a circle of radius $\sqrt{t}$ in $\mathbb{Z}^2$ centered at the origin.  How many lattice points are contained in the circle.  That is, we are interested in 
+$$R(t) = \#\{(a,b)\in\mathbb{Z}^2|(a^2+b^2)\leq t  \}$$
+
+
+Right away, we can see things like $R(0)=1$, as this `circle' contains only the origin.  We also have $R(1)=5$, as this circle contains the origin and the four points $(1,0),(0,1),(-1,0),(0,-1)$.    We'd like to understand $R(t)$ as $t$ grows large.
+
+The book also tells us that:
+
+\begin{equation*}
+\begin{aligned}[c]
+R(10)&=37\\
+r(100)&=317
+\end{aligned}
+\qquad\qquad
+\begin{aligned}[c]
+R(1000)&=3149\\
+R(10000)&=31417
+\end{aligned}
+\end{equation*}
+
+A pretty obvious pattern emerges here: we can see that $R(10^k)\approx\pi\cdot 10^{k}$, furthermore, $R(t)\approx\pi t$.
+
+\begin{theorem}(Gauss)
+	
+	Asymptotically, $R(t)-\pi t = O(\sqrt{t})$.
+	
+	
+\end{theorem}
+
+
+\begin{proof}
+	
+	Throughout, assume that $t\geq 0$.  To each point $(a,b)\in\mathbb{Z}^2$, we associate the axis-aligned unit square which has $(a,b)$ as its `southwest' corner.  If $a^2+b^2\leq t$, then expanding the radius slightly to $\sqrt{t}+\sqrt{2}$ ensures the entire square associated with $(a,b)$ sits inside of the circle.  This may add more points to the circle, as $R(t)\leq R(t+k)$ for $k\geq 0$ by construction.  Thus we have $$R(t)\leq \pi(\sqrt{t}+\sqrt{2})$$  The right-hand side of this inequality is the area of the expanded circle which contains all of the squares associated with points in our original circle of radius $\sqrt{t}$, so it must at least contain all of the southwest corners of those squares, and therefore at least all of the points in the original circle.
+	
+	Conversely, if the square associated to $(a,b)$ touches the circle of radius $\sqrt{t}-\sqrt{2}$, then it must be the case that $a^2+b^2\leq t$.  We can see this by thinking about a square which touches the smaller circle, but whose point $(a,b)$ is not contained in that circle.  How far away can $(a,b)$ be from the smaller circle?  The answer is $\sqrt{2}$, as in the worst case, the square sits in the lower-left quadrant and its northeast corner barely touches the circle.  Expanding the circle's radius by $\sqrt{2}$ puts the southwest corner inside the circle.  By the same argument as before, we have that $$R(t)\geq \pi(\sqrt{t}-\sqrt{2})^2$$
+	
+	Now we have two inequalities which look kind of symmetric, expanding the binomials and rearranging gives us 
+	$$|R(t)-\pi t|\leq 2\pi(1+\sqrt{2t})$$
+	
+	This quantity on the right is asymptotically in $O(\sqrt{t})$, and we are done.
+	
+	
+	
+\end{proof}
+
+
+See the text for some references to improved bounds and generalizations of this problem.
+
 \section*{P\'olya's Recurrence Theorem}
+
+\definition{A \textbf{simple random walk} is one in which the steps are all of length one and they are chosen independently from a fixed distribution.}
+
+
+
+\definition{A \textbf{symmetric} simple random walk is one in which the probability of taking some step $\alpha$ is equal to the probability of taking the inverse step $\alpha^{-1}$.}
+
+
+
+\definition{A walk is called \textbf{recurrent} if with probability $1$ it visits the starting point infinitely often.}
+
+Let's think about the symmetric random walk on the integers $\mathbb{Z}$ where we start at the origin $0$ and at each step we more left ($-1$) with probability $.5$ and right ($+1$) with probability $.5$. A natural question to ask is whether this walk is recurrent.  Note that for random walks on structures that look like $\mathbb{Z}^k$ we'll always assume that we start at the origin unless otherwise specified.
+
+\begin{claim}
+	The simple symmetric random walk on $\mathbb{Z}$ is recurrent.
+\end{claim}
+
+\begin{proof}
+	We proceed combinatorially.  The number of total walks of length $2n$ is $2^{2n}$.  We can see this by thinking of a walk as a binary string, using $0$ for a move left and $1$ for a move right.  There are $2^k$ such strings of length $k$.  Next, we can see that the number of walks of length $2n$ which end at the origin are $\binom{2n}{n}$, as such a walk consists of exactly $n$ steps left and $n$ steps right, which we can specify by identifying at which times we moved left.
+	
+	Let $u_{2n}$ be the probability that a walk of length $2n$ chosen uniformly at random ends at the origin.  Thus $$u_{2n}=\frac{1}{2^{2n}}\binom{2n}{n} = \frac{1}{2^{2n}} \frac{(2n)!}{n!\cdot n!} $$  Observe that walks of odd length never end at the origin, so $u_k$ for odd $k$ is zero.
+	
+	Stirling's approximation\footnote{In Stirling's approximation, $\approx$ means that the ratio of the quantities on the left-hand and right-hand side approaches $1$ as we take a limit as $m$ goes to infinity.} tells us that $m!\approx m^me^{-m}\sqrt{2\pi m}$, and plugging this into the above probability $u_{2n}$ gives us
+	$$u_{2n}\approx \frac{1}{2^{2n}}\frac{(2n)^{2n}e^{-2n}\sqrt{2\pi 2n}}{n^{2n}e^{-2n}2\pi n} = \frac{1}{\sqrt{\pi n}}$$
+	
+	Now, for a walk to be recurrent, we want to examine the sum over all walk lengths of the probability of that walk ending at the origin.
+	
+	Since $\sum\limits_{n=1}^{\infty}\frac{1}{\sqrt{n}} = \infty$,	we have that
+	
+	$$\sum\limits_{k=1}^{\infty} u_k = \sum\limits_{n=1}^{\infty} u_{2n} = \sum\limits_{n=1}^{\infty} \frac{1}{\sqrt{\pi n}} = \frac{1}{\sqrt{\pi}}\sum\limits_{n=1}^{\infty} \frac{1}{\sqrt{n}} = \infty$$
+
+	
+	So the simple symmetric random walk on $\mathbb{Z}$ revisits the origin infinitely often with probability $1$.
+	
+\end{proof}
+
+\begin{claim}
+	
+	Let $\{a_n\}_{n\in\mathbb{N}}$ be a sequence of numbers such that $0\leq a_i\leq 1$ for all $i\in\mathbb{N}$.  The infinite product $\prod\limits_{n=1}^{\infty} (1-a_n)$ converges to a real number (between zero and one) if and only if the infinite sum $\sum\limits_{n=1}^{\infty}$ converges.
+	
+	
+	
+\end{claim}
+
+\begin{proof}
+	
+	Take the logarithm of the infinite product to turn it into the sum 
+	$$\log{(\prod\limits_{n=1}^{\infty} (1-a_n))} = \sum\limits_{n=1}^{\infty} \log{(1-a_n)}$$
+	which converges if and only if the original product does.  We have from calculus that 
+	
+	$$\lim\limits_{x\rightarrow 0} \frac{\log{(1-x)}}{x}=-1$$
+	
+	so assuming that the sequence $\{ a_n \}_{n\in\mathbb{N}}$ goes to zero as $n$ grows (which is a bare-minimum requirement for convergence of the series), we have that 
+		
+		$$\lim\limits_{n\rightarrow \infty} \frac{\log{(1-a_n)}}{a_n}=-1$$
+	
+	
+	And by a comparison test, this series converges exactly when  $\sum\limits_{n=1}^{\infty}$ does.
+\end{proof}
+
+This tells us that a random walk is recurrent if and only if the probability of never revisiting the origin is zero (we'll plug in $u_k$ for $a_n$ and check if the product diverges to zero.)
+
+What about walks on $\mathbb{Z}^2$?  Now we'll consider the symmetric simple random walk where we move up, down, left, or right by one unit with equal probability at each time step.  Is this walk recurrent?
+
+The number of paths of length $2^{2n}$ is now $4^{2n}$, and for a walk to revisit the origin, we must have $k$ steps each north and south and $n-k$ steps each east and west.  The number of these is described by the multinomial coefficient
+
+\begin{align*}
+\binom{2n}{k,k,n-k,n-k} &= \\
+\ \\
+&=\binom{2n}{k}\binom{2n-k}{k}\binom{2n-2k}{n-k} \\
+\ \\
+&= \frac{(2n)!\cdot (2n-k)!\cdot (2n-2k)!}{(2n-k)!\cdot k!\cdot (2n-2k)!\cdot k!\cdot (n-k)!\cdot (n-k)!} \\
+\ \\
+&= \frac{(2n)!}{k!\cdot k!\cdot (n-k)!\cdot (n-k)!}
+\end{align*}
+
+Then, the probability $u_{2n}$ of being at the origin after $2n$ steps is 
+$$u_{2n} = \frac{1}{4^{2n}} \sum\limits_{k=0}^n \frac{(2n)!}{k!\cdot k!\cdot (n-k)!\cdot (n-k)!} = \frac{1}{4^{2n}}\frac{(2n)!}{n!\cdot n!}\sum\limits_{k=1}^{n}\binom{n}{k}\binom{n}{n-k}$$
+
+From the combinatorics, we have the identity $\binom{2n}{n} = \sum\limits_{k=0}^n \binom{n}{k}\binom{n}{n-k}$.  We can think of the first quantity as counting the number of binary strings of length $2n$ with exactly $n$ zeros and the second as all of the ways to form a pair of binary strings of length $n$, the first with $k$ zeros and the second with $n-k$ zeros, for a total of $n$ zeros across the two strings.  From here, the bijection is easy to see.
+
+So we have $$u_{2n} = \frac{1}{4^{2n}}\frac{(2n)!}{n!\cdot n!}\binom{2n}{n}$$ and by Stirling's approximation, we have $$u_{2n}\approx \frac{1}{\pi n} \ and \ \sum\limits_{n=1}^{\infty} u_{2n} = \infty$$
+
+so such walks on $\mathbb{Z}^2$ are recurrent.
+
+Naturally, we now want to ask the same question about $\mathbb{Z}^3$.  It turns out, such walks are transient.
+
+\definition{A walk is called \textbf{transient} if it is not recurrent.}
+
+Skipping the redundant work, on $\mathbb{Z}^3$, we have 
+
+\begin{align*}
+u_{2n}&=\frac{1}{6^{2n}}\sum\limits_{\substack{j,k\geq 0 \\ j+k\leq n}} \frac{(2n)!}{j!\cdot j! \cdot k! \cdot k! \cdot (n-j-k)!\cdot (n-j-k)!}\\
+\ \\
+&= \frac{1}{2^{2n}}\binom{2n}{n}\sum\limits_{\substack{j,k\geq 0 \\ j+k\leq n}}  \left(\frac{1}{3^n}\frac{n!}{j!\cdot k!\cdot (n-j-k)}\right)^2
+\end{align*}
+
+Let $\left[\frac{n}{k}\right]$ denote the nearest integer to $\frac{n}{k}$.  Then we have that $\frac{n!}{j!\cdot k!\cdot (n-j-k)!}$ achieves its maximum at $j=k=\left[\frac{n}{3}\right]$.  This is analogous to the fact that the central binomial coefficient is the largest.
+
+Using this, we can say that 
+$$\frac{n!}{j!\cdot k!\cdot (n-j-k)!}\leq \frac{n!}{\left[\frac{n}{3}\right]!\cdot \left[\frac{n}{3}\right]!\cdot \left[\frac{n}{3}\right]!} = \frac{n!}{\left(\left[\frac{n}{3}\right]!\right)^3}$$
+
+Plugging this in, we can see that 
+$$u_{2n}\leq \frac{1}{2^{2n}}\binom{2n}{n} \frac{1}{3^n}\frac{n!}{\left(\left[\frac{n}{3}\right]!\right)^3}\sum\limits_{\substack{j,k\geq 0 \\ j+k\leq n}}  \left(\frac{1}{3^n}\frac{n!}{j!\cdot k!\cdot (n-j-k)}\right)$$
+
+This last summation term is just $1$, so we have
+
+$$u_{2n}\leq \frac{1}{2^{2n}}\binom{2n}{n} \frac{1}{3^n}\frac{n!}{\left(\left[\frac{n}{3}\right]!\right)^3} = \frac{1}{2^{2n}3^n}\frac{(2n)!}{n!\left(\left[\frac{n}{3}\right]!\right)^3}$$
+
+And using Stirling's approximation, 
+
+$$\frac{1}{2^{2n}3^n}\frac{(2n)!}{n!\left(\left[\frac{n}{3}\right]!\right)^3} \approx \frac{\sqrt{2}}{\left(\sqrt{\frac{2\pi}{3}}\right)^3n^{\frac{3}{2}}}$$
+
+So we have that 
+
+$$\sum\limits_{n=1}^\infty u_{2n} \leq K\sum\limits_{n=1}^\infty \frac{1}{n^{\frac{3}{2}}} < \infty$$
+
+for some appropriate choice of constant $K$.  Since this sum is finite, we do not expect to revisit the origin infinitely often with probability $1$.
+
+\begin{theorem}(P\'olya)
+	
+	The symmetric simple random walk on $\mathbb{Z}^d$ is recurrent if $d=1$ or $d=2$ and transient if $d\geq 3$.
+	
+\end{theorem}
+
+\begin{proof}
+	We can give a proof for $d=4,5\dots$ by following the proof for $d=3$ above and making some modifications.  Alternatively, we can fix a $\mathbb{Z}^3 \subset \mathbb{Z}^d$ and observe that if the walk is recurrent in $\mathbb{Z}^d$ it must also be recurrent in the subspace $\mathbb{Z}^3$.  We can restrict the random walk to that subspace by modding out the steps along dimensions not in our $\mathbb{Z}^3$ subspace, and this walk is a simple symmetric random on with respect to $\mathbb{Z}^3$, hence it is not recurrent.  Inductively, we can see that such walks cannot be recurrent on any $\mathbb{Z}^d$ for $d\geq 3$.
+\end{proof}
+
+It turns out that the probability of a walk returning to the origin is around $.35$, so the expected number of returns is around $.53$.  Not minuscule, but also certainly not probability $1$ and an infinite number of returns.
+
+\definition{A \textbf{probability measure} on a group $\Gamma$ is a function $p:\Gamma\rightarrow [0,1]$ such that $\sum\limits_{\gamma\in\Gamma}p(\gamma) = 1$.}
+
+\definition{A probability measure $p$ is \textbf{symmetric} if $p(\gamma) = p(\gamma^{-1})$.}
+
+\definition{The \textbf{support} of a probability measure $p$ on a set $X$ is the set of $x\in \mathbb{X}$ such that $p(x)\neq 0$.}
+
+\definition{A \textbf{left-invariant walk} is one in which a walker at some point $\gamma_1$ moves to $\gamma_2$ in one step with probability equal to $p(\gamma_1^{-1}\gamma_2)$ where $p$ is a probability measure on $\Gamma$.}
+
+Here's an interesting theorem, which is too hard for us to prove right now:
+
+\begin{theorem}(Varopolous)
+	
+	If $p$ is a symmetric probability measure on a group $\Gamma$ and the support of $p$ is a finite set of elements which generate $\Gamma$ and the random walk associated with $p$ is recurrent, then either $\Gamma$ is finite, $\Gamma$ has a subgroup of finite index isomorphic to $\mathbb{Z}$, or $\Gamma$ has a subgroup of finite index isomorphic to $\mathbb{Z}^2$.
+	
+\end{theorem}
+
+\exercise[5 (i)]{We wish to show that the walk on $\mathbb{Z}$ is recurrent.  Let $\pi(k)$ denote the probability that a random walker starting at some point $k\in\mathbb{Z}$ will eventually reach the origin.  We know that $\pi(0)=1$.  Next, observe that $\pi(k) = \frac{1}{2}\pi(k-1)+\frac{1}{2}\pi(k+1)$, as if the walker is at point $k$, then with probability $.5$ she moves to $k+1$ and with probability $.5$ to $k-1$.  Then the probability that she reaches the origin from $k$ is the sum of half the probability she does so from $k+1$ and half the probability she does so from $k-1$.  Thus $\pi(x)$ is a linear function, and since it passes through $\pi(0)=1$ and is always non-negative, we must have that $\pi(k)=1$, which implies that from any point, the probability of returning to the origin eventually is $1$, hence the walk is recurrent.}
+
+\exercise[5 (ii)]{ Let $\pi(i,k)$ denote the probability that the walker eventually reaches position $k$ from position $i$. Assume without loss of generality that the first step in the walk is in the positive direction. Note that $\pi=\pi(i,i-1)$, $\pi(i,i)=1$, and $\pi(i,i-k)=\pi(i,i-j)\pi(i-j,i-k)$.  In words, the probability of returning to the origin is exactly the probability of returning from position $1$, as we assume that the walker moves to position $1$ in the first step, the probability of reaching any point from that same point is clearly $1$, and the probability of reaching some position $k$ steps away is the product of that of reaching some position $j$ steps away, then moving from that position to the one that is $k$ steps away.
+	
+	Now, we have $$\pi=\pi(1,0) = \frac{1}{2}+\pi(2,0) = \frac{1}{2}+\frac{1}{2}\pi(2,1)\pi(1,0) = \frac{1}{2} + \frac{1}{2}\pi(\pi(3,1)+\frac{1}{2}) = \frac{1}{2}+\frac{1}{4}\pi +\dots$$
+	
+This series equals $\frac{1}{2-\pi}$, and setting $\pi=\frac{1}{2-\pi}$, some algebraic manipulation gives us $\pi=1$, as desired.  Hence the walk is recurrent.
+	
+	   }
+	   
+	   
+\exercise[6 (i)]{
+	
+	We can think of the random walk on $\mathbb{Z}^2$ as the projection of two independent random walks along the orthogonal diagonals.  A step in $\mathbb{Z}^2$ is the product of two one-dimensional steps along these lines, so the probability of being at the origin is the product of the probabilities of being at the origin in the two one-dimensional spaces.}
+
+
+\exercise[6 (ii)]{
+	
+	
+	We want to show that if $a<b$, then $a!\cdot b! \geq (a+1)!\cdot (b-1)!$.
+	
+
+		We simply divide the both sides by $(b-1)!$ and $a!$ to get $b \geq a$, and we're done. 
+
+	
+	
+	}
+	
+\exercise[7 (i)]{
+	
+	
+	Suppose the walker on $\mathbb{N}$ is at $0$ at time $0$ and $1$ at time $1$.   If at time $n\geq 1$ he is at $0$, he stays there at time $n+1$.  Otherwise, he moves left or right with equal probability.  Denote $P^n_k$ the probability that the walker is at position $k$ at time $n$ and $P_k(z) = \sum\limits_{n=0}^\infty P^n_kz^n$ the generating function of the sequence $P^n_k$.
+	
+	We want to compute $P^n_k$ for $n\leq 5$ (the book says for $n\leq 10$ but this is tedious...):
+	
+\begin{equation*}
+\begin{aligned}[c]
+P_0^0 = 1
+\end{aligned}
+\qquad\qquad
+\begin{aligned}[c]
+P^1_0 &= 0\\
+P^1_1 &= 1
+\end{aligned}
+\qquad\qquad
+\begin{aligned}[c]
+P^2_0 &= .5\\
+P^2_1 &= 0 \\
+P^2_2 &= .5
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}[c]
+P^3_0 &= .5\\
+P^3_1 &= .25\\
+P^3_2 &= 0 \\
+P^3_3 &= .25
+\end{aligned}
+\qquad\qquad
+\begin{aligned}[c]
+P^4_0 &= \frac{5}{8}\\
+P^4_1 &= 0\\
+P^4_2 &= .25 \\
+P^4_3 &= 0 \\
+P^4_4 &= \frac{1}{8}
+\end{aligned}
+\qquad\qquad
+\begin{aligned}[c]
+P^5_0 &= \frac{5}{8}\\
+P^5_1 &= \frac{1}{8}\\
+P^5_2 &= 0 \\
+P^5_3 &= \frac{3}{16} \\
+P^5_4 &= 0 \\
+P^5_5 &= \frac{1}{16}
+\end{aligned}
+\end{equation*}
+
+\exercise[7 (ii)]{
+	
+	To see that $P_0(z) = 1+z(P_0(z)-1) + \frac{z}{2}P_1(z)$ think of all of the ways to end up at $k=0$.  The $\frac{z}{2}P_1(z)$ term is half of the probability of being at $k=1$, which is the probability of moving from $k=1$ to $k=0$.  The first term represents the probability that we were at $k=0$ in the previous step, and since $k=0$ is absorbing, we just add this on.
+	
+	
+	To see that $P_1(z)  = z(1+\frac{1}{2}P_2(z))$, just observe that the only way to end up at $k=1$ is to move there from $k=2$, which occurs with probability equal to half of the probability of being in $k=2$ at the previous time step.
+	
+	To see that $P_k(z) = z(\frac{1}{2}(P_{k-1}z + P_{k+1}(z)))$ for $k\geq 2$, observe that for $k\geq 2$, the only way to end up at position $k$ is to have moved there from $k+1$ or $k-1$ in the previous step.  Each of these moves happens with probability $\frac{1}{2}$.
+	
+	
+	
+}
+
+\exercise[7 (iii)]{
+	
+	We want to deduce from the previous part that $P_k(z) = 2\left(\frac{1-\sqrt{1-z^2}}{z}\right)^k$ for $k\geq 1$ and that $P_0(z) = 1+\frac{1-\sqrt{1-z^2}}{1-z}$.  This follows from establishing a recurrence relation from the previous three definitions.
+	
+	
+	}
+	
+\exercise[7 (iv)]{}
+
+\exercise[7 (v)]{The expected duration of return is infinite.  Using the hint, since the probability of being at $k=0$ is a sequence which converges to $1$ as $n$ grows, we have that the expected duration is just a divergent sum.}
+
