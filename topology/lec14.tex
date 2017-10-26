@@ -1,0 +1,65 @@
+\classheader{10-04-2017}
+
+
+\section*{More Topological Groups}
+
+We have from before that $SO(3)\simeq \R P^3 \simeq \mathbb{S}^3/{\text{antipodal map}}$.
+
+
+\definition{The groups $\boldsymbol{U(n),SU(n)}$ are defined analogously to $O(n)$ and $SO(n)$, except that these are rigid transformations of complex space $\mathbb{C}^n$. In $\mathbb{C}^n$, we define rigidity with respect to the Hermitian inner product $\innprod{\vec{v}}{\vec{w}} = \vec{v}^T\overline{\vec{w}}$.}
+
+$SU(n)$ is the subset of $U(n)$ with determinant $1$.
+
+We have that $SO(2)\simeq \mathbb{S}^1$, but also that $U(1) = \left\{  e^{i\theta}|\theta\in\R     \right\} \simeq \mathbb{S}^2$.  This leads to a natural group homomorphism and topological homeomorphism $e^{i\theta}\mapsto
+ \begin{pmatrix} 
+ \cos\theta & -\sin\theta\\
+ \sin\theta & \cos\theta
+ \end{pmatrix}$
+ 
+ With a little bit of work, we can show that $SU(2)\simeq \mathbb{S}^3$.
+ 
+ 
+
+\section*{Back to Continuity}
+
+For the next section, we'll find the following characterization of continuity useful.
+
+\thrm{The following are equivalent:
+	Let $f:X\rightarrow Y$ be a function. Then $f$ is continuous if and only if:
+	\begin{enumerate}
+		\item $f^{-1}(U)\subset X$ is open whenever $U\subset Y$ is open.
+		\item $f^{-1}(K)\subset X$ is closed whenever $K\subset Y$ is closed.
+		\item $f(\overline{A}) \subset \overline{f(A)}$ for any $A\subset X$.
+		
+		
+	\end{enumerate}
+}
+\begin{proof}
+	
+The first is our ordinary characterization of continuity and showing equivalence to the second is a simple exercise in taking set complements.  We'll use these to show that $f$ is continuous if and only if $f(\overline{A}) \subset \overline{f(A)}$ for any $A\subset X$.
+
+Take $y\in f(\overline{A})$.  Suppose, for the sake of contradiction, that $y\notin \overline{f(A)}$, there exists an open set $U_y$ such that $y\in U_y$ and $U_y \cap f(A) = \emptyset$.  But we have that $f^{-1}(U_y)$ is an open set in $X$, and it intersects $A$ non-trivially, as in particular $A$ and $f^{-1}(U_y)$ both contain an $x$ such that $f(x)=y$.  Therefore $y\in \overline{f(A)}$, contradicting our assumption.
+
+Now, suppose that $f(\overline{A})\subseteq \overline{f(A)}$, and take $K\subset Y$ to be closed.  We will show that $f^{-1}(K)$ must be closed, meaning $f$ is continuous.  Let $A=f^{-1}(K)$.  Then we have $f(\overline{A})\subset\overline{f(A)}$ by assumption, and by definition, $\overline{f(A)}=\overline{f(f^{-1}(K))}=\overline{K} = K$, since $K$ is closed.  Additionally, $f(\overline{f^{-1}(K)})\subseteq K$.  If $x\in \overline{f^{-1}(K)}$, then $f(x)\in K$, so $x\in f^{-1}(K)$ and because $\overline{f^{-1}(K)}=f^{-1}(K)$, we have that inverse images are closed, and we are done.
+	
+\end{proof}
+
+\thrm{If $f:X\rightarrow Y$ is sequentially continuous and $X$ is first-countable, then $f$ is continuous.}
+
+\begin{proof}
+	
+	Take $A\subset X$.  Since $X$ is first-countable, the sequential closure of $A$ is $\overline A$.  Take $x\in A$.  Then there exists a sequence $S=(x_1,x_2,x_3,\dots)$ in $A$ such that $x$ is a limit point of $S$.
+	
+	Since $f$ is sequentially continuous, $y=f(x)$ is a limit point of the sequence $(f(x_1),f(x_2),f(x_3),\dots)$.  But this is a sequence in $f(A)$, and since $x$ is in the sequential closure, and therefore the closure of $A$, $y$ is in the closure of $f(A)$.  Thus $f(\overline{A})\subseteq \overline{(f(A))}$, and we are done.
+
+	
+	
+	
+\end{proof}
+
+
+
+
+
+	
+	

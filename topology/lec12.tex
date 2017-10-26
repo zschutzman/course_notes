@@ -1,0 +1,56 @@
+\classheader{09-29-2017}
+
+\section*{Metrics, Continued, Continued}
+\subsection*{The Fourier Transform}
+
+If $D\subset \R^n$ is open, we can define $L^p(D)=\left\{  f:D\rightarrow\R |\left( \int_D |f(x)|^p dx\right)^\frac{1}{p}  < \infty   \right\}/{\sim}$, the set of functions whose $L^p$ norm over $D$ is finite modulo the usual equivalence relation where $f$ and $g$ are equivalent if the $L^p$ integral of $f-g$ is zero.
+
+Recall the definitions of $\ell^p$ and $\ell^\infty$,
+$$\ell^p = \left\{ (x_1,x_2,\dots) | \left(\sum|x_i|^p\right)^\frac{1}{p} < \infty \right\}$$
+$$\ell^\infty = \left\{ (x_1,x_2,\dots) | \sup|x_i| < \infty \right\}$$
+
+the set of sequences in $\R$ with bounded $p$-norm and bounded maximal element, respectively.
+
+These $\ell^p$ spaces are normed vector spaces (actually, metric spaces).  We'll take this on faith because it's not difficult, but rather time consuming, to prove the triangle inequality holds here.
+\definition{The \textbf{Fourier Transform} is defined as the following:
+
+Let $I$ denote the closed interval $[-1,1]$, and consider $L^2(I)$, the set of square-integrable functions (modulo equivalence) on $I$.  If a function $f\in L^2(I)$, then we can write 
+$$f(x) = \sum\limits_{n=-\infty}^{\infty} a_ne^{i\pi n x}$$
+and
+$$a_n = \int_{-1}^{1} f(x)e^{i\pi n x}dx$$
+
+}
+
+This defines a map $\mathscr{F}:L^2(I)\rightarrow \R^\infty$ where $f\xmapsto[]{\mathscr{F}}(\dots ,a_{-2},a_{-1},a_0,a_1,a_2,\dots)$.  It turns out that $\mathscr{F}$ is an injective linear map.  Parseval's Theorem states that if $f\in L^2(I)$ and $\{a_i\}_1^\infty \in \mathbb{R}^\infty$, is the Fourier transform of $f$, then 
+
+$$\left(\int_I |f(x)|^2 dx \right)^\frac{1}{2} = \left(\sum\limits_{-\infty}^\infty |a_n|^2\right)^\frac{1}{2}$$
+
+Thus $\mathscr{F}$ is an isometric linear injection.  We can also show surjectivity by reversing the construction, so $\mathscr{F}$ defines an isometric isomorphism between $\ell^2$ and $L^2(I)$.
+
+\section*{Convergent Sequences}
+
+\definition{If $X$ is a set, then a \textbf{sequence} of points in $X$ is an ordered list $(x_1,x_2,x_3,\dots)$ such that each $x_i\in X$.}
+
+\definition{A point $x\in X$ is a \textbf{cluster point} of a sequence $S = (x_1,x_2,\dots)$ if $x\in \bigcap\limits_{N=1}^\infty\overline{\bigcup\limits_{i\geq N} \left\{x_i\right\}}$. That is, $x$ is in the closure of every tail of $S$.
+	}
+	
+\definition{A point $x\in X$ is a \textbf{limit point} of $S=(x_1,x_2,\dots)$ if $x\in \bigcap\limits_{n\subset \mathbb{N}}\overline{\bigcup\limits_{i\in n}\left\{ x_i\right\}}$ where $n\subset \mathbb{N}$ is infinite.  That is, $x$ is a limit point if all infinite subsequences of $S$ have $x$ in their closure.}
+
+
+\example{Take $S=(1,-1,1,-1,\dots)$ to be a sequence in $\R$.  Every tail of this sequence have all elements in $\left\{ -1,1  \right\}$, and this is just its own closure, so the cluster points are $-1$ and $1$.  This sequence has no limit points, however.  We can pick infinite subsequences which look like $(1,1,1,\dots)$ and $(-1,-1,-1,\dots)$, and $(-1,1,-1,1,\dots)$, and the intersection of the sets $\{-1\}\cap \{1\},\cap \{-1,1\}$ is empty.}
+
+\example{Consider the line with a double point, $\R-\{0\}\cup \{0_1,0_2\}$ and the sequence $S=(1,\frac{1}{2},\frac{1}{3},\dots)$.  The limit points of $S$ are $0_1$ and $0_2$.  To see this, observe that every open set around either $0_1$ or $0_2$ contains infinitely many points in the sequence, hence $0_1$ and $0_2$ are both in the closure of the intersection of all infinite subsequences.}
+
+\theorem{If a topological space $X$ is Hausdorff, then the set of limit points of any sequence of points in $X$ has at most one element.}
+
+\begin{proof}
+	Suppose, for the sake of contradiction, that $X$ is Hausdorff and $x\neq y$ are both limits of a sequence $S=(x_1,x_2,x_3,\dots)$.  Since $X$ is Hausdorff, we can find disjoint open sets $U_x$ and $U_y$ which separate $x$ and $y$.  Since $x$ and $y$ are limit points and $U_x$ and $U_y$ are neighborhoods of $x$ and $y$, infinitely many points of the sequence lie in both $U_x$ and $U_y$.  Since we assumed that the set of limit points is non-empty, this implies the intersection of $U_x$ and $U_y$ is non-empty, contradicting the assumption that they are disjoint.  Hence a sequence cannot have more than one limit point in a Hausdorff space.
+\end{proof}
+
+\definition{Given $A\subseteq X$, a point $x$ is in the \textbf{sequential closure} of $A$ if there exists a sequence $S$ in $A$ such that $x$ is a limit point of $S$.}
+
+\thrm{If $x$ is in the sequential closure of $A\subseteq X$, then $x\in \overline{A}$.  The converse is true if we add the condition that $X$ is first-countable, but we will not show this now.}
+
+\begin{proof}
+	Take $A\subseteq X$ and $S$ a sequence in $A$, and assume that $x$ is a limit point of $S$.  Then by definition, $x\in \overline{\bigcup\limits_{x_i \in T} \{x_i\}}$ for some subsequence $T$.  So $x\in \overline{\bigcup\limits_{x_i \in T} \{x_i\}} \subset\overline{\bigcup\limits_{x \in A} \{x\}} = \overline{A}$, and we are done.
+\end{proof}
