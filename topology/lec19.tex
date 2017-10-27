@@ -1,0 +1,110 @@
+\classheader{10-18-2017}
+
+\section*{Compactification}
+
+\definition{The \textbf{compactification} of a space $A$ is a set $B$ such that $A\cup B$ is compact, such that the subspace topology on $A$ inherited from $A\cup B$ is the original topology on $A$.  } 
+
+
+
+\example{Consider the open segment $(0,1)\subset\R$, which we denote $I^o$.  This is not a compact set, and is homeomorphic to $\R$ itself.
+	
+	$I^o$ has a 2-point compactification; if we take $I^o\cup\{0,1\}$, we get the closed interval $I$, which is compact.  $I$ is therefore the 2-point compactification of $\R$.
+	
+	There is also a 1-point compactification.  If we adjoin a point $\ast$ and wrap the ends of the interval around to $\ast$, we get $I^o\cup\{\ast\} = \mathbb{S}^1$, the unit circle.  This space is compact, and we can think of $\mathbb{S}^1$ as the 1-point compactification of $\R$.  In fact, the 1-point compactification of $R^n$ is $\mathbb{S}^n$.  When we look at $\mathbb{C}$, which looks like $\mathbb{R}^2$, the 1-point compactification is called the \textit{Riemann sphere}, which maintains the structure of complex arithmetic.
+	
+	
+	Where else can we do this?  Any compact manifold with a point or a disk missing can be compactified with a single point.  If we take a torus and take a full slice out of it, we get something homeomorphic to a cylinder with open ends.  There are a number of ways to compactify this. A 2-point compactification looks like pinching off the ends of the cylinder.  A 1-point compactification looks like then gluing these pinched ends to each other.  There is also an infinite-point compactification where we just glue the torus back together.
+	
+	
+	
+	
+	}
+
+
+
+\thrm{$X$ is a locally compact Hausdorff space if and only if it has a unique 1-point compactification.}
+\remark{The idea of locally compact Hausdorff spaces is a slight relaxation of the idea of a manifold.  Every manifold is locally compact Hausdorff.}
+Here is a quick fact that will be useful in our proof:
+\lemma{If $\{K_\alpha\}$ is a collection of compact subsets of a Hausdorff space, the intersection $\bigcup K_\alpha$ is also compact.     }
+\begin{proof}
+	
+	In a Hausdorff space, compact implies closed, and the intersection of closed sets is closed, and the intersection is a closed subspace of a compact set, and therefore itself compact.
+	
+	
+	
+\end{proof}
+\begin{proof}
+	
+	We'll begin by noting that if $X$ is already compact, then adjoining a point which is disconnected from every other point is a completely valid one-point compactification.
+	
+	\begin{proof}[Uniqueness]
+		
+	We first prove uniqueness.  Suppose $Y$ and $Y'$ are both 1-point compactifications of $X$ via $\{\ast\}$ and $\{\ast'\}$, respectively.  Let $f:Y\rightarrow Y'$ be the identity function on $X$ and $\ast\mapsto\ast'$.  Certainly $f$ restricted to $X$ is a homeomorphism, so $f$ is a homeomorphism everywhere except at $\ast/\ast'$, so we show that it is in fact a homeomorphism there as well.
+	
+	Take $K\subset Y$ to be closed.  Either $\ast\in K$ or $\ast\notin K$.  If it is, then $f(K)\subset Y'$, but $\ast\notin Y{-}K$, so $f(Y-K)$ must be open, as $f$ is a homeomorphism on $X$.  Thus $f(K)=Y'{-}f(Y{-}K)$ is closed, so $f^{-1}$ is continuous.  A symmetric argument shows that $f$ is also continuous.  Thus $f$ is a homeomorphism.
+	\end{proof}
+	
+	\begin{proof}[Compact Hausdorff minus a single point is locally compact Hausdorff]
+		
+	Suppose $X\subset Y$, $Y$ is compact Hausdorff, and $Y{-}X=\{\ast\}$.  We will show that $X$ is Hausdorff.
+	
+	Clearly $X$ is Hausdorff, as $Y$ is, and removing points doesn't change that.  Take $x\in X$.  We want to show that $x\in K$ for some compact $K$ which contains a neighborhood of $x$.  Let $U,V$ be open sets in $Y$ separating $\ast\in U$ from $x\in V$.  Denote $L=Y{-}(U\cup V)$.  $L$ is a closed set in $Y$ and therefore $L\cup\overline{V}$ is a closed and therefore compact set which contains $x$ and the neighborhood $V$.
+		
+		
+		
+	\end{proof}
+	\begin{proof}[Locally compact Hausdorff implies existence of 1-point compactification]
+		
+		
+		
+		
+		
+		\begin{proof}[The following is a proper topology]
+		Take $Y=X\cup\{\ast\}$ with the following topology:
+		A set $U\subset Y$ is open if and only if:
+		\begin{enumerate}
+			\item[i] $U\cap\{\ast\} = \emptyset$ and $U$ is open in $X$
+			\item[ii] $\ast\in U$ and $Y{-}U$ is compact in $X$
+			
+			
+			
+		\end{enumerate}
+		
+		If we can show that this is a proper topology, the proof of the theorem follows immediately.
+		
+		First, $Y$ and $\emptyset$ are open.  $Y{-}\{\ast\}$ has complement $\emptyset$ in $X$, which is compact.  Conversely, $\emptyset$ is itself open in $X$, and is therefore open in this new topology.
+		
+		We need to show the  finite intersection and arbitrary union closure properties.
+		
+		Let $\{A_\alpha\}$ be a finite collection of open sets.  We can split it into $\{A_\alpha\} = \{U_\alpha\}\cup \{V_\alpha\}$ where the $U_\alpha$ do not contain $\ast$ and the $V_\alpha$ do.  Then $\bigcap A_\alpha = \bigcap U_\alpha \cap \bigcap V_\alpha$.  If there are no $U_\alpha$, then $\bigcap A_\alpha = \bigcap V_\alpha$ is a finite intersection of compact complements, so it is itself the complement of a finite union of compact sets, and therefore a compact complement itself, and thus open.
+		
+		If $\{U_\alpha\}\neq \emptyset$, then $\bigcap U_\alpha \cap \bigcap V_\alpha$ does not contain $\ast$.  But $\bigcap U_\alpha$ is open, as it is the finite intersection of open sets in $X$, so $Y{-}\bigcap U_\alpha$ is closed.  $\bigcap V_\alpha$ is the complement of a compact set in $X$, so $Y{-}\bigcap V_\alpha$ is compact in $X$.  Thus the union $X{-}\bigcap U_\alpha \cup (Y{-}\bigcap V_\alpha)$ is a closed set in $X$, so its complement, is open in $X$ and therefore $Y$, but this complement is exactly equal to $\bigcap A_\alpha$, so we are done.
+		
+		Next let $\{B_\alpha\}$ be an arbitrary collection of open sets.  We'll show that $\bigcup B_\alpha$ is also open.  Again, split $\{B_\alpha\}$ into $\{U_\alpha\}\cup \{V_\alpha\}$ where the $U_\alpha$ do not contain $\ast$ and the $V_\alpha$ do.  $\bigcup U_\alpha$ is open in $X$, and $\bigcup V_\alpha$ is the union of compact complements, so by our lemma, it is itself a compact complement and $\bigcup V_\alpha {-}\{\ast\}$ is open in $X$.
+		
+		If $\bigcup U_\alpha$ is empty, then $\bigcup V_\alpha$ is a compact complement and therefore open.  If not, then by DeMorgan, $(\bigcup U_\alpha \cup V_\alpha)^C=(\bigcup U_\alpha)^C\cap(\bigcup V_\alpha)^C$.  The first is closed when restricted to $X$ and the second is itself closed in $X$.  The intersection of closed sets is closed, and the complement of a closed set is open, so $\bigcup B_\alpha$ is open and this topology is valid.
+		
+	\end{proof}
+	\begin{proof}[This topology, restricted to $X$, is the original topology on $X$]
+		
+		If $U\subset X$ is open, then it $U$ is open in $Y$, so all of the original open sets are still open.  If $U\subset Y$ and $\ast\notin U$, then $U$ is open in $X$ as desired.  If $\ast\in U$, then $Y{-}U$ is compact in $X$ and therefore closed, so $U$ restricted to $X$ is open.
+		
+		
+		
+	\end{proof}
+	
+	\begin{proof}[$Y=X\cup\{\ast\}$ is compact]
+
+		Let $\{U_\alpha\}$ be an open cover of $Y$.  Then at least one of the $U_\alpha$, say $U_1$, contains $\ast$.  Then $\bigcup\limits_{\alpha\neq 1} U_\alpha$ covers $Y{-}U_1=X{-}U_1$  But this is a compact set and therefore $\{U_\alpha\}{-}\{U_1\}$ has a finite subcover of $X$.  Adding back in $U_1$ gives us a finite subcover of $Y$, thus $Y$ is compact.
+
+
+
+
+	\end{proof}
+	\begin{proof}[$Y$ is Hausdorff]
+		Since $X$ is Hausdorff, we only need to show that $\ast$ can be separated from any other point.  Let $x$ be any point in $X$.  Since $X$ is locally compact, there is some compact $K$ and open neighborhood $U$ such that $x\in U\subset K$.  Then $Y{-}K$ is an open set which contains $\ast$, does not contain $x$, and is disjoint from $U$, thus separating $x$ and $\ast$.
+	\end{proof}
+	
+	
+\end{proof}
+\end{proof}

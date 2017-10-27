@@ -1,0 +1,89 @@
+\classheader{10-16-2017}
+
+\section*{Compactness: The Definition Gauntlet}
+
+\example{The Long Line: 
+	
+	The real line $\R$ is the \textit{countable} union of intervals which look like $[a,a+1)$, for $a\in \mathbb{Z}$.  The long line is an \textit{uncountable} union of such intervals of length $1$.
+	
+	The closed long ray is the space $[0,1)\times [0,1)$ with the order topology.  The long line is the one-point union at $(0,0)$ of two copies of the closed long ray.
+	
+	This space is connected, but not path connected.  It is not compact, but it is locally compact and Hausdorff.  It is clearly not second-countable (and therefore not separable).  It is locally Euclidean.
+
+	}
+	
+\definition{A space $X$ is \textbf{locally compact} if for any $x\in X$, there exists an open neighborhood $U$ of $x$ and a compact set such that $x\in U\subset K$.}
+
+\definition{A space $X$ is \textbf{locally Euclidean} if for any $x\in X$, there exists a neighborhood of $x$ homeomorphic to an open set in a Euclidean space.}
+
+\definition{A \textbf{manifold} is a topological space which is Hausdorff, second-countable, and locally Euclidean.}
+
+Recall the following definitions:
+
+\begin{enumerate}
+	\item Compact: every open cover has a finite subcover
+	\item Limit point compact: every infinite set has a limit point
+	\item Sequentially comapct: every sequence has a convergent subsequence
+	
+	
+	
+\end{enumerate}
+
+\thrm{If a space is compact, then it is limit point compact.}
+
+
+\begin{proof}
+	
+	Suppose $X$ is a compact space and assume, for the sake of contradiction, that $A\subset X$ is an infinite set with no limit points.  Given some $x\in A$.  Since $x$ itself is not a limit point, $x\notin \overline{A{-}\{x\}}$.  Since this is a closed set, its complement $U_x=X{-}\overline{A{-}\{x\}}$ is an open set containing $x$. Also, we know that $A$ is closed, as it has no limit points and therefore no points of closure (all points in the exterior are interior points of $X{-}A$).  Then we have that $X=(X{-}A)\cup \bigcup\limits_{x\in A}U_x$ is an open cover of $X$.  Since $X$ is compact, there exists a finite subcover.  The finite set of $U_x$ we pick therefore covers $A$, but each $U_x$ contains exactly one point in $A$, so $A$ is a finite set, contradicting the assumption that $A$ is infinite.
+	
+	
+	
+\end{proof}
+
+
+\definition{A space is \textbf{countably compact} if every \textit{countable} open cover has a finite subcover.  Clearly any set which is compact is also countably compact, and any set which is countably compact is limit point compact, as we can take our sequence to be one point from each element of the cover.}
+
+\definition{A cover $\{U_\alpha\}$ of a space $X$ is \textbf{locally finite} if, for any $x\in X$, there exists some neighborhood $U$ of $X$ such that $U\cap U_\alpha$ is non-empty for only finitely many $U_\alpha$.}
+
+\definition{An open cover $\{U_\beta\}$ of a space $X$ is a \textbf{refinement} of an open cover $\{U_\alpha\}$ if every $U_\beta$ is a subset of some $U_\alpha$.}
+
+\definition{A set is \textbf{paracompact} if any open cover has a locally finite refinement.  Every compact space is also paracompact.}
+
+\definition{The \textbf{multiplicity of a cover $\boldsymbol{\{U_\alpha\}}$ at $\boldsymbol{x}$} is the cardinality of the set $\{U_\alpha | x\in U_\alpha\}$.}
+
+
+\definition{A space $X$ is \textbf{metacompact} if every open cover has a refinement of finite multiplicity at every $x\in X$.  A space being paracompact implies it is also metacompact.}
+
+\definition{A space is \textbf{$\boldsymbol{\sigma}$-compact} if it can be written as the countable union of compact subsets.  Any space which is compact is also $\sigma$-compact.}
+
+\definition{A space is \textbf{Lindel\"of} if every open cover has a countable subcover.  Any space which is $\sigma$-compact is also Lindel\"of.}
+
+
+
+\section*{Closed Sets}
+
+Since open and closed sets are complements of each other, many things in topology can be phrased in terms of closed sets rather than open sets, and often proofs are more straightforward when working with closed sets.
+
+\thrm{A compact subset of a Hausdorff space is closed. (We proved this last time.)}
+
+\thrm{A closed subset of a compact space is compact.}
+\begin{proof}
+	Take $A$ to be a closed subset of a compact space $X$.  Let $\{U_\alpha\}$ be an open cover of $A$.  Then $\{U_\alpha\}\cup (X{-}A)$ is an open cover of $X$.  Since $X$ is compact, we can pick a finite subcover and restrict it to the $U_\alpha$ to get a finite subcover of $A$, hence $A$ is compact.
+\end{proof}
+
+\thrm{If $f:X\rightarrow Y$ is continuous and $X$ is compact, then $f(X)\subseteq Y$ is compact.}
+
+\begin{proof}
+	Pick an open cover of $f(X)$.  Since $f$ is continuous, the inverse image of each of these open sets is open in $X$ and they must cover $X$.  Since $X$ is compact, we can pick a finite subcover and pick the elements of the cover of $f(X)$ which correspond to this finite subcover of $X$, which must therefore be a finite open cover of $f(X)$.
+	
+\end{proof}
+
+\definition{A space $X$ is \textbf{pseudocompact} if every continuous function $f:X\rightarrow\R$ has bounded image.}
+
+\thrm{If $f:X\rightarrow Y$ is a continuous bijection with  $X$ compact and $Y$ Hausdorff, then $f$ is a homeomorphism.}
+
+\begin{proof}
+	We will show that $f(A)\subset Y$ is closed whenever $A\subset X$ is closed.  If $A$ is closed, then $A$ is compact.  Since the continuous image of compact sets is compact, $f(A)$ is compact.  Finally, since $Y$ is Hausdorff, compact sets are closed, so $f(A)$ is closed. Since the forward image of closed sets is closed, the function $f^{-1}$ is continuous as well.
+\end{proof}
+
+

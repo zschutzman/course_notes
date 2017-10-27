@@ -1,0 +1,24 @@
+\classheader{10-20-2017}
+
+\section*{Wrapping Up Compactness}
+
+There is a dual notion of compactness.  
+\definition{If $\{C_\alpha\}$ is any collection of closed sets, it is said to have the \textbf{finite intersection property} if any nonempty finite subcollection of $\{C_\alpha\}$ has nonempty intersection.}
+
+\thrm{A space $X$ is compact if and only if every collection of closed sets $\{C_\alpha\}$ with the finite intersection property itself has nonempty intersection (i.e. $\bigcap C_\alpha \neq \emptyset$).}
+
+\begin{proof}
+	
+	First, suppose that $\{C_\alpha\}$ has the finite intersection property and $X$ is compact.  For the sake of contradiction, suppose that the intersection of all the $C_\alpha$ is empty.  We begin by making the observation that $\bigcap C_\alpha = \emptyset$ if and only if $X{-}\bigcap C_\alpha = X$, so our assumption is equivalent to assuming that $X=X{-}\bigcap C_\alpha = \bigcup (X{-}C_\alpha)$.
+	
+	This is a union of open sets which cover $X$, and by compactness there exists a finite subcover such that $X=\bigcup\limits_{i=1}^n (X{-}C_i) = X{-}\bigcap\limits_{i=1}^n C_i$.  But by the finite intersection property, this intersection isn't empty and therefore we don't actually have a cover of $X$, a contradiction.
+	
+	For the other direction, suppose $\{U_\alpha\}$ is an open cover of $X$.  Thus $X=\bigcup U_\alpha$ and so $\emptyset = \bigcap(X{-}U_\alpha)$.  But taking the contrapositive of what we want to prove, there must be some finite collection of $(X{-}U_\alpha)$ with empty intersection.  The union of these is therefore a finite open cover of $X$, so $X$ is compact.
+	
+	
+	
+	
+\end{proof}
+
+\thrm{$X$ is countably compact if and only if every countable collection of closed sets with the finite intersection property has nonempty intersection.}
+
