@@ -1,0 +1,55 @@
+\classheader{10-11-17}
+
+\section*{Compactness}
+
+Closure is often not a strong enough notion to do what we want.  For example, $[0,1]$ and $[0,\infty)$ are both closed sets, but they are not homeomorphic.  What is the qualitative difference between them?
+
+\definition{A space $X$ is \textbf{sequentially compact} if whenever $S=(x_1,x_2,x_3,\dots)$ is a sequence in $X$, $S$ has a convergent subsequence.  That is, every sequence has at least one limit point.}
+
+\definition{A space $X$ is \textbf{limit point compact} if every infinite set has at least one limit point.}
+
+
+
+\definition{A space $X$ is \textbf{compact} if whenever $\{U_\alpha\}$ is a collection of open sets which cover $X$ (that is, $\bigcup \{U_\alpha\} = X$), there exists a finite subset of $\{U_\alpha\}$ which covers $X$.  The common phrasing of this is ``Every open cover has a finite subcover.''}
+
+Observe that in the discrete topology, only finite sets are compact, as the open cover of all singletons for an infinite set clearly has no finite subcover.
+
+\thrm{The set $[0,\infty)\subset\R$ is not compact.}
+
+\begin{proof}
+	
+	Consider the cover $\left\{  U_\alpha = \left\{  (i-2,i+2)|i\in\mathbb{N} \right\}       \right\}$.  This has no finite subcover, as any such finite subcover has an element corresponding to some maximum $i$, and no real numbers greater than $i$ are covered.
+	
+	
+\end{proof}
+
+\thrm{The set $[0,1]\subset \mathbb{R}$ is compact.}
+
+\begin{proof}
+	
+	This is an immediate consequence of Heine-Borel, which we will prove later.  For now, we can take it on faith that closed and bounded implies compact in the reals.
+	
+\end{proof}
+
+\thrm{Compactness is preserved in the forward direction by continuous functions.  That is, if $A$ is a compact set and $f$ a continuous function $f:X\rightarrow Y$, $f(A)=B$ is compact.}
+
+
+\begin{proof}
+	
+	Let $\{U_\alpha\}$ be an open cover of $f(A)\subseteq Y$ and let $A\subseteq X$ be compact.  Then $f^{-1}(\{U_\alpha\})$ is an open cover of $A$, as $f$ is continuous.  Since $A$ is compact, we can pick a finite subcover from this open cover.  This corresponds to a finite open cover of $f(A)$, as if there is some element not covered, we must have missed the preimage of it in $A$, but this cannot happen.
+	
+	
+	
+	
+\end{proof}
+
+
+\thrm{Suppose $A\subset X$ is a compact subset and let $x\in X-A$ be an element of the complement of $A$.  If $X$ is Hausdorff, then there exist disjoint open sets $U$ and $V$ which separate $x$ from $A$.  That is, there exists an open set $U$ such that $x\in U$, an open set $V$ such that $A\subseteq V$, and $U\cap V = \emptyset$.}
+
+\begin{proof}
+	
+	Since $X$ is Hausdorff, for each element $y$ of $A$, we can pick an open set $V_y$ which doesn't contain $x$ and a disjoint open set $U_x$ which does contain $x$.  The set of all such $V_y$ form an open cover of $A$.  Since $A$ is compact, we can pick a finite subcover, guaranteed to miss $x$.  The union of these is therefore an open set containing $A$ which also misses $x$.  For each of the $V_y$ we picked for the finite subcover, take the corresponding $U_x$, and then intersect all of them.  Since this is a finite intersection of open sets, it is open, contains $x$, and necessarily does not intersect the union of the $V_y$ and therefore misses all of $A$.
+	
+\end{proof}
+
+\corollary{$A$ being compact implies $X{-}A$ is open, so $A$ is closed.  Therefore, $A$ being compact implies it must be closed.}
