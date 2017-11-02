@@ -1,0 +1,62 @@
+\classheader{10-30-2017}
+
+\section*{Separation Axioms}
+
+Once again, we have a battery of definitions which we can then use to prove interesting things about topological space.
+
+\definition{A space $X$ is $\boldsymbol{T_1}$ if given any two points $x,y\in X$ with $x\neq y$, there is an open set $U$ which contains $x$ but not $y$ and an open set $V$ which contains $y$ but not $x$.}
+
+\definition{A space $X$ is $\boldsymbol{T_2}$ (\textbf{Hausdorff}) if given any two points $x,y\in X$ with $x\neq y$, there is are disjoint open sets $U$ and $V$ with $x\in U$, $y\in V$.}
+
+\definition{A space $X$ is $\boldsymbol{T_3}$ if given any $x\in X$ and any closed set $A$ with $x\notin A$, there exist disjoint open sets $U$ and $V$ such that $x\in U$ and $A\subset V$.}
+
+\definition{A space $X$ is $\boldsymbol{T_4}$ if given any disjoint closed sets $A,B$, there exist disjoint open sets $U$ and $V$ such that $A\subset U$, $B\subset V$.}
+
+\definition{A space $X$ is $\boldsymbol{T_5}$ if any disjoint sets $A$ and $B$ can be separated by disjoint open sets.}
+
+\definition{A space $X$ is $\boldsymbol{T_0}$ if for any $x\neq y$, there exists an open set $U$ which contains $x$ but not $y$ or an open set $V$ which contains $y$ but not $x$.}
+
+\definition{A space $X$ is $\boldsymbol{T_{3\frac{1}{2}}}$ if given $x\in X$ and $A$ a closed subset of $X$ such that $x\notin A$, then there exists a continuous function $f:X\rightarrow \R$ such that $f(x)=0$ and $f(A) = \{1\}$.}
+
+\definition{A space $X$ is $\boldsymbol{T_2\frac{1}{2}}$ if it is Hausdorff plus the open sets $U$ and $V$ separating the two points have disjoint closures.  That is, $\overline{U}\cap\overline{V}=\emptyset$. }
+
+\definition{A space $X$ is \textbf{regular} if it is $T_3$ and $T_1$.}
+
+\definition{A space $X$ is \textbf{normal} if it is $T_4$ and $T_1$.}
+
+
+\thrm{If  a space $X$ is regular and second-countable, then it is normal.}
+
+
+\begin{proof}
+	
+	Suppose $X$ is regular and second-countable, and let $A,B$ be disjoint closed subsets of $X$.  By $T_3$ and second-countable, we can find countable collections of open sets $\{U_{x_i}\}_{i\in\mathbb{N}}$ and $\{V_{y_j}\}_{j\in\mathbb{N}}$ such that the $U_{x_i}$ cover $A$ and are disjoint from $B$ and the $V_{y_j}$ cover $B$ and are disjoint from $A$.  We now have to worry about some of the $U_{x_i}$ intersecting some of the $V_{y_j}$.
+	
+	If this happens, we can fix it by doing the following:
+	
+	Set $U_1'=U_1-\overline{V}_1$, $U_2'=U_2{-}\overline{V_1}{-}\overline{V}_2$, and so on, and symmetrically for the $V_j$. Since an open set minus a finite union of closed sets is open, each $U_i'$ and $V_j'$ is open, and we have that $U_1'$ is disjoint from $V_1'$, $U_2'$ is disjoint from $V_1'$ and $V_2'$, and so on, so by symmetry, our open covers are disjoint from each other and they still cover $A$ and $B$, so their unions are disjoint open sets separating the closed sets $A$ and $B$.
+	
+	
+\end{proof}
+
+\lemma{If $X$ is a metric space with metric $d$, $A$ is a closed subset of $X$ and $p$ is an element of $X$ with $p\notin A$, then we can define $d(p,A) = \inf\{d(p,x)|x\in A\}$, and this is strictly greater than zero.  If $A$ and $B$ are disjoint and compact, then we can define $d(A,B) = \inf\{d(x,y)| x\in A,\ y\in B\}$. }
+
+\thrm{If $X$ is a metric space with metric $d$, then $X$ is normal.}
+
+\begin{proof}
+	
+	Take $A$ and $B$ to be disjoint closed subsets of $X$.  For $x\in A$, let $U_x=B(x,\frac{1}{4}d(x,B))$ and for $y\in B$, let $U_y = B(y,\frac{1}{4}d(y,A))$.  Clearly every $U_x$ is disjoint from every $U_y$, so $\bigcup U_x \cap \bigcup U_y = \emptyset$.  These covers are disjoint, and the unions are disjoint open sets separating $A$ and $B$, thus $X$ is normal.
+	
+
+	
+\end{proof}
+
+\thrm{If $X$ is compact and Hausdorff, then $X$ is normal.}
+
+\begin{proof}
+	
+	
+	If $A,B$ are disjoint and closed, then they are also disjoint and compact.  Since $X$ is Hausdorff, we can separate any compact set from a point with disjoint open sets.  Given $x\in A$, there are disjoint open sets $U_x$ and $V_x$ such that $x\in U_x$ and $B\subset V_x$.  Since $A\subset\bigcup\limits_{x\in A} U_x$ is an open cover of a compact set, we can pick a finite subcover of it such that $A\subset \bigcup\limits_{i=1}^N U_i = U$.  Then let $V=\bigcap\limits_{i=1}^N V_i$.  Since this is  a finite intersection of open sets, $V$ is open and therefore cannot intersect our finite cover of $A$, but it is a finite open cover of $B$.  Hence we have disjoint open sets separating $A$ and $B$, so $X$ is normal.
+	
+	
+\end{proof}

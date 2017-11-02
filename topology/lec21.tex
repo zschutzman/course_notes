@@ -1,0 +1,66 @@
+\classheader{10-25-2017}
+
+\section*{Compactness in Metric Spaces}
+
+
+
+
+\definition{A metric space is \textbf{complete} if every Cauchy sequence converges to a point in the space.}
+
+Let $\R_0^\infty$ be the set of sequences of reals which eventually terminate in all zeroes.  Clearly, $\R_0^\infty\subset \ell^p$ for any $p$.  This space is not complete, however, for any $p$.  In the $\ell^p$-norm, we can always find a Cauchy  sequence in $\R^\infty_0$ which doesn't converge, for example $\vec{v}_i= (1,\frac{1}{4}^{\frac{1}{p}}, \dots,\frac{1}{i}^\frac{2}{p}, 0,0,\dots)$.  Clearly $\|\vec{v}_i\|_p \leq \left(\frac{\pi^2}{6}\right)^\frac{1}{p}$, and $\|\vec{v}_i - \vec{v}_j \|_p \leq \sum\limits_{\min(i,j)}^\infty \frac{1}{k^2}$, so it is Cauchy, but it doesn't converge.  We can see that the distance between $\vec{v}_i$ and $\vec{v}_\infty$ for some $\vec{v}_i$ is greater than $\sum\limits_{N+1}^\infty \frac{1}{k^2}$, where $N$ is the last non-zero index of $\vec{v}_i$.
+
+
+\thrm{Each $\ell^p$ space is complete for $p\geq 1$.  Additionally, if $\vec{x}\in\ell^p$, then there is a sequence of $\vec{x}_i$ in $\R_0^\infty$ with $\lim\vec{x}_i = \vec{x}$.}
+
+\definition{A \textbf{Banach space} is a complete normed vector space.}
+
+Each $\ell^p$ for $p\geq 1$ is a Banach space.
+
+\thrm{If $X$ is a metric space and $X$ is limit point compact, then $X$ is sequentially compact.}
+
+\begin{proof}
+	
+	Let $\{x_i\}_{i\in\mathbb{N}}$ be a sequence and denote $A=\bigcup\{x_i\}$.  If $A$ is finite, then we can be certain that some point is an element of the sequence infinitely often, and is trivially a cluster point, and we're done.
+	
+	If $A$ is infinite, then by limit point compactness, there exists an $x\in X$ such that $x\in\overline{A{-}\{x\}}$, and for any radius $\epsilon$, the intersection of the ball $B(x,\epsilon)$ with $A{-}\{x\}$ is non-empty.  Select a subsequence $\{x_{i_j}\}\subset B(x,\frac{1}{j})\cap (A{-}\{x\})$.  This is a Cauchy sequence with unique limit $x$, but by construction, every ball around $x$ contains a tail of our subsequence, thus $X$ is sequentially compact.
+	
+	
+\end{proof}
+
+
+\definition{The \textbf{Lebesgue number} $\delta$ of an open cover $\{U_\alpha\}$ is defined to be $$\inf\limits_{x\in X} \sup \{\delta>0 | B(x,\delta) \text{ lies entirely within some }U_\alpha\}$$
+	That is, over all of the points in the space, there is some largest ball centered at that point which fits entirely within an element of the cover.  The Lebesgue number is the radius of the smallest of these largest balls.}
+
+
+
+\lemma{If $X$ is a metric space and sequentially compact, and $\{U_\alpha\}$ is an open cover, then the Lebesgue number of $\{U_\alpha\}$ is strictly greater than zero.}
+
+\begin{proof}
+	Suppose, for the sake of contradiction, that the Lebesgue number $\delta=0$.  Then given any $i$, there exists an $x_i\in X$ such that $B(x_i,\frac{1}{i})$ is not contained in any $U_\alpha$, which defines a sequence of $x_i$.  By sequential compactness (extracting a subsequence if we need to), $\{x_i\}_{i\in\mathbb{N}}$ converges to some $x_\infty\in X$, so it must be in some $U_\alpha$.  Then that $U_\alpha$ contains a ball around $x_\infty$, so the Lebesgue number cannot be zero.
+\end{proof}
+
+\definition{A cover $\{U_\alpha\}$ is \textbf{subordinate} to a cover $\{V_\beta\}$ if every $V_\beta$ is contained in some $U_\alpha$.}
+
+\thrm{If $X$ is a metric space and $X$ is sequentially compact, then $X$ is compact.}
+
+
+
+\begin{proof}
+	
+Let $X$ be a metric space with metric $d$, and $\Uparrow_\alpha\}$ be an open cover of $X$.  Define the function $\phi:X\rightarrow \R$ to be $$\phi(x) = \sup\{\delta>0 | B(x,\delta) \text{ lies entirely within some } U_\alpha\}$$	
+That is, $\phi(x)$ is the radius of the largest ball centered at $x$ which lies entirely within some element of the cover.  We'll first show that $\phi$ is continuous by showing that $\phi(x)\geq \phi(y)-d(x,y)$.
+
+Since $\phi(x)>0$ for all $x$, the inequality is only meaningful if $d(x,y)<\phi(y)$.  Let $\gamma>0$ be some small real number.  Then the ball of radius $\phi(y)-d(x,y)-\gamma$ centered at $x$ lies entirely within the ball $B(y,\phi(y)-\gamma)$ and therefore within some $U_\alpha$.  As we let $\gamma$ go to zero, we see the inequality we wanted to show.  Therefore, $|\phi(x)-\phi(y) < d(x,y)|$, so $\phi$ is continuous.
+
+The Lebesgue number $\delta$ of $\{U_\alpha\}$ is the minimum value attained by $\phi$ over all $x\in X$. By our lemma, this value is strictly greater than zero.  Given any $x\in X$, let $V_x=B(x,\delta)$.  Each of these must be contained in some $U_\alpha$ and $\{V_x\}$ forms an open cover of $X$ which is subordinate to $\{U_\alpha\}$.  
+
+
+We will construct a finite subcover of $\{V_x\}$, then for each element of the finite subcover, pick a $U_\alpha$ which contains it, thereby constructing a finite subcover of the $U_\alpha$, as desired.  Pick some $x_1\in X$ and take the corresponding $V_{x_1}$.  Pick an $x_2\notin V_{x_1}$ and the corresponding $V_{x_2}$.  Then pick an $x_3\notin V_{x_1}\cup V_{x_2}$, and so on.  If there is some $n+1$ such that we cannot pick an $x_{n+1}\notin \bigcup\limits{j=1}^n V_{x_j}$, then we have a finite subcover.  We need to show that this process always terminates in a finite number of steps.
+
+To see that it does, suppose, for the sake of contradiction, that it does not.  Then the $(x_1,x_2,\dots)$ we picked form an infinite sequence in $X$.  But the $x_i$ are all at least $\delta$ apart, so no subsequence is Cauchy and therefore no subsequence is convergent.  But by sequential compactness, this cannot happen.  Thus the process must terminate and we have our finite subcover, hence $X$ is compact.
+	
+	
+	
+\end{proof}
+
+

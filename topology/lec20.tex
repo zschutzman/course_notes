@@ -22,3 +22,13 @@ There is a dual notion of compactness.
 
 \thrm{$X$ is countably compact if and only if every countable collection of closed sets with the finite intersection property has nonempty intersection.}
 
+
+\thrm{If $X$ is sequentially compact, then it is countably compact (via closed sets).}
+
+\begin{proof}
+	
+	Suppose $X$ is sequentially compact, and let $\{C_\alpha\}$ be any collection of closed sets with the finite intersection property.  We will show that $\bigcup C_\alpha$ is non-empty.  By the finite intersection property, any finite intersection of $C_i$ is non-empty, so we can use this to generate a sequence.  Fix an order of the $C_\alpha$, and let $x_1$ be an element in $C_1$, $x_2$ in $C_1\cap C_2$, and so on.  Call the cluster point of $(x_1,x_2,\dots)$ $x$, which we know to exist by sequential compactness.  Now, these intersections are shrinking, so if $x\notin C_i$, then $x\in X{-}C_i$, which is open, but doesn't contain $x_{i+1}$, $x_{i+2}$, and so on, so $x$ would not be a limit point.  Therefore, $x\in C_i$ for all $i$.  Thus $x$ is in the intersection of all of the $C_i$, hence the intersection of the $C_\alpha$ is non-empty.
+	
+	
+	
+\end{proof}
