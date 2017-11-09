@@ -1,0 +1,63 @@
+\classheader{11-06-2017}
+
+
+\section*{Hilbert Spaces}
+Recall $\ell^2$ and $L^2$, the normed linear vector spaces of sequences with bounded square norm and bounded square Lebesgue integral, respectively.  Both of these have inner products.
+
+\definition{An \textbf{inner product} is a function $\langle\cdot,\cdot\rangle:V\times V^* \rightarrow \mathbb{R}$ which satisfies
+	
+	\begin{enumerate}
+		\item Symmetry: $\langle\vec{v},\vec{w}\rangle = \langle\vec{w},\vec{v}\rangle$
+		\item Bilinearity: $\langle\vec{v},a\vec{w}+b\vec{x}\rangle = a\langle\vec{v},\vec{w}\rangle + b \langle\vec{v},\vec{x}\rangle$ and $\langle a\vec{u}+b\vec{v},\vec{w}\rangle = a\langle \vec{u},\vec{w}\rangle + b\langle \vec{v},\vec{w}\rangle$
+		\item Positivity: $\langle\vec{v},\vec{v}\rangle \geq 0$, with equality if and only if $\vec{v}=\vec{0}$
+	\end{enumerate}
+	
+}
+
+If $(V,\langle\cdot,\cdot\rangle)$ is an inner product space, then $V$ is a normed vector space, with $\|\cdot \| = \sqrt{\langle\cdot,\cdot\rangle}$.
+
+On $\ell^2$, $\innprod{\vec{x}}{\vec{y}} = \sum\limits_{i=1}^\infty x_iy_i$ and $\|\vec{x}\| = \sqrt{\innprod{\vec{x}}{\vec{x}}}$, which is equivalent to the norm we had before.
+
+On $L^2$, $\innprod{f}{g} = \int fg$.  There is a question of whether $fg$ is actually integrable, but it is, by a generalization of the Schwartz inequality which says that $\|\int fg \| \leq (\int f^2)^\frac{1}{2} (\int{g^2})^\frac{1}{2}$.
+
+
+\definition{A \textbf{Hilbert space} is a complete inner product space.}
+
+
+\section*{Urysohn Metrization}
+
+Using Urysohn's Lemma from last time, we can prove the Urysohn Metrization Theorem:
+
+\theorem[Urysohn Metrization]{If $X$ is normal and second-countable, $X$ is metrizable.}
+
+\begin{proof}
+	
+	
+	Let $\{B_\alpha\}_{\alpha\in \mathbb{N}}$ be a countable base of $X$.  If $B_i\subset B_j$, there is a Urysohn function $f$ such that $f$ restricted to $\overline{B_i}$ is one and $f$ restricted to $X{-}B_j$ is zero.
+	
+	Since base elements are open sets, and open sets contain base elements, there is some subset of the pairs of elements of $\{B_\alpha\}$ which satisfies the containment.  Since $\{B_\alpha\}$ is countable, there are countably many such pairs.  Fix some order of these pairs and let $f_1,f_2,f_3,\dots$ be the sequence of corresponding Urysohn functions.
+	
+	Recall the Hilbert cube $\mathcal{H} = [0,1]^\omega$ with the product topology is metrizable.
+	
+	Define a function $\mathcal{F}: X\rightarrow \mathcal{H}$ as $\mathcal{F}(x) = (f_1(x),f_2(x),f_3(x),\dots)$.  Given any two points $x,y\in X$ with $x\neq y$, we can find open sets $U_x$ and $U_y$ such that $x\in U_x$, $y\in U_y$, and $\overline{U_x}\cap \overline{U_y} = \emptyset$.  Given such open sets, we can find a base element $B_1$ such that $x\in B_1\subset U_x$ and $y\notin \overline{B_1}$.  Then there exist sets $V_1,V_2$ such that $x\in V_1$, $\overline{B_1}\subset V_2$, and $V_1\cap V_2 = \emptyset$, which separate $x$ from $X{-}B_1$.  Then we can pick a $B_2\subset V_1$ with $\overline{V_1}\cap (X{-}B_1) = \emptyset$ because $V_1$ and $V_2$ are disjoint, so $\overline{B_2}\cap(X{-}B_1) = \emptyset$, so $\overline{B}_2 \subset B_1$, and we know $y\notin B_1$.
+	
+	Thus we have found an open set $B_1$, an open set $B_2$ such that $x\in B_2\subset B_1$ and $\overline{B_2}\subset B_1$, so there is a Urysohn function which is one on $\overline{B}_2$ and zero outside $B_1$.  This is one such function in our sequence.
+	
+	Our function $\mathcal{F}:X\rightarrow\mathcal{H}$ is clearly continuous and injective.  To conclude the theorem, we need to show that it is a homeomorphism.  We'll do this by demonstrating that the forward images of open sets are open.
+	
+	Let $U\subset X$ be open, and take $t\in \mathcal{F}(U)$.  We want to show that $t$ is an interior point in $\mathcal{F}(U)$ with respect to the inherited topology on $\mathcal{H}$.  We need to find an open set $W\subset \mathcal{H}$ such that $t\in W\cap \mathcal{F}(U)$.
+	
+	Let $p\in U$ such that $\mathcal{F}(p)=t$.  We can find a pair of base elements $B_1$ and $B_2$ satisfying $p\in B_1$, $p\in B_2$, $\overline{B_2}\subset U$, $\overline{B}_1\subset{B}_2$.  By construction, one of our Urysohn functions is one on $\overline{B}_1$ and zero on $X-{B_2}$.  Consider the projection $\pi_i:\mathcal{H}\rightarrow \mathbb{R}$ such that $\pi_i(a_1,a_2,\dots,a_i,\dots)=a_i$, the projection onto the $i$th coordinate.  Intuitively, most of $\mathcal{F}(X)$ satisfies $\pi_i=0$, as most things fall outside of whatever base element we used to construct the $i$th Urysohn function.
+	
+	Let's look at $W=\pi_i^{-1}((0,1])$.  Then $W\cap \mathcal{F}(X) \subset \mathcal{F}(U)$ and $W\cap \mathcal{F}(X)\subset \mathcal{F}(B_2)$.  We also have $\mathcal{F}(B_1)\subset W$ because if $x\in B_1$, $f_i(x) = 1$, so $\pi_i(\mathcal{F}(x)) = f_i(x)=1$, and $\mathcal{F}(x)\in \pi_i^{-1}(f_i(x))$, and $\mathcal{F}(x) \in \pi_i^{-1}(\{1\}) \subset \pi_i^{-1}((0,1])$.
+	
+	Thus $p\in (W\cap \mathcal{F}(U))\subset (W\cap \mathcal{F}(X))$, so $p$ is in an open set $\mathcal{F}(U)$, which is what we wanted to show.
+
+	
+	
+	
+	
+	
+	
+	
+\end{proof}

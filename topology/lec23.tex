@@ -1,0 +1,41 @@
+\classheader{11-03-2017}
+
+\lemma[Urysohn]{If $X$ is a normal space and $A,B\subset X$ are disjoint and closed, they can be separated by a continuous function $f$ such that $f$ is zero on $A$ and one on $B$.}
+
+\begin{proof}
+
+
+First, fix a denumeration of the rationals in $[0,1]$, $q_0,q_1,2_2\dots$ such that $q_0=0$ and $q_1=1$.  The order of the rest doesn't matter.
+
+Let $U_0$ be an open set containing $A$ with $\overline{U_0}\cap B = \emptyset$, which can be done because $X$ is normal (in particular, $T_3$).  Let $U_1 = X{-}B$, which is open and clearly contains $U_0$ and $A$.
+
+We proceed inductively.  Suppose open sets $U_{q_i}$ have been chosen for $i=0,1,2,\dots,n$.  We choose $U_{q_{n+1}}$ as follows.  The rational let $q_i$ be the largest rational in $q_0,q_1,\dots,q_n$ smaller than $q_{n+1}$ and $q_j$ the smallest rational in that set larger than $q_{n+1}$, so we have $q_i<q_{n+1}<q_j$.  Choose $U_{q_{n+1}}$ such that $\overline{U_{q_i}}\subset U_{q_{n+1}}$ and $\overline{U_{q_{n+1}}}\subset U_{q_j}$.  Again, normality of $X$ lets us do this, as we can take complements of the open sets as the closed sets to be separated from $A$.
+
+We do this for all rationals $r,s,t\in [0,1]$, such that $U_r\subset U_s \subset U_t$ and $\overline{U_r}\subset U_s$ and $\overline{U_s}\subset U_t$.
+
+Now, we define our function $f$ using the $U_q$ as `level sets'.  Let $f(x) = \inf\{q|x\in U_q\}$.  By construction, the function $f$ is defined on any point of $X$, it is zero on $A$ (actually on $U_0$) and one on $B$ (actually on $U_1$).  We need to prove a couple quick facts.
+
+\begin{enumerate}
+	\item If $f(x)>q$, then $x\notin \overline{U_q}$.
+	\item If $f(x)<q$, then $x\in U_q$.
+\end{enumerate}
+
+For each point $x\in X$. let $Q(x) = \{q|x\in U_q\}$, the set of rationals such that $x$ is in the corresponding open set.  Then $f(x) = \inf Q(x)$.  By construction, we have that $q<q'$ if and only if $U_q\subset U_{q'}$, so if $q$ is in $Q(x)$, then $q'>q$ must be as well.
+
+To see the first fact, observe that if $f(x)>q$, there is some $q'$ satisfying $q<q'<f(x)$, but if $q'<f(x)$, then $x$ cannot be in $U_{q'}$, so $\overline{U}\subset U_{q'}$, so $x$ cannot be in $\overline{U_{q'}}$ either.
+
+To see the second fact, consider now $f(x)<q$.  Then there is some $q'\in Q(x)$ such that $f(x)<q'<q$, so $q\in Q(x)$ as well, hence $x\in U_q$.
+
+We finally need to show that $f$ is continuous.  We'll do this by taking a subbase of $[0,1]$ and showing that the preimage of a subbase element is open.  Base elements look like half-open intervals against the ends of $[0,1]$, that is, things of the form $[0,a)$ or $(b,1]$.
+
+First, suppose that $f(x)\in (b,1]$.  Choose a $q$ such that $b<q<f(x)$.  We claim that $V=X{-}\overline{U}_q$ is a neighborhood of $x$ which $f$ maps into $(b,1]$.  By the first fact, since $f(x)>q$, we have $x\in V$, so $V$ is properly a neighborhood of $x$.  If $y$ is an element of $V$, then we must have $f(y)\geq q > b$, otherwise we would run into the second fact, as if $f(y)<q$, we would have $y\in U_q\subset \overline{U_q}$.
+
+For the inverse image of a set of the form $[0,a)$, we simply suppose that $f(x)<a$ and let $q$ be such that $f(x)<q<b$.  By the second fact, $x\in U_q$.  If $y$ is any point of $U_q$, then $q$ is in the set $Q(y)$, so $f(y)\leq q < a$, so $U_q$ is mapped into $[0,a)$.
+
+Hence the inverse images of open sets are open, and we have shown $f$ to be continuous.  This completes the proof.
+
+
+
+	
+\end{proof}
+	
