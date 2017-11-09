@@ -1,0 +1,21 @@
+\classheader{11-08-2017}
+
+\section*{Tychonoff's Theorem}
+
+\theorem[Tychonoff]{If $K=\prod\limits_\alpha K_\alpha$ is a product of topological spaces $K_\alpha$ and each $K_\alpha$ is compact, then $K$ is compact (with respect to the product topology).}
+
+Fun fact: this theorem is equivalent to the Axiom of Choice (which we will invoke twice in the proof).
+
+\begin{proof}
+	
+	We'll use our dual notion of compactness, that a space $\Omega$ is compact if and only if any collection of closed sets $\{B_\beta\}$ with the finite intersection property has nonempty intersection.
+	
+	Let $\{B_\beta\}$ be such a collection of closed sets with the finite intersection property, such that each $B_\beta \subset K = \prod\limits_\alpha K_\alpha$.  By Zorn's Lemma (Axiom of Choice \#1), there exists a maximal (with respect to inclusion) collection of sets  $\{C_\gamma\}$ such that $\{B_\beta\}\subset \{C_\gamma\}$ and $\{C_\gamma\}$ has the finite intersection property.
+	
+	Projecting any $C_\gamma$ to a factor $K_\alpha$ gives us sets $\{\pi_\alpha (C_\gamma)\}_\gamma$, which still have the finite intersection property in $K_\alpha$.  Since each $K_\alpha$ is compact, there is some point $p_\alpha\in \bigcap\{\pi_\alpha ( C_\gamma)\}$.  Doing this to every $K_\alpha$ gives us a collection of points $p_\alpha$, one for each factor.  Set $p=(p_\alpha)$.  We have that $p\in K$ and we claim that $p\in \bigcap\{B_\beta\}$.
+	
+	For each  $\alpha$ choose (Axiom of Choice \#2) an open set $V_\alpha \subset K_\alpha$.  Then $\{\pi_\alpha^{-1}(V_\alpha)\}$ forms a subbase for $K$ with the product topology.  Since $p_\alpha \in \pi_\alpha(C_\gamma)$ for all $\gamma$, we have that $V_\alpha\cap \pi_\alpha(C_\gamma)\neq \emptyset$.  Since we chose the $\{C_\gamma\}$ to be maximal, we have that $\{\pi_\alpha^{-1}(V_\alpha)\}\subset \{C_\gamma\}$.
+	
+	Since base elements can be written as finite intersections of subbase elements, every base element intersects every $B_\beta$.  Thus $p\in \overline{B_\beta}$ for every $\beta$.  But the $B_\beta$ are already closed, hence they have nonempty intersection, so $p\in \bigcap\{B_\beta\}$, and $K$ is compact.
+	
+\end{proof}
