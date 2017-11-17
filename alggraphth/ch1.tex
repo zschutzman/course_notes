@@ -1,0 +1,68 @@
+\classheader{}
+
+
+\subsection*{What is Algebraic Graph Theory?}
+
+\textit{Algebraic graph theory} (abbreviated \textbf{AGT} here \footnote{Not to be confused with \textit{algorithmic game theory}, an area of mathematics and computer science much closer to my primary research interests...} is the subject which explores the relationship between algebra, which broadly studies the properties of abstract mathematical structures, and graph theory, which broadly studies a very particular kind of concrete mathematical structure.  Among these subjects are graph groups and morphisms, spectral graph theory, graph cuts and flows, colorings, and knots.
+
+
+
+
+\section*{Definitions and Graph Fundamentals}
+
+\definition{A \textbf{graph} $G$ consists of a vertex set $V$ and an edge set $E$, where the edge set (formally) is a subset of all pairs of vertices.}
+
+\definition{A graph is \textbf{simple} if it contains at most one edge between any pair of vertices and no edges of the form $(v,v)$ for any $v\in V$.}
+
+Notationally, if $u,v\in V$ are vertices, we denote the edge between them as $(u,v)$.  In an \textbf{undirected graph}, the order the vertices appear in the presentation of the edge does not matter, that is $(u,v)=(v,u)$.  In a \textbf{directed graph}, the order does matter, and we say that $(u,v)$ is \textit{the arc from $\boldsymbol{u}$ to $\boldsymbol{v}$}.  Unless otherwise specified, we will work with undirected, simple graphs.  Intuitively, most things we can say about directed graphs are true for undirected graphs, because we can view an undirected graph as a directed one with arcs in both directions between pairs of adjacent vertices.
+
+We say that two graphs $G=(V,E)$ and $H=(V',E')$ are \textbf{equal} if $V=V'$ and $E=E'$ as sets.
+
+\definition{Two graphs $G=(V,E)$ and $H=(V',E')$ are \textbf{isomorphic} if there is a bijective function $\phi:V\rightarrow V'$ such that for any two vertices $u,v\in V$, $(u,v)\in E$ if and only if $(\phi(u),\phi(v))\in E'$.}
+
+We write `$G\approxeq H$ to denote such a relation.   We should think of graph isomorphisms as spatial transformations and relabellings of the vertices.  In this way, we can talk about graphs as if they are unique; we talk about \textit{the triangle} or \textit{the complete graph on $5$ vertices}.
+
+\definition{The \textbf{degree} of a vertex is the number of edges which are incident to it.}
+
+\definition{A \textbf{complete graph} is a graph in which every pair of vertices is connected by an edge.  We denote this $K_n$, where $n$ is the number of vertices in the vertex set.}
+
+\definition{The \textbf{empty graph} (on $n$ vertices) is a graph with no edges.}
+
+\definition{The \textbf{null graph} is the graph with no edges. This is not a mathematical object worth devoting any attention to, except that it is sometimes useful as a base case for induction.}
+
+\definition{A graph $H = (V',E')$ is a   \textbf{subgraph} of  $G=(V,E)$ if $V'\subseteq V$ and $E'\subseteq E$.}
+
+\definition{If $H$ is a subgraph of $G$ and $V'=V$, then $H$ is a \textbf{spanning subgraph} of $G$.}
+
+\definition{A subgraph $H$ of a graph $G$ is called \textbf{induced} if $H$ can be realized by deleting vertices from $G$ and only removing the edges incident to those removed vertices.}
+
+Any induced subgraph is determined entirely by the choice of vertices to not delete.  Hence the number of induced subgraphs is equal to the number of subsets of vertices, or $2^{|V|}$.
+
+\definition{A \textbf{clique} is a subgraph which is complete.  It is necessarily an induced subgraph, arising from preserving only the vertices which are members of the clique.}
+
+\definition{A set of vertices which induces an empty graph (one with no edges) is called an \textbf{independent set}.}
+
+If $X$ is a graph, we denote $\omega(X)$ the size of the largest clique in $X$ and $\alpha(X)$ the size of the largest independent set.
+
+\definition{Given two vertices $u$ and $v$, a \textbf{path} between them is a sequence of vertices $u,w_2,w_3,\dots,w_r,v$ such that $(u,w_2),(w_i,w_{i+1},(w_r,v)\in E$.}
+
+\definition{If there exists a path between any pair of vertices in a graph, that graph is called \textbf{connected}.  If a graph is not connected, it is \textbf{disconnected}.}
+
+The existence of a path between two vertices is an equivalence relation, and the subsets of vertices induced by partitioning the vertex set into equivalence classes are called \textbf{(connected) components}.
+
+\definition{A \textbf{cycle} is a subgraph where each vertex has degree $2$.}
+
+\definition{A graph is \textbf{acyclic} if it contains no cycles.  This is also called a \textbf{tree}.}
+
+\definition{A \textbf{forest} is a graph where each connected component is a tree.}
+
+\definition{A spanning subgraph which is also a tree is called a \textbf{spanning tree}.  A \textbf{spanning forest} is a collection of spanning trees, one for each connected component.}
+
+
+\section*{Morphisms}
+
+
+
+
+
+
