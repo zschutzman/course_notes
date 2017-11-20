@@ -10,61 +10,219 @@
 
 
 
-\section*{Definitions and Graph Fundamentals}
+\section*{Definitions and Fundamentals}
 
-\definition{A \textbf{graph} $G$ consists of a vertex set $V$ and an edge set $E$, where the edge set (formally) is a subset of all pairs of vertices.}
+If $X$ is a graph, we let $V(X)$ and $E(X)$ denote the vertex set and edge set of $X$, respectively, using $A(X)$ for the arc set of $X$ in settings with directed graphs.  Unless otherwise specified, we assume all graphs are undirected.  If vertices $u,v\in V(X)$, then we write $(u,v)\in E(X)$ to represent the edge between $u$ and $v$ (or $(u,v)\in A(X)$ to denote the arc \textit{from} $u$ \textit{to} $v$).
 
-\definition{A graph is \textbf{simple} if it contains at most one edge between any pair of vertices and no edges of the form $(v,v)$ for any $v\in V$.}
+\definition{Two graphs $X$ and $Y$ are \textbf{isomorphic} if there exists a bijective function $\phi:V(X)\rightarrow V(Y)$ such that $(\phi(u),\phi(v))\in E(Y)$ if and only if $(u,v)\in E(X)$.}
 
-Notationally, if $u,v\in V$ are vertices, we denote the edge between them as $(u,v)$.  In an \textbf{undirected graph}, the order the vertices appear in the presentation of the edge does not matter, that is $(u,v)=(v,u)$.  In a \textbf{directed graph}, the order does matter, and we say that $(u,v)$ is \textit{the arc from $\boldsymbol{u}$ to $\boldsymbol{v}$}.  Unless otherwise specified, we will work with undirected, simple graphs.  Intuitively, most things we can say about directed graphs are true for undirected graphs, because we can view an undirected graph as a directed one with arcs in both directions between pairs of adjacent vertices.
+\definition{A \textbf{subgraph} $Y$ of a graph $X$ is a graph such that $V(Y)\subset V(X)$ and $E(Y)\subset E(X)$.  An \textbf{induced subgraph} is one such that $E(Y)$ consists exactly of the edges $(u,v)$ in $X$ such that $u$ and $v$ are both in $V(Y)$.  That is, an induced subgraph is one which can be realized by deleting vertices from $X$ and removing only those edges incident to those removed vertices.  A \textbf{spanning subgraph} is one such that $V(Y)=V(X)$.}
 
-We say that two graphs $G=(V,E)$ and $H=(V',E')$ are \textbf{equal} if $V=V'$ and $E=E'$ as sets.
+\definition{A \textbf{cycle} is a subgraph such that every vertex has degree $2$.  A \textbf{tree} is a graph such that no subgraph is a cycle.  A \textbf{spanning tree} is a spanning subgraph with no cycles.}
 
-\definition{Two graphs $G=(V,E)$ and $H=(V',E')$ are \textbf{isomorphic} if there is a bijective function $\phi:V\rightarrow V'$ such that for any two vertices $u,v\in V$, $(u,v)\in E$ if and only if $(\phi(u),\phi(v))\in E'$.}
+\definition{A set of vertices which induce an empty (edge-free) subgraph is called an \textbf{independent set}.  A set of vertices which induces a complete graph is called a \textbf{clique}.  The largest independent set and clique in a graph $X$ are denoted $\alpha(X)$ and $\omega(X)$, respectively.}
 
-We write `$G\approxeq H$ to denote such a relation.   We should think of graph isomorphisms as spatial transformations and relabellings of the vertices.  In this way, we can talk about graphs as if they are unique; we talk about \textit{the triangle} or \textit{the complete graph on $5$ vertices}.
+These values $\alpha(X)$ and $\omega(X)$ will come back later.
 
-\definition{The \textbf{degree} of a vertex is the number of edges which are incident to it.}
+\definition{A \textbf{connected component} of a graph is a collection of vertices such that there exist a path between all pairs.}
 
-\definition{A \textbf{complete graph} is a graph in which every pair of vertices is connected by an edge.  We denote this $K_n$, where $n$ is the number of vertices in the vertex set.}
+While adjacency in a graph is not an equivalence relation (it's not transitive), membership in connected components is, hence a graph can be partitioned into disjoint connected components.
 
-\definition{The \textbf{empty graph} (on $n$ vertices) is a graph with no edges.}
-
-\definition{The \textbf{null graph} is the graph with no edges. This is not a mathematical object worth devoting any attention to, except that it is sometimes useful as a base case for induction.}
-
-\definition{A graph $H = (V',E')$ is a   \textbf{subgraph} of  $G=(V,E)$ if $V'\subseteq V$ and $E'\subseteq E$.}
-
-\definition{If $H$ is a subgraph of $G$ and $V'=V$, then $H$ is a \textbf{spanning subgraph} of $G$.}
-
-\definition{A subgraph $H$ of a graph $G$ is called \textbf{induced} if $H$ can be realized by deleting vertices from $G$ and only removing the edges incident to those removed vertices.}
-
-Any induced subgraph is determined entirely by the choice of vertices to not delete.  Hence the number of induced subgraphs is equal to the number of subsets of vertices, or $2^{|V|}$.
-
-\definition{A \textbf{clique} is a subgraph which is complete.  It is necessarily an induced subgraph, arising from preserving only the vertices which are members of the clique.}
-
-\definition{A set of vertices which induces an empty graph (one with no edges) is called an \textbf{independent set}.}
-
-If $X$ is a graph, we denote $\omega(X)$ the size of the largest clique in $X$ and $\alpha(X)$ the size of the largest independent set.
-
-\definition{Given two vertices $u$ and $v$, a \textbf{path} between them is a sequence of vertices $u,w_2,w_3,\dots,w_r,v$ such that $(u,w_2),(w_i,w_{i+1},(w_r,v)\in E$.}
-
-\definition{If there exists a path between any pair of vertices in a graph, that graph is called \textbf{connected}.  If a graph is not connected, it is \textbf{disconnected}.}
-
-The existence of a path between two vertices is an equivalence relation, and the subsets of vertices induced by partitioning the vertex set into equivalence classes are called \textbf{(connected) components}.
-
-\definition{A \textbf{cycle} is a subgraph where each vertex has degree $2$.}
-
-\definition{A graph is \textbf{acyclic} if it contains no cycles.  This is also called a \textbf{tree}.}
-
-\definition{A \textbf{forest} is a graph where each connected component is a tree.}
-
-\definition{A spanning subgraph which is also a tree is called a \textbf{spanning tree}.  A \textbf{spanning forest} is a collection of spanning trees, one for each connected component.}
+\section*{Graph Automorphisms}
 
 
-\section*{Morphisms}
+\definition{An \textbf{automorphism} of a graph $X$ is an isomorphism $X\rightarrow X$.}
+
+The set of automorphisms of a graph form a group. The identity function is clearly an automorphism, and if $g$ is an automorphism, then its inverse, $g^{-1}$ is as well.  We can also compose automorphisms to get another automorphism, and this inherits associativity from function composition.  By Cayley's theorem, we can think about $Aut(X)$ as being a subgroup of $Sym(V(X))$, the symmetric group on the vertices of $X$. We'll write $Sym(n)$ for $n=|V(X)|$ to denote the symmetric group on $n$ elements in place of $Sym(V(X))$. 
+
+In general, it is difficult to determine whether two graphs are isomoprhic (this is a well-known NP problem) or whether a graph has a nontrivial automorphism.  However, some cases are easy.  For a complete graph $K_n$, $Aut(X)=Sym(n)$, and the same holds for an empty graph on $n$ vertices.
+
+If $v$ is a vertex and $g$ a group element, we denote $v^g$ the action of $g$ on $v$.  If $g\in Aut(X)$ and $Y$ is a subgraph of $X$, then we denote $Y^g = \{x^g|x\in V(Y)\}$.  Then we have that $E(Y^g) = \{(u^g,v^g)|(u,v)\in E(Y)\}$.  The graphs $Y$ and $Y^g$ are isomorphic, and $Y^g$ is a subgraph of $X$.
+
+\definition{The \textbf{valency} of a vertex $x$ is the number of neighbors of $x$ in the graph $X$.  We can talk about the maximum and minimum valencies over all vertices of a graph.}
+
+\lemma{If $x$ is a vertex of a graph $X$ and $g$ is an automorphism of $X$, then the vertex $y=x^g$, has the same valency as $x$.}
+
+\begin{proof}
+	Let $N(x)$ be the subgraph of $X$ induced by $x$ and its neighbors.  Then $N(x)^g\iso N(x^g)\iso N(y)$, so $N(x)\iso N(y)$ as subgraphs of $X$, so they have the same number of vertices.  Thus the valencies of $x$ and $y$ are equal.
+\end{proof}
+
+\corollary{An automorphism of a graph necessarily permutes vertices of the same valency.}
+
+\definition{A graph where every vertex has valency $k$ is called $\boldsymbol{k}$\textbf{-regular}.}
+
+\definition{The \textbf{distance} between vertices $x$ and $y$ is the length of the shortest path in $X$ between $x$ and $y$, denoted $d_X(x,y)$ or $d(x,y)$ if it is clear which graph we are talking about.}
+
+\lemma{If $g$ is an automorphism of a graph $X$, then $d_X(x,y)=d_X(x^g,y^g)$ for all pairs of vertices.}
+
+\begin{proof}
+	If they are the same vertex, the distance $d(x,y)=d(x^g,y^g)=0$ is trivially preserved.  If $d(x,y)=1$, then $x$ and $y$ are adjacent, so their images $x^g$ and $y^g$ must be adjacent as well, by definition of graph isomorphism.
+	
+	Suppose, for the sake of contradiction that $d(x,y)\lneq d(x^g,y^g)$.  Then there is some path $x,r_2,r_3,\dots r_{n-1},y$ such that $r_{n-1}^g$ is not adjacent to $y^g$.  But this is impossible, as automorphism preserves adjacency, and $r_{n-1}$ is adjacent to $y$.  A symmetric argument on $g^{-1}$ gives the case where $d(x,y)\gneq d(x^g,y^g)$.
+	
+	
+	
+\end{proof}
+
+\definition{The \textbf{complement} of a graph $X$, denoted $\overline{X}$, is the graph such that $V(\overline{X})=V(X)$ and $E(\overline{X}) = \{(u,v)|(u,v)\notin E(X)\}$.  That is, the complement of a graph is the one which has an edge between two vertices if and only if the original graph does not.}
+
+\lemma{$Aut(X)=Aut(\overline{X})$.}
+
+\begin{proof}
+	Since automorphisms preserve adjacency, they also preserve non-adjacency.  Thus $x^g$ is not adjacent to $y^g$ if and only if $x$ and $y$ are not adjacent.  Therefore, $g\in Aut(\overline{X})$.
+\end{proof}
+
+We'll quickly note that automorphisms of directed graphs also preserve the direction of the arcs.
+
+
+\section*{Graph Homomorphisms}
+\definition{A \textbf{graph homomorphism} is a function $\phi:V(X)\rightarrow V(Y)$ such that if $u$ and $v$ are adjacent in $X$, they are adjacent in $Y$.}
+
+We'll quickly contrast this to isomorphisms, which preserves adjacency in both directions, whereas a homomorphism only requires that adjacent vertices in $X$ are still adjacent in $Y$ under $\phi$.  Every isomorphism is a homomorphism, but not every homomorphism is an isomorphism.
+
+\definition{A graph is \textbf{bipartite} if there exists a partition of $V(X)$ into disjoint sets $A$ and $B$ such that every edge has one end in $A$ and the other in $B$. Analogously, we can define $\boldsymbol{k}$\textbf{-partite} graphs as being those which admit a partition into $k$ components such that no edge has both endpoints in the same component.}
+
+If a graph is bipartite, there exists a homomorphism $X\rightarrow K_2$ where the image of each component is one of the vertices in $K_2$.  Similarly, there is a homomorphism from a $k$-partite graph onto $K_k$.
+
+This leads to the notion of \textit{proper colorings}.
+
+\definition{A \textbf{proper coloring} is a map from $V(X)$ to a finite set of colors such that for any edge $(u,v)\in E(X)$, $u$ and $v$ are assigned different colors.}
+
+\definition{The \textbf{chromatic number} of a graph, denoted $\chi(X)$ is the minimum number $k$ such that $X$ can be properly $k$-colored.}
+
+Nonempty bipartite graphs have chromatic number $2$.  Complete graphs $K_n$ have chromatic number $n$.
+
+Let's observe that the set of vertices assigned some particular color, called a \textit{color class}, forms an independent set in $X$.
+
+\lemma{The chromatic number of a graph $\chi(X)$ is the minimum number $r$ such that there exists a homomorphism from $X$ to $K_r$.}
+
+
+\begin{proof}
+	Suppose $\phi:V(X)\rightarrow V(Y)$ is a homomorphism.  For $y\in V(Y)$, define $\phi^{-1}(y)$ to be $\phi^{-1}(y)=\{x\in V(X)|\phi(x)=y\}$, the set of elements in $V(X)$ which map to $Y$ under $\phi$.  As $y$ is not adjacent to itself, $\phi^{-1}(y)$ is an independent set.  Hence if $Y$ has $r$ vertices, each of the $r$ sets is independent and forms a color class of an $r$-coloring, so $X$ can be properly $r$-colored.  Conversely, suppose that $X$ can be properly $r$-colored.  Then there exists a homomorphism onto $K_r$ which sends each color class to a unique vertex.
+\end{proof}
+
+\definition{A \textbf{retraction} is a homomorphism $\phi$ from $X$ to $Y$ where $Y$ is a subgraph of $X$ such that the restriction of $X$ to $Y$ is the identity map.}
+
+If $X$ is a graph with a $k$-clique, then any $k$-coloring of $X$ determines a retraction of $X$ onto the clique.
+
+When we think about directed graphs, we will also stipulate that homomorphisms preserve the directions of arcs.
+
+\definition{An \textbf{endomorphism} of a graph is a homomorphism from a graph to itself.  The set of endomorphisms, $End(X)$, forms a monoid. An automorphism is a special case of an endomorphism, so $Aut(X)$ is a submonoid of $End(X)$.}
+
+
+\section*{Circulant Graphs}
+
+Let's give a more particular definition of a \textit{cycle} in a graph.  We can think of a cycle of $n$ vertices as a set $C_n=\{0,1,2,\dots n-1\}$ of vertices such that $i$ and $j$ are adjacent if and only if $j-i\equiv\pm 1\mod n$.
+
+Let's look at some automorphisms of the cycle.  The set of permutations which map $i$ to $i+1$ (and $n-1$ to $0$) forms a subset of $Aut(C_n)$.  By composition, we can realize an entire copy of the cyclic group on $n$ elements ($\mathbb{Z}_n$) in this way.  Also, the permutation $h$ which sends $i$ to $-i\mod n$ is an element of $Aut(C_n)$.  We have that $h(0)=0$ but the cyclic group is fixed point-free, so this automorphism isn't contained in that subgroup.  Also, $h=h^{-1}$, so there are two cosets induced by this element, and the order of $Aut(C_n)$ is at least $2n$.  (In fact, it's equal to $2n$, but we can't quite prove that yet...)
+
+The cycles are a subclass of the \textit{circulant graphs}.  If $C\subset \mathbb{Z}_n{\setminus}0$, then we can construct the directed graph $X=X(\mathbb{Z}_n,C)$ through the following process.  First, let $V(X)$ be the elements of $\mathbb{Z}_n$ and let $(i,j)\in A(X)$ if and only if $j-i\in C$.  This graph $X(\mathbb{Z}_m,C)$ is called a \textit{circulant of order $n$} and $C$ is its \textit{connection set}.  If $C$ itself is also closed under additive inverses (modulo $n$), then $(i,j)$ is an arc in $X$ if and only if $(j,i)$ is, so we can view the graph as being undirected.  In this case, the map which sends $i$ to $-i$ is an automorphism, and the map which sends $i$ to $i+1$ is always an automorphism of a circulant graph, so the automorphism group of a circulant graph with an inverse-closed connection set is at least $2n$.  We can think of the ordinary cycle on $n$ vertices as being $X(\mathbb{Z}_n,\{-1,1\})$.  The complete graph is a circulant graph with connection set $\mathbb{Z}_n$, and an empty graph is one with empty connection set.  Since these graphs have automorphism groups with order $n!$, we clearly have examples of circulant graphs with orders much larger than $2n$.
+
+\section*{Johnson Graphs}
+
+Now we consider another family of graphs, denoted $J(v,k,i)$ for positive integers $v\geq k\geq i$.  Let $\Omega$ be some fixed set of size $v$.  The vertices of $J(v,k,i)$ are the subsets of $\Omega$ with size $k$, and two vertices are adjacent if and only if their corresponding sets have intersection size $i$.  Thus $J(v,k,i)$ has $\binom{v}{k}$ vertices, and it is a regular graph in which each vertex has valency $\binom{k}{i}\binom{v-k}{k-i}$.  We'll assume $v\geq 2k$.
+
+\lemma{The function which maps a set of size $k$ to its complement in $\Omega$ is an isomorphism between the graphs $J(v,k,i)$ and $J(v,v-k,v-2k+i)$.}
+
+\begin{proof}
+	The proof of this is just a DeMorgan's Laws chase.  
+	
+	If $|A|=|B|=k$, then $|\overline{A}|=|\overline{B}|=v-k$.
+	
+	If $A$ and $B$ are adjacent, then $|A\cap B|=i$, so $|\overline{A}\cap\overline{B}| = |\overline{A\cup B}| = v-2k+i$.
+	
+	Therefore, if we define a map by mapping a set to its complement and adjacency occurs if and only if the intersection of the sets is size $v-2k+i$, this is indeed an automorphism, as $A$ and $B$ are adjacent if and only if $\overline{A}$ and $\overline{B}$ are adjacent, and set complements is an obvious bijection between the vertex sets.
+	
+	
+	
+\end{proof}
+
+A graph is called a \textit{Johnson graph} if it is isomorphic to $J(v,k,k-1)$.  The \textit{Kneser graphs} are isomorphic to $J(v,k,0)$.  As an example, the Petersen graph, which we will study later, is $J(5,2,0)$ and is therefore a Kneser graph.
+
+\lemma{If $v\leq k \leq i$, then $Aut(J(v,k,i))$ contains a subgroup isomorphic to $Sym(v)$.}
+
+\begin{proof}
+	Let $g$ be a permutation of $\Omega$ and $S\subset \Omega$, and let $S^g$ denote the image of $S$ under $g$.  Any such $g$ also determines a permutation of the subsets $S$ of size $k$.  In particular, if $S$ and $T$ are of size $k$, then $|S\cap T|=|S^g\cap T^g|$, so $g$ is an automorphism of $J(v,k,i)$.
+\end{proof}
+
+We note that $Aut(J(v,k,i))$ acts on a set of size $\binom{v}{k}$, so when this quantity is not equal to $v$, it's not equal to $Sym(v)$, but it is \textit{usually} isomorphic, which is often not an easy thing to prove.
+
+
+\section*{Line Graphs}
+
+\definition{If $X$ is a graph, the \textbf{line graph} of $X$, denoted $L(X)$ is the graph where the vertices of $L(X)$ correspond to edges of $X$ and two vertices in $L(X)$ are adjacent if and only if the corresponding edges in $X$ are incident to the same vertex.}
+
+As examples, the star $K_{1,n}$ (one hub with $n$ `spokes') has line graph $K_n$, as all $n$ edges in the star are incident to the center vertex.  The path graph on $n$ vertices $P_n$ has $L(P_n)=P_{n-1}$.  The cycle $C_n$ is isomorphic to its own line graph.
+
+\lemma{If $X$ is regular with valency $k$, then $L(X)$ is regular with valency $2k-2$.}
+
+\begin{proof}
+	Each vertex has degree $k$, so when we translate each edge into a vertex, for each original vertex, we get a $k$-clique, but each of these new vertices belongs to two such cliques.  Thus each vertex has $k-1$ adjacent vertices in each of the cliques it belongs to, thus a total valency of $2k-2$.
+\end{proof}
+
+
+\theorem{A graph is the line graph of some other graph if and only if there exists a partition of its vertex set into cliques such that each vertex belongs to at most two cliques.}
+
+\begin{proof}
+	
+	To see that the condition is necessary, observe that the process of constructing a line graph necessarily turns the neighborhood of each vertex into a clique, and since an edge connects two vertices, each new vertex belongs to at most two such cliques.
+	
+	To see that it is sufficient, we will construct a graph from a line graph which decomposes into cliques in this way.  Let $S_1,S_2,\dots,S_k$ be the cliques, and let $v_1,v_2,\dots,v_m$ be the vertices (if there are any) which are in exactly one $S_i$.  The vertex set of our graph will be $S_1,\dots,S_k,\{v_1\},\dots \{v_m\}$ with an edge between sets if and only their intersection is nonempty.  It is clear that the line graph of this graph is our original graph, and we are done.
+	
+\end{proof}
+
+Observe that if $X$ and $Y$ are isomorphic, then $L(X)$ and $L(Y)$ are isomorphic, but the converse isn't true, as $K_3$ and $K_{1,3}$ have the same line graphs.
+
+\lemma{If $X$ and $Y$ are graphs with minimum valency at least $4$, then $X\iso Y$ if and only if $L(X)\iso L(Y)$.}
+
+\begin{proof}
+	Let $C$ be a clique in $L(X)$ with $|C|=c<4$.  The vertices in $C$ correspond to a set of $c$ edges in $X$, all of which are incident to a common vertex $x$.  Thus, there is a bijection between vertices of $X$ and maximal cliques in $L(X)$ which maps adjacent vertices in $X$ to pairs of cliques in $L(X)$ which share exactly one vertex.  We can similarly construct an analogous bijection between $Y$ and $L(Y)$.  Let $f:X\rightarrow L(X)$ and $g:Y\rightarrow L(Y)$ be these functions.
+	
+	If we assume $X\iso Y$ by $\phi$, then we want to show that $L(X)\iso L(Y)$ by demonstrating that $g\circ\phi\circ f^{-1}:L(X)\rightarrow L(Y)$ is an isomorphism.  It suffices to show that the image of a $k$-clique under this composite function is a $k$-clique in $L(Y)$.  But this is obvious.  $f^{-1}$ takes a maximal $k$-clique to a set of $k$ edges in $X$ incident to some vertex $x$, which has valency $k$.  Then $\phi(x)=y$ is some vertex in $Y$ with valency $k$, so $g$ sends this neighborhood to a maximal $k$-clique.
+	
+	The other direction has an identical proof, except that we show that vertices in $X$ and $Y$ with equal valency are mapped to each other.
+\end{proof}
+
+\theorem{A graph is a line graph if and only if each induced graph on at most six vertices is also a line graph.}
+
+\begin{proof}
+	
+	This is an alternative phrasing of Beineke's Theorem.  I'll fill in a proof later.
+	
+\end{proof}
+
+\corollary{The set of graphs which are not line graphs but every induced subgraph is a line graph is finite and, in fact, of size nine.}
 
 
 
+\definition{A bipartite graph is \textbf{semiregular} if it has a proper $2$-coloring such that all vertices of the same color have the same valency.  As an example, the complete bipartite graphs $K_{m,n}$ (a set of $m$ vertices connected to each of a set of $n$ vertices) are semiregular.}
+
+\lemma{If the line graph of a graph is regular, then the graph itself is regular or a semiregular bipartite graph.}
+
+\begin{proof}
+	Suppose $L(X)$ is $k$-regular.  If $u$ and $v$ are adjacent in $X$, then their valencies sum to $k+2$, so all neighbors of $u$ have the same valency, so if two vertices share a neighbor, they have identical valencies.  This only occurs in graphs which are regular or bipartite and semiregular, as if it contains an odd cycle, it must have two adjacent vertices with the same valencies, and bipartite graphs have no odd cycles.
+\end{proof}
 
 
+\section*{Planar Graphs}
 
+\definition{A graph is called \textbf{planar} if it can be drawn (in the plane) without crossing edges.  More precisely, a graph is planar if there exists a function which maps each vertex to a unique point in $\mathbb{R}^2$ and each edge to a non-self-intersecting curve with endpoints equal to the image of the vertices it's incident to such that no two such curves intersect. Such a function is called a \textbf{planar embedding}.}
+
+\definition{A \textbf{plane graph} is a planar graph together with a planar embedding.}
+
+The edges of a plane graph divide the plane into disjoint regions called \textit{faces}.  All but one (the \textit{external} or \textit{infinite}) face is bounded.  The \textit{length} of a face is the number of edges bounding it.
+
+\theorem[Euler]{If $v-e+f=2$, where $v,e,f$ are the number of vertices, edges, and faces of a plane graph, respectively.}
+
+\begin{proof}
+	
+	The proof proceeds by strong induction on the number of edges. Observe that a tree on $v$ vertices is a planar graph with $v-1$ edges and $1$ face.  If a planar graph is not a tree, it contains a cycle.  Removing an edge in this cycle (which does not disconnect the graph) merges two faces, which preserves the quantity $v-e+f$.  Since a tree is a graph without cycles, and this process eventually transforms a graph into a tree, but since a tree satisfies $v-e+f=2$, this quantity must be preserved at all steps of the process, hence it is true for the original graph.
+	
+	
+\end{proof}
+
+\definition{A \textbf{maximal planar graph} is one in which adding an edge between any two vertices which are not already adjacent makes the graph non-planar.  If a planar graph has an embedding where the length of some face is greater than 3, we can add edges interior to this face in without violating planarity.  Thus any maximal planar graph must have every face be of length 3, called a \textbf{planar triangulation}.}
+
+In a triangulation, each edge is incident to two faces, so we have $3f=2e$.  Then by Euler's theorem, $e=3n-6$.  Any planar graph with $3n-6$ edges must be maximal and a planar triangulation.
+
+A planar graph may have multiple distinct embeddings, and they don't necessarily preserve the lengths of the faces (although it must preserve the \textit{number} of faces).  It is a result in topological graph theory that a $3$-connected planar graph has a (topologically) unique planar embedding.
