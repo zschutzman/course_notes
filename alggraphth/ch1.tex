@@ -1,3 +1,5 @@
+\renewcommand{\exc}[1]{\subsection*{Exercise 1.#1}}
+
 \classheader{}
 
 
@@ -226,3 +228,36 @@ The edges of a plane graph divide the plane into disjoint regions called \textit
 In a triangulation, each edge is incident to two faces, so we have $3f=2e$.  Then by Euler's theorem, $e=3n-6$.  Any planar graph with $3n-6$ edges must be maximal and a planar triangulation.
 
 A planar graph may have multiple distinct embeddings, and they don't necessarily preserve the lengths of the faces (although it must preserve the \textit{number} of faces).  It is a result in topological graph theory that a $3$-connected planar graph has a (topologically) unique planar embedding.
+
+Given a plane graph $X$, we can construct its dual $X^*$, where each face of $X$ becomes a vertex of $X^*$ with edges between vertices in $X^*$ if and only if there is an edge separating the corresponding faces in $X$.  Sometimes this gives rise to multiple edges between vertices, but we'll be sure to only worry about that if we have to.
+
+The dual of a planar graph is connected, so if $X$ is not connected, $(X^*)^*$ is not isomorphic to $X$, but this is true if $X$ is connected.
+
+We can generalize the notion of planar embeddings to embeddings in any surface.  The  dual is defined analogously in these topological spaces.  The real projective plane $\RP^2$ is a non-orientable surface which looks like the closed disk with an antipodal identification along the boundary.  The graph $K_6$ is not planar, but it does have an embedding in $\RP^2$ (which is triangular!), and its dual in this space is cubic, and turns out to be the Petersen graph.
+
+The torus is an orientable surface, which looks like the surface of a donut.  We can represent it as a rectangle with opposite edges identified.  The graph $K_7$ is not planar, but there is an embedding on the torus (which is also triangular!), and its dual is the Heawood graph.
+
+\section*{Exercises}
+
+
+\exc{1} Let $X$ be a graph on $n$ vertices.  Show that $Aut(X)=Sym(n)$ if and only if $X$ is empty or complete.
+
+If $X$ is complete or empty, then $Aut(X)=Sym(n)$, as every pairwise swap of vertices is an automorphism.
+
+For the other direction, we'll show the contrapositive.  Suppose $Aut(X)\neq Sym(n)$.  We'll show that the graph cannot be complete or empty.  Since these groups are not equal, there exist vertices $u,v$ such that swapping $u$ and $v$ is not an automorphism of $X$.  Then (without loss of generality) there is an edge $(u,y)$ in $X$ but $(\phi(u),y)$ is not (or vice versa).  Since we have demonstrated the existence of some edge and non-existence of another, the graph cannot be empty or complete.
+
+\exc{2} Show that $Aut(X)=Aut(\overline{X})$.
+
+Done in the notes.
+
+\exc{3}  Show that automorphisms preserve distances between vertices.
+
+Done in the notes.
+
+
+\exc{4} Show that if $f:X\rightarrow Y$ is a homomorphism and $x_1,x_2$ are vertices in $X$, then $d_X(x_1,x_2)\geq d_Y(f(x_1),f(x_2))$.
+
+Since a homomorphism preserves adjacency, we can proceed by induction.  If $x_1$ and $x_2$ are adjacent in $X$ then they are in $Y$ as well.  If they are at distance $k$, there is some path of length $k$ in $X$ which maps to a path of length at most $k$ in $Y$.
+
+
+\exc{5} Show that if $X$ is a graph and $Y$ a subgraph, and $f$ a homomorphism from $X$ to $Y$ such that the restriction of $f$ to $Y$ is a bijection that $Y$ is a retract.
