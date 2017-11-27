@@ -13,6 +13,8 @@
 %  visit http://creativecommons.org/licenses/by-sa/3.0/.              %
 %                                                                     %
 %---------------------------------------------------------------------%
+\newif\ifdraft \draftfalse
+
 
 \documentclass[11pt]{article}
 
@@ -366,9 +368,16 @@
 
 \newcommand{\thrm}[1]{\theorem{#1}}
 
-\newcommand{\exc}[1]{\subsection*{Exercise \hwnumber.#1}}
 
 
+\makeatletter
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+	{-3.25ex\@plus -1ex \@minus -.2ex}%
+	{-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+	{\normalfont\normalsize\bfseries}}
+\makeatother
+
+\newcommand{\exc}[1]{\subsubsection*{Exercise \hwnumber.#1}}
 %------------%
 %  Document  %
 %------------%

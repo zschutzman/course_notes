@@ -1,2 +1,137 @@
+\renewcommand{\exc}[1]{\subsubsection*{Exercise 2.#1}}
+
 \classheader{}
+
+\section*{Permutation Groups}
+
+Given a set $V$ of size $n$, we denote the set of all permutations of $V$ as $Sym(V)$ or $Sym(n)$.  A \textit{permutation group} on $V$ is some subgroup of $Sym(V)$, and for a graph $X$, we can think of $Aut(X)$ as some permutation group on its vertex set.
+
+By Cayley's Theorem, \textit{any} finite group $G$ can be thought of as a permutation group on the set of its elements.  
+
+\definition{A \textbf{permutation representation} of a group $G$ is a (group) homomorphism from $G$ into $Sym(V)$ for some set $V$.  Such a representation is called \textbf{faithful} if this homomorphism is injective\footnote{equivalently, the kernel is trivial, or each element of $G$ maps to a unique permutation}.}
+
+A permutation representation is sometimes called a \textit{group action}, in which case we say that $G$ \textit{acts (faithfully) on} $V$.  A group acting on a set induces a whole bunch of other actions.  For example, if $S\subset V$, then for any $g\in G$, $S^g$ is also a subset of $V$ (realized by applying the action of $g$ to each element of $S$), called the \textit{translate of $S$ by $g$}.  We can note that $|S|=|S^g|$, so $G$ can be thought of as permuting \textit{subsets} of $V$, so for any fixed $k$, $G$ induces a group action on the $k$-subsets of $V$, or on ordered $k$-tuples in $V$.
+
+\definition{A subset $S\subset V$ is $\boldsymbol{G}$\textbf{-invariant} with respect to a permutation group on $V$ if $s^g\in S$ for all $s\in S$ and $g\in G$.  That is, any group action sends an element of $S$ to another element of $S$.  We sometimes say that $S$ is \textit{invariant under} $G$.}
+
+If $S$ is $G$-invariant, each group element $g$ permutes the elements of $S$.  Write $g{\upharpoonright} S$ to denote the restriction of $g$ to $S$.  Then the map $g\mapsto g{\upharpoonright} S$ is a group homomorphism from $G$ into $Sym(S)$, and the image is a permutation group in $S$, which we write $G{\upharpoonright} S$ or $G^S$.
+
+\definition{A permutation group on $V$ is called \textbf{transitive} if given any $x,y\in V$, there is a group element $g\in G$ such that $x^g=y$.}
+
+\definition{If $S$ is a $G$-invariant subset of $V$ and $G{\upharpoonright}S$ is transitive, then $S$ is an \textbf{orbit} of $G$.  For any $x\in V$, the set $x^G=\{x^g|g\in G\}$ is an orbit of $G$.}
+
+It's easy to see that the orbits of $G$ form equivalence classes (if $y=x^g$, then $y^{g^{-1}}=x$, so they belong to the same orbit) and therefore partition $V$.  Any $G$-invariant subset of $V$ is therefore the union of some collection of orbits.  In fact, an orbit is, in a sense, a \textit{minimal} $G$-invariant subset containing a particular element.
+
+\section*{Counting}
+
+\definition{If $G$ is a permutation group on $V$, the \textbf{stabilizer} $G_x$ of an element $x\in V$ is the set of group elements $g$ such that $x^g = x$.}
+
+It's not too hard to see that the stabilizer of an element forms a subgroup.  Clearly the identity is in $G_x$.  For any $h\in G_x$, $h^{-1}\in G_x$ as applying the group actions in order should be the same as applying the product of the group actions.  A similar argument shows closure and associativity.
+
+We can generalize the idea to sets.  If $x_1,x_2,\dots x_r$ are distinct elements of $V$, then the stabilizer 
+
+$$G_{x_1,x_2,\dots x_r} = \bigcap\limits_{1}^r G_{x_i}$$
+
+is also a subgroup of $G$, formed by the pointwise intersection of the stabilizers of the elements we looked at, and is called the \textit{pointwise stabilizer} of $\{x_1,x_2,\dots,x_r\}$.  If $S$ is a subset of $V$, then the stabilizer $G_S$ of $S$ is the subset of $G$ formed by all group elements $g\in G$ such that $S^g=S$.  Since we only insist that elements of $S$ are permuted, rather than fixed, this is called the \textit{setwise stabilizer} of $S$.
+
+\lemma{If $V$ is a set, $G$ a group acting on $V$, and $S$ an orbit of $G$.  If $x$ and $y$ are elements of $S$, the set of group elements which map $x$ to $y$ is a right coset of $G_x$.  Conversely, all elements of a right coset of $G_x$ map to the same element of $S$.}
+
+\begin{proof}
+	
+	
+	Since $G$ is transitive on $S$, there is some $g$ such that $x^g=y$.  If $h\in G$ and $x^h=y$, then $x^g=x^h$ (as both equal $y$), and $x^{hg^{-1}} =x$, so $hg^{-1}\in G_x$, and $h\in G_xg$, which is thus the coset containing all elements which map $x$ to $y$.
+	
+	For the converse, we need to show that every element of $G_xg$ maps $x$ to the same element.  Every element of this coset looks like $hg$ for some $h\in G_x$.  Since $x^{hg}=(x^h)^g=x^g$, all elements of $G_xg$ map $x$ to $x^g$, and we are done.
+	
+	
+	
+	
+\end{proof}
+
+A consequence of this is the famed Orbit-Stabilizer Theorem:
+
+\theorem[Orbit-Stabilizer]{If $G$ is a group acting on $V$ and $x$ is an element of $V$, then $|G_x||x^G|=|G|$.}
+\begin{proof}
+	The proof follows almost immediately from the previous lemma.  The points of $x^G$ are in bijection with the cosets of $G_x$, so by Lagrange's Theorem, the product of the size of a coset with the number of cosets is equal to the order of the group.
+\end{proof}
+
+
+If $x$ and $y$ are distinct points in some orbit of $G$, how are $G_x$ and $G_y$ related?
+
+\definition{If a group element can be written as $g^{-1}hg$, it is said to be \textbf{conjugate} to $h$ (by $g$).  The set of all elements conjugate to $h$ is called the \textbf{conjugacy class} of $h$.  Given any group element $g$, the map $\tau_g:h\mapsto g^{-1}hg$, called \textbf{conjugation by $\boldsymbol{g}$} is a permutation of $G$.}
+
+The set of all such maps forms a group isomorphic to $G$ which has orbits coinciding with conjugacy classes.  If $H\subset G$ and $g\in G$, we write $g^{-1}Hg = \{g^{-1}hg|h\in H\}$.  If $H$ is a subgroup, then $g^{-1}Hg$ is also a subgroup, and is isomorphic to $H$.  In this case, we say $g^{-1}Hg$ \textit{is conjugate to} $H$.
+
+\lemma{Let $G$ be a group acting on $V$ and $x$ an element of $V$.  If $g\in G$, then $g^{-1}G_xg=G_{x^g}$.  That is, the stabilizers of two points in the same orbit are conjugate.}
+
+\begin{proof}
+	
+	Let $x^g=y$.  First, we need to show that every element of $g^{-1}G_xg$ fixes $y$.  Take $h\in G_x$.  Then $y^{g^{-1}hg}=x^{hg}=x^g=y$, so $g^{-1}hg\in G_y$, but if $h\in G_y$, then $ghg^{-1}\in G_x$, so in fact $g^{-1}G_xg=G_y$.
+	
+	
+	
+\end{proof}
+
+
+If $g$ is a permutation of $V$, denote $fix(g)$ the set of points in $V$ fixed by $g$.  That is, $fix(g)=\{v\in V | v^g=v\}$.
+
+\lemma[Burnside\footnote{This goes by `Burnside's Lemma' (not to be confused with Burnside's $p^aq^b$ theorem), but proper attribution is to Cauchy and Frobenius.}]{Let $G$ be a group acting on $V$.  Then the number of orbits of $G$ is equal to the average number of elements of $V$ fixed by a group element.}
+
+\begin{proof}
+	
+	Let the pair $(g,x)$ be a group element and an element of $V$, respectively.  We'll count these in two ways.  First, summing the number of fixed elements $fix(g)$ over all elements $g\in G$, we get $\sum\limits_{g\in G}|fix(g)|$ is one representation of the total number of such pairs, and is equal to the size of $G$ times the average number of fixed points.  Alternatively, if we sum over elements of $V$, we note that the number of elements of $G$ which fix an $x\in V$ is the size of the orbit $G_x$.  Thus the number of such pairs can also be written $\sum\limits_{x\in V}|G_x|$.
+	
+	Since $|G_x|$ is constant as $x$ goes over an orbit, the contribution of each orbit is $|x^G||G_x|$, which equals $|G|$.  Thus the total sum is $|G|$ times the number of orbits, which is what we wanted to show.
+	
+	
+\end{proof}
+
+
+
+
+
+
+\section*{Asymmetric Graphs}
+
+
+\definition{A graph is \textbf{asymmetric} if its automorphism group is trivial.  It turns out that, asymptotically, almost all graphs are asymmetric.  That is, as the number of vertices grows, the fraction of total possible graphs which are asymmetric approaches $1$.}
+
+
+
+
+
+
+
+
+
+
+
+Let $V$ be a set of size $n$ and consider all distinct graphs on a vertex set of size $n$.  Let $K_n$ denote a fixed copy of the complete graph on $n$ vertices.  Clearly there is a one-to-one correspondence between these graphs and subsets of $E(K_n)$ (the edge set of $K_n$), as we can identify a graph uniquely by listing which edges are (or are not) present.  Thus there are $2^{\binom{n}{2}}$ graphs on $n$ vertices.
+
+\definition{If $X$ is a graph, the set of graphs isomorphic to $X$ is called the \textbf{isomorphism class} of $X$.  These classes partition the set of graphs with vertex set $V$ (as isomorphism is an equivalence relation).  Two graphs $X$ and $Y$ belong to the same class if (and only if!) there exists a permutation in $Sym(V)$ such that the edge set of $X$ to the edge set of $Y$.  In this way, an isomorphism class is an orbit of $Sym(V)$ as an action on $E(K_n)$.}
+
+\lemma{The size of the isomorphism class of a graph $X$ on $n$ vertices is $\frac{n!}{|Aut(X)|}$.}
+
+\begin{proof}
+	This follows from the Orbit-Stabilizer Theorem.  An isomorphism class is an orbit, $Aut(X)$ is a stabilizer of $X$, and $n!$ is the order of $Sym(V)$.
+\end{proof}
+
+We want to count the number of isomorphism classes, to do which we will use Burnside's Lemma by finding the average number of subsets of $E(K_n)$ fixed by an element of $Sym(V)$.  We can see that if a group element $g$ has $r$ orbits, it fixes $2^r$ subsets as an action on the power set of $E(K_n)$ (permuting subsets).  For any such $g$, let $orb_2(g)$ denote the number of orbits of $g$ as an action on $E(K_n)$.  Then Burnside's Lemma tells us that the number of isomorphism classes of graphs on vertex set $V$ is equal to $$\frac{1}{n!}\sum\limits_{g\in Sym(V)} 2^{orb_2(g)}$$
+
+If every graph were to be asymmetric (we know this isn't the case), we would have that each isomorphism class has exactly $n!$ members and $\frac{2^{\binom{n}{2}}}{n!}$ classes.  Even though this isn't true, we'll show next that it's pretty close, and asymptotically, this is the limit.
+
+\lemma{The number of isomorphism classes of graphs on $n$ vertices is at most $(1+o(1))\frac{2^{\binom{n}{2}}}{n!}$.}
+
+\begin{proof}
+	
+	The \textit{support} of a permutation is the set of elements \textit{not} fixed by it.  We first claim that over all permutations $g$ with support size $2r$, the one which maximizes $orb_2(g)$ is one which is composed of the product of $r$ $2$-cycles.  To see this, let $g$ be such an element.  We have that $g$ fixes $n-2r$ elements and that $g^2=e$, so the size of the orbit of any pair of elements is one or two.  There are two ways that an edge can not be fixed by $g$.  Either $x$ and $y$ are both in the support of $g$ but $x^g\neq y$ or $x$ is in the support but $y$ is not, or vice versa.  There are $2r(r-1)$ edges in the former category and $2r(n-2r)$ in the latter.  Thus the number of orbits of length $2$ is $r(n-r-1)$ and the total number of orbits $orb_2(g)=\binom{n}{2}-r(n-r-1)$.
+	
+	
+\end{proof}
+
+
+\ifdraft
+
+\input{../../zach_private_repo/alggraphth_exc/ex2}
+\fi
 
