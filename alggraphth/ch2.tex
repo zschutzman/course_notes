@@ -1,6 +1,6 @@
 \renewcommand{\exc}[1]{\subsubsection*{Exercise 2.#1}}
 
-\classheader{}
+\classheader{: Groups}
 
 \section*{Permutation Groups}
 
@@ -125,6 +125,10 @@ If every graph were to be asymmetric (we know this isn't the case), we would hav
 \begin{proof}
 	
 	The \textit{support} of a permutation is the set of elements \textit{not} fixed by it.  We first claim that over all permutations $g$ with support size $2r$, the one which maximizes $orb_2(g)$ is one which is composed of the product of $r$ $2$-cycles.  To see this, let $g$ be such an element.  We have that $g$ fixes $n-2r$ elements and that $g^2=e$, so the size of the orbit of any pair of elements is one or two.  There are two ways that an edge can not be fixed by $g$.  Either $x$ and $y$ are both in the support of $g$ but $x^g\neq y$ or $x$ is in the support but $y$ is not, or vice versa.  There are $2r(r-1)$ edges in the former category and $2r(n-2r)$ in the latter.  Thus the number of orbits of length $2$ is $r(n-r-1)$ and the total number of orbits $orb_2(g)=\binom{n}{2}-r(n-r-1)$.
+	
+	Now, we're going to partition the permutations in $Sym(n)$ into three classes and estimate the contribution of each to the sum in the statement of the lemma.  
+	
+	Fix $m\leq n-2$ an even integer, and split the permutations in $Sym(n)$ into three classes as follows.   $\mathcal{C}_1=\{e\}$, $\mathcal{C}_2$ is the set of permutations with support at most $m$, and $\mathcal{C}_3$ is everything else.  We can approximate the sizes of these by saying that $|\mathcal{C}_1|=1$, $|\mathcal{C}_2|\leq \binom{m}{n}n!\leq n^m$, and $|\mathcal{C}_3|\leq n!\leq n^n$
 	
 	
 \end{proof}
