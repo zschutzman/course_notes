@@ -34,8 +34,9 @@ $$G_{x_1,x_2,\dots x_r} = \bigcap\limits_{1}^r G_{x_i}$$
 
 is also a subgroup of $G$, formed by the pointwise intersection of the stabilizers of the elements we looked at, and is called the \textit{pointwise stabilizer} of $\{x_1,x_2,\dots,x_r\}$.  If $S$ is a subset of $V$, then the stabilizer $G_S$ of $S$ is the subset of $G$ formed by all group elements $g\in G$ such that $S^g=S$.  Since we only insist that elements of $S$ are permuted, rather than fixed, this is called the \textit{setwise stabilizer} of $S$.
 
-\lemma{If $V$ is a set, $G$ a group acting on $V$, and $S$ an orbit of $G$.  If $x$ and $y$ are elements of $S$, the set of group elements which map $x$ to $y$ is a right coset of $G_x$.  Conversely, all elements of a right coset of $G_x$ map to the same element of $S$.}
-
+\begin{lemma}
+{If $V$ is a set, $G$ a group acting on $V$, and $S$ an orbit of $G$.  If $x$ and $y$ are elements of $S$, the set of group elements which map $x$ to $y$ is a right coset of $G_x$.  Conversely, all elements of a right coset of $G_x$ map to the same element of $S$.}
+\end{lemma}
 \begin{proof}
 	
 	
@@ -62,8 +63,9 @@ If $x$ and $y$ are distinct points in some orbit of $G$, how are $G_x$ and $G_y$
 
 The set of all such maps forms a group isomorphic to $G$ which has orbits coinciding with conjugacy classes.  If $H\subset G$ and $g\in G$, we write $g^{-1}Hg = \{g^{-1}hg|h\in H\}$.  If $H$ is a subgroup, then $g^{-1}Hg$ is also a subgroup, and is isomorphic to $H$.  In this case, we say $g^{-1}Hg$ \textit{is conjugate to} $H$.
 
-\lemma{Let $G$ be a group acting on $V$ and $x$ an element of $V$.  If $g\in G$, then $g^{-1}G_xg=G_{x^g}$.  That is, the stabilizers of two points in the same orbit are conjugate.}
-
+\begin{lemma}
+{Let $G$ be a group acting on $V$ and $x$ an element of $V$.  If $g\in G$, then $g^{-1}G_xg=G_{x^g}$.  That is, the stabilizers of two points in the same orbit are conjugate.}
+\end{lemma}
 \begin{proof}
 	
 	Let $x^g=y$.  First, we need to show that every element of $g^{-1}G_xg$ fixes $y$.  Take $h\in G_x$.  Then $y^{g^{-1}hg}=x^{hg}=x^g=y$, so $g^{-1}hg\in G_y$, but if $h\in G_y$, then $ghg^{-1}\in G_x$, so in fact $g^{-1}G_xg=G_y$.
@@ -110,17 +112,33 @@ Let $V$ be a set of size $n$ and consider all distinct graphs on a vertex set of
 
 \definition{If $X$ is a graph, the set of graphs isomorphic to $X$ is called the \textbf{isomorphism class} of $X$.  These classes partition the set of graphs with vertex set $V$ (as isomorphism is an equivalence relation).  Two graphs $X$ and $Y$ belong to the same class if (and only if!) there exists a permutation in $Sym(V)$ such that the edge set of $X$ to the edge set of $Y$.  In this way, an isomorphism class is an orbit of $Sym(V)$ as an action on $E(K_n)$.}
 
-\lemma{The size of the isomorphism class of a graph $X$ on $n$ vertices is $\frac{n!}{|Aut(X)|}$.}
+
+
+%\lemma{The size of the isomorphism class of a graph $X$ on $n$ vertices is $\frac{n!}{|Aut(X)|}$.}
+
+\begin{lemma}
+	{If the line graph of a graph is regular, then the graph itself is regular or a semiregular bipartite graph.}
+\end{lemma}
+
+
+
+
+
+%\lemma{test lem}
 
 \begin{proof}
 	This follows from the Orbit-Stabilizer Theorem.  An isomorphism class is an orbit, $Aut(X)$ is a stabilizer of $X$, and $n!$ is the order of $Sym(V)$.
 \end{proof}
 
+
+
 We want to count the number of isomorphism classes, to do which we will use Burnside's Lemma by finding the average number of subsets of $E(K_n)$ fixed by an element of $Sym(V)$.  We can see that if a group element $g$ has $r$ orbits, it fixes $2^r$ subsets as an action on the power set of $E(K_n)$ (permuting subsets).  For any such $g$, let $orb_2(g)$ denote the number of orbits of $g$ as an action on $E(K_n)$.  Then Burnside's Lemma tells us that the number of isomorphism classes of graphs on vertex set $V$ is equal to $$\frac{1}{n!}\sum\limits_{g\in Sym(V)} 2^{orb_2(g)}$$
 
 If every graph were to be asymmetric (we know this isn't the case), we would have that each isomorphism class has exactly $n!$ members and $\frac{2^{\binom{n}{2}}}{n!}$ classes.  Even though this isn't true, we'll show next that it's pretty close, and asymptotically, this is the limit.
 
-\lemma{The number of isomorphism classes of graphs on $n$ vertices is at most $(1+o(1))\frac{2^{\binom{n}{2}}}{n!}$.}
+\begin{lemma}
+	{The number of isomorphism classes of graphs on $n$ vertices is at most $(1+o(1))\frac{2^{\binom{n}{2}}}{n!}$.}
+\end{lemma}
 
 \begin{proof}
 	
@@ -129,6 +147,184 @@ If every graph were to be asymmetric (we know this isn't the case), we would hav
 	Now, we're going to partition the permutations in $Sym(n)$ into three classes and estimate the contribution of each to the sum in the statement of the lemma.  
 	
 	Fix $m\leq n-2$ an even integer, and split the permutations in $Sym(n)$ into three classes as follows.   $\mathcal{C}_1=\{e\}$, $\mathcal{C}_2$ is the set of permutations with support at most $m$, and $\mathcal{C}_3$ is everything else.  We can approximate the sizes of these by saying that $|\mathcal{C}_1|=1$, $|\mathcal{C}_2|\leq \binom{m}{n}n!\leq n^m$, and $|\mathcal{C}_3|\leq n!\leq n^n$
+	
+	
+	An element $g\in \mathcal{C}_2$ has the maximum number of orbits on pairs if it is a single $2$-cycle, in which case the number of orbits is $\binom{n}{2}-(n-2)$.  An element $g\in \mathcal{C}_3$ has a maximum number of orbits when it is the composition of $\frac{m}{2}$ $2$-cycles, in which case it has $$\binom{n}{2}-\frac{m}{2}(n-\frac{m}{2}-1)\leq \binom{n}{2}-\frac{nm}{4}$$ such orbits.
+	
+	Thus (taking $m=\lfloor c\log{n}\rfloor$ for $c>4$)
+	\begin{align*}
+	\sum\limits_{g\in Sym(V)}2^{orb_2(g)} &\leq 2^{\binom{n}{2}} + n^m2^{\binom{n}{2}-(n-2)}+n^n2^{\binom{n}{2}-\frac{nm}{4}}\\
+	                                      &= 2^{\binom{n}{2}}\left(1+n^m2^{-(n-2)}+n^n2^{-\frac{nm}{4}}\right)\\
+	                                      &=2^{\binom{n}{2}}\left(1+ 2^{m\log{n}-n+2}+2^{n\log{n}-nm{/}4}   \right)\\
+	                                      &= 2^{\binom{n}{2}}\left(1+ o(1)   \right)
+	\end{align*}
+	
+\end{proof}
+
+\begin{lemma}
+	{Almost all graphs are asymmetric.}
+\end{lemma}
+
+\begin{proof}
+	
+	
+	Suppose the proportion of isomorphism classes of graphs which are asymmetric is $\mu$.  Each class which is \textit{not} asymmetric contains at most $\frac{n!}{2}$ elements, whereas the average size of a class is $$n!\left(\mu+\frac{1-\mu}{2}\right)=\frac{n!}{2}(1+\mu)$$
+	
+	So,
+	$$\frac{n!}{2}(1+\mu)(1+o(1))\frac{2^{\binom{n}{2}}}{n!}>2^{\binom{n}{2}}$$
+	
+	and thus as $n$ goes to  $\infty$, $\mu$ goes to $1$.  Since the proportion of isomorphism classes which are asymmetric is at least as large as the proportion of isomorphism classes (an isomorphism class of an asymmetric graph is a singleton), the proportion of graphs which are asymmetric goes to $1$ as $n$ goes to $\infty$.
+
+\end{proof}
+
+Although most graphs are asymmetric, it is surprisingly hard to actually cook up a graph which is certainly asymmetric.  Here is one such construction.  Let $T$ be a tree such that no vertices have valency $2$ and at least one vertex has valency strictly greater than two.  Assume that it has exactly $m$ leaves.  We can construct a \textit{Halin graph} by drawing $T$ in the plane, then constructing an $m$-cycle by connecting each of the $m$ leaves in a cycle.  This graph is still planar and is asymmetric. Halin graphs have some interesting properties.  It's not too hard to construct a cubic ($3$-regular) Halin graph which is asymmetric which also has the property that it is strongly $3$-connected, but any proper subgraph is at most $2$-connected.
+
+\section*{Orbits on Pairs}
+
+Let $G$ be a transitive permutation group acting on the set $V$ (that is, $G$ induces a single orbit on $V$).  Then we can think of $G$ as acting on $V\times  V$, the set of ordered pairs of elements of $V$.
+
+\definition{The orbits of $G$ on $V\times V$ are called \textbf{orbitals}.}
+
+Since $G$ is transitive, the set $\{(x,x)|x\in V\}$ is certainly an orbital of $G$, called the \textit{diagonal orbital}.  If $\Omega\subset V\times V$, we denote the \textit{transpose} of $\Omega$ as $\Omega^T$, which is the set $\{(y,x)|(x,y)\in\Omega\}$.  
+
+\claim{$\Omega$ is $G$-invariant if and only if $\Omega^T$ is $G$-invariant.}
+\begin{proof}
+	Since transposition is an involution, we only need to show one direction, as without loss of generality, we can show the other direction by exchanging the roles of $\Omega$ and $\Omega^T$.
+	
+	Suppose $\Omega$ is $G$-invariant.  Then any element of $G$ sends something in $\Omega$ to something else in $\Omega$.  Thus $(x,y)\in \Omega$ implies $(x^g,y^g)\in \Omega$ for any $g$.  But if $(x,y)$ and $(x^g,y^g)$ are both in $\Omega$, then $(y,x)$ and $(y^g,x^g)$ are in $\Omega^T$, so $\Omega^T$ is $G$-invariant as well.
+\end{proof}
+
+It follows from this fact that if $\Omega$ is an orbital, then $\Omega^T=\Omega$ or $\Omega^T\cap\Omega=\emptyset$.  That is, an orbital either contains all of the diagonal or none of it.  If $\Omega=\Omega^T$, we call $\Omega$ a \textit{symmetric orbital}.
+
+
+\begin{lemma}
+{Let $G$ be a group acting on a set $V$ and let $x\in V$.  There exists a bijection between the orbits of $G$ on $V\times V$ and the orbits of $G_x$ on $V$.}
+\end{lemma}
+
+\begin{proof}
+	
+	
+	Let $\Omega$ be an orbit of $G$ on $V\times V$ and denote $Y_\Omega$ the set $\{y|(x,y)\in\Omega\}$.  We will show that $Y_\Omega$ is an orbit of $G_x$ acting on $V$.  If $y$ and $y'$ are in $Y_\Omega$, then $(x,y)$ and $(x,y')$ are in $\Omega$, so there is a $g\in G$ such that $(x,y)^g = (x,y')$.  Thus $g\in G_x$ and $y^g=y'$, so $y$ and $y'$ are in the orbit of $G_x$.  Conversely, if $(x,y)\in\Omega$ and $y'=y^g$ for some $g\in G_x$, then $(x,y')\in\Omega$.   Thus $Y_\Omega$ is an orbit of $G_x$.  Since $V$ is partitioned by the sets $Y_\Omega$ as we let $\Omega$ range over all the orbits of $V\times V$, we are done.
+	
+	
+	
+	
+\end{proof}
+
+This tells us that for any $x\in V$, each orbit $\Omega$ of $G$ on $V\times V$ is associated with a \textit{unique} orbit of $G_x$.  The number of orbits of $G_x$ on $V$ is called the \textit{rank} of the group $G$.  If $\Omega$ is a symmetric orbit, the corresponding $G_x$ is called \textit{self-paired}.  Each orbit $\Omega$ can be thought of as a directed graph with vertices $V$ and arcs $\Omega$.  When $\Omega$ is symmetric, the graph is undirected.  By the claim above, if this graph is directed, at most one arc exists between any pair of vertices.  Such a directed graph is called an \textit{oriented graph}, and we will see these again later.
+
+
+\begin{lemma}
+	Let $G$ be a transitive permutation group acting on $V$ and let $\Omega$ be an orbit of $G$ on $V\times V$, and let $(x,y)\in\Omega$.  Then $\Omega$ is symmetric if and only if there is a $g\in G$ such that $x^g=y$ and $y^g=x$.
+\end{lemma}
+
+\begin{proof}
+	If $(x,y)$ and $(y,x)$ are in $\Omega$, then there exists a $g$ such that $(x,y)^g=(x^g,y^g)=(y,x)$.
+	
+	If there exists a $g$ such that $x^g=y$ and $y^g=x$, then $g$ swaps $x$ and $y$.  Since $(x,y)^g = (y,x)$ and both are in $\Omega$, it follows that $\Omega=\Omega^T$, as we know $\Omega\cap\Omega^T\neq \emptyset$.
+\end{proof}
+
+
+
+Note that if there is a permutation $g$ which swaps $x$ and $y$, then $(xy)$ is a cycle in $g$ (in canonical form).  Thus $g$ must have even order, so the whole group $G$ must also have even order.
+
+\definition{A permutation group $G$ acting on a set $V$ is \textbf{generously transitive} if for any two distinct $x,y\in V$, there is a group element $g\in G$ which swaps them.  Generous transitivity is equivalent to all orbits of $V\times V$ being symmetric.}
+
+Each orbital of a transitive permutation group $G$ on $V$ gives rise to a graph which is either undirected or oriented. Clearly, $G$ acts as a transitive group of automorphisms on each of these graphs, and the union of any set of orbitals is a directed graph (or not) on which  $G$ acts transitively.
+
+\example{Let $V$ be the set of 35 triples from a fixed set of seven elements.  The symmetric group $G=Sym(7)$ acts transitively on $V$, and it is clear that $G$ is generously transitive.  Let $x$ be a fixed triple, and we will consider the orbits of $G_x$ on $V$.  There are four such orbits: $x$ itself, the set of things which intersect $x$ in 2 points, 1 point, and are disjoint.  The first is the diagonal orbital and the remaining three correspond to the (undirected!) graphs $J(7,3,2)$, $J(7,3,1)$, and $J(7,3,0)$, respectively.  Clearly $G$ is a subgroup of the automorphism groups of these three graphs.  Interestingly, $G$ is the automorphism group of $J(7,3,2)$ and $J(7,2,0)$, but is a proper subgroup of $J(7,3,1)$.}
+
+\begin{lemma}
+	
+	The automorphism group of $J(7,3,1)$ contains a group isomorphic to $Sym(8)$ (and therefore $Sym(7)$, properly).
+	
+	
+\end{lemma}  
+
+\begin{proof}
+	
+	
+	There are 35 partitions of the set $\{0,1,\dots,7\}$ into two sets of size $4$ ($35=\frac{1}{2}\binom{8}{4}$).  Let $X$ be the graph with vertices corresponding to these partitions with an edge if and only if the intersection from one piece of the first with one piece of the second has size $2$ (i.e. there would be an edge between $(1,2,3,4),(5,6,7,8)$ and $(1,2,5,6),(3,4,7,8)$).  It is obvious that $Aut(X)$ contains a subgroup isomorphic to $Sym(8)$, as swapping the elements in the underlying set preserves adjacency and non-adjacency.  We can also see that $X$ is isomorphic to $J(7,3,1)$ because a partition of a set of $8$ elements into two sets of size $4$ is determined by identifying which $4$-set contains zero and specifying the three other elements in that $4$-set.  Hence such a partition can be uniquely matched with a triple from a set of size $7$, and two partitions are adjacent in $X$ if and only if the triples share one element in common.  As $X$ is isomorphic to $J(7,3,1)$ and $Aut(X)$ contains $Sym(8)$ as a subgroup, $J(7,3,1)$ does as well, and we are done.
+	
+	
+\end{proof}
+
+
+
+
+\section*{Primitivity}
+
+\definition{Let $G$ be a transitive group acting on a set $V$.  A nonempty subset $S\subset V$ is called a \textbf{block of imprimitivity} for $G$ if for any element $g\in G$, either $S^g=S$ or $S\cap S^g=\emptyset$.  As $G$ is transitive, the translates of $S$ form a partition of $V$.  This set of translates is called a \textbf{system of imprimitivity} for $G$.}
+
+\example{One example of a system of imprimitivity is the cube graph on $8$ vertices $Q$. %%ADD FIGURE%%
+	We can see that $Aut(Q)$ acts transitively on $Q$ (pick any two vertices to swap and reflect over the axis of symmetry between them).  For each vertex $x$ there is a unique vertex $x'$ at distance $3$ from $x$, and all other vertices are at distance $1$ or $2$.  If we take $S=\{x,x'\}$ and let $g\in Aut(Q)$ be any group element, then either $S^g=S$ or $S\cap S^g=\emptyset$, as automorphisms preserve distances, so these vertices must either be swapped or fixed, or $x\mapsto y$ and $x'\mapsto y'$, and since $x\neq y$, it must be that $x'\neq y'$, because the vertex at distance $3$ is unique.
+	
+	There are four disjoint sets of the form $S^g$ (each of the $8$ vertices has a unique match), so as $g$ ranges over all of $Aut(Q)$, these sets are permuted.
+	
+}
+
+The partition of $V$ into singletons is also a system of imprimitivity, as is the partition of $V$ into a single component.  These are said to be the \textit{trivial} systems of imprimitivity.
+
+\definition{A group with no nontrivial systems of imprimitivity is \textbf{primitive}.  Otherwise, if there is a nontrivial system of imprimitivity, we call the group \textbf{primitive}.}
+
+There are two characterizations of primitive permutation groups.  Here is the first:
+
+\begin{lemma}
+	
+	Let $G$ be a transitive permutation group acting on a set $V$ and let $x$ be an element of $V$.  Then $G$ is primitive if and only if $G_x$ is a maximal subgroup of $G$.  That is, $G_x$ is a subgroup of $G$ and there is no nontrivial subgroup of $G$ containing $G_x$.
+	
+	
+\end{lemma}
+
+
+\begin{proof}
+	
+	We will prove this by contraposition, showing that $G$ has a nontrivial system of imprimitivity if and only if $G_x$ is not a maximal subgroup.  For convenience of notation, we'll write $H\leq G$ if $H$ is a subgroup of $G$ and $H<G$ if $H$ is a \textit{proper} subgroup of $G$.
+	
+	First, suppose that $G$ has a nontrivial system of imprimitivity and let $B$ be the block of imprimitivity containing our point $x$.  We'll show that $G_x<G_B<G$, and thus that $G_x$ is not maximal.  If $g\in G_x$, then $B\cap B^g$ is not empty, as it surely contains $x$, so by definition, $B=B^g$, so $G_x\leq G_B$.  To show the inclusion is proper, we need to find an element of $G_B$ not in $G_x$.  Let $y\neq x$ be some other element of $B$.  Since $G$ is transitive, there is a group element $h\in G$ such that $y=x^h$, but then $B=B^h$, but $h\notin G_x$, so $G_x<G_B$.
+	
+	For the other direction, suppose that $H$ is a subgroup of $G$ such that $G_x<H<G$ ($G_x$ is not maximal).  We will show that the orbits of $H$ form a nontrivial system of imprimitivity.  Let $B$ be the orbit of $H$ containing $x$ and let $g\in G$.  We need to show that $B$ and $B^g$ are either equal or disjoint.  Suppose that $y\in B\cap B^g$.  Since $y\in B$, there is an element $h\in H$ such that $y=x^h$, and since $y\in B^g$, there is an $h'\in H$ such that $y=x^{h'g}$.  But then $x=x^{h'gh^{-1}}$ so $h'gh^{-1}\in G_x <H$.  Thus $g\in H$, and because $B$ is an orbit of $H$, we have that $B=B^g$.  Since $G_x<H$, $B$ contains something that is not $x$, and since $H<G$, it cannot be all of $V$, so it is a nontrivial block of imprimitivity.
+	
+	
+	
+\end{proof}
+
+\section*{Primitivity and Connectivity}
+
+The second characterization of primitivity will require us to build a little machinery for dealing with directed graphs.  We will then look at the orbits of $G$ on $V\times V$.
+
+\definition{A \textbf{path} in a directed graph is a sequence of vertices such that there is an arc from each vertex in the sequence to the next.  A \textbf{weak path} is a sequence of vertices such that there is an arc either from a vertex to the next \textit{or} from a vertex to the previous.}
+
+\definition{A directed graph is \textbf{strongly connected} if any pair of vertices can be joined by a path, and \textbf{weakly connected} if any pair of vertices can be joined by a weak path.}
+
+
+It is clear that a directed graph is weakly connected if and only if the underlying undirected graph is connected.
+
+\definition{A \textbf{strong component} is a maximal induced subgraph (with respect to inclusion) which is strongly connected.  Since each vertex alone is a strong component, it follows that the strong components of a directed graph form a partition of the vertices.}
+
+
+\definition{The \textbf{in-valency} and \textbf{out-valency} of a vertex in a directed graph are the number of arcs into and out of the vertex, respectively.}
+
+\begin{lemma}
+	Let $D$ be a directed graph such that every vertex in $D$ has in-valency equal to its out-valency.  Then $D$ is strongly connected if and only if it is weakly connected.
+\end{lemma}
+
+\begin{proof}
+	Strong connectivity obviously implies weak connectivity, so we focus on proving the other direction.  Suppose, for the sake of contradiction, that $D$ is weakly connected but not strongly connected, and let $D_1,D_2,\dots, D_r$ be the strong components of $D$.  If there is an arc starting in $D_1$ and ending in $D_2$, then there cannot be one from $D_2$ to $D_1$, so all such arcs between these components must be from $D_1$ into $D_2$.  In this way, we can construct a directed graph $D'$ whose $r$ vertices are $D_1,D_2,\dots,D_r$ where there is an arc from one vertex to another if and only if there is an arc from the component of $D$ corresponding to the first into that of the second.  This directed graph is connected and must be acyclic, otherwise the components corresponding to the vertices in a cycle would be a strong component, contradicting the maximality of the $D_i$.  Then there must be a component (let's say $D_1$, without loss of generality) such that any arc ending in that component must start at another vertex in that component, as we have a directed acyclic graph $D'$ which must have at least one vertex with in-valency zero.  Thus the total out-valency of the vertices of $D_1$ must be less than the total in-valencies, which is a contradiction.
+\end{proof}
+
+Who cares, right?  Let $G$ be a group acting transitively on $V$ and let $\Omega$ be an orbit of $G$ on $V\times V$ which is not symmetric.  Then $\Omega$ corresponds to an oriented graph, and $G$ acts transitively on its vertices. Thus, every vertex in $\Omega$ has the same in-valency and out-valency, and since the sum of the total in-valencies must equal the sum of the total out-valencies, the in- and out-valencies of any vertex are equal to each other.  Then by the previous lemma, $\Omega$ is weakly connected if and only if it is strongly connected, so there is no need to differentiate between weakly and strongly connected orbits  We just call them \textit{connected orbits}.
+
+\begin{lemma}
+	
+	Let $G$ be a transitive permutation group acting on $V$.  Then $G$ is primitive if and only if each nondiagonal orbit is connected.
+\end{lemma}
+
+\begin{proof}
+	
+	Suppose that $G$ is imprimitive and that $B_1,B_2,\dots,B_r$ is a system of imprimitivity.  Let $x,y$ be distinct points in $B_1$. and let $\Omega$ be the orbit containing $(x,y)$.  If $g\in G$, then $x^g$ and $y^g$ have to be in the same block (else $B^g$ contains points from two distinct blocks, contradicting that it is a block of imprimitivity).  Thus each arc in the graph of $\Omega$ joins vertices corresponding to points in the same block, so $\Omega$ is not connected.
+	
+	Conversely, let $\Omega$ be a nondiagonal orbit which is not connected, and let $B$ be the point set of some component.  If $g\in G$, then $B$ and $B^g$ must be equal or disjoint, so $B$ is a nontrivial block of imprimitivity, and thus $G$ is imprimitive.
 	
 	
 \end{proof}

@@ -1,0 +1,162 @@
+\renewcommand{\exc}[1]{\subsubsection*{Exercise 3.#1}}
+
+\classheader{: Transitive Graphs}
+
+
+
+Now we can really start bringing together groups and graphs.  We'll study graphs whose automorphism group acts transitively on the vertices.  That is, for any pair of vertices $x$ and $y$, there is some group element which sends $x$ to $y$.  Such graphs are necessarily regular, and one challenge is finding properties of vertex transitive graphs which do not hold for all regular graphs.  We'll see that, in general, transitive graphs are more strongly connected than regular graphs.  Cayley graphs are an important class of vertex transitive graphs, and we'll see a bit of them in this chapter.
+
+
+
+\section*{Vertex-Transitive Graphs}
+
+\definition{A graph $X$ is \textbf{vertex-transitive} (or just \textbf{transitive}) if its automorphism group acts transitively on its vertex set $V(X)$.}
+
+One family of transitive graphs are the $k$-cubes $Q_k$.  We can think about these combinatorially by thinking of each vertex as one of the $2^k$ binary strings (or tuples) and two vertices are adjacent if and only if their corresponding strings differ in exactly one position.  The cube $Q_3$ is usually just called `the cube', and we have seen this object already, when looking at systems of imprimitivity.
+
+\begin{lemma}
+	The $k$-cube, $Q_k$, is vertex transitive.
+\end{lemma}
+
+\begin{proof}
+	If $v$ is a fixed binary tuple, then the mapping $\rho_v:x\mapsto x+v$ where we do binary addition placewise permutes the vertices of $Q_k$.  This is an automorphism because the tuples $x$ and $y$ differ in exactly one position if and only if $x+v$ and $y+v$ differ in exactly one position (we flip the same bits in each).  This group $H$ acts transitively on the vertices because for any two vertices $x$ and $y$, we can send $x$ to $y$ with $\rho_{y-x}$. There are $2^k$ such permutations. 
+	
+	Note that $H$ is \textit{not} the full automorphism group.  Any permutation of the $k$ coordinate positions is also an automorphism of $Q_k$, and there are $k!$ of these, and they form a subgroup $K$ isomorphic to $Sym(k)$.  By standard results in group theory, the group $HK$ is a subgroup of $Aut(Q_k)$ and the size of $HK$ is
+	$$|HK|=\frac{|H||K|}{|H\cap K}$$
+	It is clear that the intersection of these groups is the identity permutation, so we have that $|Aut(Q_k)|$ is at least $2^kk!$. 
+\end{proof}
+
+Another family of vertex transitive graphs are the circulants, as any vertex can be sent to any other by using the appropriate element of the cyclic subgroup of its automorphism group. Both the cubes and the circulants are part of a construction which produces many (not all) vertex-transitive graphs.
+
+\definition{Let $G$ be a group and $C$ a subset of $G$ which is closed under taking inverses and does not contain the identity.  Then the \textbf{Cayley graph} $X(G,C)$ is the graph with vertex set $G$ and edge set $E(X(G,C))=\{(g,h)|hg^{-1}\in C\}$.  That is, there is an edge between group elements $g$ and $h$ if there is an element $a$ of $C$ such that $h=ag$.  If $C$ is an arbitrary subset of $G$, then we can create a directed graph in this way, but if $C$ is inverse-closed, then this directed graph has arcs in both directions and reduces to the previous construction.}
+
+Many results for Cayley graphs hold for this general directed case, but we will be explicit when we are using this construction rather than the canonical one.
+
+\thrm{The Cayley graph $X(G,C)$ is vertex-transitive.}
+
+
+\begin{proof}
+	
+	
+	For each $g\in G$, the mapping $\rho_g:x\mapsto xg$ is a permutation of the elements of $G$, and it is an automorphism of $X(G,C)$, as 
+	$$(yg)(xg)^{-1} = ygg^{-1}x^{-1}=yx^{-1}$$
+	so $xg$ is adjacent to $yg$ if and only if $x$ is adjacent to $y$.  The permutations $\rho_g$ are a subgroup of the automorphism group of $X(G,C)$ which acts transitively because for any vertices $g$ and $h$, $\rho_{g^{-1}h}$ sends $g$ to $h$.
+	
+\end{proof}
+
+The $k$-cube is a Cayley graph for the group $(\mathbb{Z}_2)^k$ and the circulant on $n$ vertices is a Cayley graph for $\mathbb{Z}_n$.  Most small vertex-transitive families of graphs are Cayley graphs, but there are may such families which are not Cayley graphs.  In particular, the graphs $J(v,k,i)$ are vertex transitive because we can pick an element of $Sym(v)$ to map any $k$-set to any other, but they are not Cayley graphs in general.  We can prove this for one counterexample and move on from there:
+
+\begin{lemma}
+	The Petersen graph is not a Cayley graph.
+\end{lemma}
+
+\begin{proof}
+	
+	The Petersen graph has 10 vertices and is $3$-regular.  There are two groups with 10 elements: $\mathbb{Z}_{10}$ and $D_{10}$, the dihedral group with 10 elements.  If we pick $|C|=3$ for either of these, we get a graph which contains cycles of order $4$, but the Petersen graph only contains cycles of order $5$, so there is no isomorphism.
+\end{proof}
+
+
+\section*{Edge-Transitive Graphs}
+
+\definition{A graph $X$ is \textbf{edge-transitive} if its automorphism group acts transitively on its edge set $E(X)$.  That is, for any pair of edges $(u,v)$ and $(x,y)$, there is a group element which sends $(u,v)$ to $(x,y)$, i.e. it sends $u$ to $x$ and $v$ to $y$ or the other way around. An edge-transitive graph is vertex transitive.}
+
+It's clear that the graphs $J(v,k,i)$ are edge-transitive, but the circulants are, in general, not.
+
+\definition{Recall that an \textit{arc} is an ordered pair of adjacent vertices.  A graph $X$ is \textbf{arc transitive} if $Aut(X)$ acts transitively on the arcs.  That is, for any pair of arcs $(u,v)$ and $(x,y)$, there is a group element which sends $(u,v)$ to $(x,y)$, i.e. it sends $u$ to $x$ and $v$ to $y$ but \textit{not} the other way around.  It is often useful to view an undirected graph as a directed graph with arcs in both directions.  As such, an arc-transitive graph is necessarily edge-transitive (and vertex-transitive).}
+
+The complete bipartite graphs $K_{m,n}$ are edge-, but not vertex-transitive (unless $m=n$) because there is no automorphism which maps a vertex with valency $m$ to one with valency $n$ (or vice versa).
+
+\begin{lemma}
+	Let $X$ be an edge-transitive graph with no isolated vertices.  If $X$ is not vertex transitive, then $Aut(X)$ has exactly two orbits which form a bipartition of $X$.
+\end{lemma}
+\begin{proof}
+	Suppose that $X$ is edge- but not vertex-transitive and that $(x,y)$ is an edge of $X$ where $x$ and $y$ are vertices such that there exists no automorphism mapping $x$ to $y$.  If $w$ is a vertex of $X$, then $w$ lies on some edge and there is an element of $Aut(X)$ which maps this edge incident to $w$ to the one between $x$ and $y$, so any vertex either lies in the orbit of $x$ or the orbit of $y$.  These orbits are disjoint, as we know that $x$ and $y$ are in different orbits.  Thus there are exactly two orbits of $Aut(X)$.  An edge which connects two vertices in one orbit cannot be mapped by an automorphism to an edge which is incident to a vertex in the other orbit, so no such edge can exist.  Therefore, all edges in $X$ are incident to one vertex from the orbit of $x$ and one from the orbit of $y$, so $X$ is bipartite.
+	
+	
+\end{proof}
+
+\begin{lemma}
+	If $X$ is vertex- and edge-transitive but not arc-transitive, its valency is even.
+\end{lemma}
+
+\begin{proof}
+	Let $G=Aut(X)$ and suppose that $x$ and $y$ are adjacent vertices in $X$.  Let $\Omega$ be the orbit of $G$ on $V\times V$ which contains $(x,y)$.  Since $X$ is edge-transitive, there is an automorphism which maps any arc in $X$ to either $(x,y)$ or $(y,x)$. But since $X$ is not arc-transitive, we can choose $x$ and $y$ such that  $(y,x)$ is not in $\Omega$, so $\Omega$ is not symmetric.  Thus, $X$ is the graph with edges $\Omega\cup\Omega^T$.  Because the out-valency of $x$ is the same in $\Omega$ and $\Omega^T$, the valency of $X$ must be even.
+\end{proof}
+
+\corollary{A vertex- and edge-transitive graph of odd valency must be arc-transitive as well.}
+
+
+\section*{Edge Connectivity}
+
+\definition{An \textbf{edge cutset} in a graph $X$ is a collection of edges such that deleting these edges from $X$ separates $X$ into a strictly greater number of connected components.  For a connected graph, the \textbf{edge connectivity} is the minimum number of edges in any cutset.  That is, the size of the smallest set of edges which, if deleted, disconnects $X$.  We will denote this quantity $\kappa_1(X)$.  If a single edge $e$ is a cutset, then we call $e$ a \textbf{bridge} or \textbf{cut-edge}.}
+
+The edge connectivity of a graph clearly cannot be greater than its minimum valency, so the edge connectivity of a vertex-transitive graph is at most its valency.  We're about to prove that the edge connectivity of a vertex-transitive graph is exactly equal to its valency.  If $A\subset V(X)$, we'll denote $\partial A$ to be the set of vertices with one end in $A$ and one end not in $A$.  If $A=\emptyset$ or $A=V(X)$, then $\partial A=\emptyset$.  The edge connectivity of $X$ is the minimum size of $\partial A$ as $A$ ranges over all possible proper subsets of $V(X)$.
+
+\begin{lemma}
+	Let $X$ be a graph and $A$ and $B$ be subsets of $V(X)$.  Then $|\partial(A\cup B)|+|\partial(A\cap B)|\leq |\partial A|+|\partial B|$.  
+\end{lemma} 
+\begin{proof}
+The right-hand side counts the number of edges leaving $A$ or $B$.  The left-hand side counts the number of edges leaving $A$ or $B$ except those between $A$ and $B$ plus the edges leaving those vertices in both $A$ and $B$.  Thus the difference between the right- and left-hand sides is twice the number of edges crossing the symmetric difference of $A$ and $B$.  Since this is at least zero, the inequality holds.
+\end{proof}
+
+\definition{An \textbf{edge atom} of a graph $X$ is a subset $S\subset V(X)$ such that $|\partial S|=\kappa_1(X)$ and, given that this holds, $|S|$ is minimal.  Since $\partial S = \partial(V\setminus S)$, if $S$ is an edge atom, then $2|S|\leq |V(X)|$.}
+
+\corollary{Any two distinct edge atoms are vertex disjoint.}
+
+\begin{proof}
+	Assume $\kappa=\kappa_19X)$ and let $A$ and $B$ be distinct edge atoms in $X$.  If $A\cup B=V(X)$, them since neither $A$ nor $B$ can contain more than half of the vertices, it must be that $|A|=|B|=\frac{1}{2}|V(X)|$, so $A\cap B=0$.  Thus $A\cup B \subsetneq V(X)$.  The previous lemma tells us that $|\partial (A\cup B)|+|\partial (A\cap B) \leq 2\kappa$.  But since $A\cup B\neq V(X)$ and $A\cap B\neq \emptyset$, we have that $|\partial(A\cup B)|=|\partial(A\cap B)|=\kappa$.  Since $A\cap B$ is a nonempty proper subset of $A$, this cannot happen, as $A$ is an edge atom.  Thus $A$ and $B$ must be disjoint.
+\end{proof}
+
+\begin{lemma}
+	If $X$ is a connected vertex-transitive graph, then its edge connectivity is equal to its valency.
+\end{lemma}
+
+\begin{proof}
+	Suppose that $X$ is vertex-transitive and has valency $k$.  Let $A$ be an edge atom of $X$.  If $A$ is a single vertex, then $|\partial A|=k$ and we are done.  Otherwise, suppose that $|A|\geq 2$.  If $g$ is an automorphism of $X$ and $B=A^g$ (the image of the vertices in $A$ under $g$), then $|B|=|A|$ and $|\partial B|=|\partial A|$.  From the previous lemma, we have that $A$ is either equal to or disjoint from $B$. Thus $A$ is a block of imprimitivity for $Aut(X)$, and by Exercise 2.13, it follows that the subgraph of $X$ induced by $A$ is regular, so let its valency be $\ell$.
+	
+	Each vertex in $A$ has $k-\ell$ neighbors not in $A$, so $|\partial A|=|A|(k-\ell)$. Since $X$ is connected, $\ell<k$, so if $|A|\geq k$, then  $|\partial A|\geq k$.  So we assume $|A|<k$.  Since $\ell\leq |A|-1$, it follows that $|\partial A|\geq |A|(k+1-|A|)$.  The minimum value of the right-hand side occurs when $|A|=1$ or $|A|=k$.  Thus $|\partial A|\geq k$ for all cases.
+\end{proof}
+
+\section*{Vertex Connectivity}
+
+
+\definition{A \textbf{vertex cutset} in a graph is a set of vertices whose deletion increases the number of connected components of $X$.  The \textbf{vertex connectivity} is the size of the smallest vertex cutset, which we denote $\kappa_0(X)$.  For any $k\leq \kappa_0(X)$, we say that $X$ is \textbf{$\boldsymbol{k}$-connected}.}
+
+Complete graphs have no vertex cutsets, but it is conventional to let $\kappa_0(K_n)=n-1$.  The central result in this topic is Menger's theorem, which we are about to prove.
+
+\definition{If $u$ and $v$ are distinct vertices of $X$, then two paths $P$ and $Q$ are \textbf{openly disjoint} if, aside from $u$ and $v$, the vertex sets of $P$ and $Q$ are disjoint.}
+
+\theorem[Menger]{Let $U$ and $v$ be distinct vertices in $X$.  Then the maximum number of openly disjoint paths from $u$ to $v$ is equal to the minimum size of a set of vertices $S\subset V(X)$ such that $u$ and $v$ lie in distinct connected components of $X\setminus S$.  That is, the maximum number of such paths is equal to the smallest vertex cutset which separates $u$ from $v$.}
+
+
+\begin{proof}
+	Observe that for any set of vertices whose deletion separates $u$ from $v$, any $u{-}v$ path must visit at least one of these vertices.  Therefore, the maximum number of possible openly disjoint paths can be no larger than the smallest such set of vertices.
+\end{proof}
+
+This theorem tells us that two vertices that can't be separated by fewer than $m$ vertices must be joined by $m$ openly disjoint paths.  A basic corollary is that two vertices which cannot be separated by a single vertex must lie on a cycle.  We'll make use of the corollary that a pair of vertices that cannot be separated by a set of size two must be joined by three openly disjoint paths.  There are lots of variations of Menger's theorem.  In particular, two subsets $A$ and $B$ of $V(X)$ cannot be separated by fewer than $m$ vertices if and only if there are $m$ disjoint paths which start in $A$ and end in $B$.
+
+We are about to prove a lower bound on the vertex connectivity of a vertex-transitive graph.
+
+If $A$ is a set of vertices in $X$, let $N(A)$ denote the vertices in $V(X)\setminus A$ with a neighbor in $A$ and let $\overline{A}$ be the complement of $A\cup N(A)$ in $V(X)$.
+
+\definition{A \textbf{fragment} of $X$ is a subset $A$ such that $\bar{A}$ is nonempty and $|N(A)|=\kappa_0(X)$.}  
+
+An \textit{atom} of $X$ is a fragment which contains the minimum possible number of vertices.  An atom must be connected and if $X$ is $k$-regular with an atom consisting of a single vertex, then $\kappa_0(X)=k$.  We can also show that if $A$ is a fragment, then $N(A)=N(\bar{A})$ and $\bar{\bar{A}}=A$.
+ 
+ \begin{lemma}
+Let $A$ and $B$ be fragments in $X$.  Then:
+\begin{enumerate}
+	\item a
+\end{enumerate}
+ \end{lemma}
+ 
+ 
+\thrm{A vertex-transitive graph with valency $k$ has vertex connectivity at least $\frac{2}{3}(k+1)$.}
+
+
+
+
+\ifdraft
+
+\input{../../zach_private_repo/alggraphth_exc/ex2}
+\fi

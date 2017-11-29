@@ -124,10 +124,11 @@ The cycles are a subclass of the \textit{circulant graphs}.  If $C\subset \mathb
 
 Now we consider another family of graphs, denoted $J(v,k,i)$ for positive integers $v\geq k\geq i$.  Let $\Omega$ be some fixed set of size $v$.  The vertices of $J(v,k,i)$ are the subsets of $\Omega$ with size $k$, and two vertices are adjacent if and only if their corresponding sets have intersection size $i$.  Thus $J(v,k,i)$ has $\binom{v}{k}$ vertices, and it is a regular graph in which each vertex has valency $\binom{k}{i}\binom{v-k}{k-i}$.  We'll assume $v\geq 2k$.
 
-\lemma{The function which maps a set of size $k$ to its complement in $\Omega$ is an isomorphism between the graphs $J(v,k,i)$ and $J(v,v-k,v-2k+i)$.}
-
+\begin{lemma}
+{The function which maps a set of size $k$ to its complement in $\Omega$ is an isomorphism between the graphs $J(v,k,i)$ and $J(v,v-k,v-2k+i)$.}
+\end{lemma}
 \begin{proof}
-	The proof of this is just a DeMorgan's Laws chase.  
+	The proof of this is just a DeMorgan's Laws definition-chase.  
 	
 	If $|A|=|B|=k$, then $|\overline{A}|=|\overline{B}|=v-k$.
 	
@@ -141,7 +142,9 @@ Now we consider another family of graphs, denoted $J(v,k,i)$ for positive intege
 
 A graph is called a \textit{Johnson graph} if it is isomorphic to $J(v,k,k-1)$.  The \textit{Kneser graphs} are isomorphic to $J(v,k,0)$.  As an example, the Petersen graph, which we will study later, is $J(5,2,0)$ and is therefore a Kneser graph.
 
-\lemma{If $v\leq k \leq i$, then $Aut(J(v,k,i))$ contains a subgroup isomorphic to $Sym(v)$.}
+\begin{lemma}
+	{If $v\geq k \geq i$, then $Aut(J(v,k,i))$ contains a subgroup isomorphic to $Sym(v)$.}
+\end{lemma}
 
 \begin{proof}
 	Let $g$ be a permutation of $\Omega$ and $S\subset \Omega$, and let $S^g$ denote the image of $S$ under $g$.  Any such $g$ also determines a permutation of the subsets $S$ of size $k$.  In particular, if $S$ and $T$ are of size $k$, then $|S\cap T|=|S^g\cap T^g|$, so $g$ is an automorphism of $J(v,k,i)$.
@@ -156,8 +159,9 @@ We note that $Aut(J(v,k,i))$ acts on a set of size $\binom{v}{k}$, so when this 
 
 As examples, the star $K_{1,n}$ (one hub with $n$ `spokes') has line graph $K_n$, as all $n$ edges in the star are incident to the center vertex.  The path graph on $n$ vertices $P_n$ has $L(P_n)=P_{n-1}$.  The cycle $C_n$ is isomorphic to its own line graph.
 
-\lemma{If $X$ is regular with valency $k$, then $L(X)$ is regular with valency $2k-2$.}
-
+\begin{lemma}
+{If $X$ is regular with valency $k$, then $L(X)$ is regular with valency $2k-2$.}
+\end{lemma}
 \begin{proof}
 	Each vertex has degree $k$, so when we translate each edge into a vertex, for each original vertex, we get a $k$-clique, but each of these new vertices belongs to two such cliques.  Thus each vertex has $k-1$ adjacent vertices in each of the cliques it belongs to, thus a total valency of $2k-2$.
 \end{proof}
@@ -175,8 +179,10 @@ As examples, the star $K_{1,n}$ (one hub with $n$ `spokes') has line graph $K_n$
 
 Observe that if $X$ and $Y$ are isomorphic, then $L(X)$ and $L(Y)$ are isomorphic, but the converse isn't true, as $K_3$ and $K_{1,3}$ have the same line graphs.
 
-\lemma{If $X$ and $Y$ are graphs with minimum valency at least $4$, then $X\iso Y$ if and only if $L(X)\iso L(Y)$.}
-
+\begin{lemma}
+	
+{If $X$ and $Y$ are graphs with minimum valency at least $4$, then $X\iso Y$ if and only if $L(X)\iso L(Y)$.}
+\end{lemma}
 \begin{proof}
 	Let $C$ be a clique in $L(X)$ with $|C|=c<4$.  The vertices in $C$ correspond to a set of $c$ edges in $X$, all of which are incident to a common vertex $x$.  Thus, there is a bijection between vertices of $X$ and maximal cliques in $L(X)$ which maps adjacent vertices in $X$ to pairs of cliques in $L(X)$ which share exactly one vertex.  We can similarly construct an analogous bijection between $Y$ and $L(Y)$.  Let $f:X\rightarrow L(X)$ and $g:Y\rightarrow L(Y)$ be these functions.
 	
@@ -199,8 +205,9 @@ Observe that if $X$ and $Y$ are isomorphic, then $L(X)$ and $L(Y)$ are isomorphi
 
 \definition{A bipartite graph is \textbf{semiregular} if it has a proper $2$-coloring such that all vertices of the same color have the same valency.  As an example, the complete bipartite graphs $K_{m,n}$ (a set of $m$ vertices connected to each of a set of $n$ vertices) are semiregular.}
 
-\lemma{If the line graph of a graph is regular, then the graph itself is regular or a semiregular bipartite graph.}
-
+\begin{lemma}
+{If the line graph of a graph is regular, then the graph itself is regular or a semiregular bipartite graph.}
+\end{lemma}
 \begin{proof}
 	Suppose $L(X)$ is $k$-regular.  If $u$ and $v$ are adjacent in $X$, then their valencies sum to $k+2$, so all neighbors of $u$ have the same valency, so if two vertices share a neighbor, they have identical valencies.  This only occurs in graphs which are regular or bipartite and semiregular, as if it contains an odd cycle, it must have two adjacent vertices with the same valencies, and bipartite graphs have no odd cycles.
 \end{proof}
