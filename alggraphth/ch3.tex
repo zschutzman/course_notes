@@ -15,15 +15,15 @@ Now we can really start bringing together groups and graphs.  We'll study graphs
 One family of transitive graphs are the $k$-cubes $Q_k$.  We can think about these combinatorially by thinking of each vertex as one of the $2^k$ binary strings (or tuples) and two vertices are adjacent if and only if their corresponding strings differ in exactly one position.  The cube $Q_3$ is usually just called `the cube', and we have seen this object already, when looking at systems of imprimitivity.
 
 \begin{lemma}
-	The $k$-cube, $Q_k$, is vertex transitive.
+The $k$-cube, $Q_k$, is vertex transitive.
 \end{lemma}
 
 \begin{proof}
-	If $v$ is a fixed binary tuple, then the mapping $\rho_v:x\mapsto x+v$ where we do binary addition placewise permutes the vertices of $Q_k$.  This is an automorphism because the tuples $x$ and $y$ differ in exactly one position if and only if $x+v$ and $y+v$ differ in exactly one position (we flip the same bits in each).  This group $H$ acts transitively on the vertices because for any two vertices $x$ and $y$, we can send $x$ to $y$ with $\rho_{y-x}$. There are $2^k$ such permutations. 
-	
-	Note that $H$ is \textit{not} the full automorphism group.  Any permutation of the $k$ coordinate positions is also an automorphism of $Q_k$, and there are $k!$ of these, and they form a subgroup $K$ isomorphic to $Sym(k)$.  By standard results in group theory, the group $HK$ is a subgroup of $Aut(Q_k)$ and the size of $HK$ is
-	$$|HK|=\frac{|H||K|}{|H\cap K}$$
-	It is clear that the intersection of these groups is the identity permutation, so we have that $|Aut(Q_k)|$ is at least $2^kk!$. 
+If $v$ is a fixed binary tuple, then the mapping $\rho_v:x\mapsto x+v$ where we do binary addition placewise permutes the vertices of $Q_k$.  This is an automorphism because the tuples $x$ and $y$ differ in exactly one position if and only if $x+v$ and $y+v$ differ in exactly one position (we flip the same bits in each).  This group $H$ acts transitively on the vertices because for any two vertices $x$ and $y$, we can send $x$ to $y$ with $\rho_{y-x}$. There are $2^k$ such permutations. 
+
+Note that $H$ is \textit{not} the full automorphism group.  Any permutation of the $k$ coordinate positions is also an automorphism of $Q_k$, and there are $k!$ of these, and they form a subgroup $K$ isomorphic to $Sym(k)$.  By standard results in group theory, the group $HK$ is a subgroup of $Aut(Q_k)$ and the size of $HK$ is
+$$|HK|=\frac{|H||K|}{|H\cap K}$$
+It is clear that the intersection of these groups is the identity permutation, so we have that $|Aut(Q_k)|$ is at least $2^kk!$. 
 \end{proof}
 
 Another family of vertex transitive graphs are the circulants, as any vertex can be sent to any other by using the appropriate element of the cyclic subgroup of its automorphism group. Both the cubes and the circulants are part of a construction which produces many (not all) vertex-transitive graphs.
@@ -36,23 +36,23 @@ Many results for Cayley graphs hold for this general directed case, but we will 
 
 
 \begin{proof}
-	
-	
-	For each $g\in G$, the mapping $\rho_g:x\mapsto xg$ is a permutation of the elements of $G$, and it is an automorphism of $X(G,C)$, as 
-	$$(yg)(xg)^{-1} = ygg^{-1}x^{-1}=yx^{-1}$$
-	so $xg$ is adjacent to $yg$ if and only if $x$ is adjacent to $y$.  The permutations $\rho_g$ are a subgroup of the automorphism group of $X(G,C)$ which acts transitively because for any vertices $g$ and $h$, $\rho_{g^{-1}h}$ sends $g$ to $h$.
-	
+
+
+For each $g\in G$, the mapping $\rho_g:x\mapsto xg$ is a permutation of the elements of $G$, and it is an automorphism of $X(G,C)$, as 
+$$(yg)(xg)^{-1} = ygg^{-1}x^{-1}=yx^{-1}$$
+so $xg$ is adjacent to $yg$ if and only if $x$ is adjacent to $y$.  The permutations $\rho_g$ are a subgroup of the automorphism group of $X(G,C)$ which acts transitively because for any vertices $g$ and $h$, $\rho_{g^{-1}h}$ sends $g$ to $h$.
+
 \end{proof}
 
 The $k$-cube is a Cayley graph for the group $(\mathbb{Z}_2)^k$ and the circulant on $n$ vertices is a Cayley graph for $\mathbb{Z}_n$.  Most small vertex-transitive families of graphs are Cayley graphs, but there are may such families which are not Cayley graphs.  In particular, the graphs $J(v,k,i)$ are vertex transitive because we can pick an element of $Sym(v)$ to map any $k$-set to any other, but they are not Cayley graphs in general.  We can prove this for one counterexample and move on from there:
 
 \begin{lemma}
-	The Petersen graph is not a Cayley graph.
+The Petersen graph is not a Cayley graph.
 \end{lemma}
 
 \begin{proof}
-	
-	The Petersen graph has 10 vertices and is $3$-regular.  There are two groups with 10 elements: $\mathbb{Z}_{10}$ and $D_{10}$, the dihedral group with 10 elements.  If we pick $|C|=3$ for either of these, we get a graph which contains cycles of order $4$, but the Petersen graph only contains cycles of order $5$, so there is no isomorphism.
+
+The Petersen graph has 10 vertices and is $3$-regular.  There are two groups with 10 elements: $\mathbb{Z}_{10}$ and $D_{10}$, the dihedral group with 10 elements.  If we pick $|C|=3$ for either of these, we get a graph which contains cycles of order $4$, but the Petersen graph only contains cycles of order $5$, so there is no isomorphism.
 \end{proof}
 
 
@@ -67,20 +67,20 @@ It's clear that the graphs $J(v,k,i)$ are edge-transitive, but the circulants ar
 The complete bipartite graphs $K_{m,n}$ are edge-, but not vertex-transitive (unless $m=n$) because there is no automorphism which maps a vertex with valency $m$ to one with valency $n$ (or vice versa).
 
 \begin{lemma}
-	Let $X$ be an edge-transitive graph with no isolated vertices.  If $X$ is not vertex transitive, then $Aut(X)$ has exactly two orbits which form a bipartition of $X$.
+Let $X$ be an edge-transitive graph with no isolated vertices.  If $X$ is not vertex transitive, then $Aut(X)$ has exactly two orbits which form a bipartition of $X$.
 \end{lemma}
 \begin{proof}
-	Suppose that $X$ is edge- but not vertex-transitive and that $(x,y)$ is an edge of $X$ where $x$ and $y$ are vertices such that there exists no automorphism mapping $x$ to $y$.  If $w$ is a vertex of $X$, then $w$ lies on some edge and there is an element of $Aut(X)$ which maps this edge incident to $w$ to the one between $x$ and $y$, so any vertex either lies in the orbit of $x$ or the orbit of $y$.  These orbits are disjoint, as we know that $x$ and $y$ are in different orbits.  Thus there are exactly two orbits of $Aut(X)$.  An edge which connects two vertices in one orbit cannot be mapped by an automorphism to an edge which is incident to a vertex in the other orbit, so no such edge can exist.  Therefore, all edges in $X$ are incident to one vertex from the orbit of $x$ and one from the orbit of $y$, so $X$ is bipartite.
-	
-	
+Suppose that $X$ is edge- but not vertex-transitive and that $(x,y)$ is an edge of $X$ where $x$ and $y$ are vertices such that there exists no automorphism mapping $x$ to $y$.  If $w$ is a vertex of $X$, then $w$ lies on some edge and there is an element of $Aut(X)$ which maps this edge incident to $w$ to the one between $x$ and $y$, so any vertex either lies in the orbit of $x$ or the orbit of $y$.  These orbits are disjoint, as we know that $x$ and $y$ are in different orbits.  Thus there are exactly two orbits of $Aut(X)$.  An edge which connects two vertices in one orbit cannot be mapped by an automorphism to an edge which is incident to a vertex in the other orbit, so no such edge can exist.  Therefore, all edges in $X$ are incident to one vertex from the orbit of $x$ and one from the orbit of $y$, so $X$ is bipartite.
+
+
 \end{proof}
 
 \begin{lemma}
-	If $X$ is vertex- and edge-transitive but not arc-transitive, its valency is even.
+If $X$ is vertex- and edge-transitive but not arc-transitive, its valency is even.
 \end{lemma}
 
 \begin{proof}
-	Let $G=Aut(X)$ and suppose that $x$ and $y$ are adjacent vertices in $X$.  Let $\Omega$ be the orbit of $G$ on $V\times V$ which contains $(x,y)$.  Since $X$ is edge-transitive, there is an automorphism which maps any arc in $X$ to either $(x,y)$ or $(y,x)$. But since $X$ is not arc-transitive, we can choose $x$ and $y$ such that  $(y,x)$ is not in $\Omega$, so $\Omega$ is not symmetric.  Thus, $X$ is the graph with edges $\Omega\cup\Omega^T$.  Because the out-valency of $x$ is the same in $\Omega$ and $\Omega^T$, the valency of $X$ must be even.
+Let $G=Aut(X)$ and suppose that $x$ and $y$ are adjacent vertices in $X$.  Let $\Omega$ be the orbit of $G$ on $V\times V$ which contains $(x,y)$.  Since $X$ is edge-transitive, there is an automorphism which maps any arc in $X$ to either $(x,y)$ or $(y,x)$. But since $X$ is not arc-transitive, we can choose $x$ and $y$ such that  $(y,x)$ is not in $\Omega$, so $\Omega$ is not symmetric.  Thus, $X$ is the graph with edges $\Omega\cup\Omega^T$.  Because the out-valency of $x$ is the same in $\Omega$ and $\Omega^T$, the valency of $X$ must be even.
 \end{proof}
 
 \corollary{A vertex- and edge-transitive graph of odd valency must be arc-transitive as well.}
@@ -93,7 +93,7 @@ The complete bipartite graphs $K_{m,n}$ are edge-, but not vertex-transitive (un
 The edge connectivity of a graph clearly cannot be greater than its minimum valency, so the edge connectivity of a vertex-transitive graph is at most its valency.  We're about to prove that the edge connectivity of a vertex-transitive graph is exactly equal to its valency.  If $A\subset V(X)$, we'll denote $\partial A$ to be the set of vertices with one end in $A$ and one end not in $A$.  If $A=\emptyset$ or $A=V(X)$, then $\partial A=\emptyset$.  The edge connectivity of $X$ is the minimum size of $\partial A$ as $A$ ranges over all possible proper subsets of $V(X)$.
 
 \begin{lemma}
-	Let $X$ be a graph and $A$ and $B$ be subsets of $V(X)$.  Then $|\partial(A\cup B)|+|\partial(A\cap B)|\leq |\partial A|+|\partial B|$.  
+Let $X$ be a graph and $A$ and $B$ be subsets of $V(X)$.  Then $|\partial(A\cup B)|+|\partial(A\cap B)|\leq |\partial A|+|\partial B|$.  
 \end{lemma} 
 \begin{proof}
 The right-hand side counts the number of edges leaving $A$ or $B$.  The left-hand side counts the number of edges leaving $A$ or $B$ except those between $A$ and $B$ plus the edges leaving those vertices in both $A$ and $B$.  Thus the difference between the right- and left-hand sides is twice the number of edges crossing the symmetric difference of $A$ and $B$.  Since this is at least zero, the inequality holds.
@@ -104,17 +104,17 @@ The right-hand side counts the number of edges leaving $A$ or $B$.  The left-han
 \corollary{Any two distinct edge atoms are vertex disjoint.}
 
 \begin{proof}
-	Assume $\kappa=\kappa_19X)$ and let $A$ and $B$ be distinct edge atoms in $X$.  If $A\cup B=V(X)$, them since neither $A$ nor $B$ can contain more than half of the vertices, it must be that $|A|=|B|=\frac{1}{2}|V(X)|$, so $A\cap B=0$.  Thus $A\cup B \subsetneq V(X)$.  The previous lemma tells us that $|\partial (A\cup B)|+|\partial (A\cap B) \leq 2\kappa$.  But since $A\cup B\neq V(X)$ and $A\cap B\neq \emptyset$, we have that $|\partial(A\cup B)|=|\partial(A\cap B)|=\kappa$.  Since $A\cap B$ is a nonempty proper subset of $A$, this cannot happen, as $A$ is an edge atom.  Thus $A$ and $B$ must be disjoint.
+Assume $\kappa=\kappa_19X)$ and let $A$ and $B$ be distinct edge atoms in $X$.  If $A\cup B=V(X)$, them since neither $A$ nor $B$ can contain more than half of the vertices, it must be that $|A|=|B|=\frac{1}{2}|V(X)|$, so $A\cap B=0$.  Thus $A\cup B \subsetneq V(X)$.  The previous lemma tells us that $|\partial (A\cup B)|+|\partial (A\cap B) \leq 2\kappa$.  But since $A\cup B\neq V(X)$ and $A\cap B\neq \emptyset$, we have that $|\partial(A\cup B)|=|\partial(A\cap B)|=\kappa$.  Since $A\cap B$ is a nonempty proper subset of $A$, this cannot happen, as $A$ is an edge atom.  Thus $A$ and $B$ must be disjoint.
 \end{proof}
 
 \begin{lemma}
-	If $X$ is a connected vertex-transitive graph, then its edge connectivity is equal to its valency.
+If $X$ is a connected vertex-transitive graph, then its edge connectivity is equal to its valency.
 \end{lemma}
 
 \begin{proof}
-	Suppose that $X$ is vertex-transitive and has valency $k$.  Let $A$ be an edge atom of $X$.  If $A$ is a single vertex, then $|\partial A|=k$ and we are done.  Otherwise, suppose that $|A|\geq 2$.  If $g$ is an automorphism of $X$ and $B=A^g$ (the image of the vertices in $A$ under $g$), then $|B|=|A|$ and $|\partial B|=|\partial A|$.  From the previous lemma, we have that $A$ is either equal to or disjoint from $B$. Thus $A$ is a block of imprimitivity for $Aut(X)$, and by Exercise 2.13, it follows that the subgraph of $X$ induced by $A$ is regular, so let its valency be $\ell$.
-	
-	Each vertex in $A$ has $k-\ell$ neighbors not in $A$, so $|\partial A|=|A|(k-\ell)$. Since $X$ is connected, $\ell<k$, so if $|A|\geq k$, then  $|\partial A|\geq k$.  So we assume $|A|<k$.  Since $\ell\leq |A|-1$, it follows that $|\partial A|\geq |A|(k+1-|A|)$.  The minimum value of the right-hand side occurs when $|A|=1$ or $|A|=k$.  Thus $|\partial A|\geq k$ for all cases.
+Suppose that $X$ is vertex-transitive and has valency $k$.  Let $A$ be an edge atom of $X$.  If $A$ is a single vertex, then $|\partial A|=k$ and we are done.  Otherwise, suppose that $|A|\geq 2$.  If $g$ is an automorphism of $X$ and $B=A^g$ (the image of the vertices in $A$ under $g$), then $|B|=|A|$ and $|\partial B|=|\partial A|$.  From the previous lemma, we have that $A$ is either equal to or disjoint from $B$. Thus $A$ is a block of imprimitivity for $Aut(X)$, and by Exercise 2.13, it follows that the subgraph of $X$ induced by $A$ is regular, so let its valency be $\ell$.
+
+Each vertex in $A$ has $k-\ell$ neighbors not in $A$, so $|\partial A|=|A|(k-\ell)$. Since $X$ is connected, $\ell<k$, so if $|A|\geq k$, then  $|\partial A|\geq k$.  So we assume $|A|<k$.  Since $\ell\leq |A|-1$, it follows that $|\partial A|\geq |A|(k+1-|A|)$.  The minimum value of the right-hand side occurs when $|A|=1$ or $|A|=k$.  Thus $|\partial A|\geq k$ for all cases.
 \end{proof}
 
 \section*{Vertex Connectivity}
@@ -126,32 +126,237 @@ Complete graphs have no vertex cutsets, but it is conventional to let $\kappa_0(
 
 \definition{If $u$ and $v$ are distinct vertices of $X$, then two paths $P$ and $Q$ are \textbf{openly disjoint} if, aside from $u$ and $v$, the vertex sets of $P$ and $Q$ are disjoint.}
 
-\theorem[Menger]{Let $U$ and $v$ be distinct vertices in $X$.  Then the maximum number of openly disjoint paths from $u$ to $v$ is equal to the minimum size of a set of vertices $S\subset V(X)$ such that $u$ and $v$ lie in distinct connected components of $X\setminus S$.  That is, the maximum number of such paths is equal to the smallest vertex cutset which separates $u$ from $v$.}
+\begin{theorem}[Menger]
 
+{Let $U$ and $v$ be distinct vertices in $X$.  Then the maximum number of openly disjoint paths from $u$ to $v$ is equal to the minimum size of a set of vertices $S\subset V(X)$ such that $u$ and $v$ lie in distinct connected components of $X\setminus S$.  That is, the maximum number of such paths is equal to the smallest vertex cutset which separates $u$ from $v$.}
+\end{theorem}
 
 \begin{proof}
-	Observe that for any set of vertices whose deletion separates $u$ from $v$, any $u{-}v$ path must visit at least one of these vertices.  Therefore, the maximum number of possible openly disjoint paths can be no larger than the smallest such set of vertices.
+If we have a collection of $m$ openly disjoint $u{-}v$ paths, then we must remove at least one vertex from each path in order to disconnect $u$ from $v$.
 \end{proof}
 
 This theorem tells us that two vertices that can't be separated by fewer than $m$ vertices must be joined by $m$ openly disjoint paths.  A basic corollary is that two vertices which cannot be separated by a single vertex must lie on a cycle.  We'll make use of the corollary that a pair of vertices that cannot be separated by a set of size two must be joined by three openly disjoint paths.  There are lots of variations of Menger's theorem.  In particular, two subsets $A$ and $B$ of $V(X)$ cannot be separated by fewer than $m$ vertices if and only if there are $m$ disjoint paths which start in $A$ and end in $B$.
 
 We are about to prove a lower bound on the vertex connectivity of a vertex-transitive graph.
 
-If $A$ is a set of vertices in $X$, let $N(A)$ denote the vertices in $V(X)\setminus A$ with a neighbor in $A$ and let $\overline{A}$ be the complement of $A\cup N(A)$ in $V(X)$.
+If $A$ is a set of vertices in $X$, let $N(A)$ denote the vertices in $V(X)\setminus A$ with a neighbor in $A$ and let $\overline{A}$ be the complement of $A\cup N(A)$ in $V(X)$.  That is, $A$ is a collection of vertices, $N(A)$ (the `neighborhood of $A$') is the collection of vertices just outside of $A$, and $\overline{A}$ is everything else.
 
-\definition{A \textbf{fragment} of $X$ is a subset $A$ such that $\bar{A}$ is nonempty and $|N(A)|=\kappa_0(X)$.}  
+\definition{A \textbf{fragment} of $X$ is a subset $A$ such that $\overline{A}$ is nonempty and $|N(A)|=\kappa_0(X)$.  We have $\overline{A}$ empty when every vertex in $V(X)$ is either in $A$ or adjacent to a vertex in $A$, and $|N(A)|=\kappa_0(X)$ when $N(A)$ is a minimum vertex cutset. }  
 
-An \textit{atom} of $X$ is a fragment which contains the minimum possible number of vertices.  An atom must be connected and if $X$ is $k$-regular with an atom consisting of a single vertex, then $\kappa_0(X)=k$.  We can also show that if $A$ is a fragment, then $N(A)=N(\bar{A})$ and $\bar{\bar{A}}=A$.
- 
- \begin{lemma}
+An \textit{atom} of $X$ is a fragment which contains the minimum possible number of vertices.  An atom must be connected and if $X$ is $k$-regular with an atom consisting of a single vertex, then $\kappa_0(X)=k$.  We can also see that if $A$ is a fragment, then $N(A)=N(\overline{A})$ and $\overline{\overline{A}}=A$.  The following lemma gives us some useful properties of fragments.
+
+\begin{lemma}
 Let $A$ and $B$ be fragments in $X$.  Then:
 \begin{enumerate}
-	\item a
+\item[a)] $N(A\cap B)\subset (A\cap N(B))\cup (N(A)\cap B) \cup (N(A)\cap N(B))$
+\item[b)] $N(A\cup B) = (\overline{A}\cap N(B))\cup (N(A) \cap \overline{B}) \cup (N(A)\cap N(B))$
+\item[c)] $\overline{A}\cup\overline{B} \subset \overline{A\cap B}$
+\item[d)] $\overline{A\cup B}=\overline{A}\cap\overline{B}$
 \end{enumerate}
- \end{lemma}
- 
- 
+\end{lemma}
+
+\begin{proof}
+	
+	Suppose first that $x\in N(A\cap B)$.  Since $A\cap B$ and $N(A\cap B)$ are disjoint, if $x\in A$ then $x\notin B$, so $x\in N(A)$ (or vice versa).  If $x$ isn't in either $A$ or $B$, then it is in $N(A)\cap N(B)$, and we have proved (a).
+	
+	Similarly, we can show  $N(A\cup B) \subset (\overline{A}\cap N(B))\cup (N(A) \cap \overline{B}) \cup (N(A)\cap N(B))$.  To show inclusion in the other direction (and therefore equality), note that if $x\in \overline{A}\cap N(B)$, then $x$ is in neither $A$ nor $B$.  Since $x\in N(B)$ and $x\notin A$, $x\in N(A\cup B)$.  Similarly, if $x\in N(A)\cap\overline{B}$ or $x\in N(A)\cap N(B)$, then  $x\in N(A\cup B)$, and we have proved (b).
+	
+	Next, if $x\in \overline{A}$, then $x$ is not in $A$ or $N(A)$, so it can't be in $A\cap B$ or $N(A\cap B)$, so $x\in \overline{A\cap B}$, which proves (c).
+	
+	Finally, if $x\in \overline{A\cup B}$, then $x$ is not in $A\cup B$ or $N(A\cup B)$.  Thus $x$ is not in $A$ or $B$ nor $N(A)$ or $N(B)$, thus it is in both $\overline{A}$ and $\overline{B}$, and we have proved (d).
+	
+	
+	
+	
+\end{proof}
+
+\begin{theorem}
+	
+	
+	Let $X$ be a graph on $n$ vertices with connectivity $k$.  Suppose $A$ and $B$ are fragments of $X$ and $A\cap B$ is nonempty.  If $|A|\leq |\overline{B}|$, then $A\cap B$ is a fragment.
+	
+	
+\end{theorem}
+\begin{proof}
+	
+	
+	Since $A$, $N(A)$, and $\overline{A}$ (symmetrically for $B$) partition the set $V(X)$ into three disjoint parts, the pairwise intersections of one chunk from $A$ with a chunk from $B$ gives us a partition into nine disjoint parts.  As some shorthand, we'll deonte $$a=|A\cap N(B)|,b=|N(A)\cap B|,c=|N(A)\cap N(B)|,d=|N(A)\cap\overline{B}|,e=|\overline{A}\cap N(B)|$$.  We proceed in steps.
+	
+	\subsubsection*{a)} $|A\cup B|<n-k$
+	
+	Since $|F|+|\overline{F}| = n-k$ for any fragment $F$, $|A|\leq |\overline{B}| = n-k-|B|$, as $A$ and $B$ are fragments.  Thus $|A|+|B|\leq n-k$, and since $A$ and $B$ share at least one element in common, the inequality is strict.
+	
+	\subsubsection*{b)} $|N(A\cup B)|\leq k$
+	
+	From the previous lemma, $|N(A\cap B)|\leq a+b+c$ and $|N(A\cup B)|=c+d+e$.  Thus, $2k=|N(A)|+|N(B)| = a+b+2c+d+e \geq |N(A\cap B)|+|N(A\cup B)|$.  Since $|N(A\cap B)|\geq k$, it must be that $|N(A\cup B)|\leq k$.
+	
+	\subsubsection*{c)} $\overline{A}\cap\overline{B}\neq \emptyset$.
+	
+	
+	From (a) and (b), we have that $|A\cup B| + |N(A\cup B)| < n$, so $\overline{A\cup B}\neq \emptyset$, and the claim follows from part (d) of the previous lemma.
+	
+	\subsubsection*{d)} $|N(A\cup B)|=k$
+	
+	For any fragment $F$, $N(F)=N(\overline{F})$.  By part (a) of the previous lemma, and step (b) above, we get
+	
+	\begin{align*}
+	N(\overline{A}\cap\overline{B})&\subset (\overline{A}\cap N(\overline{B}))\cup (\overline{B}\cap N(\overline{A}))\cup(N(\overline{A})\cap N(\overline{B}))\\
+	&=(\overline{A}\cap N(B))\cup (\overline{B}\cap N(A))\cup (N(A)\cap N(B))\\
+	&=N(A\cup B)
+	\end{align*}
+	
+	Since $\overline{A}\cap\overline{B}$ is nonempty, $|N(\overline{A}\cap\overline{B})|\geq k$, so $|N(A\cup B)|\geq k$.  Combining this with step (b), the claim follows.
+	
+	\subsubsection*{e)}  $A\cap B$ is a fragment.
+	
+	From step (b), we have that $|N(A\cap B)|+|N(A\cup B)|\leq 2k$, and (d) tells us that $|N(A\cap B)\leq k$, so $N(A\cap B)$ is of size $k$, and we are done. 
+	
+\end{proof}
+
+
+\corollary{If $A$ is an atom and $B$ a fragment of $X$, then $A$ is entirely contained in one of $B$, $N(B)$, or $\overline{B}$.}
+
+\begin{proof}
+	Since $A$ is an atom, $|A|\leq |B|$ and $|A|\leq |\overline{B}|$.  Thus the intersection of $A$ with $B$ or $\overline{B}$ is a fragment (if nonempty).  Since $A$ is an atom, no proper subset can be a fragment.
+\end{proof}
+
+
+Now we are ready to prove the theorem mysteriously referenced earlier.
+
 \thrm{A vertex-transitive graph with valency $k$ has vertex connectivity at least $\frac{2}{3}(k+1)$.}
+
+\begin{proof}
+	Let $X$ be a vertex-transitive graph with valency $k$, and let $A$ be an atom in $X$.  If $A$ is a singe vetex, then $|N(A)|=k$ and we are done.  Suppose $|A|\geq 2$.  If $g\in Aut(X)$, then $A^g$ is an atom as well, so by the previous corollary, either $A=A^g$ or $A$ and $A^g$ are disjoint.  Then $A$ is a block of imprimitivity for $Aut(X)$, and its translates partition $V(X)$.  Then again by the corollary, we have that $N(A)$ is also partitioned by the translates of $A$, so $|N(A)|=t|A|$ for some positive integer $t$.
+	
+	Let $u$ be a vertex in $A$.  Then the valency of $u$ is at most $|A|-1 + |N(A)|=(t+1)|A|-1$.  Thus it follows that $k+1\leq (t+1)|A|$ and $\kappa_0(X)\geq\frac{t}{t+1}k$.  To complete the proof, we only need to show $t\geq 2$.  
+	
+	Suppose for the sake of contradiction that $t=1$.  By the corollary above, $N(A)$ is a union of atoms, so $N(A)$ is also an atom.  Since $Aut(X)$ acts transitively on the atoms of $X$, it follows that $|N(N(A))|=|A|$, so since $A\cap N(N(A))$ is nonempty, $A=N(N(A))$.  This implies $\overline{A}=\emptyset$, contradicting the assumption that $A$ is a fragment.
+\end{proof}
+
+
+
+
+
+
+\section*{Matchings}
+
+\definition{A \textbf{matching} $M$ in a graph $X$ is a set of edges such that no two edges are incident to the same vertex.  Equivalently, a matching is a subset of the vertices of $X$ such that $M$ can be partitioned into disjoint sets of size $2$ such that there is an edge in $X$ connecting each pair.  A matching $M$ is called \textbf{perfect} or a \textbf{$\boldsymbol{1}$-factor} if every vertex in $X$ belongs to $M$. A \textbf{maximum matching} is a matching $M$ such that no other edges can be added to $M$ without violating the definition of a matching.}
+
+Our treatment of matchings will largely be from the perspective of edge sets rather than vertex sets.  That is, we we talk about a matching $M$, we formally mean that $M$ is the set of edges in the matching, but we will be sloppy and talk about a vertex being `in' the matching when what we really mean is that the vertex is incident to some edge in $M$.
+
+Obviously any graph which has a perfect matching has an even number of vertices.  We can also induce a partial ordering on matchings by inclusions.  A maximum matching is therefore an element of this poset which has nothing sitting above it.
+
+The following result tells us that a connected vertex-transitive graph on an even number of vertices \textit{must} have a perfect matching, and that such a graph on an odd number of vertices has a maximum matching which misses exactly one vertex.  To prove this, we first need two lemmas and a few definitions.  Throughout, we will assume $X$ is connected and vertex-transitive.
+
+\definition{If $M$ s a matching, in $X$ and $P$ is a path in $X$ such that every second edge of $P$ is in $M$, then we call $P$ an \textbf{alternating path} with respect to $M$.  Similarly, an \textit{alternating cycle} is a cycle with every second edge in $M$.}
+
+Suppose that $M$ and $N$ are matchings in $X$, and consider their symmetric difference $(M\cup N)\setminus (M\cap N)$, which we will write $M\oplus N$, for ease of notation.  Since $M$ and $N$ are regular subgraphs with valency $1$, $M\oplus N$ is  a  subgraph with valency at most $2$.  Thus each component of it must either be a path or a cycle.  Since no vertex of $M\oplus N$ has two incident edges in either $M$ or $N$, these paths or cycles are alternating with respect to both $M$ and $N$, and each cycle must have even length. Suppose $P$ is a path in $M\oplus N$ with odd length.  Without loss of generality, suppose that $P$ contains more edges from $M$ than $N$, so $N\oplus P$ is also a matching which contains more edges than $N$. Thus $P$ must contain an equal number of edges from $M$ and $N$, so its length is even.
+
+
+\begin{lemma}
+	Let $u$ and $v$ be vertices in $X$ such that no maximum matching misses both of them.  Suppose then that $M_u$ is a maximim matching which misses $u$ but not $v$ and $M_v$ a maximum matching which misses $v$ but not $u$.  Then there is a path of even length in $M_u\oplus M_v$ with $u$ and $v$ as its endpoints.
+	
+\end{lemma}
+
+
+
+
+\begin{proof}
+	Since $M_u$ and $M_v$ miss $u$ and $v$, respectively, their valencies in $M_u\oplus M_v$ must be $1$, so both are end vertices of some path.  We need to show that they are in the same connected component of $M_u\oplus M_v$.  As $M_u$ and $M_v$ have maximum size, all paths (including those with endpoints $u$ and $v$) have even length.  Suppose, for the sake of contradiction, that $u$ and $v$ lie on distinct paths.  Let $P$ be the path on $u$.  Then $P$ is alternating with respect to $M_v$,  has even length, and $M_v\oplus P$ is a matching in $X$ which misses $u$ and $v$ and has the same size as $M_v$, which contradicts how we chose $u$ and $v$.
+\end{proof}
+
+We have to prove one more lemma before our theorem.
+
+\definition{We call a vertex $u$ in $X$ \textbf{critical} if it is in every maximum matching.  If $X$ is vertex transitive and one vertex is critical, then every vertex is critical, so $X$ has a perfect matching.}
+
+\begin{lemma}
+	Let $u$ and $v$ be distinct vertices in $X$, and let $P$ be a path from $u$ to $v$.  If no vertex of $V(P)\setminus\{u,v\}$ is critical, then no maximum matching misses both $u$ and $v$.
+\end{lemma}
+\begin{proof}
+	
+	We proceed by induction on the length of $P$.  If $u$ and $v$ are adjacent, then no maximum matching can miss both $u$ and $v$, as we can always add the edge $(u,v)$ to some matching which misses both to increase the size.
+	
+	Suppose $P$ has length at least $2$, and let $x$ be some vertex on $P$ distinct from $u$ and $v$.  Then $u$ and $x$ are joined by a path which has no critical vertices, and this path is shorter than $P$, so by induction, no maximum matching misses both $u$ and $x$ and no maximum matching misses both $v$ and $x$.  Since $x$ is not critical, there is a maximum matching $M_x$ which misses $x$.  Assume, for the sake of contradiction, that $N$ is a maximum matching which misses both $u$ and $v$.  Then by the previous lemma, there is a path from $u$ to $x$ in $M_x\oplus N$ and similarly there is a path from $x$ to $v$, so there is a $u{-}v$ path, which implies that $u=v$, contradicting the assumption that they are distinct.
+	
+	
+	
+\end{proof}
+
+We can  now wrap this up into a proof of our big theorem:
+
+\begin{theorem}
+	Let $X$ be a connected vertex-transitive graph.  Then $X$ has a matching which misses at most one vertex, and for any edge there exists a maximum matching containing that edge.  
+\end{theorem}
+\begin{proof}
+	We noted that a vertex-transitive graph which contains a critical vertex must contain a perfect matching, and by the previous lemma, if $X$ is vertex-transitive and does not contain a critical vertex, then no two vertices are both missed by any maximum matching, so a maximum matching covers all but one vertex of the graph.
+	
+	We now only need to show that any edge is contained in some maximum matching.  We proceed inductively, supposing it holds for vertex-transitive graphs smaller than $X$ (base cases of graphs on one, two, or three vertices are trivial).  If $X$ is edge-transitive, the claim is trivial, so we assume that $X$ is not edge-transitive.  Suppose, for the sake of contradiction, that $e$ is an edge not in any maximum matching. Let $Y$ be the subgraph of $X$ induced by the edge set consisting of the orbit of $e$ under $Aut(X)$.  Since $X$ is not edge-transitive, $Y$ is a strict subgraph of $X$ on the same vertex set.  We will show that $X$ has  a matching containing an edge of $Y$ which misses at most one vertex.  Thus under some $g\in Aut(X)$, this matching maps to one containing $e$ missing at most one vertex.
+	
+	If $Y$ is connected, then by induction each edge lies in a matching which misses at most one vertex, and we are done.  Suppose then that $Y$ is not connected.  The components of $Y$ form a system of imprimitivity for $Aut(X)$ and are pairwise isomorphic vertex-transitive graphs.  If the number of vertices in each component is even, then by induction we can find a perfect matching on each component whose union is a perfect matching in $Y$.  Assume then that there is some component of $Y$ which has an odd number of vertices.  Let $Y_1,Y_2,\dots,Y_r$ be the components of $Y$.  Consider the graph $Z$ which has a vertex for each $Y_i$ and an edge between $Y_i$ and $Y_j$ if and only if there is an edge in the original graph $X$ joining some vertex of $Y_i$ to $Y_j$.  Then $Z$ is vertex-transitive, so by induction contains a matching $N$ which misses at most one vertex.  Suppose $(Y_i,Y_j)\in N$ is an edge, and since $Y_i$ is adjacent to $Y_j$ in $Z$, there are vertices $y_i,y_j$ in $X$ which are adjacent.  Since $Y_i$ and $Y_j$ are vertex-transitive and have an odd number of vertices, there is a matching in $Y_i$ missing only $y_i$ and similarly for $y_j$, but then we can include the edge $(y_i,y_j)$ to get a matching in $X$ which misses nothing in either component.  If the number of components $Y_i$ is even, this construction gets us a perfect matching.  Otherwise, we have a matching which is perfect on all but one component, and then a matching within that last component which misses exactly one vertex.  This concludes the proof.
+\end{proof}
+
+
+
+
+\section*{Hamiltonian Paths and Cycles}
+
+\definition{A \textbf{Hamilton path} in a graph $X$ is a path which meets every vertex.  A \textbf{Hamilton cycle} is a path which meets every vertex and starts and ends at the same vertex.  A graph is called \textbf{hamiltonian} if it contains a Hamilton cycle.  All known vertex-transitive graphs have Hamilton paths and only five are known which do not contain Hamilton cycles.  Let's take a look at these.}
+
+Clearly $K_2$ is vertex transitive and has a Hamilton path but no Hamilton cycle (no nontrivial cycles at all!).  More interestingly, the Petersen graph doesn't have a Hamilton cycle.  The graph has enough symmetry that a case argument is tedious, rather than unmanageable, but we'll see an algebraic proof in a later chapter.  The Coxeter graph, which is arc-transitive and on 28 vertices, is also not hamiltonian.  the other two graphs are realized by replacing the vertices of the Petersen and Coxeter graphs with triangles.
+
+\definition{The \textbf{subdivision graph} $S(X)$ of a graph $X$ is obtained by placing a new vertex in the middle of each edge of $X$.  That is, the vertex set of $S(X)$ is $V(X)\cup E(X)$, and two vertices $v,e$ in $S(X)$ are adjacent if and only if $v$ corresponds to a vertex in $V(X)$ and $e$ to an edge in $E(X)$ such that $e$ is incident to $v$.  This graph is bipartite, with the vertices from $V(X)$ and $E(X)$ forming the bipartition.  The vertices in the `edge class' all have valency $2$.  If $X$ is regular with valency $k$, then the vertices in the `vertex class' are also all of valency $k$.  In this case, $S(X)$ is semiregular bipartite.}
+
+\begin{lemma}
+	Let $X$ be a cubic graph.  Then $L(S(X))$ has a Hamilton cycle if and only if $X$ does.
+\end{lemma}
+
+\begin{proof}
+	 
+	
+	A Hamilton cycle in a line graph $L(X)$ corresponds to an ordered enumeration of the edges of $X$ such that each edge in the enumeration is incident to a vertex in common with the preceding and succeeding edge, and the first and last edge in the enumeration is the same.  Since $S(X)$ for a cubic graph is a semiregular bipartite graph, a Hamilton cycle in $L(S(X))$ uniquely corresponds to an ordering of the valency $2$ vertices of $S(X)$ such that any two successive vertices in the ordering are at distance two from each other.  But this induces an ordering of the vertices of valency $3$, which corresponds to a sequence of vertices in $X$ itself.  It is clear that if there is a Hamilton cycle in $L(S(X))$, the induced ordering on the valency $3$ vertices corresponds to a Hamilton cycle in $X$.  But the same goes the other way.  If we have a Hamilton cycle in $X$, this corresponds to an ordering of the valency $3$ vertices such that successive vertices are at distance $2$, which means we have to visit each vertex of valency $2$ once, hence we use every edge (one to enter, one to leave).
+\end{proof}
+
+
+If $X$ is arc-transitive and cubic, then $L(S(X))$ is vertex-transitive.  Thus we get the last two of the known vertex-transitive graphs which are not hamiltonian.  Of these five graphs, only $K_2$ is a Cayley graph (for the group $\mathbb{Z}_2$, of course), and it is conjectured that all other Cayley graphs are hamiltonian and, even more strongly, that all other vertex-transitive graphs are hamiltonian.  This conjecture is essentially a totally open problem, but it is known to be false for directed graphs.
+
+A natural question is to find a lower bound on the length of a longest cycle in a vertex-transitive graph $X$.  The best known bound is $O(\sqrt{|V(X)|})$, which isn't great, but we'll derive it anyway.  
+\begin{lemma}
+	Let $G$ be a transitive permutation group acting on a set $V$, let $S$ be a subset of $V$, and set $c$ equal to the minimum value of $|S\cap S^g|$ as $g$ ranges over $G$.  Then $|S|\geq \sqrt{c|V|}$.
+		
+		
+\end{lemma}
+\begin{proof}
+	We'll count pairs $(g,x)$ where $g\in G$ and $x\in S\cap S^g$.  For each $g\in G$, there are at least $c$ such points in $S$, so there are at least $c|G|$ such pairs.  On the other hand, the elements of $G$ which maps $x$ to $y$ form a coset of $G_x$, so there are exactly $|S||G_x|$ elements $g^{-1}\in G$ such that $x^{g^{-1}}\in S$, (equivalently, $x\in S^g$).  Thus $c|G|\leq |S|^2|G_x|$ and since $G$ is transitive, $\frac{|G|}{|G_x|}=|V|$ by the Orbit-Stabilizer theorem.  The claim follows from basic algebraic manipulation.
+\end{proof}
+
+
+
+The next theorem depends on the fact that in a $3$-connected graph, any two cycles of maximum length have at least three vertices in common, which follows from Menger's theorem.
+
+\begin{theorem}
+	A connected vertex-transitive graph on $n$ vertices contains a cycle of length at least $\sqrt{3n}$.
+	
+	
+\end{theorem}
+
+
+\begin{proof}
+	Let $X$ be a graph and $G=Aut(X)$.  First, a connected vertex transitive graph with valency at least $3$ is $3$-connected (the theorem is trivial for graphs with valency $2$), so let $C$ be a maximum-length cycle in $X$.  Then, $|C\cap C^g|\geq 3$ for any automorphism of $X$ (there are at least three vertices in common between any two maximum-length cycles), so the result follows from the bound in the previous lemma.
+\end{proof}
+
+In fact, the Petersen graph has cycles which pass through nine of the ten vertices.
+
+
+\section*{Cayley Graphs}
+
+An important class of objects in algebraic graph theory, we are now ready to develop some theory about Cayley graphs.
+
+\definition{A permutation group $G$ acting on a set $V$ is \textbf{semiregular} if no nonidentity element of $G$ fixes a point of $V$.  From the Orbit-Stabilizer theorem, it follows that every orbit of a semiregular group has length $|G|$.  A group $G$ is \textbf{regular} if it is semiregular and transitive.  If $G$ is regular on $V$, then $|G|=|V|$.}
+
+Any group $G$ acts regularly on itself.  Recall that $\rho_g$ for $g\in G$ is the permutation of the elements of $g$ such that $x\mapsto xg$.
+
+
+
 
 
 
