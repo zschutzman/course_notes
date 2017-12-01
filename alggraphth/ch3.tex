@@ -22,7 +22,7 @@ The $k$-cube, $Q_k$, is vertex transitive.
 If $v$ is a fixed binary tuple, then the mapping $\rho_v:x\mapsto x+v$ where we do binary addition placewise permutes the vertices of $Q_k$.  This is an automorphism because the tuples $x$ and $y$ differ in exactly one position if and only if $x+v$ and $y+v$ differ in exactly one position (we flip the same bits in each).  This group $H$ acts transitively on the vertices because for any two vertices $x$ and $y$, we can send $x$ to $y$ with $\rho_{y-x}$. There are $2^k$ such permutations. 
 
 Note that $H$ is \textit{not} the full automorphism group.  Any permutation of the $k$ coordinate positions is also an automorphism of $Q_k$, and there are $k!$ of these, and they form a subgroup $K$ isomorphic to $Sym(k)$.  By standard results in group theory, the group $HK$ is a subgroup of $Aut(Q_k)$ and the size of $HK$ is
-$$|HK|=\frac{|H||K|}{|H\cap K}$$
+$$|HK|=\frac{|H||K|}{|H\cap K|}$$
 It is clear that the intersection of these groups is the identity permutation, so we have that $|Aut(Q_k)|$ is at least $2^kk!$. 
 \end{proof}
 
@@ -44,7 +44,7 @@ so $xg$ is adjacent to $yg$ if and only if $x$ is adjacent to $y$.  The permutat
 
 \end{proof}
 
-The $k$-cube is a Cayley graph for the group $(\mathbb{Z}_2)^k$ and the circulant on $n$ vertices is a Cayley graph for $\mathbb{Z}_n$.  Most small vertex-transitive families of graphs are Cayley graphs, but there are may such families which are not Cayley graphs.  In particular, the graphs $J(v,k,i)$ are vertex transitive because we can pick an element of $Sym(v)$ to map any $k$-set to any other, but they are not Cayley graphs in general.  We can prove this for one counterexample and move on from there:
+The $k$-cube is a Cayley graph for the group $(\mathbb{Z}_2)^k$ and the circulant on $n$ vertices is a Cayley graph for $\mathbb{Z}_n$.  Most small vertex-transitive families of graphs are Cayley graphs, but there are may such families which are not Cayley graphs.  In particular, the graphs $J(v,k,i)$ are vertex transitive because we can pick an element of $Sym(v)$ to map any $k$-set to any other, but they are not Cayley graphs in general.  We can prove this for one counterexample and        move on from there:
 
 \begin{lemma}
 The Petersen graph is not a Cayley graph.
@@ -353,7 +353,175 @@ An important class of objects in algebraic graph theory, we are now ready to dev
 
 \definition{A permutation group $G$ acting on a set $V$ is \textbf{semiregular} if no nonidentity element of $G$ fixes a point of $V$.  From the Orbit-Stabilizer theorem, it follows that every orbit of a semiregular group has length $|G|$.  A group $G$ is \textbf{regular} if it is semiregular and transitive.  If $G$ is regular on $V$, then $|G|=|V|$.}
 
-Any group $G$ acts regularly on itself.  Recall that $\rho_g$ for $g\in G$ is the permutation of the elements of $g$ such that $x\mapsto xg$.
+Any group $G$ acts regularly on itself.  Recall that $\rho_g$ for $g\in G$ is the permutation of the elements of $g$ such that $x\mapsto xg$.  The mapping $g\mapsto \rho_g$ is called the \textit{right regular representation} of $g$.  This group is isomorphic to $G$, hence $G$ acts transitively (and regularly) on it.
+
+\begin{lemma}
+	Let $G$ be a group and $C$ an inverse-closed subset of $G$ which does not include $e$.  Then $Aut(X(G,C))$ contains a regular subgroup isomorphic to $G$.
+\end{lemma}
+\begin{proof}
+	This follows immediately from the proof of the earlier theorem that the Cayley graph $X(G,C)$ is vertex-transitive.
+\end{proof}
+
+There is a converse of this lemma, which we will prove.
+
+\begin{lemma}
+	If a group $G$ acts regularly on the vertices of the graph $X$, then $X$ is a Cayley graph relative to some inverse-closed set $C\subset G\setminus\{e\}$.
+\end{lemma}
+\begin{proof}
+	Fix a vertex $u$ of $X$.  If $v$ is any vertex of $X$, there is a unique group element, say $g_v$, such that $u^{g_v} = v$, since $G$ acts regularly on $V(X)$.  Let $C=\{g_v|(u,v)\in E(X)\}$.  If $x$ and $y$ are vertices of $X$, since $g_x\in Aut(X)$, $x$ is adjacent to $y$ if and only if $x^{g_x^{-1}}$ is adjacent to $y^{g_x^{-1}}$.  But $x^{g_x^{-1}}=u$ and $y^{g_x^{-1}}=u^{g_yg_x^{-1}}$ so $x$ and $y$ are adjacent if and only if $g_yg_x^{-1}\in C$.  But this looks like the construction of a Cayley graph.  If we identify each vertex $x$ with the group element $g_x$, then $X$ is isomorphic to $X(G,C)$.  Since $X$ is undirected and has no self-loops, the set $C$ must be an inverse-closed subset of $G\setminus\{e\}$.
+\end{proof}
+
+One thing we've been sweeping under the rug is that there are many Cayley graphs for any given group.  It's natural to ask under what conditions two Cayley graphs for the same group are isomorphic, and the next lemma gets towards an answer to this question.  An \textit{automorphism of a group} is a bijection $\theta: G\rightarrow G$ such that $\theta(gh)=\theta(g)\theta(h)$ for all $g,h\in G$.  That is, an isomorphism from a group to itself.
+
+\begin{lemma}
+	If $\theta$ is an automorphism of the group $G$, then $X(G,C)$ and $X(G,\theta(C)$ are isomorphic as graphs.
+	
+
+\end{lemma}
+\begin{proof}
+	For any two vertices $x$ and $y$ in $X(G,C)$, it must be that $\theta(y)\theta(x)^{-1}=\theta(yx^{-1}$ (thinking of $x$ and $y$ as group elements).  Thus $\theta(y)\theta(x)^{-1}\in \theta(C)$ if and only if $yx^{-1}\in C$.  Thus $\theta$ preserves adjacency and non-adjacency between $X(G,C)$ and $X(G,\theta(C))$.
+	
+\end{proof}
+
+The converse of this is not true; two Cayley graphs for a group can be isomorphic even if there is no automorphism relating their connection sets.
+
+\definition{A \textbf{generating set} $C$ of a group $G$ is a subset such that any element of $G$ can be written as the product of elements of $C$.  Equivalently, the only subgroup of $G$ which contains $C$ is $G$ itself.}
+
+\begin{lemma}
+	The Cayley graph $X(G,C)$ is connected if and only if $C$ is a generating set for $G$.
+\end{lemma}
+
+\begin{proof}
+	It is clear that if $C$ generates $G$, the Cayley graph is connected, as $x$ and $y$ are adjacent if and only if there is a $g\in C$ such that $xg=y$.
+	
+	For the other direction, suppose that $X(G,C)$ is connected.  Since two vertices are adjacent if and only if they belong to the subgroup generated by $C$, it follows that $C$ generates $G$.
+\end{proof}
+
+
+
+\section*{Directed Cayley Graphs With No Hamiltonian Cycles}
+
+It turns out that it's pretty simple to find vertex-transitive directed graphs which are not hamiltonian, and the examples will even be directed Cayley graphs.
+
+\begin{theorem}
+	Suppose that distinct group elements $\alpha$ and $\beta$ generate a finite group $G$, and that the graph $X$ is the directed Cayley graph $X(G,\{\alpha,\beta\})$ with connection set $\{\alpha,\beta\}$.  Furthermore, assume that, in their actions by left mulitplication on $G$ that $\alpha$ and $\beta$ have $k$ and $\ell$ cycles, respectively.  If the element $\beta^{-1}\alpha$ has odd order and $V(X)$ has a partition into $r$ disjoint directed cycles, then $r$, $k$, and $\ell$ all have the same parity.
+\end{theorem}
+\begin{proof}
+	Suppose $V(X)$ has a partition into $r$ directed cycles, and define the permutation $\pi$ of $G$ to be $x^\pi =y$ if the arc $(x,y)$ is in one of the directed cycles, that is, $\pi$ `pushes' every vertex forward along its directed cycle.  If we let $P=\{x\in V(X)|x^\pi = \alpha x\}$ and $Q=\{ x\in V(X)|x^\pi = \beta x \}$, then $P$ and $Q$ partition $V(X)$, because $\alpha$ and $\beta$ were chosen to be distinct.
+	
+	Let $\tau$ be the permutation in $G$ such that $x^\tau=\beta^{-1}x^\pi$.  Clearly $\tau$ fixes every element of $Q$, and it maps elements of $P$ to other elements of $P$, and for any $x\in P$, $x^\tau = \beta^{-1}\alpha x$, and since $\beta^{-1}\alpha$ has odd order, $\tau$ must as well.  This is because odd permutations have even order, as an element of odd order is the square of some element in the cyclic group it generates, thus it is even.  
+	
+	It is a fact about symmetric groups that the parity of a permutation on $n$ elements with $r$ disjoint cycles is the parity of $r+n$.  Since left multiplication by $\pi\beta^{-1}$ is an even permutation, $\ell+r$ is even.  A symmetric argument for $\pi\alpha^{-1}$ tells us that $k+r$ is even.  Thus $\ell,k,r$ all have the same parity.
+	
+	
+\end{proof}
+
+
+The symmetric group on $n$ elements can be generated by two permutations: $(12)$ and $(123\dots n)$.  For example, $Sym(4)$ is generated by $\alpha=(12)$ and $\beta=(1234)$.  The Cayley graph $X=X(Sym(4),\{(12),(1234)\})$ is shown below (maybe later) %add figure%
+.  Now, $\beta^{-1}\alpha=(143)$, which has odd order (order $3$), and since $|Sym(4)|=24$, $\alpha$ and $\beta$ have $12$ and $6$ cycles in $Sym(4)$, respectively, under the action of left multiplication.  Thus $V(X)$ can be partitioned into an even number of directed cycles, so, in particular, does not have a directed Hamilton cycle.
+
+
+This can generalize to an infinite family of directed Cayley graphs $X(n)=X(Sym(n),\{(12),(123\dots n)\})$.
+
+\begin{corollary}
+	{If $n\geq 4$ is even, then the directed Cayley graph $X(n)$ is not hamiltonian.}
+	
+\end{corollary}
+\begin{proof}
+	Performing the same construction above shows us that $\alpha$ has $\frac{n!}{2}$ cycles in its action by left multiplication and $(123\dots n)$ has $(n-1!)$, but $(123\dots n)^{-1}(12)$ has order $n-1$, so since we can only partition $V(X)$ into an even number of directed cycles, we are done.
+\end{proof}
+
+
+We know that $X(3)$ and $X(5)$ are hamiltonian, but we don't know about odd $n\geq 7$.
+
+
+\section*{Retracts}
+Recall that a \textit{retract} is a subgraph $Y$ of $X$ such that there exists a homomorphism $f$ from $X$ to $Y$ such that the restriction  $f\upharpoonright Y$ of $f$ to $Y$ is the identity map on the vertices in $Y$.  It's even enough to only require that $f\upharpoonright Y$ is a bijection, i.e. an automorphism of $Y$.  We're about to prove that every vertex-transitive graph is the retract of some Cayley graph.  If $G$ is our group acting transitively on $V(X)$ and $x$ and $y$ vertices of $X$, then by a lemma in Chapter 2, the set of group elements in $G$ which map $x$ to $y$ is a right coset of $G_x$.  Thus there is a bijection from $V(X)$ to the right cosets of $G_x$.  The action of $G$ on $V(X)$ coincides with the action of right multiplication on the cosets of $G_x$.
+
+\begin{theorem}
+	Any connected vertex-transitive graph is a retract of some Cayley graph.
+\end{theorem}
+\begin{proof}
+	Let $X$ be a connected vertex-transitive graph and let $x\in V(X)$.  Define the set $C=\{ g\in G|(x,x^g)\in E(X) \}$, the set of group elements which send $x$ to one of its neighbors.  We have that $C$ is the union of right cosets of $G_x$, and since $x$ is not adjacent to itself, $C\cap G_x$ is empty.  Furthermore, since $x^a$ is adjacent to $x^b$ if and only if $x$ is adjacent to $x^{ba^{-1}}$, this is true if and only if $ba^{-1}\in C$.
+	
+	If $g\in C$ and $h,h'\in G_x$, then $x=x^h$, $x^h$ is adjacent to $x^{gh}$, and $x^{gh}=x^{h'gh}$, so $h'gh\in C$.  Thus $G_x CG_x\subset C$, and since $e\in G_x$, $C\subset G_x C G_x$, so $C=G_x CG_x$.
+	
+	Let $H$ be the subgroup of $Aut(X)$ generated by $C$.  By induction on the diameter of $X$, we can see that $H$ acts transitively on the vertices of $X$.  Now let $Y$ be the Cayley graph $X(H,C)$.  The right cosets of $H_x$ partition $V(Y)$, so we can express any group element of $H$ as $ga$ for some $g\in H_x$.  If $g$ and $h$ are both in $H_x$, then $ga$ and $hb$ are adjacent if and only if $hb(ga)^{-1}=hba^{-1}g^{-1}\in C$, which happens if and only if $ba^{-1}\in C$.  Thus any two distinct right cosets have no edges between them or are completely connected, and since $e\notin C$, the subgraph of $Y$ induced by each right coset is empty.
+	
+	Therefore, the subgraph of $Y$ induced by any complete set of coset representatives of $H_x$ is isomorphic to $X$.  The map sending the vertices of $Y$ in some right coset of $H_x$ to the corresponding right coset, viewed as a vertex of $X$, is a homomorphism from $Y$ to $X$, and its restriction to a complete set of coset representatives is a bijection, thus $X$ is a retraction of the Cayley graph $Y$.
+\end{proof}
+
+
+Some dissection of the proof tells us that, given $X$, we can get the Cayley graph $Y$ by replacing each vertex of $X$ with an independent set of size $|G_x|$.  The graph induced by a pair of these independent sets is empty when the vertices in $X$ are not adjacent, or is a complete bipartite subgraph if they are adjacent. Then
+$$\frac{|V(X)|}{\alpha(X)}=\frac{|V(Y)|}{\alpha(Y)}$$
+where $\alpha(\cdot)$ is the size of the largest independent set in the respective graph.  This will come back later.
+
+
+\section*{Transpositions}
+
+We will look at some special Cayley graphs for the symmetric groups.  A set of transpositions ($2$-cycles) from $Sym(n)$ can be thought of as the edge set of a graph on $n$ vertices with $(ij)$ as a transposition corresponding to the edge $(i,j)$.  It is (also) a fact about symmetric groups that they are generated by the complete set of $2$-cycles.
+
+\definition{Call a generating set $C$ for a group \textbf{minimal} $G$ if for any $g\in C$, $C\setminus \{g\}$ is not a generating set.}
+
+\begin{lemma}
+	Let $\mathcal{T}$ be a set of transpositions in $Sym(n)$.  Then $\mathcal{T}$ is a generating set for $Sym(n)$ if and only if its graph is connected.
+\end{lemma}
+\begin{proof}
+	Let $T$ be the graph of $\mathcal{T}$.  The vertex set of this graph is $\{1,2,3,\dots,n\}$.  Let $G$ be the group generated by $\mathcal{T}$.  If $(1i)$ and $(ij)$ are elements of $\mathcal{T}$, then $(1j)$ is in $G$, as $(1j)=(ij)(1i)(ij)$.  By induction, if there is a path from $1$ to $i$ in $T$, then $(1i)\in G$.  Thus if $k$ and $\ell$ are in the same connected component, then $(k\ell)\in G$, by the same argument using $k$ instead of $1$.  Thus the transpositions belonging to some connected component generate the symmetric group on the vertices of that component.  Since no transposition can map between elements in different connected components, the entire graph must be connected if and only if our set of transpositions generate all of $Sym(n)$.
+\end{proof}
+
+\begin{lemma}
+	Let $\mathcal{T}$ be a set of transpositions in $Sym(n)$.  Then the following are equivalent:
+	\begin{enumerate}
+		\item[a)] $\mathcal{T}$ is a minimal generating set for $Sym(n)$.
+		\item[b)] The graph of $\mathcal{T}$ is a tree.
+		\item[c)] The product of the elements of $\mathcal{T}$ in any order is an $n$-cycle in $Sym(n)$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	A connected graph on $n$ vertices must have at least $n-1$ edges with equality if and only if it is a tree.  Thus (a) and (b) are equivalent, as removal of an element of $\mathcal{T}$ disconnects the graph, so by the previous lemma does not generate all of $Sym(n)$.
+	
+	To see that (b) and (c) are equivalent, observe that an $n$-cycle can be written as the product of no fewer than $n-1$ transpositions, and since all of the $n$-cycles are conjugate to each other, we can see that if \textit{any} ordering of the transpositions in $\mathcal{T}$ has a product which is not an $n$-cycle, all of them do, and $\mathcal{T}$ cannot generate the $n$-cycles, contradicting the equivalence of (a) and (b).
+\end{proof}
+
+There are $(n-1)!$ possible products of $n-1$ transpositions, and if (c) in the previous lemma holds, each of these will be distinct, i.e. we see every $n$-cycle exactly once, written as the product of a unique ordering of elements of $\mathcal{T}$.
+
+If $\mathcal{T}$ is a transposition, then the Cayley graph $X(Sym(n),\mathcal{T})$ has no triangles or any odd cycles, as the product of any odd number of transpositions cannot be another transposition.  This graph is bipartite, with classes corresponding to the parity of the elements of $Sym(n)$.
+
+From (b) in the previous lemma, we can see that each tree on $n$ vertices determines a Cayley graph of $Sym(n)$.
+
+
+\begin{lemma}
+	Let $\mathcal{T}$ be a set of transpositions in $Sym(n)$, and let $g,h\in \mathcal{T}$.  If the graph of $\mathcal{T}$ contains no triangles, then $g$ and $h$ have exactly one common neighbor in the Cayley graph $X(Sym(n),\mathcal{T})$ if $gh\neq hg$ and exactly two common neighbors otherwise.
+\end{lemma}
+\begin{lemma}
+	The neighbors of a vertex $g$ in $X(Sym(n),\mathcal{T})$ are those of the form $xg$, where $x\in \mathcal{T}$.  If $xg=yh$ is a common neighbor of $g$ and $h$, then $yx=hg$ and any solution to this yields a common neighbor.  If $h$ and $g$ commute, then $yx=hg$ has two solutions, one of which is the identity and the other is $hg$.
+	
+	If $h$ and $g$ do not commute, then they have overlapping support, but there are three ways to factor $hg$ into transpositions: as $hg$, as $ah$ and as $gb$, for specific $a$ and $b$.  But because there are no triangles in the graph of $\mathcal{T}$, $a$ and $b$ cannot be in $\mathcal{T}$, hence the identity is the only common neighbor of $g$ and $h$.
+\end{lemma}
+
+
+
+\begin{theorem}
+	Let $\mathcal{T}$ be a minimal generating set of transpositions for $Sym(n)$.  If the graph of $\mathcal{T}$ is asymmetric, the groups $Aut(X(Sym(n),\mathcal{T}))$ and  $Sym(n)$ are isomorphic.
+\end{theorem}
+
+\begin{proof}
+	Let $T$ be the graph of $\mathcal{T}$.  Since $\mathcal{T}$ is a minimal generating set, $T$ is a tree and is thus acyclic.  Then by the previous lemma, we can determine the set of non-commuting transpositions in $\mathcal{T}$ from the graph $X(Sym(n),\mathcal{T})$, or equivalently those transpositions in $\mathcal{T}$ which have overlapping support.  Thus $X(Sym(n),\mathcal{T})$ determines the line graph of $T$.  Since $T$ is a tree, it is determined by its line graph.
+	
+	Any (non-identity) element $g\in Aut(X(Sym(n),\mathcal{T}))$ induces a permutation of $\mathcal{T}$.  Since automorphisms preserve paths of length two, the restriction of $g$ to $\mathcal{T}$ is an automorphism of $T$, which, by the assumption on $T$, is trivial.
+	
+	Suppose now that $g\in Aut(X(Sym(n),\mathcal{T}))$ fixes at least one vertex.  We want to show that $g$ is the identity, and thus that this automorphism group acts regularly.  Suppose, for the sake of contradiction, that $g$ is not the identity.  Then since $X(Sym(n),\mathcal{T})$ is connected, there is a vertex $v$ fixed by $g$ adjacent to a vertex $w$ which is not fixed.  Then $\rho_vg\rho_v^{-1}$ fixes the vertex $e$ corresponding to the identity and moves the adjacent vertex $wv^{-1}$, which is impossible.  Thus $g$ must be the identity, so the automorphism group acts regularly.  Since the group acts regularly and every automorphism of $T$ is trivial, the automorphism group of $X(Sym(n),\mathcal{T})$ must be exactly $Sym(n)$.
+\end{proof}
+
+It is often difficult to determine the full automorphism group of a Cayley graph, so this theorem is actually kind of interesting.
+
+
+
+
+
+
+
 
 
 
@@ -363,5 +531,5 @@ Any group $G$ acts regularly on itself.  Recall that $\rho_g$ for $g\in G$ is th
 
 \ifdraft
 
-\input{../../zach_private_repo/alggraphth_exc/ex2}
+\input{../../zach_private_repo/alggraphth_exc/ex3}
 \fi
