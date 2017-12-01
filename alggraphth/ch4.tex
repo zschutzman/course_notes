@@ -1,0 +1,32 @@
+\renewcommand{\exc}[1]{\subsubsection*{Exercise 4.#1}}
+
+\classheader{: Arc-Transitive Graphs}
+
+Recall that an \textit{arc} in a graph is an ordered pair of adjacent vertices.  Thus a graph is \textit{arc-transitive} if its automorphism group acts transitively on the set of arcs.  This is stronger than vertex- or edge-transitivity, so we can prove some interesting things in this setting which apply to these weaker notions.  We begin by building up to Tutte's results on cubic arc-transitive graphs.  Then, we consider some famous examples of arc-transitive graphs.
+
+\section*{Arc-Transitive Graphs}
+\definition{An \textbf{$\boldsymbol{s}$-arc} in a graph is a sequence of $s$ vertices such that consecutive vertices are adjacent and $v_{n-1}\neq v_{n+1}$.  We are permitted to use the same vertex twice in general, just not in second-adjacent positions.  A graph is \textbf{$\boldsymbol{s}$-arc-transitive} if its automorphism group acts transitively on $s$-arcs.  This property is inductive, in that if a graph is $s$-arc-transitive, it is also $(s-1)$-arc-transitive.  A $0$-arc-transitive graph is vertex-transitive. A $1$-arc-transitive graph is sometimes called \textbf{symmetric}.}
+
+A cycle on $n$ vertices is $s$ arc-transitive for all $s$.\footnote{The comment in the book is one of the best things I've ever read in a math book: "...which only goes to show that truth and utility are different concepts."}  More interestingly, the cube $Q$ is $2$-arc-transitive but not $3$-arc-transitive, as the three arcs which form three sides of a $4$-cycle can't be mapped to three arcs which do not form three sides of a $4$-cycle.
+
+A graph $X$ is $s$-arc transitive if it has a group $G$ of automorphisms such that $G$ is transitive, and the stabilizer $G_u$ of a vertex $u$ acts transitively on $s$-arcs starting at $u$.
+
+\begin{lemma}
+	The graphs $J(v,k,i)$ are at least arc transitive.
+\end{lemma}
+\begin{proof}
+	Consider the vertex $\{1,2,3,\dots,k\}$.  The stabilizer of this vertex contains $Sym(k)\times Sym(v-k)$.  Clearly any two $k$-sets meeting this initial vertex in an $i$-set can be mapped to each other by this group.
+\end{proof}
+
+
+\begin{lemma}
+	The graphs $J(2k+1,k,0)$ are at least $2$-arc transitive.
+\end{lemma}
+\begin{proof}
+	hmm
+\end{proof}
+
+\ifdraft
+
+\input{../../zach_private_repo/alggraphth_exc/ex4}
+\fi
