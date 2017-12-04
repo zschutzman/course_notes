@@ -23,8 +23,38 @@ A graph $X$ is $s$-arc transitive if it has a group $G$ of automorphisms such th
 	The graphs $J(2k+1,k,0)$ are at least $2$-arc transitive.
 \end{lemma}
 \begin{proof}
-	hmm
+	Each edge in this graph can be labeled by the single element not in either of the sets it is incident to.  Thus a $2$-arc is an ordered pair of distinct elements.  Suppose we want to map the arc $[a,b]$ onto an arc $[x,y]$.  Then the permutation $(ax)(by)$ does the job.
 \end{proof}
+
+\definition{The \textbf{girth} of a graph is the length of the shortest cycle in it.}
+
+\begin{lemma}[Tutte]
+	If $X$ is an $s$-arc transitive graph with valency at least $3$ and girth $g$, then $g\geq 2s-2$.
+\end{lemma}
+\begin{proof}
+	
+	
+	Let's assume $s\geq 3$, otherwise the conclusion is meaningless.  By our assumption, $X$ contains a cycle of length $g$ as well as a path of length $g$ whose endpoints are not adjacent.  This is a $g$-arc with adjacent end vertices and a $g$-arc with nonadjacent end vertices.  No automorphism can map one to the other, so $s<g$.  Since $X$ contains cycles of length $g$, and since these contain $s$-arcs, any $s$-arc must lie in some cycle of length $g$.  Let $\alpha=v_1,v_2,\dots,v_s$ be an $s$-arc.  Since $v_{s-1}$ has valency at least $3$, it is adjacent to some vertex $w\neq v_s,v_{s-2}$, and since the girth of $X$ is at least $s$, $w$ doesn't lie in $\alpha$, otherwise we could have constructed a shorter cycle.  Thus if we replace $v_s$ with $w$, we get a second $s$-arc $\beta$ which intersects $\alpha$ in an $(s-1)$-arc.  Since $\beta$ lies in a $g$-cycle as well, we get a pair of cycles of length $g$ which share at least $s-1$ edges in common.
+	
+	Deleting these $s-1$ edges from the graph, the graph must still contain a cycle of length at most $2g-2s+2$, so $2g-s2+2\geq g$, and the result follows from algebraic manipulation.
+	
+	
+	
+	
+\end{proof}	
+	
+A natural question to ask is what we can say about the $s$-arc transitive graphs with girth equal to $2s-2$.  It follows from the next lemma that these graphs are what we will later refer to as \textit{generalized polygons}.
+
+\begin{lemma}[Tutte]
+	If $X$ is $s$-arc transitive with girth $2s-2$, it is bipartite with diameter $s-1$.
+\end{lemma}
+\begin{proof}
+	First, if $X$ has girth $2s-2$, then any $s$-arc lies in at most one cycle of length $2s-2$, and so if $X$ is $s$-arc transitive, every $s$-arc lies in a unique cycle of length $2s-2$.  Thus $X$ has diameter at least $s-1$, which is the distance between opposite points in such a cycle.  Let $u$ be a vertex of $X$ and suppose, for the sake of contradiction, that $v$ is a vertex at distance $s$ from $u$.  Then there is an $s$-arc joining $u$ and $v$, which lies in a cycle of length $2s-2$.  Since the diameter of such a cycle is $s-1$, we have a contradiction.  Thus the diameter of $X$ is at most $s-1$, so it is equal to this quantity.
+	
+	If $X$ is not bipartite, it contains an odd cycle of minimal length $C$.  Because the diameter of $X$ is $s-1$, the cycle must have length $2s-1$.  Let $u$ be a vertex in $C$ and let $v,v'$ be the two vertices at distance $s-1$ from $u$.  Then we can form an $s$-arc $u,\dots,v,v'$ which must lie in a cycle $C'$ of length $2s-2$.  The vertices of $C$ and $C'$ not internal to this $s$-arc form a cycle of length less than $2s-2$, which contradicts our earlier result.
+\end{proof}
+
+In a little bit, we'll use this result to show that $s$-arc transitive graphs with girth $2s-2$ are distance transitive.
 
 \ifdraft
 
