@@ -56,6 +56,261 @@ A natural question to ask is what we can say about the $s$-arc transitive graphs
 
 In a little bit, we'll use this result to show that $s$-arc transitive graphs with girth $2s-2$ are distance transitive.
 
+
+
+
+
+
+\section*{Arc Graphs}
+
+\definition{If $s\geq 1$ and $\alpha=(x_0,x_1,\dots,x_s)$ is an arc in $X$, the \textbf{head} $head(\alpha)$ is the $(s-1)$-arc $(x_1,x_2,\dots,x_s)$ and the \textbf{tail} $tail(\alpha)$ is the $(s-1)$-arc $(x_0,x_1,\dots,x_{s-1})$.  If $\alpha$ and $\beta$ are $s$-arcs, then we say \textbf{$\boldsymbol{\alpha}$ follows $\boldsymbol{\beta}$} if there is an $(s+1)$-arc $\gamma$ such that $head(\gamma)=\beta$ and $tail(\gamma)=\alpha$.  Sometimes we say that $\alpha$ can be \textbf{shunted} onto $\beta$.
+	}
+
+Let $s$ be a non-negative integer.  We let $X^{(s)}$ denote the directed graph with the $s$-arcs of $X$ as its vertices, such that $(\alpha,\beta)$ is an arc in $X^{(s)}$ if and only if $\alpha$ can be shunted onto $\beta$.  Automorphisms of $X$ extend to automorphisms of $X^{(s)}$, so if $X$ is $s$-arc transitive, $X^{(s)}$ is vertex transitive.
+
+\begin{lemma}
+	Let $X$ and $Y$ be directed graphs and let $f$ be a homomorphism from $X$ onto $Y$ such that every edge in $Y$ is the image of an edge in $X$ (i.e. $f$ is edge-surjective).  Suppose $y_0,y_1,\dots,y_r$ is a path in $Y$.  Then for each vertex $x_0$ in $X$ such that $f(x_0)=y_0$, there is a path $x_0,x_1,\dots,x_r$ such that $f(x_i)=y_i$.  That is, if $f$ is edge-surjective, then the preimages of $r$-arcs in $Y$ are $r$-arcs in $X$ in the natural way.
+\end{lemma}
+\begin{proof}
+	 Any vertex which is the preimage of $y_0$ must be adjacent to some vertex which is the preimage of $y_1$, as $f$ preserves adjacency.  Since homomorphisms map edges onto edges, we can proceed inductively.
+\end{proof}
+\definition{A \textbf{spindle} in $X$ is a subgraph of $X$ consisting of two given vertices $u$ and $v$ joined by three paths, with any two of these having only the endpoints in common.  A \textbf{bicylce} is a subgraph consisting of either two cycles with exactly one vertex in common or two vertex-disjoint cycles with a path connecting them such that the only sharing of vertices is that each cycle contains an endpoint of the path.}
+ \begin{lemma}
+ 	
+ If $X$ is a spindle or a bicycle, then $X^{(1)}$ is strongly connected.
+\end{lemma}
+\begin{proof}
+	Recall that $X^{(1)}$ is the directed graph whose vertices are edges in $X$ with an arc $(x,z)$ if and only if $x,y,z$ is a 2-arc in $X$.  This graph is vertex-transitive, so by an earlier theorem which states that if every vertex has in-valency equal to its out-valency, then it is weakly connected if and only if it is strongly connected.  Since $X$ is connected, $X^{(1)}$ is weakly connected, thus it is strongly connected.
+\end{proof}
+
+\begin{theorem}
+	If $X$ is a connected graph with minimum valency two which is not a cycle, then $X^{(s)}$ is strongly connected for all $s\geq 0$.
+\end{theorem}
+\begin{proof}
+	First we prove this for $s=0,1$ then for all $s$ by induction.  If $s=0$, then $X^{(0)}$ is the graph where we replace each edge in $X$ with a pair of opposite directed arcs, so this case is obviously true.  For $s=1$, we need to show that any $1$ arc can be shunted onto any other 1-arc.  Since $X$ is connected, we can shunt any 1-arc onto an edge of $X$, but not necessarily in the correct direction.  We therefore need to show that any 1-arc can be reversed, that is the arc $(x,y)$ can be shunted onto the arc $(y,x)$.
+	
+	Since $X$ has minimum valency at least two and is finite, it contains a cycle $C$.  If $C$ does not contain $x$ and $y$, then we can find a path in $X$ joining $y$ to $C$.  We can then shunt $(x,y)$ along the path and around the cycle then back along the path to get a $y{-}x$ arc.
+	
+	If $x$ and $y$ are both in $C$ but they are not adjacent in the cycle, then adding the edge $(x,y)$  to $C$ forms a spindle, so by the lemma above, we are done.
+	
+	Finally, we need to consider that $(x,y)$ is an edge in $C$.  Since $X$ is not a cycle and is connected, there is a vertex $z$ in $X$ which is not in $C$ adjacent to some vertex $w$ in $C$.  Let $P$ be a maximal-length path in $X$ such that $w$ and $z$ are the first two vertices in $P$.  The last vertex in $P$ is adjacent to a vertex in $P$ and possibly a vertex in $C$.  If it is adjacent to a vertex in $C$ which is not $w$, then $(x,y)$ is an edge in a spindle formed by adding this edge to $P$.  If it is adjacent to a vertex in $P$ which is not in $C$, then we can add this edge to form a bicycle.  In either case, by the above lemma, we are done.
+	
+	Finally, we induct.  Suppose that $X^{(s)}$ is strongly connected for some $s\geq 1$.  The operation of taking the head of an $(s+1)$-arc is a homomorphism from $X^{(s+1)}$ to $X^{(s)}$.  Since $X$ has minimum valency at least two, each $s$-arc is the head of some $(s+1)$-arc, so every edge in $X^{(s)}$ is the image under the homomorphism of some edge in $X^{(s+1)}$.  Let $\alpha,\beta$ be any two $(s+1)$-arcs in $X$.  Since $X^{(s)}$ is strongly connected, there is a path in it joining $head(\alpha)$ to $tail(\beta)$.  By the earlier lemma, this path lifts to a path in $X^{(s+1)}$ from $\alpha$ to a vertex $\gamma$ such that $head(\gamma)=tail(\beta)$.  Since $X$ has minimum valency at least two  and $s\geq 1$, $\gamma$ can be shunted onto $\beta$, so $\alpha$ can be shunted onto $\beta$ by $\gamma$, so there is a path in $X^{(s+1)}$ from $\alpha$ to $\beta$.  Since these were chosen arbitrarily, it follows that $X^{(s+1)}$ is strongly connected.
+
+
+\end{proof}
+
+We're about to use this to prove that an arc-transitive cubic graph is $s$-arc regular for some $s$.
+
+\section*{Cubic Arc-Transitive Graphs}
+
+A result of Tutte shows that for any $s$-arc transitive cubic graph, $s\leq 5$.  This led to a result of Weiss that for any $s$-arc transitive graph, $s\leq 7$.  This result relies on the classification of the finite simple groups.
+
+\begin{lemma}
+	Let $X$ be a strongly connected directed graph, let $G$ be a transitive subgroup of its automorphism group, and, if $u$ is a vertex of $X$, let $N(u)$ be the set of vertices such that $(u,v)$ is an arc of $X$.  IF there is a vertex $u$ such that $G_u\upharpoonright N(u)$ is the identity, then $G$ is regular.
+\end{lemma}
+\begin{proof}
+	
+	Suppose that $u$ is a vertex of $X$ and that $G_u\upharpoonright N(u)$ is the identity group.  By an earlier lemma, if $v$ is any vertex in $X$, then $G_u$ is conjugate to $G_v$ in $G$, as $v=u^g$ for some $g$ by transitivity, and $g^{-1}G_u g = G_{x^g}=G_v$.  Hence $G_v\upharpoonright N(v)$ must be the identity for all vertices $v$.
+	
+	Assume, for the sake of contradiction, that $G_u$ is not the identity group.  Since $X$ is strongly connected, we can pick a path from $u$ to some vertex $w$ which is not fixed by $G_u$, and we can, without loss of generality, pick the $w$ corresponding with the shortest such path.  Then if $v$ is the second-last vertex along this path, and $u\neq v$ as $N(u)$ is fixed by $G_u$, and $N(v)$ is not fixed here.  Since $G_u$ fixes $v$ it fixes $N(v)$, but acts nontrivially on it, because it doesn't fix $w$.  Hence $G_v\upharpoonright N(v)$ is not the identity group.  This is our contradiction, hence $G_u$ is the identity group.
+	
+	Thus the group acts regularly as the only group element with fixed points is the identity.
+	
+	
+	
+	
+	
+	
+	
+\end{proof}
+
+\definition{A graph is \textbf{$\boldsymbol{s}$-arc regular} if for any two $s$-arcs there is a unique automorphism mapping the first to the second.}
+
+
+
+
+\begin{lemma}
+	Let $X$ be a connected cubic graph which is $s$-arc transitive but not $(s+1)$-arc transitive.  Then $X$ is $s$-arc regular.
+\end{lemma}
+\begin{proof}
+	If $X$ is cubic, then $X^{(s)}$ has out-valency two.  Let $G=Aut(X)$, let $\alpha$ be an $s$-arc in $X$, and let $H$ be the subgroup of $G$ which fixes each vertex in $\alpha$.  Then $G$ acts vertex transitively on $X^{(s)}$ and $H$ is the stabilizer in $G$ of the vertex $\alpha$ in $X^{(s)}$.  If the restriction of $H$ to the out-neighbors of $\alpha$ isn't trivial, then $H$ must swap the two $s$-arcs which follow $\alpha$.  Any two $(s+1)$-arcs in $X$ can be mapped by elements of $G$ to $(s+1)$-arcs which have $\alpha$ as the initial $s$-arc portion.  In this case, $G$ acts transitively on the $(s+1)$-arcs of $X$, which contradicts the assumption.  Thus the restriction of $H$ to the out-neighbors of $\alpha$ must be trivial, so by the previous lemma, the whole group $H$ must be trivial.  This $G_\alpha = \{e\}$, so $G$ acts regularly on the $s$-arcs of $X$.
+\end{proof}
+
+If $X$ is a regular graph on $n$ vertices with valency $k$ and $s\geq 1$, then there are exactly $nk(k-1)^{s-1}$ $s$-arcs.  It follows that if $X$ is $s$-arc transitive, then $|Aut(X)|$ must be divisible by $nk(k-1)^{s-1}$ and if $X$ is $s$-arc regular, then $|Aut(X)|=nk(k-1)^{s-1}$.  In particular, a cubic arc-transitive graph $X$ is $s$-arc regular if and only if $|Aut(X)|=(3n)2^{s-1}$.  For example consider the cube $Q$ on $8$ vertices.  The stabilizer of a vertex must contain $Sym(3)$, so $|Aut(Q)|\geq 48$.  We saw earlier that $Q$ is not $3$-arc transitive, so it must be 2-arc regular, hence $|Aut(Q)|=48$.
+
+Finally, we get to Tutte's theorem:
+
+\begin{theorem}[Tutte]
+	If $X$ is $s$-arc regular and cubic, then $s\leq 5$.
+\end{theorem}
+
+The smallest $5$-arc regular cubic graph is Tutte's 8-cage on 30 vertices.
+
+\begin{corollary}
+	If $X$ is arc-transitive and cubic, $v$ is a vertex of $X$ and $G=Aut(X)$, then $|G_v|$ divides $48$ and is divisible by $3$.
+\end{corollary}
+
+
+\section*{The Petersen Graph}
+
+The Petersen graph is really cool.  It's small (10 vertices, 15 edges) but it plays a central role in many different aspects of graph theory, as it is a frequent example and counterexample.  We have already proven some things about the Petersen graph under a different name, such as $J(5,2,0)$ or $\overline{L(K_5)}$, the dual of $K_6$ in $\RP^2$, and as one of the five nonhamiltonian vertex-transitive graphs.
+
+The Petersen graph an also be constructed from the dodecahedron.  Every vertex in the dodecahedron has a unique vertex at distance five from it. Consider the graph where vertices correspond to pairs $\{v,v'\}$ of such vertices, where $\{u,u'\}$ is adjacent to $\{v,v'\}$ if and only if there is a perfect matching between them in the dodecahedron.  The resulting graph is the Petersen graph, and we say that the dodecahedron is a \textit{two-fold cover} of the Petersen graph.  Covers will come back later, but they are of importance in algebraic topology.
+
+Since $Sym(5)$ acts on $J(5,2,0)$, the automorphism group of the Petersen graph has order at least $120$, so it is at least 3-arc transitive.  Because its girth is five, it cannot be 4-arc transitive.  Thus it is 3-arc regular and its automorphism group has exactly 120 elements.  Thus $Sym(5)$ in its action on the 2-element subsets of a set of five elements is the entire automorphism group of the Petersen graph.
+
+The Petersen graph is important in one of the most famous graph theory problems, the Four Color Theorem.  This theorem asks whether (and answers in the affirmative)  any plane graph can be properly face-colored with at most four colors such that any two adjacent faces are a different color.  It can be shown that this is equivalent to asking whether a cubic planar graph with edge connectivity at least two can be properly edge-colored with three colors such that any two edges incident to the same vertex are colored differently.  The Petersen graph was the first cubic graph to be shown to not have a proper 3-edge coloring.
+
+\begin{theorem}
+	The Petersen graph cannot be 3-edge-colored.
+\end{theorem}
+\begin{proof}
+	Let $P$ be the Petersen graph and suppose, for the sake of contradiction, that $P$ can be properly 3-edge-colored.  Since $P$ is cubic, each color class is a 1-factor (a perfect matching).  Exploring a case argument shows that each edge belongs to exactly two 1-factors.  For each of these 1-factors, the remaining edges form a graph isomorphic to a pair of $C_5$ cycles, which cannot be partitioned into two 1-factors.  Since $P$ is edge-transitive, this must hold for all 1-factors of $P$, so $P$ cannot be properly 3-edge-colored.
+\end{proof}
+
+Since the Petersen graph is not planar, it is not a counterexample to the Four Color Theorem.  
+
+We have seen that there is a cycle through any nine, but not all ten, vertices of the Petersen graph.  Let $X\setminus v$ denote the induced subgraph realized by deleting the vertex $v$ from the graph.  A nonhamiltonian $X$ for which $X\setminus v$ is hamiltonian for all vertices $v$ is called \textit{hypohamiltonian}.  The Petersen graph is the unique smallest hypohamiltonian graph, and the next smallest have 13 and 15 vertices, respectively, and these are closely related to the Petersen graph.  These will come back later.
+
+We have only just begun to see the special properties of the Petersen graph, and it will show up again and again.  In particular, the Petersen graph is \textit{distance-transitive}, a \textit{Moore graph}, and \textit{strongly regular}.
+
+
+\section*{Distance-Transitive Graphs}
+\definition{A connected graph $X$ is \textbf{distance transitive} if, given any two ordered pairs of vertices $(u,u')$ and $(v,v')$ such that $d(u,u')=d(v,v')$, there exists an automorphism $g$ of $X$ such that $(v,v')=(u,u')^g$.  A distance-transitive graph is always at least 1-arc transitive.  The complete graphs, the complete bipartite graphs with equal sized classes, and the circuits are all distance transitive.}
+
+The Petersen graph is distance transitive, since it and its complement are both arc transitive.  Another family of examples are the $k$-cubes $Q_k$ from Chapter 3.  If $d(u,u')=d(v,v')=i$, then by adding $u$ (realized as a bit string) to the first pair and $v$ to the second pair lets us assume, without loss of generality, that $u=v=\vec{0}$.  Then $u'$ and $v'$ are different strings with $i$ ones which can obviously be mapped to each other by an element of $Sym(k)$ which acts by permuting indices.
+
+\begin{lemma}
+	The graph $J(v,k,k-1)$ is distance transitive.
+\end{lemma} 
+\begin{proof}
+	We want to show that  $u$ and $v$ have distance $i$ in $J(v,k,k-1)$ if and only if $|u\cap v|=k-i$, realizing $u$ and $v$ as $k$-sets.  To see this, observe that the definition of the graph is that $u$ and $v$ are at distance one if and only if their intersection has $k-1$ elements.  Vertices $u$ and $v$ are at distance $2$ if and only if there is some vertex $w$ such that $|u\cap w|=|w\cap v|=k-1$ and $|u\cap v|\neq k-1$.  Since $u,v,w$ are all $k$-sets, this can only happen if $u$ and $v$ share exactly $k-2$ elements.  We can proceed further inductively.  
+\end{proof}
+
+\begin{lemma}
+	The graph $J(2k+1,k+1,0)$ is distance transitive.
+\end{lemma}
+\begin{proof}
+	This follows immediately from the proof that it is $k$-arc transitive.
+\end{proof}
+
+There is an equivalent characterization of distance transitivity which is often easier to work with, but we need to develop a bit of notation first. If $u$ is a vertex of $X$, then let $X_i(u)$ denote the set of vertices at distance $i$ from $u$.  The partition $\{u,X_i(u),\dots, X_d(u)\}$ is called the \textit{distance partition} with respect to $u$\footnote.{this thing should look very familiar to anyone who's seen breadth first search algorithms before} If $G$ acts distance transitively on $X$, $u$ is a vertex of $X$, and $v,v'$ are two vertices at distance $i$ from $u$, there is an element of $G$ which maps $(u,v)$ to $(u,v')$, that is there is some $g\in G_u$ which maps $v$ to $v'$, and thus $G_u$ acts transitively on $X_i(u)$.  Thus the cells of the distance partition with respect to $u$ are the orbits of $G_u$.  If the diameter of $X$ is $d$, then for any vertex $u$ in $X$, the vertex stabilizer $G_u$ has exactly $d+1$ orbits, so $G$ is transitive with rank $d+1$.
+
+Since the cells of the distance partition are orbits of $G_u$, every vertex in $X_i(u)$ is adjacent to $a_i$ vertices in $X_i(u)$, $b_i$ vertices in $X_{i+1}(u)$ and $c_i$ vertices in $X_{i-1}(u)$.  Another way to say this is that the graph induced by the cell $X_i(u)$ is $a_i$-regular, and the graph induced by any pair of cells is semiregular.  The whole graph $X$ is regular, and its valency is $b_0$, the number of edges from $u$ to any vertex in $X_1(u)$.  If $d$ is the diameter of $X$, then $c_i+a_i+b_i=b_0$ for $i=1,2,\dots,d$.
+
+These are called the \textit{parameters} of the distance transitive graph $X$ and determine lots of properties of $X$.  We can write these numbers in a $3{\times}(d+1)$ array called the \textit{intersection array}:
+
+$$\begin{Bmatrix}
+	-&c_1&\dots&c_{d-1}&c_d\\
+	a_0&a_1&\dots &a_{d-1}&a_d\\
+	b_0&b_1&\dots &b_{d-1}&-
+\end{Bmatrix}$$
+
+Each column sums to the valency of the graph, so we only need to give only two rows to determine the third and thus the whole graph. It is customary to use the following abbreviation:
+
+$$\left\{  b_0,b_1,\dots,b_{d-1};c_1,c_2,\dots,c_d    \right\}$$
+
+As an example, think of the dodecahedron.  A quick examination lets us construct the following intersection array:
+
+$$\begin{Bmatrix}
+-&1&1&1&2&3\\
+0&0&1&1&0&0\\
+3&2&1&1&1&-
+\end{Bmatrix}$$
+
+\begin{lemma}
+	A connected $s$-arc tranitive graph with girth $2s-2$ is distance transitive with diameter $s-1$.
+\end{lemma}
+
+\begin{proof}
+	
+	Let $X$ be connected, $s$-arc transitive, and have girth $2s-2$, and let $(u,u')$ and $(v,v')$ be pairs of vertices at distance $i$.  Since $X$ has diameter $s-1$, we know that $i\leq s-1$.  These two pairs of vertices are joined by paths of length $i$, and since $X$ is transitive on $s$-arcs, it must be transitive on $i$ arcs as well.  Thus there is an automorphism mapping $(u,u')$ to $(v,v')$, so $X$ is distance transitive.
+	
+	
+	
+\end{proof}
+
+
+
+
+
+
+Distance transitivity is a \textit{symmetry property} of graphs in that it is defined in terms of the existence of certain automorphisms, namely that the $a_i,b_i,c_i$ are well-defined.  There is a combinatorial analogue which simply asks that these numerical properties of the $a_i,b_i,c_i$ hold, without making mention of automorphisms and whether or not they exist.  Given any $X$, we can compute the distance partition, and it may occur by accident that every vertex in $X_i(u)$ is adjacent to some constant number of vertices in its own and the adjacent cells, regardless of whether there are automorphisms which force this to happen.  
+\definition{If the intersection array os well-defined and is the same regardless of which vertex $u$ we pick as the initial vertex, then $X$ is called \textbf{distance regular}.  Any distance transitive graph must be distance regular, but the converse is not at all true.}
+
+One class of distance regular graphs, many of which are not distance transitive are the \textit{Latin squares}.  A Latin square of order $n$ is a an $n{\times}n$ matrix with entries from $\{1,2,\dots,n\}$ such that each row and column has each element exactly once.  Given an $n{\times}n$ Latin square $L$, we can get the set of $n^2$ triples $(i,j,L_{ij})$, which correspond to a row index, a column index, and the entry at that position.  Let $X(L)$ be the graph with these triples as vertices and edges between two triples if and only if they agree on at one coordinate (by the definition of Latin squares, they can agree on at most one coordinate).  Alternatively, $X(L)$ is the graph whose vertices are the $n^2$ positions in $L$ and two `positions' are adjacent if they lie in the same row, the same column, or have the same entry.  This graph has $n^2$ vertices, diameter $2$, and is $3(n-1)$-regular.  It is distance regular but not, in general, distance transitive.
+
+\begin{lemma}
+	The order $n$ Latin square $L$ is distance regular
+\end{lemma}
+\begin{proof}
+	Each vertex has the same valency and $L$ has diameter $2$, so every distance partition will have one vertex in $X_0(u)$, $3(n-1)$ vertices in $X_1(u)$, and the remainder in $X_2(u)$, and by symmetry, the intersection arrays must be the same for all choices of $u$.
+\end{proof}
+
+\section*{The Coxeter Graph}
+
+The Coxeter graph is a 28-vertex cubic graph with girth 7.  One way to construct it is to take Cayley graphs on the cycles $X(\mathbb{Z}_7,\{1,-1\})$, $X(\mathbb{Z}_7,\{2,-2\})$ and $X(\mathbb{Z}_7,\{3,-3\})$ and add seven new vertices, each of which connects to the same element in each cycle.
+
+Another way to construct it is as an induced subgraph of $J(7,3,0)$.  The vertices of $J(7,3,0)$ are the 35 triples from $\Omega=\{1,2,\dots,7\}$, two vertices are adjacent if they correspond to disjoint triples, distance 2 if they have 2 points in common, and distance 3 if they share one point.  Call a \textit{heptad} a set of seven triples such that each pair share exactly one point and there is no point in all of them.  Graph theoretically, a helptad is a set of seven vertices such that each pair is at distance 3.  As an example, the set $\{(124),(235),(346),(457),(561),(672),(713)\}$ form a heptad.  This set of triples is invariant under the 7-cycle $\sigma=(1234567)\in Sym(7)$.  It's easy to see that the four triples $\{(357),(367),(567),(356)\}$ lie in distinct orbits of $\sigma$.  The orbit of $(356)$ is another heptad.  The orbits of the first three are isomorphic, in the order presented, to $X(\mathbb{Z}_7,\{1,-1\})$, $X(\mathbb{Z}_7,\{2,-2\})$ and $X(\mathbb{Z}_7,\{3,-3\})$, respectively.  It's simple to see that these three triples are the unique triples in their orbits which are disjoint from $(124)$, and a little harder to see that no triple from one of these orbits is disjoint from any triple in one of the other two.  Thus, the orbits of the triples $\{(124),(357),(367),(567)\}$ induce a subgraph isomorphic to the Coxeter graph, and the seven vertices excluded from this subgraph are a heptad.  We can use this embedding to show that its girth is seven.
+
+\begin{lemma}
+	The diameter of $J(7,3,0)$ is three and its girth is six.
+\end{lemma}
+\begin{proof}
+	Let $Y=J(7,3,0)$.  $Y_1(u)$ is the set of triples disjoint from $u$, $Y_2(u)$ is the set of triples which meet $u$ in two points, and $Y_3(u)$ the set of triples which meet $u$ in one point.  Thus there are no edges internal to $Y_1(u)$ or $Y_2(u)$, so the girth of $Y$ is at least six.  Since it is easy to find a 6-cycle, the girth is also at most six, and we are done.
+	
+	
+	
+\end{proof}
+
+A quick argument shows that each triple in $\Omega$ not in a heptad is disjoint from exactly one triple of the heptad.  Thus deleting a heptad from $J(7,3,0)$ gives us a 28-vertex cubic graph $X$.  To show that $X$ has girth seven, we need to show that every heptad meets every 6-cycle on $J(7,3,0)$, so we characterize the 6-cycles of $J(7,3,0)$.
+
+\begin{lemma}
+	There is a bijection between 6-cycles in $J(7,3,0)$ and partitions of $\Omega$ of the form $\{abc,de,fg\}$.
+\end{lemma}
+\begin{proof}
+
+The partition $\{abc,de,fg\}$ corresponds to the 6-cycle $ade,bfg,cde,afg,bde,cfg$.  To show that every 6-cycle has this form, we just need to look at 6-cycles through $123$.  Without loss of generality, assume that the neighbors of $123$ are $456$ and $457$.  The vertex at distance three from $123$ has one point in common with $123$, say 1, and two in common with $456$ and $457$, so it must be $145$.  This then determines the partition $\{167,23,45\}$, and the 6-cycle must be of the type described above.
+\end{proof}
+
+\begin{lemma}
+	Every heptad meets every 6-cycle in $J(7,3,0)$.
+\end{lemma}
+\begin{proof}
+	The seven triples in a heptad contain 21 pairs of points. As two distinct triples have only one point in common, these pairs must be distinct.  Thus each pair of points in $\Omega$ lies in exactly one triple in the heptad.  If the point $i$ lies in $r$ triples, then it lies in $2r$ pairs.  Thus each point must lie in exactly three triples.  Without loss of generality, consider the 6-cycle corresponding to $\{123,45,67\}$.  Each heptad has a triple of the form $a45$ and one of the form $b67$.  At least one of $a,b$ must be one of $1,2,3$, otherwise the two triples would meet in two points.  Thus the 6-cycle has a point in common with any heptad.
+\end{proof}
+
+We'll see later that all of the heptads in $J(7,3,0)$ are equivalent under $Sym(7)$.  The automorphism group of the Coxeter graph is at least the size of the stabilizer in $Sym(7)$ of the heptad we removed from $J(7,3,0)$.  The heptad described earlier is fixed by the permutations $(23)(47),(2347)(56),(235)(476),(1234567)\subset Sym(7)$.  The first two generate a group of order $8$, so the group generated by these has order divisible by 8,3, and 7, and is therefore of order at least 168.  This implies the Coxeter graph is at least 2-arc transitive.  In fact, there is an additional automorphism of order two, so its full automorphism group has order 336 and acts 3-arc regularly.
+
+
+\section*{Tutte's 8-Cage}
+
+Another cubic arc-transitive graph is Tutte's 8-cage on 30 vertices.  Tutte, in 1947, gave the following description of the construction of the graph.  Take the cube $Q$ and an additional vertex $\infty$.  In each set of four parallel edges, join the midpoint of each pair of opposite edges with an edgem then join the modpoint of the two new edges by an edge, then join the midpoint of this edge to $\infty$.  The resulting graph is cubic and on 30 vertices.  Alternatively, we can use the edges and 1-factors of $K_6$.  There are 15 edges in $K_6$, and each lies in three 1-factors (perfect matchings), so there are 15 1-factors.  Construct a bipartite graph $T$ with the 15 edges as one color class and the 15 1-factors as the other, with an edge in $T$ corresponds with an edge in the first class being part of a 1-factor in the second.  This graph is cubic and on 30 vertices, and is isomorphic to the 8-cage.  One advantage here is that it is clear that $Sym(6)$ acts as an automorphism group with the two partitions as its orbits.
+
+We should still think about why these two descriptions are equivalent.  It turns out that the cubic graph on 30 vertices with girth 8 is unique.  We'll first show that this bipartite graph $T$ has girth 8.
+
+\begin{lemma}
+	Let $F$ be a 1-factor of $K_6$ and let $e$ be an edge of $K_6$ which is not in $F$.  Then there is a unique 1-factor on $e$ which contains an edge of $F$.
+\end{lemma}
+\begin{proof}
+	Two edges of $K_6$ lie in a 1-factor if and only if they are disjoint, and two disjoint edges lie in a unique 1-factor.  Since $e\notin F$, it meets two distinct edges of $F$, so it is disjoint from exactly one edge in $F$, and $e$ plus this edge thus lie in a unique 1-factor.
+\end{proof}
+
+Since $T$ is bipartite, if its girth is less than $8$, it must be four or six, as bipartite graphs do not contain odd cycles.  The girth can't be four, as otherwise $e_1,F_1,e_2,F_2$ is a cycle where $e_2$ belongs to disjoint 1-factors $F_1,F_2$, but both of these contain $e_1$, which obviously can't happen. Similarly, the girth can't be six, as then $e_1,F_1,e_2,F_2,e_3,F_3$ is a cycle in which $F_2$ and $F_3$ are distinct 1-factors on $e_3$ which contain $e_2$ and $e_1$, respectively, contradicting the previous lemma.  Thus $T$ has girth at least eight.  To see that it is exactly eight, we can construct an 8-cycle.  There are lots of them, but one example is $(1,2),(1,2{-}3,4{-}5,6),(34),(1,5{-}2,6{-}3,4),(2,6),(1,4{-}2,6{-}3,5),(3,5),(1,2{-}3,5{-}4,6)$ (the edge $(1,2)$, then the 1-factor matching 1 to 2, 3 to 4, and 5 to 6, and so on).
+
+Finally, we need to show that there is an automorphism which swaps the classes of vertices, which we need to build up to a little bit.
+
+\definition{A \textbf{1-factorization} of a graph is a partition of its edge set into 1-factors.}
+Given a 1-factor $F$ of $K_6$, there are six 1-factors which share an edge with $f$, so eight are edge-disjoint from $F$.  The union of two disjoint 1-factors in $K_6$ forms a 6-cycle, so the remaining edges form a 3-prism.  The 3-prism has four 1-factors and a unique 1-factoriziation, so any dishoint one factors lie in a unique 1-factorization.  Counting the triples $(F,G,\mathcal{F})$ where $F$ and $G$ are 1-factors in the 1-factorization $\mathcal{F}$, we see there are six 1-factorizations of $K_6$.  Since each 1-factor lies in the same number of 1-factorizations, this implies that each 1-factor lies in two 1-factorizations.  There are fifteen pairs of distinct 1-factorizations, so any two distinct 1-factorizations have a unique 1-factor in common.
+
+We will use these six 1-factorizations to construct a bijection between the edges and the 1-factors of $K_6$ and then show that this bijection is an automorphism of $T$.  Arbitrarily label the 1-factorizations of $K_6$ as $\mathcal{F}_1,\dots,\mathcal{F}_6$.  Define a map $\psi$ by doing the following.  If $e=(i,j)$ is an edge in $K_6$, then $\psi(e)$ is the 1-factor that $\mathcal{F}_i$ and $\mathcal{F}_j$ have in common.  The five edges in $K_6$ incident to vertex $i$ are mapped by $\psi$ to the five 1-factors contained in $\mathcal{F}_i$.  If $e$ and $f$ are edges in $K_6$ incident to the same vertex, then $\psi(e)$ and $\psi(f)$ are edge-disjoint 1-factors.  Since there are only eight 1-factors disjoint from any given one, this tells us that if $e$ and $f$ are not incident, then $\psi(e)$ and $\psi(f)$ must share an edge.  Thus three independent edes in $K_6$ are mapped by $\psi$ to three 1-factors, any two of which share an edge.  Any such set must therefore consist of the three 1-factors on a single edge.  Thus if $F=\{e,f,g\}$ is a 1-factor, then define $\psi(F)$ to be the edge of $K_6$ common to $\psi(e),\psi(f),\psi(g)$.
+
+This is definitely a bijection, and all we need to show now is that it is also an automorphism of $T$.  Suppose that $e$ is an edge adjacent to the 1-factor $F=\{e,f,g\}$.  Then $\psi(F)$ is the edge that $\psi(e),\psi(f),\psi(g)$ share.  In particular, $\psi(F)$ is an edge in $\psi(e)$, so $\psi(e)$ is adjacent to $\psi(f)$ in $T$.  Thus $\psi$ is an automorphism of $T$ which swaps the two color classes.  Hence $T$ is vertex transitive and thus arc transitive with an automorphism group of order at least $2\times 6!=1440$.  If $T$ is $s$-arc transitive, then $s\geq 5$, so by previous results, we know $s=5$.  Thus we know that $T$ is distance transitive with diameter 4.
+
+Finally we'll sketch a proof that this graph is the unique bipartite cubic graph on 30 vertices with girth 8.  Let $X$ be such a graph and $v$ any vertex in $X$, and consider the graph induced by $X_3(v)\cup X_4(v)$, the set of vertices at distance 3 and 4 from $v$.  The eight vertices in $X_4(v)$ all have valency three and the twelve vertices of $X_3(v)$ all have valency two and are adjacent to two vertices in $X_4(v)$.  This graph is thus a subdivision of a cubic graph $Y$ which has girth  four.  That $X$ has girth eight implies that there is a partition of the edges of $Y$ into pairs at distance three.  The cube is the unique graph on eight vertices with this property, so $X_3(v)\cup X_4(v)$ is the subdivision graph of the cube, but this is exactly the first step in Tutte's construction, and the only extension to a bipartite cubic graph on 30 vertices with girth eight is Tutte's procedure.
+
+
 \ifdraft
 
 \input{../../zach_private_repo/alggraphth_exc/ex4}
