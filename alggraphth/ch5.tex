@@ -1,0 +1,466 @@
+\renewcommand{\exc}[1]{\subsubsection*{Exercise 5.#1}}
+
+\classheader{: Generalized Polygons and Moore Graphs}
+
+A general graph with diameter $d$ has girth at most $2d+1$, and a bipartite graph with diameter $d$ has girth at most $2d$.  These bounds are simple, but the graphs for which these are tight are actually kind of interesting.  Graphs with diameter $d$ and girth $2d+1$ are called \textit{Moore graphs}.\footnote{introduced by Hoffman and Singleton in a seminal paper in AGT}  The tools in this theory have led to a proof that a Moore graph has diameter at most two, and such a graph with diameter equal to two must be regular with valency 2, 3, 7, or 57, and the machinery to prove this will come later, in Chapter 10.
+
+Bipartite graphs with diameter $d$ and girth $2d$ are called \textit{generalized polygons}\footnote{introduced by Tits in work relating to the classification of finite simple groups, of all places} and complete bipartite graphs, which have diameter two and girth four, are generalized polygons we've already seen a bit about.  Generalized polygons are related to classical geometry, and a generalized polygon with diameter three is related to the projective planes.  When $d=4$, these are called generalized quadrangles and many examples are related to quadrics in projective space.
+
+We're going to look closely at Moore graphs and generalized polygons.
+
+\section*{Incidence Graphs}
+
+\definition{An \textit{incidence structure} is a set $\mathcal{P}$ of points, a set $\mathcal{L}$ of lines (disjoint from $\mathcal{P}$), and a relation $I\subseteq \mathcal{P}\times\mathcal{L}$ called \textit{incidence}.  If $(p,L)\in I$, then we say that the point $p$ and the line $L$ are \textbf{incident}.  If $\mathcal{I}=(\mathcal{P},\mathcal{L},I)$ is an incidence structure, then its \textbf{dual incidence structure} $\mathcal{I}^*=(\mathcal{L},\mathcal{P},I^*)$, where $I^*=\{(L,p)|(p,L\in I)\}$.  This can be thought of as exchanging the roles of the points and lines.}
+
+\definition{The \textbf{incidence graph} $X(\mathcal{I})$ of an incidence structure $\mathcal{I}$ is the graph with vertices $\mathcal{P}\cup\mathcal{L}$ where two vertices are adjacent if and only if the corresponding $(p,L)$ is in $\mathcal{I}$.}
+
+The incidence graph for any incidence structure is obviously bipartite.  More interestingly, the converse holds as well.  For any bipartite graph, we can define an incidence structure just by declaring one class to be the points and the other the lines and using adjacency to define incidence.  In this way, it is clear that any bipartite graph identifies an incidence structure and its dual, and the graphs $X(\mathcal{I})$ and $X(\mathcal{I}^*)$ are isomorphic.  This suggests that the definition of incidence structures isn't terribly strong, so we need to do some more work and impose some conditions before we can prove interesting things.
+
+\definition{A \textbf{partial linear space} is an incidence structure in which any two points are incident with at most one line.  This also implies that any two lines are incident with at most one common point.}
+
+\begin{lemma}
+	The incidence graph $X(\mathcal{I})$ of a partial linear space has girth at least six.
+
+\end{lemma}
+\begin{proof}
+	If $X(\mathcal{I})$ contains a 4-cycle $p,L,q,M$ for points $p$ and $q$ and lines $L$ and $M$, then $p$ and $q$ are distinct points shared by two lines, which violates the definition of partial linear space.  Since bipartite graphs do not contain odd cycles, the shortest cycle must be of length at least six.
+\end{proof}	
+
+In talking about partial linear spaces, we will use geometric terminology. Two points are \textit{collinear} or \textit{joined by a line} if they are incident to the same line.  Two lines are \textit{concurrent} if they are incident to a common point.  Three pairwise non-collinear points are called a \textit{triangle}.
+
+
+An automorphism of an incidence structure $\mathcal{I}=(\mathcal{P},\mathcal{L},I)$ is a permutation $\sigma$ of $\mathcal{P}\cup\mathcal{L}$ such that $\mathcal{P}^\sigma = \mathcal{P}$, $\mathcal{L}^\sigma = \mathcal{L}$, and $(p^\sigma,L^\sigma)\in I$ if and only if $(p,L)\in I$.  This gives an automorphism of the incidence graph which preserves the two classes of the bipartition.  An incidence-preserving permutation $\pi$ of $\mathcal{P}\cup\mathcal{L}$ such that $\mathcal{P}^\pi = \mathcal{L}$ and $\mathcal{L}^\pi = \mathcal{P}$ is called a \textit{duality}.  An incidence structure with a duality isomorphic to its dual is called \textit{self-dual}.
+	
+	
+
+\section*{Projective Planes}
+
+\definition{A \textbf{projective plane} is a partial linear space satisfying:
+	
+	\begin{enumerate}
+		\item[1)] Any two lines meet in a unique point.
+		\item[2)] Any two points meet in a unique line.
+		\item[3)] There is at least one triangle.
+	\end{enumerate}
+
+The first two conditions are dual to each other and the third is self-dual, so the dual of a projective plane is a projective plane.  The first two conditions are actually the interesting one, and the third just rules out the 1-dimensional degenerate cases.  Sometimes in finite geometry we stipulate a stronger condition, that there is a \textit{quadrangle}, a set of four points, no three of which are collinear and consider the triangle setting degenerate.}
+
+\begin{theorem}
+	Let $\mathcal{I}$ be a partial linear space which contains a triangle.  Then $\mathcal{I}$ is a (possibly degenerate) projective plane if and only if its incidence graph $X(\mathcal{I})$ has diameter three and girth six.
+\end{theorem}
+
+\begin{proof}
+	Let $\mathcal{I}$ be a projective plane containing a triangle.  Any two points are at distance two in $X(\mathcal{I})$, and the same for any two lines.  Pick a line $L$ and a point $p$ not on $L$.  Any line $M$ through $p$ must meet $L$ at some point $p'$, and thus $L,p',M,p$ is a path of length three from $L$ to $p$.  Thus any two vertices are at distance at most three, and the existence of a triangle guarantees at least one pair at distance exactly three, so the diameter of $X(\mathcal{I})$ is three.  Since $\mathcal{I}$ is a partial linear space, the existence of the triangle also guarantees that the girth is exactly six.
+	
+	For the other direction, let $X(\mathcal{I})$ of an incidence structure, and suppose that $X(\mathcal{I})$ has diameter three and girth six.  One piece of the bipartition corresponds to the points of $\mathcal{I}$ and the other to the lines of $\mathcal{I}$.  Any two points must be at an even distance from each other, and since this distance is at most three, it must be two.  There must be a unique path of length two between these two points, otherwise there would be a 4-cycle in $X(\mathcal{I})$, contradicting the assumption on the girth.  Hence there is a unique line between any two points, and by duality, any two lines meet at a unique point.  Hence we have a projective plane with a triangle.
+\end{proof}
+
+
+\section*{A Family of Projective Planes}
+Let $V$ be the 3-dimensional vector space over the field $\F$ with $q$ elements.  We can define the incidence structure $PG(2,q)$ as follows: the points are the 1-dimensional subspaces of $V$ and the lines are the 2-dimensional subspaces of $V$.  A point $p$ is incident to a line $L$ if aind only if the 1-dimensional subspace $p$ is contained in the 2-dimensional subspace $L$.  A $k$-dimensional subspace of $V$ contains $q^k-1$ non-zero vectors, so each 2-dimensional subspace contains $q^2-1$ non-zero vectors and each 1-dimensional subspace contains $q-1$ non-zero vectors.  Thus each line contains $(q^2-1)/(q-1)=(q+1)$ distinct points.  Similarly, the entire projective plane contains $(q^3-1)/(q-1) = (q^2+q+1)$ points.  There are $ q^2+q+1$ lines with $q+1$ lines passing through each point.
+
+Each point can be represented by a vector $a\in V$, where $a$ and $\lambda a$ represent the same point if $\lambda\neq 0$.  A line can be represented by a pair of linear independent vectors, or by a vector $a^T$.  We understand here that a line is a 2-dimensional subspace formed by the vectors $x$ such that $a^Tx=0$.  Of course if $\lambda\neq 0$, then $\lambda a_T$ and $a^T$ determine the same line.  Then the point represented by a vector $b$ lies on the line represented by $a^T$ if and only if $a^Tb=0$.
+
+Two 1-dimensional subspaces of $V$ lie in a unique 2-dimensional subspace of $V$ (determined by their direct sum), so there is a unique line which joins two points.  Two 2-dimensional subspaces intersect in a 1-dimensional subspace (as $dim(V)=3$), so any two lines meet in a unique point.  Thus $PG(2,q)$ is a projective plane.
+
+By the theorem in the previous section, the incidence graph $X$ of $PG(2,q)$ is bipartite with diameter three and girth six.  If has $2(q^2+q+1)$ vertices and is $(q+1)$-regular.  We can also show that it is 4-arc transitive.  First we need to find some automorphisms of it.
+
+Let $GL(3,q)$ denote the group of $3\times3$ invertible matrices over $\F$.  Each element permutes the non-zero vectors in $V$ and maps subspaces to other subspaces, preserving dimension, thus giving rise to an automorphism of $X$.  Recalling that for any pair of ordered bases, there exists an invertible linear map from one to the other, we can say that $GL(3,q)$ acts transitively on the set of ordered bases of $V$.
+
+Let $p\lor q$ denote the unique line joining the points $p$ and $q$.  If $p,q,r$ are three non-collinear points, then $p,p\lor q,q,q\lor r, r, r\lor p$ is a 6-cycle (hexagon) in $X$.  The sequence ($p,p\lor q,q,q\lor r, r)$ is thus a 4-arc in $X$, so $Aut(X)$ acts transitively on the 4-arcs which begin at a point vertex of $X$.  A symmetric argument shows the same for 4-arcs beginning at line vertices.  Thus to show that $Aut(X)$ acts transitively on 4-arcs, we just need to show there is an automorphism which exchanges points and lines in $X$.  This automorphism is pretty simple.  For each vector $a$, swap the point $a$ with the line $a^T$.  Since $a^Tb=0$ if and only if $b^Ta=0$, this maps adjacent vertices to adjacent vertices and swaps points and lines (i.e. is a duality).  Therefore, we can see that $X$ is 4-arc transitive.  Additionally, by a lemma in the previous chapter, we know that $X$ is distance transitive as well.
+
+
+\section*{Generalized Quadrangles}
+A second interesting class of incidence structures is the \textit{generalized quadrangles}, which is a partial linear space satisfying the additional conditions that:
+\begin{enumerate}
+	\item[1)] Given any line $L$ and a point $p$ not on $L$, there is a unique point $p'$ on $L$ such that $p$ and $p'$ are collinear.
+	\item[2)] There are points which are not collinear and lines which are not concurrent.
+\end{enumerate}
+Each of these conditions is self-dual, so the dual of a generalized quadrangle is still a generalized quadrangle.  Again we have that the first condition is the interesting one while the second excludes non-interesting degenerate cases where all of the lines intersect at a point or all of the points are on the same line.  One generalized quadrangle we've seen before is the incidence structure on the edges and 1-factors of $K_6$.  This is a generalized quadrangle with incidence graph isomorphic to the Tutte 8-cage.
+
+Two very simple generalized quadrangles are the \textit{grid} and its dual.  In a grid, every point is on two lines and in the dual, every line contains two points.  We'll see soon why finite geometers think of these as degenerate cases.
+
+\begin{theorem}
+	Let $\mathcal{I}$ be a partial linear space which contains non-collinear points and non-concurrent lines.  Then $\mathcal{I}$ is a generalized quadrangle if and only if its incidence graph $X(\mathcal{I})$ has diameter four and girth eight.
+\end{theorem}
+\begin{proof}
+	Let $\mathcal{I}$ be a generalized quadrangle and consider the distances in $X(\mathcal{I})$ from some point $p$.  A line is distance one from $p$ if it contains $p$, and distance three otherwise (as $\mathcal{I}$ is a generalized quadrangle).  A point is at distance two from $p$ if it is collinear with $p$ and distance four otherwise.  The existence of non-collinear points guarantees that there is a pair of points at distance four.  By duality, the same is true for some pair of lines, so the diameter of $X(\mathcal{I})$ is at least four.  The girth is at least six.  If it were exactly six, then the point and line opposite each other on the 6-cycle violate the condition that there is a unique point on the line not collinear with the point.  To show that there is an 8-cycle, let $p$ and $q$ be non-collinear points.  Then there is a line $L_p$ containing $p$ but not $q$ and a line $L_q$ containing $q$ but not $p$.  But then there is a unique point on $L_p$ collinear with $q$ and a unique point on $L_q$ collinear with $p$, and these eight objects in the correct order form an 8-cycle, hence the girth of $X(\mathcal{I})$ is eight.
+	
+	For the other direction, let $X(\mathcal{I})$ be the incidence graph of some partial linear space $\mathcal{I}$, and suppose its diameter is four and girth is eight.  One part of the partition is the points of $\mathcal{I}$ and the other is the lines.  Consider a point $p$ and a line $L$ at distance three from $p$.  Since the girth is eight, there is a unique path $L,p',L',p$ from $L$ to $p$.  This provides the unique point $p'$ on $L$ not collinear with $p$.
+\end{proof}
+
+\section*{A Family of Generalized Quadrangles}
+
+We can describe an infinite class of generalized quadrangles, of which the Tutte 8-cage is the incidence graph of the smallest member.  
+
+Let $V$ be the vector space of dimension four over a field $\F$ with order $q$.  The \textit{projective space} $PG(3,q)$ is the system of 1- 2- and 3-dimensional subspaces of $V$.  We'll call these points, lines, and planes, respectively.  There are $q^4-1$ non-zero vectors in $V$, and each 1-dimensional subspace contains $q-1$ of them, so there are $(q^4-1)/(q-1)=(q+1)(q^2+1)$ points.  We'll construct an incidence structure using all of these points, but only some of the lines, in $PG(3,q)$.
+
+Let $H$ be the matrix\footnote{if the field has characteristic 2 (i.e. if $q$ is even), then $1=-1$ in $\F$}
+
+$$H=\begin{pmatrix}
+0&1&0&0\\
+-1&0&0&0\\
+0&0&0&1\\
+0&0&-1&0
+\end{pmatrix}$$
+
+
+
+Call a subspace $S$ of $V$ \textit{totally isotropic} if $u^THv=0$ for all $u$ and $v$ in $S$.  It's easy to see that $u^THu=0$ for all $u$, so every 1-dimensional subspace of $V$ is trivially totally isotropic.  For the 2-dimensional setting, we need to count the number of $u,v$ pairs such that $\langle u,v\rangle$ is a 2-dimensional totally isotropic subspace.  There are $q^4-1$ choices for $u$, and then $q^3-q$ choices for a vector $v$ orthogonal to $u$ but not in the span of $u$.  Thus there are $(q^4-1)(q^3-q)$ such pairs, and the number of 2-dimensional totally isotropic subspaces of $V$ is $(q^2+1)(q+1)$.  
+
+Geometrically, we say that $PG(3,q)$ contains $(q^2+1)(q+1)$ totally isotropic points and $(q^2+1)(q+1)$ totally isotropic lines.  A 2-dimensional subspace contains $q+1$ subspaces of dimension one, so each totally isotropic line contains $q+1$ totally isotropic points.  Because the numbers of points and lines are equal, this implies that each totally isotropic point is contained in $q+1$ totally isotropic lines.  Let $W(q)$ be the incidence structure whose points and lines are the totally isotropic points and lines of $PG(3,q)$.
+
+\begin{lemma}
+	This incidence structure $W(q)$ is a generalized quadrangle.
+	
+\end{lemma}
+\begin{proof}
+	We need to prove that given a point $p$ and a line $L$ not containing $p$ there is a unique point on $L$ collinear with $p$.  Suppose that the point $p$ is spanned by the vector $u$.  Any point collinear with $p$ is spanned by a vector in $u^\perp$, which is a 3-dimensional subspace which intersects the 2-dimensional subspace $L$ at a 1-dimensional subspace, which is the unique point $p'$ on $L$ collinear with $p$.
+	
+\end{proof}
+
+
+If $X$ is the incidence graph of $W(q)$, then it is bipartite on $2(q^2+1)(q+1)$ vertices and $(q+1)$-regular.  By the earlier theorem, its girth is eight and diameter is four.  We will see soon that it is also distance regular.  Applying this construction to $\F_2$, we get a generalized quadrangle with fifteen points and fifteen lines.  This is the same as the generalized quadrangle on the 1-factors of $K_6$ and is isomorphic to the Tutte 8-cage.
+
+We can use any invertible $4\times 4$ matrix over $\F$ with zeros along the diagonal such that $H^T=-H$, but any such matrix realizes the same generalized quadrangle.
+
+Note that not every generalized quadrangle is regular even though the ones we construct with this process are.  We'll see an example in a bit.
+
+\section*{Generalized Polygons}
+We've seen two classes of incidence structures equivalent to bipartite graphs with diameter $d$ and girth $2d$ ($d=3$ for the triangles, $d=4$ for the quadrangles).  
+
+\definition{We can generalize this by defining a \textbf{generalized polygon} to be a finite bipartite graph with diameter $d$ and girth $2d$, and we call this a \textbf{generalized $\mathbf{d}$-gon}, and we use the canonical names for these (pentagon, hexagon, etc.).}
+
+\definition{A vertex in a generalized polygon is \textbf{thick} if its valency is at least three and \textbf{thin} otherwise.  The whole polygon is thick if all its vertices are thick.}
+
+We can show that the thick generalized polygons are regular or semiregular and the ones which are not thick are subdivisions of generalized polygons.  We will prove a series of lemmas on the way to this theorem.
+
+\begin{lemma}
+	If $v,w$ are vertices in a generalized polygon and the distance $d(v,w)=m$ is strictly less than the diameter of the graph, then there is a unique path of length $m$ from $v$ to $w$.
+\end{lemma}
+\begin{proof}
+	If not, then there is a cycle of length less than $2m$, contradicting the assumption that the girth of the graph is $2d$.
+\end{proof}
+\begin{lemma}
+	If $v,w$ are vertices in a generalized polygon $X$ and $d(v,w)$ is equal to the diameter $d$, then $v$ and $w$ have the same valency.
+\end{lemma}
+\begin{proof}
+	Since $X$ is bipartite with diameter $d$, any $v'$ adjacent to $v$ has distance $d-1$ from $w$.  Thus by the previous lemma, there is a unique path of distance $d-1$ from $v'$ to $w$ which must contain exactly one neighbor $w'$ of $w$.  Each such path contains a different neighbor of $w$, so $w$ contains at least as many neighbors as $v$, and a symmetric argument shows the inequality in the other direction, so the valencies are equal.
+\end{proof}
+\begin{lemma}
+	Every vertex in a generalized polygon $X$ has valency at least two.
+\end{lemma}
+\begin{proof}
+	Let $C$ be a cycle of length $2d$ in $X$, which must exist as the girth of $X$ is $2d$.  Every vertex in $C$ must have valency at least two.  Let $x$ be a vertex not on the cycle, $P$ the shortest path joining $x$ to $C$, and $i$ the length of $P$.  Then starting at $x$, traveling $i$ steps along $P$, then $d-i$ steps along $C$ is a vertex on $C$ at distance $d$ from $x$.  By the previous lemma, these two vertices must have the same valency, hence $x$ has valency at least two.
+\end{proof}
+
+The next series of lemmas tells us that generalized polygons which are not thick are, for the most part, trivial modifications of thick ones.
+\begin{lemma}
+	Let $C$ be  a cycle of length  $2d$ in a generalized polygon $X$.  Then any two vertices at the same distance in $C$ from a thick vertex in $C$ have the same valency.
+\end{lemma}
+
+\begin{proof}
+	Let $v$ be a thick vertex in $C$ and let $w$ be its antipode in $C$.  Since $v$ is thick, it has at least one neighbor not in the cycle $v'$, so there is a path $P$ from $v'$ to $w$ disjoint from $C$ except at $w$, as a path using the cycle has length $d+1$, and we know there must be a shorter path.  Thus $C$ with $P$ forms three internally vertex-disjoint paths of length $d$ from $v$ to $w$.  Consider now two vertices $v_1,v_2$ in $C$ at distance $h$ from $v$.   Let $x$ be the unique vertex in $P$ at distance $d-h$ from $v$.  Then $x$ is at distance $d$ from $v_1$ and $v_2$, so these both have the same valency as $x$ and thus each other.
+\end{proof}
+\begin{lemma}
+	The minimum distance $k$ between any pair of thick vertices in $X$ is a divisor of $d$.  If $d/k$ is odd, then all the thick vertices have the same valency.  If $d/k$ is even, then the thick vertices share at most two valencies.  Further, any vertex at distance $k$ from a thick vertex is itself a thick vertex.
+\end{lemma}
+\begin{proof}
+	Let $v$ and $w$ be thick vertices of $X$ at distance $k$ and let $x$ be any other thick vertex of $X$.  Without loss of generality, suppose $v$ closer to $x$ than $w$.  Then we can find a cycle $C$ of length $2d$ which extends the path from $x$ to $v$ to include $w$ and then returns to $x$.  We can repeatedly apply the previous lemma to the thick vertices of $C$ starting at $v$, which tells us that every $k$th vertex must be thick, hence $k$ divides $d$.  Further, since the antipode $v'$ of $v$ is thick as well, every second thick vertex in $C$ has the same valency, again by the previous lemma every thick vertex has the same valency as either $v$ or $w$, including our arbitrarily chosen thick vertex $x$.
+	
+	If $d/k$ is odd, then $v'$ and $w$ have the same valency, so transitively $v$ and $w$ have the same valency and every thick vertex has that valency as well.  On the other hand, if $d/k$ is even, then $v$ and $w$ might not have the same valency.  Let $x'$ be a vertex at distance $k$ from $x$. If $x'\in C$, then it is thick for sure.  Otherwise, we can form a new cycle $C'$ of length $2d$ which includes $x$, $x'$, and one of the vertices in $C$ at distance $k$ from $x$.  By the previous argument, $x'$ must be thick in this case, too.
+\end{proof}
+
+
+Recall the subdivision graph $S(X)$ is the one formed by adding a vertex in the middle of each edge of $X$.  Equivalently, we can  think of this as replacing each edge in $X$ with a path of length two.  In this way, we can define the \textit{$\mathit{k}$-fold subdivision graph} as the one in which we replace each edge of $X$ with a path of length $k$.
+
+\begin{theorem}
+	
+	A generalized polygon which is not thick is either a cycle, the $k$-fold subdivision of a multiple edge (a bundle of disjoint $k$-paths with common endpoints), or the $k$-fold subdivision of a thick generalized polygon.
+	
+\end{theorem}
+\begin{proof}
+	If $X$ has no thick vertices, then every vertex has valency two, hence it is a cycle.
+	
+	If not, then the previous lemma tells us that any path between two thick vertices in $X$ has length a multiple of $k$ with every $k$th vertex being thick and all the others thin.  Define a graph $X'$ to be the oe whose vertices are the thick vertices of $X$ and two vertices are adjacent in $X'$ if and only if they are joined by a path of length $k$ in $X$.  Clearly $X$ is the $k$-fold subdivision of $X'$.  If $k$ is equal to the diameter of $X$, then two thick vertices of maximum distance are joined by a collection of $k$-paths of thin vertices.  This collection must contain all vertices of $X$, so $X$ has only two thick vertices and is thus a bundle of $k$-paths with common (thick) endpoints.
+	
+	If $k<d$, then $X'$ has diameter $d'=d/k$ because a path of length $d$ between two thick vertices in $X$ must be a  $k$-fold subdivision of a path of length $d'$ in $X'$, and a cycle of length $2d$ in $X$ is a $k$-fold subdivision of a cycle of length $2d/k$ in $X'$.  Thus $X'$ must have diameter $d'$ and girth $2d'$.  Clearly $X'$ must also be bipartite, as if it contained an odd cycle, any $k$-fold subdivision of this cycle would have a thin vertex at distance at least $kd'+1$ from some thick vertex in $X$, contradicting the assumption that $X$ has diameter $d$.  Hence $X'$ is a thick generalized polygon and $X$ is its $k$-fold subdivision. 
+\end{proof}
+In this sense, we can restrict our study of generalized polygons to the thick ones and consider the rest as degenerate cases.  The degenerate projective plane on five vertices %FIGURE%
+is a 3-fold subdivision of a multiple edge.  The grids and dual grids are 2-fold subdivisions of the complete bipartite graphs, which are generalized 2-gons.  Although many of the proofs about generalized polygons are beyond the scope of this subject, we can state many results.  The following is a famous theorem about the diameter of a generalized polygon.
+
+\begin{theorem}[Feit and Higman]
+	If a genearlized $d$-gon is thick, then $d$ must be 3, 4, 6, or 8.
+\end{theorem}
+
+We've already seen some thick generalized triangles and quadrangles, and there are actually a lot of these.  Generalized hexagons and octagons exist, but only a few families are known, and even the simplest are hard to describe.
+
+Since a projective plane is a generalized thick triangle, it's regular.  If all vertices have valency $s+1$, then we say the projective plane has order $s$.  The other thick generalized polygons are either regular or semiregular.  If the valencies in a thick generalized polygon $X$ are $s+1$ or $t+1$, then we say it has order $(s,t)$.  These may be equal.
+
+\begin{lemma}
+	If a generalized polygon is regular, it is distance regular.
+\end{lemma}
+
+The order of a thick generalized polygon satisfies a few inequalities:
+
+\begin{theorem}[Higman and Haemers]
+	Let $X$ be a thick generalized $d$-gon of order $(s,t)$.
+	
+	\begin{enumerate}
+		\item[a)] If $d=4$, then $s\leq t^2$ and $t\leq s^2$.
+		\item[b)] If $d=6$, then $st$ is a square and $s\leq t^3$ and $t\leq s^3$.
+		\item[c)] If $d=8$, then $2st$ is a square and $s\leq t^2$ and and $t\leq s^2$. 
+	\end{enumerate}
+\end{theorem}
+It is possible to take a generalized polygon of order $(s,s)$ and subdivide each edge to create a generalized polygon of order $(1,s)$.  Hence we can create a generalized 12-gon which is neither a cycle nor thick.
+
+\section*{Two Generalized Hexagons}
+Although we know there is an infinite family of generalized hexagons, it's not actually that easy to cook one up.  We'll show the construction of a (the smallest!) thick generalized hexagon.
+
+The smallest thick generalized hexagon has order $(2,2)$ and is cubic with girth six and diameter 12.  It is distance regular with intersection array $\{3,2,2,2,2,2;1,1,1,1,1,3\}$.  Given this array, we can count the vertices in each cell of the distance partition for any starting vertex $u$.  We know that $|X_1(u)|=3$ so there are six edges between $X_1(u)$ and $X_2(u)$, and since each vertex of $X_2(u)$ is adjacent to one vertex in $X_1(u)$, we can see that $|X_2(u)|=6$.  Continuing, we get that the sizes of the cells starting at $X_0(u)$ are 1, 3, 6, 12, 24, 48, and 32.
+
+\begin{theorem}
+	If $X$ is a generalized hexagon of order $(2,2)$, then the graph $X_5(u)\cup X_6(u)$ is the subdivision $S(Y)$ of a cubic graph $Y$ on 32 vertices.
+\end{theorem}  
+\begin{proof}
+	The 48 vertices in $X_5(u)$ are each adjacent to two of the 32 vertices in $X_6(u)$, and each vertex of $X_6(u)$ is adjacent to three from $X_5(u)$.  From here it is clear that we can construct a cubic graph $Y$ using the vertices of $X_6(u)$ as vertices and the vertices from $X_5(u)$ as the edges.  Subdividing $Y$ completes the construction.
+\end{proof}
+
+
+
+Given this cubic graph $Y$ on 32 vertices, we can construct a generalized hexagon by specifying which vertex of $X_5(u)$ subdivides which edge of $Y$.  First, we encode the vertices of $X_5(u)$.  Let the three vertices adjacent to $u$ be labeled $r,g,b$, respectively.  Each of these has two neighbors in $X_2(u)$, call them $r0,r1,b0,b1,g0,g1$.  Then the two neighbors of $r0$ in $X_3(u)$ are $r00,r01$.  Continuing like this, we can identify each vertex in $X_5(u)$ with one of $r,g,b$ followed by a 4-bit binary string.
+\begin{lemma}
+	For $c\in\{r,g,b\}$, the 16 edges of $Y$ subdivided by the 16 vertices of $X_5(u)$ with first entry $c$ form a 1-factor in $Y$.
+\end{lemma}
+\begin{proof}
+	The distance from $c\in\{r,g,b\}$ to any vertex of $X_5(u)$ with first entry $c$ is exactly four, so there is a path of length at most eight between any two vertices in $X_5(u)$ with first entry $c$.  Since $X$ has girth 12, there is no cycle of length 10, so two such vertices cannot subdivide incident edges of $Y$, hence they form a 1-factor.
+\end{proof}
+
+The figure %FIGURE%
+shows a bipartite cubic graph on 32 vertices with the 1-factorization given by the three colors $r,g,b$.  We draw this graph on a torus with opposite sides of the hexagon identified.
+
+For the moment, let's define the distance between two edges of a graph to be the distance that the corresponding vertices have in the subdivision graph.  Thus incident edges have distance two, and an edge has distance zero from itself.
+
+\begin{theorem}
+	Let $Y$ be the graph above and let $R$ be the set of edges in one color class.  Then for every edge $e\in R$, there is a unique edge $e'\in R$ at distance 10 from $e$.  Furthermore:
+	\begin{enumerate}
+		\item[a)] There is a unique partition of the eight pairs $\{e,e'\}$ into four quartets of edges with pairwise distance at least eight.
+		\item[b)] There is a unique partition of these four pairings into two octets with pairwise distance at least six.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	The rare proof-by-picture! (I'll include this later when I come back with the figures...)
+\end{proof}
+
+
+We can subdivide the edges of $Y$ to form a generalized hexagon in a way that is clear now.  The edges in each color class $R$ are assigned to the vertices of $X_5(u)$ with the corresponding first element in their identifier string.  The two octets of edges are assigned to the two octets of vertices whose strings agree in the first two positions, the four quartets to the vertices whose strings agree in the first three positions, and the eight pairs to those whose strings agree in the first four positions.  Then the two edges of a pair are subdivided arbitrarily by the two vertices to which the pair is assigned.  We repeat for each color class.
+
+The resulting graph is bipartite and has no cycle of length less than 12, and its diameter is six.
+
+The automorphism group of this generalized hexagon does not act transitively on the vertices, but rather has two orbits which correspond to the bipartition.  The distance partition from a vertex $v$ in the opposite class as $u$ has $X_5(v)\cup X_6(v)$ a subdivision of a different graph than the one induced by $u$.  In fact, it is the subdivision of a disconnected graph, each of which has a component which looks like the following:
+
+
+%figure!%
+
+These components together are the dual of our generalized hexagon.  It turns out that there are only two possibilities for the graph constructed this way, and we have now seen both of them.  These are the unique dual pair of generalized hexagons of order $(2,2)$.
+
+
+
+
+\section*{Moore Graphs}
+\definition{A \textbf{Moore graph} is a graph with diameter $d$ and girth $d+1$.  The graphs $C_5$ (all the odd cycles), the Petersen graph, and the complete graphs on at least three vertices are all Moore graphs.  A major result of algebraic graph theory is that there are at most two more Moore graphs, one of which we'll see soon and one which may or may not exist.}
+
+\begin{lemma}
+	Let $X$ be a Moore graph.  Then $X$ is regular.
+\end{lemma}
+
+\begin{proof}
+	First we'll show that any vertices at distance $d$ have the same valency then use this to show that the graph is regular.  Let $v$ and $w$ be vertices of $X$ at distance $d$ and let $P$ be the path of length $d$ joining them.  Let $v'$ be any neighbor of $v$ not on $P$.  Then the distance from $v'$ to $w$ must be at least $d$ and at most $d$, so there is a unique path $P'$ of length $d$ from $v'$ to $w$ which must meet a neighbor $w'$ of $w$ not on $P$.  Each such neighbor of $v$ thus corresponds to a different neighbor of $w$, and going in the other direction, $v$ and $w$ must have the same number of neighbors.
+	
+	Let $C$ be a cycle of length $2d+1$.  If we take two walks of $d$ steps around $C$ from some vertex $v$, we arrive at a neighbor $v'$ of $v$, which by the first part has the same valency as $v$, and taking our two walks in the other direction tells us that the other neighbor of $v$ on $C$ does as well.  transitively, we can see that every vertex on $C$ has the same valency.  Given any vertex $x$ not on $C$, we can form some path of length $i<d$ to $C$.  Then there is a vertex $d-i$ steps along $C$ which is at distance $d$ from $x$, so $x$ also has the same valency as every vertex on the cycle.  Hence $X$ is regular.
+\end{proof}
+\begin{theorem}
+	Moore graphs are distance regular.
+\end{theorem}
+\begin{proof}
+	Let $X$ be a Moore graph of diameter $d$.  By the previous lemma, $X$ is regular, so let $k$ be its valency.  To show $X$ is distance regular, it is sufficient to show that the distance numbers $a_i,b_i,c_i$ are well-defined.
+	
+	Let $v$ be a vertex of $X$ and let $X_1(v),\dots, X_d(v)$ be the cells of the distance partition.  Since for each vertex $w\in X_i(v)$ there is a unique path of length $i$ from $v$ to $w$, the proof is fairly straightforward.
+	
+	For any $i$ such that $1\leq i < d$, a vertex $w\in X_i(v)$ cannot have two neighbors in the preceding cell, because otherwise we could find a cycle of length $2i$ through $v$ and $w$, but since $X$ is regular, $w$ must have at least one neighbor in the preceding cell, hence $c_i=1$ for all $1\leq i \leq d$.  Similarly, $w$ cannot have a neighbor in the same cell, otherwise we could find a cycle of length $2i+1$ through $v$, $w$, and this neighbor.  Hence $a_i=0$ for $1\leq i < d$.  Since $X$ is regular, we get that $b_0=k$ and $b_i=k-1$ for $1\leq i \leq d$.  Hence these values are all well-defined and $X$ is distance regular.
+\end{proof}
+
+The theory of distance regular graphs can be used to show that Moore graphs of diameter greater than two do not exist, and that if one does, it must have valency 2, 3, 7, or 57.  A lot of this comes from the theory of strongly regular graphs, which is the topic of Chapter 10.  The odd cycles have valency two, the Peterson graph has valency three, and we are about to construct a Moore graph with valency seven.  The existence of the one of valency 57 is an open question.\footnote{From Wikipedia, we know that it has 3250 vertices and its automorphism group has order at most 375.}
+
+\section*{The Hoffman-Singleton Graph}
+The \textit{Hoffman-Singleton graph} is the Moore graph with valency seven.  Here we provide a construction.  It has 50 vertices, as we can count the vertices at distance one and two from a fixed vertex to get cell sizes $1+7+42=50$.
+
+\begin{lemma}
+	An independent set $C$ in a Moore graph of diameter two and valency seven contains at most 15 vertices, and if it contains exactly 15, then every vertex not in $C$ has exactly three neighbors in $C$.
+\end{lemma}
+\begin{proof}
+	Let $X$ be such a Moore graph. Let $C$ be an independent set of size $c$.  Without loss of generality, we can label the vertices of $X$ such that $\{1,2,3,\dots,50-c\}$ are the vertices not in $C$.  If $i$ is a vertex not in $C$, let $k_i$ denote the number of its neighbors in $C$.  Since no two vertices in $C$ are adjacent in $X$, we know that $7c=\sum\limits_{i=1}^{50-c}k_i$.
+	
+	Now consider the paths of length two joining two vertices in $C$.  Since every pair of non-adjacent vertices in $X$ has exactly one common neighbor, combinatorially, we can see that $\binom{c}{2}=\sum\limits_{i=1}^{50-c}\binom{k_i}{2}$.
+	
+	From these two equations, we can see that for any real number $\mu$,
+	$$\sum\limits_{i=1}^{50-c}(k_i-\mu)^2 = (50-c)\mu^2-14c\mu+c^2+6c$$
+	and as the right side must be non-negative for all values of $\mu$, so as a quadratic in $\mu$, it has at most one real root.  Thus the discriminant 
+	$$196c^2-4(50-c)(c^2+6c)=4c(c-15)(c+20)$$
+	of the quadratic must be less than or equal to zero.  Therefore we need for $c\leq 15$, which proves the first part of the theorem.
+	
+	If $c=15$, then the right side of our quadratic becomes
+	$$35\mu^2-210\mu+315=35(\mu-3)^3$$
+	so setting $\mu=3$ on the left side gives us $\sum\limits_{i=1}^35 (k_i-3)^2=0$, which happens exactly when all the $k_i$ are equal to three, and we are done.
+\end{proof}
+
+
+
+Now we can describe the construction, using the idea of heptads from Chapter 4.  Recall that there are 35 triples from the set $\Omega=\{1,2,\dots, 7\}$. A \textit{heptad} is a set of seven triples such that each pair meet in exactly one point and there is no point in every triple. We call a set of triples \textit{concurrent} if there is a point common to all and that the intersection of any two is only this point.  A \textit{triad} is a set of three concurrent triples.
+
+\begin{claim}
+	No two distinct heptads have three nonconcurrent triples in common.
+\end{claim}
+\begin{proof}
+	For each set of nonconcurrent triples, we can check that there is a unique heptad containing it.
+\end{proof}
+\begin{claim}
+	Each triad is contained in exactly two heptads.
+\end{claim}
+\begin{proof}
+	Without loss of generality, let $123,145,167$ be our triad.  There are two heptads containing this triad: $123,145,167,246,257,347,356$ and $123,145,167,247,256,346,357$.  Applying the permutation $(67)$ to the first yields the second.
+\end{proof}
+
+\begin{claim}
+	There are exactly 30 heptads
+\end{claim}
+\begin{proof}
+	There are 15 triads for each point, so there are 210 pairs consisting of a triad and a heptad which contains it.  Since each heptad contains exactly seven triads, there must be 30 heptads.
+\end{proof}
+\begin{claim}
+	Any pair of heptads must have 0, 1, or 3 triples in common.
+\end{claim}
+\begin{proof}
+	If two heptads share four or more triples, then they have three nonconcurrent triples in common, so 3 is an upper bound on the number of shared triples.  If two triples meet in exactly one point, there is a third triple which is concurrent with them, and this third triple is unique.  Thus any heptad containing the first two must contain the third.
+\end{proof}
+\begin{claim}
+	The automorphism group of a heptad has order 168 and is a subgroup of the alternating group on seven elements.
+\end{claim}
+\begin{proof}
+	Since $Sym(7)$ acts transitively on the set of heptads and there are 30 heptads, the subgroup of $Sym(7)$ which fixes a heptad has order $168=7!/30$.  We previously exhibited a subset of the even permutations which satisfies this.
+\end{proof}
+
+\begin{claim}
+	The heptads form two orbits of length 15 under the action of the alternating group $Alt(7)$.  Any two heptads in the same orbit have exactly one triple in common.
+\end{claim}
+\begin{proof}
+	Since the subgroup of $Alt(7)$ fixing a heptad has order 168, the number of heptads in an orbit must be 15.  Let $\Pi$ be the first of the two heptads in the above claim about each triad being in exactly two heptads.  The permutations $(123)$ and $(132)$ are both in $Alt(7)$ and mapt $\Pi$ onto two distinct heptads which have exactly one triple in common with $\Pi$ (the triple $123$).  From each triple in $\Pi$, we can find two 3-cycles in $Alt(7)$ which preserves exactly this triple.  Since there are 15 heptads in an orbit and since all heptads in an orbit are equivalent, any two heptads in the orbit must share exactly one triple.
+	
+\end{proof}
+\begin{claim}
+	{Each triple in $\Omega$ lies in exactly six heptads, three from each orbit.}
+\end{claim}
+\begin{proof}
+	Just count them.
+\end{proof}
+
+Now we can construct the Hoffman-Singleton graph.  Choose an orbit of heptads.  The vertices of the graph are the heptads with the 35 triples in $\Omega$.  A heptad is joined to a triple if and only if it contains the triple.  Two triples are adjacent if and only if they are disjoint.  The heptads form an independent set of size $15$, the diameter of the graph is two, it contains a 5-cycle, and 50 vertices.
+
+
+
+\section*{Designs}
+
+Returning to incidence structures, another interesting class is the collection of $t$-designs.  In general, these are not partial linear spaces, and the term `block' is often used in place of `line'.
+
+\definition{A \textbf{$\boldsymbol{t{-}(v,k,\lambda_t)}$ design} is a set $\mathcal{P}$ of $v$ points with a collection $\mathcal{B}$ of $k$-subsets of points, called blocks, such that every $t$-set of points lies in exactly $\lambda_t$ blocks.  The projective planes $PG(2,q)$ have the property that every pair of points lie in a unique block, so these are examples of $2-(q^2+q+1,q+1,1)$ designs.}
+
+Suppose that $\mathcal{D}$ is a $t$-$(v,k,\lambda_t)$ design and let $S$ be a set of $s$ points for $s<t$.  We can count the number of blocks $\lambda_s$ of $\mathcal{D}$ containing $S$.  We will do this combinatorially, by counting in two ways the pairs of $(T,B)$ such that $T$ is a $t$-set containing $S$ and $B$ is a block containing $T$.
+
+First, $S$ lies in $\binom{v-s}{t-s}$ $t$-subsets $T$, each of which lies in $\lambda_t$ blocks.  Also, for each block containing $S$, there are $\binom{k-s}{t-s}$ choices for $T$, so 
+$$\lambda_s\binom{k-s}{t-s} = \lambda_t\binom{v-s}{t-s}$$
+and since the number of blocks doesn't depend on the choice of $S$, we can see that $\mathcal{D}$ is also an $s$-$(v,k,\lambda_s)$ design.  This also tells us that $\lambda_s$ must be an integer for all $s\leq t$.
+
+The value $\lambda_0$ is the total number of blocks in the design, and we typically denote it $b$.  Plugging in $s=0$ above gives us
+$$b\binom{k}{t}=\lambda_t\binom{v}{t}$$
+
+The value $\lambda_1$ is the number of blocks containing each point, and is typically called the \textit{replication number} and denoted $r$.  Plugging in $t=1$ above gives us $bk=vr$.
+
+If $\lambda_t=1$, then the design is called a \textit{Steiner system}, and a 2-design with $\lambda_2=1$ and $k=3$ is called a \textit{Steiner triple system}.  The projective plane $PG(2,2)$ is a $2$-$(7,3,1)$ design, and is thus a Steiner triple system.  This object is usually called the \textit{Fano plane} and drawn as follows, where the blocks are the straight lines and curves on the central circle.
+
+% FIGURE%
+
+The \textit{incidence matrix} if a design is the matrix $N$ with rows and columns indexed by points and blocks, respectively.  The entry $N_{ij}=1$ if and only if the $i$th point lies in the $j$th block, and $N_{ij}=0$ otherwise.  The matrix $N$ has fixed row and column sums, and satisfies
+$$NN^T=(r-\lambda_2)I+\lambda_2 J$$
+where $I$ is the identity matrix and $J$ is the matrix of all ones.  Conversely, any binary matrix with constant row and column sums which satisfies this equation is the incidence matrix of some 2-design.
+
+\begin{lemma}
+	In a 2-design with $k<v$, we have $b\geq v$.
+\end{lemma}
+\begin{proof}
+	Putting $t=2$ and $s=1$ into the equation relating $\lambda_s$ and $\lambda_t$, we get $r(k-1)=(v-1)\lambda_2$.  Thus $k<v$ implies $r-\lambda_2 >0$.  Since $(r-\lambda)I$ is positive definite and $\lambda J$ is positive semidefinite, their sum is positive semidefinite, so $NN^T$ is invertible.  Thus the rows of $N$ must be linearly independent, so $b\geq v$.
+\end{proof}
+A 2-design in which $b=b$ is called \textit{symmetric}.  The dual of a 1-design is a 1-design, but in general the dual of a 2-design is not a 2-design.
+
+\begin{lemma}
+	The dual $\mathcal{D}^*$ of a symmetric design $\mathcal{D}$ is a symmetric design with the same parameters.
+\end{lemma}
+
+\begin{proof}
+	If $N$ is the incidence matrix of $\mathcal{D}$, then $N^T$ is the incidence matrix of $\mathcal{D}^*$.  Since $\mathcal{D}$ is a 2-design, we have $NN^T=(r-\lambda_2)I+\lambda_2 J$, so $N^T=N^{-1}((r-\lambda_2)I+\lambda_2 J)$.  Since $\mathcal{D}$ is symmetric, $r=k$, so $N$ commutes with both $I$ and $J$.  Thus $N^TN=(r-\lambda_2)I+\lambda_2 J$ and thus $\mathcal{D}^*$ is a 2-design with the same parameters as $\mathcal{D}$.
+\end{proof}
+\begin{theorem}
+	A bipartite graph is the incidence graph of a symmetric 2-design if and only if it is distance regular with diameter three.
+\end{theorem}
+\begin{proof}
+	
+	
+Let $\mathcal{D}$ be a symmetric 2-$(v,k,\lambda_2)$ design with incidence graph $X$.  Any two points lie at distance two in $X$, and the same is true of any two blocks.	Thus any point is at distance three from a block it doesn't lie on, and a block is at distance three from a point not on it, so $X$ has diameter three.
+
+Now consider the distance partition from some point.  It is clear that $X$ is bipartite, so $a_1=a_2=a_3=0$.  Since two points lie in $\lambda_2$ blocks, we have that $c_2=\lambda_2$ and since $r=k$, we get that the intersection array for $X$ looks like
+
+$$\begin{Bmatrix}
+-&1&\lambda_2&k\\
+0&0&0&0\\
+k&k-1&k-\lambda_2&-
+\end{Bmatrix}$$
+
+Since we know that the dual $\mathcal{D}^*$ of $\mathcal{D}$ is a design with the same parameters, the distance partition from a block yields the same intersection numbers, thus $X$ is distance regular.
+
+For the other direction, let $X$ be a bipartite distance regular graph with diameter three.  Declare one class of vertices to be the points and the other the blocks.  Considering the distance partition from some point, we can see that each point lies in $b_0$ blocks and every two points lie in $c_2$ blocks.  Thus we have  a  2-design with $r=b_0$ and $\lambda_2=c_2$.  Now looking at the distance partition from some block, we have that every block contains $b_0$ points and every two blocks meet at $c_2$ points.  Thus we have a 2-design where $k=b_0=r$, so $b=v$.
+	
+	
+	
+\end{proof}
+
+
+Since projective planes are symmetric designs, this is another proof of the lemma which tells us that regular generalized polygons are distance regular for the case of generalized polygons of diameter three.  The incidence graph of the Fano plane is called the Heawood graph, which if we remember from way back when, is the dual of $K_7$.
+
+Another way to build a graph from a design is to consider the \textit{block graph} in which the vertices are blocks of $\mathcal{D}$ and two vertices are adjacent if the blocks intersect.  In general, blocks can meet in different numbers of points, which gives rise to some interesting graphs.
+\begin{theorem}
+	The block graph of a Steiner triple system with $v>7$ is distance regular with diameter two.
+\end{theorem}
+\begin{proof}
+	Let $\mathcal{D}$ be a 2-$(v,3,1)$ design and let $X$ be the block graph of $\mathcal{D}$.  Every point lies in $(v-1)/2$ blocks, so $X$ is regular with valency $3(v-1)/2$.  IF we consider two blocks which intersect, there are $(v-5)/2$ further blocks through that point of intersection, and four blocks containing a pair of points, one from each block, other than the point of intersection.  Thus $a_1=(v-5)/2+4=(v+2)/2$.
+	
+	If we look at two blocks which do not intersect, then there are nine blocks containing a pair of points, one from each block, and thus $c_2=9$.  Thus the diameter of the graph is two.  Computing the remainder of the intersection numbers completes the proof that $X$ is regular.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ifdraft
+
+\input{../../zach_private_repo/alggraphth_exc/ex4}
+\fi 
