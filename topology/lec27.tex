@@ -1,0 +1,39 @@
+\classheader{11-13-2017}
+\section*{More on the Fundamental Group}
+
+\definition{A \textbf{covering map} is a continuous function $p:E\rightarrow B$ such that whenever $x\in B$, there exits a neighborhood $U$ of $x$ such that $p^{-1}(U)$ consists of at least one component, and whenever $V\subset p^{-1}(U)$, the restriction of $p$ to $V$ is a homeomorphism into $U$.}
+
+\definition{If $p:E\rightarrow B$ is a covering map, a neighborhood at $x_0$ is \textbf{evenly covered} if $p^{-1}(U)$ has more than one component and each component is homeomorphic to $U$ under $p$.}
+
+\definition{A \textbf{local homeomorphism} $p:E\rightarrow B$ is a map such that for any open set $U\subset B$ and any open set $V\subset p^{-1}(U)$, $p$ is a homeomorphism from $V$ to $p(V)$.}
+
+\definition{A space is \textbf{simply connected} if its fundamental group is trivial.  That is, every loop is homotopically equivalent to the trivial loop.}
+
+\begin{theorem}
+	IF $X$ is a path connected space, then $\pi_1(X,x_0)\iso \pi_1(X,y_0)$ for all $x_0,y_0\in X$.  That is, the fundamental group is invariant under the choice of base point.
+\end{theorem}
+\begin{proof}
+	Let $\gamma$ be a path from $x_0$ to $y_0$.  Given a class of path $[\eta]\in\pi_1(X,x_0)$, there is a class $[\gamma\ast\eta\gamma^{-1}]\in\pi_1(X,y_0)$, and vice versa.  This establishes a set-theoretic bijection between the fundamental groups and a group homomorphism.  Thus it is a group isomorphism.
+\end{proof}
+
+The fundamental group of the space consisting of a single point is the trivial group.
+
+\definition{A \textbf{homotopy} on a space $X$ is a continuous map $h:X\times [0,1]\rightarrow X$ such that $h(\cdot,0)$ is the identity function on $X$.}
+
+\definition{A space $X$ is \textbf{contractible} (or \textbf{null homotopic} or \textbf{homotopically trivial}) if there exists a homotopy $h$ on $X$ such that $h(x, 1)=x_0$ for all $x\in X$ and some $x_0\in X$.}
+
+As examples, the closed disk and $\R^n$ are null homotopic spaces.
+
+\begin{theorem}
+	If $X$ is null homotopic, then $\pi_1(X,y_0)$ is the trivial group.
+\end{theorem}
+\begin{proof}
+	Suppose $h:X\times[0,1]\rightarrow X$ is a homotopy wwith $h(x,1)=x_0$.  Then $\pi_1(X,y_0)\iso \pi_1(X,X_0)$, so consider a loop $\eta$ at $x_0$ and a path homotopy $N(s,t)=h(\eta(s),t)$.  We have that $N(\cdot,0)=\eta(\cdot)$ and $N(\cdot,1)=x_0$. Thus $\eta$ is a null homotopic path, so $[\eta]=[e]$.
+	
+\end{proof}
+
+Since the fundamental group of $\R^n$ is trivial for all $n$, we can see that fundamental groups can't distinguish the dimension of a space.
+
+\begin{theorem}
+	If $p:E\rightarrow B$ is a covering space, then $p$ induces a map $p_\ast:\pi_1(E,e_0)\rightarrow \pi_1(B,p(e_0))$ on the fundamental groups which is injective.
+\end{theorem}

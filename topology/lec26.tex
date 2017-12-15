@@ -1,0 +1,32 @@
+\classheader{11-10-2017}
+\section*{Starting Algebraic Topology}
+
+Let's look at $\RP^n$, which as we've discussed previously can be realized as $\S^n/{\sim}$, where we quotient the $n$-sphere by the antipodal equivalence relation $\sim$.  An equivalent characterization is $\RP^n\iso (\R^{n+1}{-}\{0\})/{\sim}$ where in this case $\sim$ is the equivalence class of lines, such that $x\sim y$ if and only if there exists a real number $c$ such that $x=cy$.
+
+We can look at $\RP^n$ as the ball $B^n$ with an antipodal identification on the boundary.
+
+\example{$\RP^0$ is the zero-sphere $\{-1,1\}$ with both points identified to each other, so $\RP^0=\{0\}$ is a one-point space.}
+
+\example{For $\RP^1$, we take $\S^1$ and identify antipodal points.  This looks like a line segment where the two endpoints are identified, which we know is a description of $\S^1$ again. }
+
+\example{For $\RP^2$, we take the 2-sphere $\S^2$ and perform the identification.  The fundamental domain looks like a hemisphere but with antipodal points on the equator identified.  This is no longer easy to visualize.  If we think of loops in $\RP^2$ (paths which start and end at the same point), we can see intuitively that a single loop which passes the boundary can't be contracted to a point, but a loop which passes the boundary twice can.  This feels like it has a group structure like $C_2$, and we'll begin to formalize this concept over the next few weeks.}
+
+\definition{A \textbf{loop} is a path with the same start and end point.  Formally, a function $\gamma:[0,1]\rightarrow X$ such that $\gamma(0)=\gamma(1)$.}
+
+\definition{If $f:[0,1]\rightarrow X$ is a path, then $\eta:[0,1]\times [0,1]\rightarrow X$ is a \textbf{retraction} or \textit{path homotopy} if $\eta(0,t)=f(t)$ and if $\eta(s,0)=f(0)$, then $\eta(s,1)=f(1)$.}
+
+We can think of the $s$ parameter as varying the path and the $t$ parameter as varying the position along the paths.  The path for $s=0$ is the starting path, $s=0$ is the end path, and $t=0,1$ are the endpoints.
+
+\definition{Two paths $f,\tilde{f}$ are \textbf{homotopic} if there exists a path homotopy $\eta(s,t)$ such that $\eta(0,t)=f(t)$ and $\eta(1,t)=\tilde{f}(t)$.  }
+
+ This relation is symmetric, as we can reverse a path homotopy by swapping $\eta(s,t)$ with $\eta(1-s,t)$.
+ 
+ It is also transitive, as if $f$ and $\tilde{f}$ are path homotopic by $\eta(s,t)$ and $\tilde{f}$ and $\tilde{\tilde{f}}$ are path homotopic by $\eta'(s,t)$, we can define a homotopy which is $\eta(2s,t)$ for $s\leq 1/2$ and $\eta'(2s-1,t)$ for $s>1/2$, which is a path homotopy between $f$ and $\tilde{\tilde{f}}$.  Hence path homotopy is an equivalence relation.
+ 
+ If $f$ is a path, the equivalence class of $f$, denoted $[f]$, is the set of paths homotopic to $f$.  We can concatenate paths.  If there exists a path $f$ from $p_0$ to $p_1$ and a path $g$ from $p_1$ to $p_2$, then the concatenation $h=g\ast f$ is a path from $p_0$ to $p_2$, such that $h(t)$ is $f(2t)$ when $t\leq 1/2$ and $g(2t-1)$ when $t>1/2$.
+ 
+ Concatenation of paths is a groupoid operation on the equivalence classes of paths.  If we restrict ourselves to loops, this becomes a proper group operation, as we can concatenate any two loops without worry.
+ 
+ We should verify that we have  a group, but this is easy.  The identity element is the trivial loops, the one which is the constant function $e:[0,1]\rightarrow X$ such that $e(t)=x_0$ for all $t$.  We can see closure under concatenation pretty easily, and the inverse of a path is the obvious thing, where $f(t)$ has inverse $f(1-t)$.  The composition of loops is also associative, and this is pretty intuitive, but a little clunky to show formally.  It will appear in the homework as an exercise.  It basically amounts to constructing a homotopy such that $f\ast(g\ast h)$ and $(f\ast g)\ast h$ travel at the same rate, so we `slow down' the path in the parentheses and `speed up' the third one.
+ 
+ \definition{The \textbf{fundamental group} of a topological space (with respect to a fixed base point $x_0$) is the group defined by concatenation of loops at $x_0$.  We denote it $\pi_1(X,x_0)$.}
