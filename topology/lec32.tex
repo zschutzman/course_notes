@@ -1,0 +1,27 @@
+\classheader{11-26-2017}
+
+Last time (?) we showed that the fundamental group of $\S^1$ is $\Z$.  Any loop in the circle lifts to a path from zero to some integer $z$.  The terminus of the lifted path $\widetilde{\gamma}$ in $\Z$ is a homotopy invariant, as continuous functions into the integers are constant.
+
+\definition{This map, $H:\pi_1(\S^1,\ast)\rightarrow \Z$, is called the \textbf{degree map}.  We have that $H([\gamma])=\widetilde{\gamma}(1)$ for all $\gamma\in[\gamma]$.}
+	
+We also have that $H$ is a group homomorphism.  If $H([\eta])=m$ and $H([\gamma])=n$, then $H([\eta\ast\gamma])$ is the lift of $\gamma$ from $0$ to $n$ followed by the lift of $\eta$ from $n$ to $n+m$, so $H([\eta\ast\gamma])=m+n$.
+
+$H$ is clearly surjective.  We can see that it is injective as well by observing that any path which lifts to one beginning and ending at zero must be homotopically equivalent to the trivial path at zero with fixed endpoints, and thus equivalent to the trivial loop at $\ast$.
+
+Can we do this other places besides $\S^1$? Yes!  Let $\pi:\S^n\rightarrow \RP^n$ be the two-sheeted covering space.  As any path $\gamma$ lifts to a $\widetilde{\gamma}$ with $\widetilde{\gamma}(0)=\widetilde{\ast}_1$ and $\widetilde{\gamma}(1)\in\{\widetilde{\ast}_1,\widetilde{\ast}_2\}$.  This induces a map $H:\pi_1(\RP^n,\ast)\rightarrow\{\widetilde{\ast}_1,\widetilde{\ast}_2\}$ which respects the group operation.  If $n\geq 2$, $H$ is an isomorphism, as if $H([\gamma])=\widetilde{\ast}_1$, then $\gamma$ lifts to a loop at $\widetilde{\ast}_1$ in $\S^n$, which can only happen inf $n\geq 2$, as the fundamental group of $\S^n$ is trivial for $n\geq 2$.  
+
+Thus $\pi_1(\RP^1)\iso \Z$, and $\pi_1(\RP^n)=\Z_2$ for $n\geq 2$.
+
+One way we build spaces in topology is by taking products of existing spaces.  What can we say about the fundamental groups of product spaces? Fortunately, the thing we would obviously like to be true is in fact true:
+
+\begin{theorem}
+	$\pi_1(X_1\times X_2,(x_1,x_2)) \iso \pi_1(X_1,x_1)\times \pi_1(X_2,x_2)$
+\end{theorem}
+
+\begin{proof}
+	We have retractions $r_1:X_1\times X_2\rightarrow X_1\times \{x_2\}$ and $r_2:X_1\times X_2\rightarrow \{x_1\}\times X_2$, such that $r_1(a,b)=(a,x_1)$ and $r_2(a,b)=(x_1,b)$.  We also have inclusions $i_1,i_2$ which are the identity on each space and obviously injective.
+	
+	At the level of the fundamental groups, the retracts are epimorphisms and the inclusions are monomorphisms, and the maps $I_{j_\ast}:X_j\rightarrow \{x_\not j\}\times X_j$ are isomorphisms.  Then $p_1=I_{1_\ast}\circ r_{1_\ast}$ and $p_2=I_{2_\ast}\circ r_{2_\ast}$ surjectively map the fundamental group of the product space onto the fundamental groups of the factor spaces.
+	
+	If $p([\gamma])$ is a trivial path, then $p_1(\gamma)$ and $p_2(\gamma)$ must also be trivial in the respective factors, so the kernel of the map is trivial, this it is an isomorphism.
+\end{proof}

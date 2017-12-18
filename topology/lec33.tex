@@ -1,0 +1,61 @@
+\classheader{11-28-2017}
+
+\section*{Fixed Point Theorems}
+
+\begin{theorem}
+	THere does not exist a retract from the 2-disk to the circle.
+\end{theorem}
+
+\begin{proof}
+	
+If $r:D^n\rightarrow \S^{n-1}$ existed, then $r_\ast:\pi_1(D^n,\ast)\rightarrow \pi_1(\S^{n-1})$ is a surjection of groups, but this cannot happen in the case of $n=2$.
+	
+\end{proof}
+
+
+\begin{theorem}[Brouwer Fixed Point]
+	If $f:D^2\rightarrow D^2$ is a continuous map, then there is some $x\in D^2$ such that $f(x)=x$.
+\end{theorem}
+
+\begin{proof}
+	Suppose, for the sake of contradiction, that there is no fixed point.  Then $f(x)$ and $x$ (in that order) are two distinct points which determine a ray which intersects the boundary (a copy of $\S^1$) at exactly one point.  This gives us a map $h:D^2\rightarrow \S^1$.  If $f$ is continuous, then $h$ must be as well.  This defines a retract, which as we have just shown cannot exist.  Thus a fixed point must exist.
+\end{proof}
+
+
+\begin{theorem}[Borsuk-Ulam]
+	If $f:\S^2\rightarrow \R^2$ is a continuous map, then there exists some $x\in \S^2$ such that $f(x)=f(-x)$.  That is, there are two antipodal points which map to the same value in $\R^2$.
+\end{theorem}
+\begin{proof}
+	For the sake of contradiction, suppose there is no such pair of antipodal points.  Then consider the function $h:\S^2\rightarrow \S^1$ (viewing $\S^1$ as naturally embedded in $\R^2$) such that $h(x)=\frac{f(x)-f(-x)}{||f(x)-f(-x))||}$.  Since there are no antipodal points which map to the same value, this is well-defined.  We'll reach our contradiction by showing that $h$ is not null homotopic.
+	
+	
+	Taking $\S^2$ as naturally embedded in $\R^3$, consider the map $\eta:\R\rightarrow \S^2$ such that $\eta(s)=(\cos(2\pi s),\sin(2\pi s),0)$.  We can see that $h$ has the property that $h(x)=h(-x)$, so $(h\circ\eta)(s)$ has the property that $(h\circ \eta)(s+\frac{1}{2})=-(h\circ\eta)(s)$.
+	
+	Let $\widetilde{h\circ\eta}:\R\rightarrow\R$ be the lift of $h\circ\eta:\R\rightarrow \S$ which starts at $\widetilde{h\circ\eta}(0)=0$.  The property that $(h\circ \eta)(s+\frac{1}{2})=-(h\circ\eta)(s)$ translates to $(\widetilde{h\circ \eta})(s+\frac{1}{2})=-(\widetilde{h\circ\eta})(s)+\frac{q}{2}$, where $q$ is odd (antipodes correspond with a translation of $-\frac{1}{2}$).
+	
+	Thus $$\widetilde{h\circ\eta}(1)=\widetilde{h\circ\eta}(0+\frac{1}{2}+\frac{1}{2})=\widetilde{h\circ\eta}(0+\frac{1}{2})+\frac{q}{2} = \tilde{h\circ\eta}(0)+\frac{q}{2}+\frac{q}{2} = 0+q$$
+	
+	We can view $h:\S^2\rightarrow \S^1$ as a retract to the equator, and it has odd degree.  This cannot happen, as the equator can't map to something nontrivial, as it is homotopically trivial as a subset of $\S^2$.
+\end{proof}
+
+\begin{corollary}[The Meteorological Theorem]
+	There are two antipodal points on Earth with the same temperature and barometric pressure.
+\end{corollary}
+
+\begin{corollary}
+	If we write $\S^2=A_1\cup A_2\cup A_3$ as the union of three closed sets, then one of the components contains a pair of antipodal points.
+\end{corollary}
+\begin{proof}
+	Let $D_1:\S^2\rightarrow \R$ be $D_1(x)=dist(x,A_1)$, and define $D_2$ analogously.  Then the function such that $x\mapsto(D_1(x),D_2(x))$ has the property that $(D_1(x),D_2(x)=(D_1(-x),D_2(-x))$.  If $D_1(x),D_2(x)\neq 0$, then $x,-x\notin A_1,A_2$, so both must be in $A_3$.
+\end{proof}
+
+\begin{theorem}[The Fundamental Theorem of Algebra]
+	If $f:\C\rightarrow\C$ is a polynomial, then there exists a $z\in \C$ such that $f(z)=0$.
+	
+	\end{theorem}
+
+\begin{proof}
+	Suppose, for the sake of contradiction, that no such $z$ exists.  We know that $\C$ is homotopically trivial and that $\C{-}\{0\}$ is not.  Let $f(x) = a_nz^n + a_{n-1}z^{n-1} + \dots + a_0$ be such that the sum of the absolute values of the coefficients $a_i$ is less than 1 (which we can do without loss of generality).
+	
+	Consider the homotopy $F_t:\S^1\rightarrow\C$ such that $F_t(z)=z^n + (1-t)(a_{n-1}z^{n-1}+\dots + a_0)$
+\end{proof}
