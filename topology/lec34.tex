@@ -1,0 +1,19 @@
+\classheader{11-29-2017}
+
+\begin{theorem}[Lusternik-Schnirelmann]
+	If $\S^n$ is covered by $n+1$ closed sets, then at least one contains a pair of antipodal points.
+\end{theorem}
+\begin{proof}
+	The proof is identical to the $n=2$ case, except we have $n$ functions $D_i$, then apply Borsuk-Ulam.
+\end{proof}
+
+\begin{theorem}[Ham Sandwich]
+	In $\R^n$, if $A_1,A_2,\dots,A_n$ are closed, bounded sets, then there exists some $(n-1)$-pane which cuts all of them exactly in half.
+\end{theorem}
+\begin{proof}
+	(For $n=2$)
+	
+	We first need to parametrize the space of all half-planes.  First put $\R^2$ into $\R^3$ at $z=1$, then look at the unit sphere centered at the origin (tangent to the plane).  Any line in this copy of $\R^2$ extends to a plane in $\R^3$ passing through the origin.  We parametrize this plane by the unit vector normal to it.  We differentiate the two half-planes defined by each of these vectors with the sign of the vector.
+	
+	If $A_1$ and $A_2$ are the regions we want to divide in half and $H$ a proposed half-plane, let $f(H)=(A_1\cap H)+(A_2\cap H)$.  This function is continuous in $H$ and is a function $\S^2\rightarrow \R^2$, so by Borsuk-Ulam, there exist a pair of antipodal points on the sphere, corresponding to the two halves of the space defined by the corresponding $H$, such that the areas are equal on both sides of $H$.
+\end{proof}
