@@ -1,0 +1,87 @@
+\classheader{2018-01-11}
+
+\section*{Intro}
+
+The high-level overview of this course is that we are going to build up the mathematical machinery to talk about \textit{homogeneous manifolds} and their geometry.  In a sentence, these are surfaces for which there is some group $G$ which acts transitively on that space.
+
+Suppose that we have a sequence of objects $B=B_0,B_1,B_2,\dots, B_m$ where the transformation $D_i$ sends $B$ to $B_i$.  We can think about the $D_i$ as coming from some group, so we know how to compose them and each is invertible.
+
+The motion of a rigid body can be described by a curve in this group of transformations of a space $E$ (maybe this is $\R^n$).  Given $B\in E$, a \textbf{deformation} is a (reasonably smooth) curve $D:[0,1]\rightarrow G$.  We write $B_t=D(t)(B)$ to represent the position of $B$ at time $t$.
+
+\begin{example}
+	If $G=SO(3)$, then we are looking at rigid rotations in $\R^3$.  With respect to any orthonormal basis, any rotation has an associated matrix $R$ such that $RR^T=R^TR=I$.
+	
+	If $G=SE(3)$, we are looking at rigid motions in $\R^3$.  If $B$ is a matrix in this group, it can rotate and translate.  This is the group of affine maps $\rho\in SE(3)$ has the form $rho(x)=f(x)+u$, where $f(x)$ is a rotation and $u$ a translation.  We can write these as transformations in $\R^4$ by doing the following:
+	
+$$\begin{pmatrix}
+		R&u\\
+		\boldsymbol{0}&1
+	\end{pmatrix}$$
+	
+	Where $R$ is an $n\times n$ rotation, $\boldsymbol{0}$ is a row of $n$ zeroes, $u$ is a column vector representing the translation, and the last entry is $1$.  The matrix representations of elements of $SE(3)$ are $4\times 4$ matrices.
+	
+	If $G=SIM(3)$, we are looking at simple deformations of a non-rigid body - we can grow and shrink as well as rotate and translate.  These have matrices which look like 
+	
+	$$\begin{pmatrix}
+	\alpha R & u\\
+	\boldsymbol{0} & 1
+	\end{pmatrix}$$ where $R\in SO(3)$, $\alpha>0$, and $u\in \R^n$.
+	
+$\star$ all of these are \textit{Lie groups} and we will study lots of other things with Lie groups in this course.
+\end{example}
+
+
+\section*{The Interpolation Problem}
+
+Suppose we have a sequence of deformations $g_0,g_1,\dots,g_m$, with each $g_i\in G$ and $g_0=1\in G$.  We would like to find a smooth curve in $G$ $c:[0,m]\rightarrow G$ such that $c(i)=g_i$ for all $i$.
+
+The naive approach would be to take $(1-t)g_i + tg_{i+1}$, which is a linear/convex interpolation between adjacent points.  However, there is no guarantee that all of these intermediate points are actually in $G$!
+
+What we can do is use Lie groups.  These are topological groups, so they come along with a nice manifold where we can do geometric things.  At every $g\in G$, there is a tangent space $T_gG$.  The tangent space at $1\in G$ is special, and it is called the \textbf{Lie algebra}.  We use Fraktur fonts to denote Lie algebras.  This Lie algebra is denoted $\mathfrak{g}$ and it comes with a multiplication $\left[\cdot,\cdot\right]$ called the \textbf{Lie bracket}.  When $G$ is a matrix, group, $\left[X,Y\right]=XY-YX$.
+
+The Lie algebra $\mathfrak{so}(n)$ of $SO(n)$ is the set of skew-symmetric $n\times n$ matrices $B^T=-B$.
+
+The Lie algebra $\mathfrak{se}(n)$ of $SE(n)$ is the set of matrices of the form
+$$\begin{pmatrix}
+B&u\\0&0
+\end{pmatrix}$$ where $B\in \mathfrak{so}(n)$ and $u\in \R^n$.
+
+The Lie algebra $\mathfrak{sim}(n)$ of $SIM(n)$ is the set of matrices of the form
+$$\begin{pmatrix}
+\lambda I B&u\\0&0
+\end{pmatrix}$$ where $B\in \mathfrak{so}(n)$, $\lambda\in \R$, $I$ is the $n\times n$ identity matrix, and $u\in \R^n$.
+
+We can think of $\mathfrak{g}$ as a linearization of the group $G$.  There is a map called the \textbf{exponential} $\exp: \mathfrak{g}\rightarrow G$ such that $$\exp(X) = e^X = 1+\frac{X}{1!}+\frac{X^2}{2!}+\dots$$
+
+For the groups we talked about, $\exp$ is a surjective map.  There is a multivalued `function' called the \textbf{logarithm} $\log:G\rightarrow \mathfrak{g}$ such that $\exp(\log(A))=A\in G$.
+
+We can use $\log$ and $\exp$ to do our interpolation.  First, let $x_0=\log(g_0)$, $x_1=\log(g_1)$, and so on.   Then find a curve $X:[0,m]\rightarrow\mathfrak{g}$ to interpolate the $x_i$ in $\mathfrak{g}$.  Finally, the curve in $G$ is given by $c(t)=\exp(X(t))$.
+
+If $\mathfrak{g}$ is a vector space, we can do fancy things like use splines to interpolate.
+
+We still need to worry about actually computing $\exp$ and $\log$.  There are formulas if we are in $\mathfrak{so}(n),\mathfrak{se}(n),$ and $\mathfrak{sim}(n)$.  For $\mathfrak{so}(n)$< this is the Rodrigues formula, and there is a variant for $\mathfrak{se}(n)$.  Logarithms can be computed for $SO(n),SE(n),$ and $SIM(n)$, but there is an issue when we have an eigenvalue equal to $-1$ and the logarithm is multivalued.
+
+A real matrix doesn't always have a real logarithm (it does always have  a complex one).  Let $S(n)$ be the set of real matrices whose eigenvalues $\lambda + \mu i$ live in the horizontal strip of the complex plane $-\pi <\mu <\pi$.  Then $\exp: S(n)\rightarrow \exp(S(n))$ is a bijection onto the set of real matrices with no negative eigenvalues.
+
+There are efficient algorithms to compute matrix logarithms, which we will discuss later.
+
+
+\section*{Metrics on Lie Groups}
+
+Metrics formally define a measurable sense of `closeness'.  How `close' are two given group elements?
+
+We can give an inner product to $\mathfrak{g}=T_1G$, then propagate this to $T_gG$ at any $g$ to get a Riemannian metric.
+
+For $G=SO(n)$, $\left\langle X,Y \right\rangle = -\frac{1}{2}Tr(XY)= \frac{1}{2}Tr(X^TY)$ is an inner product on $\mathfrak{so}(n)$.
+
+A curve $\gamma:[0,1]\rightarrow G$ has length
+$$L(\gamma)=\int\limits_0^1 \left\langle \gamma'(t),\gamma'(t) \right\rangle^{1/2}dt$$
+
+A \textbf{geodesic} through $I$ is a curve $\gamma(t)$ such that $\gamma(0)=I$ and $\gamma''(t)$ is normal to the tangent space $T_{\gamma(t)}G$ for all $t$.  It turns out that for all $X\in\mathfrak{so}(n)$ there is a unique geodesic through $I$ such that $\gamma'(0)=X$, namely $\gamma(t)=\exp(tX)$.
+
+If $G=SO(n)$, then we have for all $A\in G$ that there exists some geodesic from $I$ to $A$.  Define the distance $$d(I,A)=\inf\limits_\gamma\left\{ L(\gamma) : \gamma \text{ joins } I\text{ and } A    \right\}$$
+
+The distance $d(A,B)$ in $SO(n)$ is 
+$$d(A,B) = \sqrt{\theta_1^2 + \theta_2^2 + \dots + \theta_m^2}$$ where $e^{\pm i \theta_j}$ are the eigenvalues (not equal to 1) of $A^TB$ with $0<\theta_j\leq \pi$ for all $j$.
+
+The same inner product $\frac{1}{2}Tr(X^TY)$ works in $\mathfrak{se}(n)$, but this metric is only left- and not both left- and right-invariant.  Consequently, not all geodesics in $\mathfrak{se}(n)$ are given by the exponential.  Related to this is that $SE(n)$ is not a compact or a semisimple group.
