@@ -1,0 +1,38 @@
+\chno{1}{\textit{We can't disagree forever},  Geanakopolos and Polemarchakis (1982) }{Annie Liang}{Zach Schutzman}{January 10, 2018}
+
+\section*{Overview}
+\begin{enumerate}
+	\item points out that the starting point of Aumann (1976) is rather severe.  When are posterior beliefs common knowledge? Is that a bad assumption?
+	\item Asks whether we can get to the same place through a more realistic process - repeated communication of posterior beliefs.
+	\item Answer: if the partitions are finite, then yes.
+	\item Repeated communication is generally equivalent to pooling information, but there exist counterexamples.
+\end{enumerate}
+
+\textbf{Example}:\\
+$\Omega = \{1,2,\dots,9\}\\\mathcal{P}_1=\{\{1,2,3\},\{4,5,6\},\{7,8,9\}\}\\\mathcal{P}_2=\{\{1,2,3,4\},\{5,6,7,8\},\{9\}\}$\\$\omega=1$, $A=\{3,4\}$, uniform prior
+
+Player 1 announces her posterior is $1/3$, and Player 2 announces $1/2$.  Player 1 knows that the true state is in $\{1,2,3,4\}$, but she already knew this, so her posterior is still $1/3$.  Player 2 doesn't learn anything either, as her belief is $1/3$ for $\{1,2,3\}$ and for $\{4,5,6\}$.  Player 1 announces $1/3$ again.  But, since she \textit{didn't} announce 1, Player 2 knows that Player 1 thinks it's in $\{1,2,3\}$, so Player 2 announces $1/3$ as well.  They have arrived at the same posterior and thus pooled their information.
+
+We can describe this communication protocol in an algorithm:
+
+\begin{enumerate}
+	
+		
+		\item Let $P^1=\{P_1^1,\dots,P_K^1\}$ and $P^2=\{P_1^2,\dots P_L^2\}$
+		\item Player 1 announces initial posterior $q_1^1(\omega) = \frac{p(P^1(\omega)\cap A)}{p(P^1(\omega))}$
+		\item Player 2 learns that $\omega$ is in $\bigcup\limits_{k\in a_1}P_k^1$ where $a_1-\left\{ k:\frac{p(P(P_k^1\cap A))}{p(P^1_k(\omega))} = q_1(\omega)   \right\}$.  That is, all of the partitions for which Player 1 would have announced what she did in the previous step.
+		\item Player 2 announces a revised posterior $q^2_1(\omega) = \frac{p(P^2(\omega)\cap\bigcup\limits_{k\in a_1}P^1_k \cap A)}{p(P^2(\omega)  \cap \bigcup\limits_{k\in a_1}P^1_k  )}$
+		\item Player 1 performs a similar revision, and the process repeats.
+		
+
+\end{enumerate}
+\section*{Result}
+The algorithm described converges in no more than $K+L$ announcements, where $K$ and $L$ are the sizes of the players' partitions.
+
+What posteriors does the process converge to? Interestingly, they need not be the same posteriors as in the setting where the players pool information, such as in the following example:
+
+$\Omega=\{1,2,3,4\}\\\mathcal{P}_1=\{\{1,2\},\{3,4\}\}\\\mathcal{P}_2=\{\{1,3\},\{2,4\}\}\\\omega=1$, $A=\{1,4\}$, uniform prior
+
+Each player initially announces a posterior of $1/2$, and nothing is learned.  Had they pooled their knowledge, they could know for certain that the state of the world is $\omega=1$.
+
+

@@ -1,0 +1,72 @@
+\chno{1}{\textit{The Email Game}, Rubenstein (1989) }{Annie Liang}{Zach Schutzman}{January 10, 2018}
+
+\section*{Overview}
+\begin{enumerate}
+	\item How sensitive are strategic predictions to assumptions about knowledge?
+	\item Demonstrated a case in which predictions are very sensitive.  Subsequently, there has been debate over whether this is the ``right'' notion of common/mutual knowledge.
+\end{enumerate}
+
+\section*{Framework}
+
+
+Consider a two-player game where each player chooses from actions $\{A,B\}$.  There are two states the world could be in, $a$ or $b$, and each corresponds with a different payoff matrix.
+
+ \begin{table}[H]
+ 	\centering
+	\setlength{\extrarowheight}{2pt}
+	\begin{tabular}{*{4}{c|}}
+		\multicolumn{2}{c}{} & \multicolumn{2}{c}{World $a$}\\\cline{3-4}
+		\multicolumn{1}{c}{} &  & $A$  & $B$ \\\cline{2-4}
+		\multirow{2}*{}  & $A$ & $M,M$ & $0,-L$ \\\cline{2-4}
+		& $B$ & $-L,0$ & $0,0$ \\\cline{2-4}
+	\end{tabular}
+	\begin{tabular}{*{4}{c|}}
+	\multicolumn{2}{c}{} & \multicolumn{2}{c}{World $b$}\\\cline{3-4}
+	\multicolumn{1}{c}{} &  & $A$  & $B$ \\\cline{2-4}
+	\multirow{2}*{}  & $A$ & $0,0$ & $0,-L$ \\\cline{2-4}
+	& $B$ & $-L,0$ & $M,M$ \\\cline{2-4}
+\end{tabular}
+\end{table}
+
+$L$ and $M$ are arbitrary values satisfying $L>M>0$ and, letting $p$ denote the probability we are in World $a$, suppose that $p<1/2$.  Observe that $(A,A)$ is better in World $a$ and $(B,B)$ in World $b$, but that $A$ is a `safe' action, in that regardless of which world we are in, playing $A$ always has non-negative payoff.
+
+Consider the following communication protocol:
+
+\begin{enumerate}
+	\item Player 1 learns the state of the world
+	\item If the state is $a$, nothing happens.  If the state is $b$, her computer sends an email to Player 2, which fails to arrive with probability $\epsilon>0$.
+	\item If Player 2 receives an email, he sends one back to Player 1, which fails to send with probability $\epsilon>0$.
+	\item This continues until an email fails.  That is, the computers automatically send out a new email after receiving one.
+\end{enumerate}
+
+Let $T_i$ be the type of Player $i$, and set it equal to the number of messages Player $i$'s computer sent.  If $T_1=T_2=\infty$, then it is common knowledge that we are in World $b$.  If $T_1$ and $T_2$ are both finite and strictly greater than zero, it is mutual, but not common, knowledge that we are in World $b$.
+
+\section*{Result}
+\begin{proposition}
+	There exists a unique Nash equilibrium in which Player 1 plays $A$ in World $a$.  In this equilibrium, both players play $A$ regardless of the number of messages sent.
+\end{proposition}
+
+\begin{proof}
+	We proceed by induction.  Assume that Player 1 will play $A$ if she knows that we are in World $a$.  Denote this by $S_1(0)=A$, the strategy of Player $1$ when she is type 0 is $A$.
+	
+	In this case, Player 2 thinks that either we are in World $a$ and Player 1 never sent a message at all, or we are in World $b$ but Player 1's first message got lost.  The first happens with probability $(1-p)/(1-p+p\epsilon)$ and the second with probability $(p\epsilon)/(1-p+p\epsilon)$.
+	
+	Then Player 2's expected payoff to $A$ is at least (actually equal to)
+	$$\frac{M(1-p)+0(p\epsilon)}{1-p+p\epsilon}$$ and his expected payoff to $B$ is no more than $$\frac{-L(1-p)+M(p\epsilon)}{1-p+p\epsilon}$$
+	
+	By our assumptions on $p,L,M$, the expected payoff to $A$ is strictly greater than the maximum expected payoff to $B$, so Player 2 plays $A$ in this case, so $S_2(0)=A$.
+	
+	Now, suppose that $S_i(T_i)=A$ for $T_i<t$.  Consider $T_i=t$.  There are two possibilities, either Player 1's $t^{\text{th}}$ message was lost or Player 2's $t^\text{th}$ reply was lost.  These happen with conditional probabilities $\epsilon/(\epsilon+(1-\epsilon)\epsilon)$ and $((1-\epsilon)\epsilon)/(\epsilon+(1-\epsilon)\epsilon)$, which we will call $z$ and $1-z$, respectively, for ease of notation.  Observe that we know that $z>1/2$.
+	
+	The expected payoff to $A$ is zero, as we are certainly in World $b$.  The expected payoff to $B$ is at most $z(-L)+(1-z)M$.  Because $L>M$ and $z>1/2$, this is a negative value, so the expected payoff to $A$ is strictly greater than that to $B$.
+	
+	Since playing $A$ dominates, $S_1(t)=A$, and a symmetric argument for Player 2 shows that $S_2(t)=A$ as well.
+\end{proof}
+
+\section{Conclusion}
+\begin{enumerate}
+	\item Is this notion of `almost common knowledge' reasonable?
+	\item One objection is that taking the limit as $\epsilon$ goes to zero does not yield the same game as in the case where $\epsilon$ is actually equal to zero.
+	\item Formally, interim types are close to types in the product topology, which we will discuss later.
+	\item Rubenstein's argument is that nevertheless, high $T_i$ is like common knowledge.
+\end{enumerate}
