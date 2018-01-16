@@ -1,0 +1,108 @@
+\classheader{2018-01-16}
+
+\section*{Manifolds Induced by Actions of $\boldsymbol{SO(n)}$}
+
+What do we mean by the `distance' $d(V,W)$ between two subspaces $V,W$ of the Grassmannian $G(k,n)$?  We know something about distances in $SO(n)$, so what happens if we let $SO(n)$ act on $G(k,n)$?
+
+We can specify a $k$-dimensional subspace $V$ with $k$ orthonormal (column) vectors in $\R^n$ and write this as an $n\times k$ matrix $A$ which satisfies $A^TA=I_k$.
+
+A rotation $R\in SO(n)$ acts on $V$ by rotating each vector in $V$, that is $R$ applied to $A\in V$ can be described as $(R,A)\mapsto RA$, with respect to the ordinary matrix product.  Here, $RA$ will also have $k$ orthonormal columns (We're hiding an equivalence relation here).
+
+The action $\cdot:SO(n)\times G(k,n)\rightarrow G(k,n)$ is transitive!  We're not going to prove this here, but it should be intuitively pretty clear: pick some $V$ and a $W$ we want to send it to.  Then we just need to show that the map which sends the $i$th column of $V$ to the $i$th column of $W$ is in $SO(n)$.
+
+Since it is transitive, we can look at the \textbf{stabilizer} of a subspace $V$, which is the subgroup $K\subset SO(n)$ such that $R\cdot V=V$ for all $R\in K$.  It can be shown that $G(k,n)\iso SO(n)/K$, where we think of $G(k,n)$ as the cosets $RK$ with $R\in SO(n)$ modulo the equivalence relation $R_1\sim R_2$ if and only if $R_1^{-1}R_2\in K$, and then taking the canonical projection onto these equivalence classes.
+
+The stabilizer of the first $k$ columns of $I_n$ is $K=S(O(k)\times O(n-k))$.  Here, we can write $K$ as the set $$k=\left\{  \begin{pmatrix} P&0\\0&Q\end{pmatrix} : P\in O(k),\ Q\in O(n-k),\ \det(P)\det(Q)=1   \right\}$$
+
+This is a Lie group, and its associated Lie algebra is 
+$$\mathfrak{k}=\left\{  \begin{pmatrix} S&0\\0&T\end{pmatrix} : S\in\mathfrak{so}(k),\ T\in\mathfrak{so}(n-k)   \right\}$$
+
+We call the $X\in \mathfrak{k}$ the `vertical' tangent vectors and the $X\in \mathfrak{m}$ the `horizontal' tangent vectors.
+
+
+The tangent space $T_ISO(n)=\mathfrak{so}(n)$ splits as the direct sum of $\mathfrak{k}\oplus \mathfrak{m}$ where 
+$$\mathfrak{m}=\left\{  \begin{pmatrix} 0&-A^T\\A&0\end{pmatrix} : A\in M_{n-k,n}   \right\}$$
+
+The tangent space $T_o(SO(n)/K)$ to $SO(n)/K$ at $o$ is isomorphic to $\mathfrak{m}$ (a coset of $K$).
+
+Using the metric on $\mathfrak{so}(n)$, $\frac{1}{2}Tr(X^TY)$, $\mathfrak{k}$ and $\mathfrak{m}$ are orthogonal complements and $SO(n)/K$ is what is called a \textit{naturally reductive homogeneous space}.
+
+
+Geodesics in $G(k,n)$ are projections of horizontal geodesics in $SO(n)$.
+
+\begin{theorem}
+	The distance between two subspaces $V,W\in G(k,n)$ specified by matrices $A$ and $B$, respectively, is $$d(V,W)=\sqrt{\theta_1^2+\theta_2^2+\dots+\theta_k^2}$$ where $\cos\theta_i$ are the singular values of $A^TB$ with $0\leq\theta_i\leq \frac{\pi}{2}$.  These $\theta_i$ are called the \textbf{principle angles}.
+\end{theorem}
+
+
+Another interesting group is $SPD(n)$, which are the symmetric positive definite $n\times n$ matrices.  We can write this as $SPD(n)\iso GL^+(n)/SO(n)$, where $GL^+(n)$ is the set of real $n\times n$ matrices with strictly positive determinant.  Here, geodesics can be computed, but this involves a big ugly integral.
+
+Explicit computation of geodesics in $G(k,n)$ allows for the generalization of optimization methods like gradient descent.  Whether we can do it in $SE(n)$ and Grassmannians of affine spaces is an open problem.
+
+
+\section*{The Matrix Exponential}
+
+
+We can think of Lie groups (naively) as groups of symmetries of geometric and topological objects, and Lie algebras are kind of like the `infinitesimal' transformations of these objects.
+
+We can look at $SO(n)$ as rotations of $\R^n$ and $\mathfrak{so}(n)$ as the set of real skew-symmetric matrices.  
+
+The Lie algebra at the identity of the Lie group can be thought of as a `linearization' of the group.  The exponential is a way of `delinearizing'.
+
+Recall we defined the matrix exponential as the map $$e^A\mapsto I_n+\sum\limits_{k\geq 1}\frac{A^k}{k!} = \sum\limits_{k\geq 0}\frac{A^k}{k!}$$ where matrix powers are repeated products and $A^0$ is the identity matrix.
+
+\begin{lemma}
+	If the $n\times n$ real or complex matrix $A$ has entries $A=(a_{ij})$ and we let $\mu$ denote the $a_{ij}$ of maximum absolute value (or modulus), then the absolute value (or modulus) of any element of $A^p$ (denoted $a_{ij}^{(p)}$) is no greater than $(n\mu)^p$. 
+	
+	Thus the series $\sum\limits_{p\geq 0}\frac{a_{ij}^{(p)}}{p!}$ converges absolutely, so the matrix exponential as an infinite sum is well-defined.
+\end{lemma}
+
+
+What is the exponential of the matrix $A=\begin{pmatrix}
+0&-\theta\\\theta&0\end{pmatrix}$?
+We can write $A=\theta J$ where $J$ is the matrix $J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$.
+
+We know what the powers of $J$ look like.  $J^2=\begin{pmatrix}
+-1&0\\0&-1\end{pmatrix} = I^2$.  It's easy to show that $J^3=-J$.
+
+
+We can compute a few powers of $A$: $A=\theta J$, $A^2=\theta^2J^2=-\theta^2I$, $A^3=-\theta^3 J$, $A^4=\theta^4 I$.
+
+From here, we can write $$e^A = I+\frac{\theta J}{1!} -\frac{\theta^2 I}{2!} - \frac{\theta^3 J}{3!} + \frac{\theta^4 I}{4!} + \dots$$
+
+We can pull this apart into two sums, one with $I$s and the other with $J$s:
+
+$$e^A = I\left(1-\frac{\theta^2}{2!} + \frac{\theta^4}{4!} - \frac{\theta^6}{6!} + \dots \right) + J\left(   \frac{\theta}{1!}   - \frac{\theta^3}{3!} + \frac{\theta^5}{5!} - \dots     \right)$$
+
+which we recognize as $I\cos\theta + J\sin\theta$, so we get $$e^A=\begin{pmatrix}
+\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$$
+
+In fact, every rotation matrix looks like the exponential of some skew-symmetric matrix.
+
+The matrix exponential is not always surjective.  Let $A=\begin{pmatrix} a&b\\c&-a\end{pmatrix}$.  Note that the trace of $A$ is $0$.  We have that $A^2=(a^2+bc)I=-\det(A)I$. 
+
+ If $a^2+bc=0$, we have $e^A=I+A$.
+ 
+ If $a^2+bc<0$, let $\omega>0$ be such that $\omega^2=-(a^2+bc)$. Then $e^A=\cos\omega I+\frac{\sin\omega}{\omega}$.
+ 
+ If $a^2+bc>0$, let $\omega>0$ be such that $\omega^2=a^2+bc$.  Then $e^A=\cosh\omega I + \frac{\sinh\omega}{\omega}$.  In all cases, $\det(A)=1$ and $Tr(e^A)\geq -2$.  But $B=\begin{pmatrix}a&0\\0&a^{-1}\end{pmatrix}$ is not the exponential of any matrix with trace $0$, as $Tr(e^B)<-2$.
+ 
+ A fundamental property of the matrix exponential is that if $\lambda_i$ are the eigenvalues of the matrix $A$, then $e^{\lambda_i}$ are the eigenvalues of $e^A$, and the eigenvector associated with $\lambda_i$ is the same as the one associated with $e^{\lambda_i}$.
+ 
+ \begin{lemma}
+ 	Let $A$ and $U$ be real or complex matrices, with $U$ invertible.  Then $e^{UAU^{-1}}=Ue^AU^{-1}$.
+ \end{lemma}
+\begin{lemma}
+	Given any $n\times n$ matrix $A$, there exists an invertible $P$ and upper triangular $T$ such that $A=PTP^{-1}$.  
+\end{lemma}
+\begin{lemma}[Schur]
+	Given any $n\times n$ matrix $A$, there exists a unitary $U$ and upper triangular $T$ such that $A=UTU^*$, where $U^*$ is the conjugate-transpose of $U$.
+\end{lemma}
+
+This tells us that if $A$ is Hermitian, there exists a unitary $U$ and a real diagonal matrix $D$ such that $A=UDU^*$.
+
+If $A=PTP^{-1}$ where $T$ is upper triangular, the diagonal entries of $T$ are the eigenvalues of $A$, and $A$ and $T$ have the same characteristic polynomial.
+
+\begin{lemma}
+	Given any complex $n\times n$ matrix $A$ with eigenvalues $\lambda_i$, the eigenvalues of $e^A$ are $e^{\lambda_i}$, and the eigenvectors are the same.  Thus, $\det(e^A)=e^{Tr(A)}$.
+\end{lemma}
