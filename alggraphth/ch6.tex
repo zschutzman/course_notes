@@ -1,0 +1,214 @@
+\classheader{: Homomorphisms}
+
+\section*{The Basics}
+
+Recall that a graph homomorphism from $X$ to $Y$ is a map $X\rightarrow Y$ which preserves adjacency.  Homomorphisms also compose.  If $f$ is a homomorphism $X\rightarrow Y$ and $g$ a homomorphism $Y\rightarrow Z$, then $g\circ f$ is a homomorphism $X\rightarrow Z$.
+
+Let $\rightarrow$ be a relation on the class of graphs, and read $X\rightarrow Y$ as `there exists a homomorphism from $X$ to $Y$.  Since composition works the way we expect it to, and the identity map is a homomorphism $X\rightarrow X$, the relation $\rightarrow$ is reflexive and transitive.  It is not, however, a partial order, as we don't have the case that $X\rightarrow Y$ and $Y\rightarrow X$ implies $X=Y$.  For a counterexample, let $X$ be a bipartite graph and $Y$ a graph with two vertices and one edge.
+
+\definition{If $X$ and $Y$ are such that $X\rightarrow Y$ and $Y\rightarrow X$, we call them \textbf{homomorphically equivalent}.  A homomorphism $X\rightarrow Y$ is \textbf{surjective} if every vertex of $Y$ is the image of some vertex in $X$.  }
+	
+	If there is a surjective homomorphism $X\rightarrow Y$ and $Y\rightarrow X$, then $X$ and $Y$ are isomorphic (assuming both are finite, implicitly).
+	
+\definition{If $f$ is a homomorphism $X\rightarrow Y$, then the preimages of the vertices $y\in V(Y)$, $f^{-1}(y)\subset V(X)$, are called the \textbf{fibers} of $f$ (one in particular is the fiber above $y$).
+The fibers of $f$ determine a partition of $V(X)$ called the \textbf{kernel} of $f$.  If $X$ has no self-loops, this partition forms a collection of independent sets in $X$.}
+
+Given a graph $X$ and a partition $\pi$ of $V(X)$, we can construct a graph $X/\pi$ where each vertex corresponds to a chunk of the partition and there is an edge between vertices if and only if there is an edge with an endpoint in each corresponding chunk, with self-loops allowed.  This is a natural example of a graph such that a homomorphism $X\rightarrow X/\pi$ has kernel $\pi$.
+
+In general, it's difficult to show that there does not exist any homomorphism from one graph to another.  We do have a few tools which can help.  Recall that we showed way back in Chapter 1 that a graph $Y$ can be properly $r$-colored if and only if there exists a homomorphism $Y\rightarrow K_r$.  Thus if there is a pair of homomorphisms $X\rightarrow Y\rightarrow K_r$, we know that the chromatic numbers of $X$ and $Y$ satisfy $\chi(X)\leq \chi(Y)$.  Thus if $\chi(X)>\chi(Y)$, there cannot be a homomorphism $X\rightarrow Y$.  Furthermore, since the homomorphic image of an odd cycle must be an odd cycle of no greater length, if the graph $X$ has an odd cycle of length $\ell$ and $Y$ has no odd cycle of length less than or equal to $\ell$, there cannot be a homomorphism $X\rightarrow Y$.  We call the length of the longest odd cycle of $X$ the \textit{odd girth} of $X$, and the odd girth of $X$ is an upper bound on the odd girth of any graph $Y$ such that there is a homomorphism $X\rightarrow Y$.
+
+
+\section*{Cores}
+
+\definition{A \textbf{core} is a graph $X$ such that any homomorphism from $X$ to itself is a bijection.  Equivalently, its endomorphism monoid is equal to its automorphism group.}
+
+The simplest example of cores is the set of complete graphs, which we know have automorphism group $Sym(n)$.  A subgraph $Y$ of a graph $X$ is a core of $X$ if it is itself a core and there exists a homomorphism $X\rightarrow Y$.
+
+Every graph has a core (this seems kind of obvious, just pick a proper coloring and use that as the kernel).  Interestingly, every core of a graph $X$ is isomorphic.  We can thus talk about \textit{the} core of a graph $X$, which we denote $X^\bullet$.  If $Y$ is a core of $X$ and $f$ a homomorphism from $X$ to $Y$, then $f\upharpoonright Y$ must be an automorphism of $Y$.  The composition of this homomorphism with the inverse of the restriction must be the identity on $Y$, so any core is also a retract.
+
+\definition{A graph $X$ is \textbf{$\boldsymbol{\chi}$-critical} if the chromatic number of any subgraph is less than $\chi(X)$.}
+
+A $\chi$-critical graph cannot have a homomorphism to any proper subgraph, so it must be its own core.  Some $\chi$-critical graphs are the complete graphs and the odd cycles.
+
+\begin{lemma}
+	Let $X$ and $Y$ be cores.  Then there exists homomorphisms $X\rightarrow Y$ and $Y\rightarrow X$ (i.e. they are homomorphically equivalent) if and only if $X$ and $Y$ are isomorphic.  That is, our relation $\rightarrow$ is a partial order over the set of cores.
+\end{lemma}
+\begin{proof}
+	Since isomorphic is a stronger condition than homomorphically equivalent, we need only prove one direction.  Suppose that $X$ and $Y$ are cores and let $f:X\rightarrow Y$ and $g:Y\rightarrow X$ be the homomorphisms between them.  Then since $f\circ g$ and $g\circ f$ are both surjective, $f$ and $g$ themselves must be surjective, and therefore the graphs are isomorphic.
+\end{proof}
+
+\begin{lemma}
+	Every graph has a core, the core is an induced subgraph, and it is unique up to isomorphism.
+\end{lemma}
+\begin{proof}
+	Since $X$ is a finite graph and the identity automorphism is a homomorphism $X\rightarrow X$, the set of graphs homomorphically equivalent to $X$ is non-empty and has at a minimal element with respect to ordering by inclusion.  
+	
+	Since a core is a retract, it is an induced subgraph.
+	
+	Finally, suppose $Y_1$ and $Y_2$ are cores of $X$ and let $f_i$ be a homomorphism $X\rightarrow Y_i$.  Then $f_2\upharpoonright Y_1$ is a homomorphism $Y_2\rightarrow Y_1$ and $f_1\upharpoonright Y_2$ is a homomorphism $Y_1\rightarrow Y_2$.  By the previous lemma, $Y_1$ and $Y_2$ must be isomorphic.
+\end{proof}
+
+\begin{lemma}
+	Two graphs are homomorphically equivalent if and only if their cores are isomorphic.
+\end{lemma}
+
+\begin{proof}
+	First, if there is a homomorphism $f:X\rightarrow Y$, then there is a sequence of homomorphisms $X^\bullet\rightarrow X\rightarrow Y \rightarrow Y^\bullet$, which defines a homomorphism $X^\bullet\rightarrow Y^\bullet$.  Symmetrically, if there is a homomorphism $Y\rightarrow X$, we have one $Y^\bullet \rightarrow X^\bullet$.  Hence if $X$ and $Y$ are homomorphically equivalent, their cores are as well.
+	
+	Conversely, if $g:X^\bullet\rightarrow Y^\bullet$ is a homomorphism of the cores, then there is a sequence of homomorphisms $X\rightarrow X^\bullet \rightarrow Y^\bullet\rightarrow Y$, so by the same argument, if $X^\bullet$ and $Y^\bullet$ are homomorphically equivalent then $X$ and $Y$ are as well.
+	
+	Hence $X$ and $Y$ are homomorphically equivalent if and only if their cores are, and two cores are homomorphically equivalent if and only if they are isomorphic, by the previous lemma.
+\end{proof}
+\begin{corollary}
+	The relation $\rightarrow$ is a partial order on the set of cores.
+\end{corollary}
+\begin{proof}
+	We know already that $\rightarrow$ is reflexive and transitive.  By the previous lemmas, if $X$ and $Y$ are cores and $X\rightarrow Y$ and $Y\rightarrow X$, then $X$ and $Y$ are isomorphic demonstrates that $\rightarrow$ is antisymmetric on the set of cores.
+\end{proof}
+
+
+\section*{Graph Products}
+
+\definition{If $X$ and $Y$ are graphs, then their (\textbf{Cartesian}) \textbf{product} is the graph with vertex set $V(X)\times V(Y)$ where vertices $(x,y)$ and $(x',y')$ are adjacent in $X\times Y$ if and only if the pairs $x,x'$ and $y,y'$ are adjacent in $X$ and $Y$, respectively.}
+
+The map which sends $(x,y)$ to $(y,x)$ is a natural isomorphism between $X\times Y$ and $Y\times X$, and if we can easily describe an isomorphism between $X\times (Y\times Z)$ and $(X\times Y)\times Z$, so the product is sensibly commutative and associative.  However, if $X\times Y_1$ is isomorphic to $X\times Y_2$, it does not necessarily follow that $Y_1$ and $Y_2$ are isomorphic.  For example, $K_2\times 2K_3$ and $K_2\times C_6$ are both isomorphic to $2C_6$, but $2K_3$ and $C_6$ are not isomorphic.
+
+For a fixed vertex $x\in V(X)$, the vertices $(x,y)$ for all $y\in V(Y)$ form an independent set.  Thus, the mapping $p_X:(x,y)\mapsto x$ is a natural homomorphism from $X\times Y$ to $X$.  Similarly, there is a projection $p_Y:X\times Y\rightarrow Y$.
+
+\begin{theorem}
+	If $X$, $Y$, and $Z$ are graphs and $f:Z\rightarrow X$ and $g:Z\rightarrow Y$ are homomorphisms, then there exists a unique homomorphism $\phi:Z\rightarrow X\times Y$ such that $f=p_X\circ \phi$ and $g=p_Y\circ \phi$.
+\end{theorem}
+
+\begin{proof}
+	Let such $f$ and $g$ be given.  Then we claim $\phi:z\mapsto(f(z),g(z))$ does the trick.  It is clearly a homomorphism $Z\rightarrow X\times Y$, satisfies the requirement of composition with the respective projections, and furthermore it is uniquely determined by $f$ and $g$.
+\end{proof}
+
+We use $Hom(X,Y)$ to denote the set of homomorphisms from $X$ to $Y$.
+
+\begin{corollary}
+	For any graphs $X,Y,Z$, we have that $$|\text{Hom}(Z,X\times Y)|=|\text{Hom}(Z,X)||\text{Hom}(Z,Y)|$$
+\end{corollary}
+\begin{proof}
+	Since any pair of homomorphisms from the right hand side corresponds to a unique $\phi$ from the left hand side, the result follows combinatorially.
+\end{proof}
+
+\definition{A partially ordered set forms a \textbf{lattice} if every pair of elements has a greatest lower bound and a least upper bound.}
+
+\begin{lemma}
+	The set of cores with the partial order induced by $\rightarrow$ forms a lattice.
+\end{lemma}
+\begin{proof}
+	Let $X$ and $Y$ be cores.  For any core $Z$, if $X\rightarrow Z$ and $Y\rightarrow Z$, then $X\cup Y\rightarrow Z$.  So $(X\cup Y)^\bullet$ is the least upper bound of $X$ and $Y$.
+	
+	Similarly, if $Z\rightarrow X$ and $Z\rightarrow Y$, then by the previous theorem we have $Z\rightarrow X\times Y$.  Hence $(X\times Y)^\bullet$ is the greatest lower bound of $X$ and $Y$. 
+\end{proof}
+
+Somewhat counterintuitively, the greatest lower bound often has more vertices than the least upper bound.\footnote{`Life can be surprising.' Thanks, sassy math book.}
+
+\definition{If $X$ is a graph then the vertices of $X\times X$ of the form $(x,x)$, where $x\in V(X)$ induce a subgraph of $X\times X$ isomorphic to $X$, called the \textbf{diagonal} of the product.}
+
+In general, $X\times Y$ does not necessarily contain a copy of $X$ (or $Y$).  Consider the product $K_2\times K_3$, which is isomorphic to $C_6$, which has no copy of $K_3$.
+
+We finish the discussion on graph products with another construction related to the Cartesian product.
+
+\definition{Let $X$ and $Y$ be graphs and $f$ and $g$ be homomorphisms from $X$ and $Y$, respectively, to some graph $F$.  The \textbf{subdirect product} of $(X,f)$ and $(Y,g)$ is the subgraph of $X\times Y$ induced by the vertices $(x,y)\in V(X\times Y)$ such that $f(x)=g(y)$.}
+
+If $X$ is a connected bipartite graph, then it has two homomorphisms $f_1$ and $f_2$ to $K_2$ (corresponding to the two choices of colorings).  
+
+\begin{claim}
+	
+Suppose $Y$ is connected and $g$ is some homomorphism $Y\rightarrow K_2$.  Then the two subdirect products of $(X,f_i)$ with $(Y,g)$ form the components of $X\times Y$.
+\end{claim}
+\begin{proof}
+	(Left as an exercise to Future Zach)
+\end{proof}
+
+\section*{The Map Graph}
+\definition{Let $F$ and $X$ be graphs.  The \textbf{map graph} $F^X$ has as its vertices the set of functions from $V(X)$ to $V(F)$, and two such functions are adjacent in $F^X$ if and only if whenever $u$ and $v$ are adjacent in $X$, the vertices $f(u)$ and $g(v)$ are adjacent in $F$.  A vertex in the map graph has a self-loop if and only if the corresponding function $h$ is a homomorphism.}
+
+Suppose $\psi$ is a homomorphism from $X$ to $Y$.   If $f$ is a function from $V(Y)$ to $V(F)$, then the composition $f\circ \psi$ is a function from $V(X)$ to $V(F)$, so, following the result from before, $\psi$ determines a map from the vertices of $F^Y$ to those of $F^X$.
+
+\definition{This map $\psi$ is called the \textbf{adjoint map} to $\psi$.}
+
+\begin{theorem}
+	If $F$ is a graph and $\psi$ a homomorphism $X\rightarrow Y$, then the adjoint of $\psi$ is a homomorphism $F^Y\rightarrow F^X$.
+\end{theorem}
+\begin{proof}
+	Suppose $f$ and $g$ are adjacent in $F^Y$ and that $x_1$ and $x_2$ are adjacent in $X$.  Then $\psi(x_1)$ is adjacent to $\psi(x_2)$ in $Y$, so $f(\psi(x_1))$ is adjacent to $g(\psi(x_2))$ in $F^Y$.  Hence $f\circ\psi$ and $g\circ\psi$ are adjacent in $F^X$, which demonstrates the homomorphism.
+\end{proof}
+
+\begin{theorem}
+	For any $F,X,Y$, the graphs $(F^X)^Y$ and $F^{X\times Y}$ are isomorphic.
+\end{theorem}
+\begin{proof}
+	It's clear that these two graphs have the same number of vertices.  We'll describe a natural bijection between the vertex sets and show that this extends to an isomorphism of the graphs.
+	
+	Let $g$ be a map $g:V(X\times Y)\rightarrow F$.  For any $y\in V(Y)$, the map $g_y:x\mapsto(x,y)$ is an element of $F^X$.  Thus the map $\Phi_g:y\mapsto g_y$ is an element of $(F^X)^Y$, and $g\mapsto \Phi_g$ is the bijection on the vertex sets.  We now need to show that this is in fact an isomorphism.
+	
+	Let $f$ and $g$ be adjacent vertices in $F^{X\times Y}$.  We'll show that $\Phi_f$ and $\Phi_g$ are adjacent in $(F^X)Y$.  Let $y_1,y_2$ be adjacent vertices in $Y$.  For any two adjacent $x_1,x_2$ in $X$, we have that $(x_1,y_1)$ is adjacent to $(x_2,y_2)$ in $X\times Y$.  Since $f$ and $g$ are adjacent in $F^{X\times Y}$, we have that $f(x_1,y_1)$ is adjacent to $g(x_2,y_2)$ in $F^{X\times Y}$.  Thus $\Phi_f(y_1)$ is adjacent to $\Phi_g(y_2)$ in $(F^X)^Y$.  A symmetric argument starting from $f$ and $g$ being non-adjacent implying $\Phi_f$ and $\Phi_g$ not being adjacent completes the proof.
+\end{proof}
+
+\begin{corollary}
+	For any graphs $F,X,Y$, $|\text{Hom}(X\times Y,F)|=|\text{Hom}(Y,F^X)|$.
+\end{corollary}
+\begin{proof}
+	Since $(F^X)^Y$ and $F^{X\times Y}$ are isomorphic, they have the same number of loops, which also counts the number of homomorphisms.
+\end{proof}
+Since there is a homomorphism $X\times F\rightarrow F$ (by projection), this corollary implies the existence of a homomorphism $F\rightarrow F^X$.  More specifically:
+
+\begin{lemma}
+	If $X$ has at least one edge, then the constant functions from $V(X)$ to $V(F)$ induce a subgraph of $F^X$ isomorphic to $F$.
+\end{lemma}
+\begin{proof}
+	Let $f$ and $g$ be constant functions $V(X)\rightarrow F(X)$ and let $x_1,x_2$ be vertices in $X$.  Let $f(x)=z_1$ and $g(x)=z_2$.
+	
+	By the definition of the map graph, $f$ and $g$ are adjacent in $F^X$ if and only if for adjacent $x_1$ and $x_2$, $z_1$ and $z_2$ are adjacent, so $f$ and $g$ are adjacent if and only if $z_1$ and $z_2$ are adjacent, so the constant functions form an induced subgraph isomorphic to $F$.
+\end{proof}
+
+
+\section*{Counting Homomorphisms}
+
+\begin{lemma}
+	Let $X,Y$ be graphs.  Suppose that for any graph $Z$, we have $|\text{Hom}(Z,X)|=|\text{Hom}(Z,Y)|$.  Then $X$ and $Y$ are isomorphic.
+\end{lemma}
+
+\begin{proof}
+	Let $Inj(A,B)$ denote the set of injective homomorphisms from $A$ to $B$.  We start by showing that $|\text{Inj}(Z,X)|=|\text{Inj}(Z,Y)|$.  By letting $Z$ equal $X$ and then $Y$, we can see that the existence of injective homomorphisms $X\rightarrow Y$ and $Y\rightarrow X$ means that $X$ and $Y$ have the same number of vertices, so an injective homomorphism must also be surjective, thus demonstrating isomorphism.
+	
+	We proceed by induction on the number of vertices in $Z$.  If $Z$ has a single vertex, the claim must be true, as any homomorphism from a graph on one vertex is trivially injective.  Next, we partition the homomorphisms from $Z$ into any graph $W$ according to the kernel, so we get that $|\text{Hom}(Z,W)|=\sum\limits_\pi |\text{Inj}(Z/\pi,W)|$ as we let $\pi$ range over all possible partitions.  A homomorphism is an injection if and only if its kernel is the discrete partition (the one which puts each vertex into a singleton cell), which we call $\delta$.  Thus, $|\text{Inj}(Z,W)|=|\text{Hom}(Z,W)|-\sum\limits_{\pi\neq \delta}|\text{Inj}(Z/\pi,W)|$.  By the induction hypothesis, the terms on the right hand side are the same for $W=X$ and $W=Y$, so we have that $|\text{Inj}(Z,X)|=|\text{Inj}(Z,Y)|$, and we are done.
+\end{proof}
+
+\begin{lemma}
+	For any graphs $X,Y,F$, we have that $F^{X\cup Y}$ is isomorphic to $F^X\times F^Y$.
+\end{lemma}
+
+\begin{proof}
+	For any graph $Z$, we have:
+	\begin{align*}
+	|\text{Hom}(Z,F^{X\cup Y})|&=|\text{Hom}(Z\times(X\cup Y),F)|\\
+	                    &=|\text{Hom}((Z\times X)\cup (Z\times Y),F)|\\
+	                    &=|\text{Hom}(Z\times X,F)||\text{Hom}(Z\times Y,F)|\\
+	                    &=|\text{Hom}(Z,F^X)||\text{Hom}(Z,F^Y)|
+	\end{align*}
+	Since $|\text{Hom}(Z,X\times Y)|=|\text{Hom}(Z,X)||\text{Hom}(Z,Y)|$, the right hand side of the last line is the number of homomorphisms from $Z$ to $F^X\times F^Y$, and the result follows from the previous lemma.
+\end{proof}
+
+\section*{Products and Colorings}
+
+Recall that we know if $X\rightarrow Y$, then $\chi(X)\leq \chi(Y)$.  Since $X\times Y\rightarrow X$ and $X\times Y\rightarrow Y$, we have that $\chi(X\times Y)\leq\min\left\{\chi(X),\chi(Y)\right\}$.  A conjecture of Hedetniemi states that for all $X$ and $Y$, this holds with equality, so $\chi(X\times Y)=\min\left\{\chi(X),\chi(Y)\right\}$.  
+
+Equivalently, if $X$ and $Y$ are not $n$-colorable, then neither is $X\times Y$.  For $n=2$, we can show that the product of two odd cycles contains an odd cycle, hence the product of two non-bipartite graphs is not bipartite.  For $n=3$, the proof is due to El-Zahar and Sauer\footnote{In 1985}.  The remaining cases ($n\geq 4$) are still open.
+
+Here we prove a statement which simplifies Hedetniemi's conjecture using the map graph.
+
+\begin{theorem}
+	Let $\chi(X)>n$.  Then $K_n^X$ is $n$-colorable if and only if $\chi(X\times Y)>n$ for all graphs $Y$ such that $\chi(Y)>n$.
+\end{theorem}
+\begin{proof}
+	{By a previous corollary , we have that $$|\text{Hom}(X\times K_n^X,K_n)|=|\text{Hom}(K_n^X,K_n^X)|>0$$ as the identity homomorphism is certainly in the second set. So $X\times X_n^X$ is $n$-colorable.  Therefore, if $\chi(X)>n$ and $\chi(X\times Y)>n$ whenever $\chi(Y)>n$, then $K_n^X$ must be $n$-colorable.
+	
+Assume then that $\chi(K_n^X)\leq n$ and let $Y$ be such that $\chi(Y)>n$.  Then there are no homomorphisms from $Y$ into any $n$-colorable graph, so $$0=|\text{Hom}(Y,K_n^X)|=|\text{Hom}(X\times Y,K_n)|$$ Therefore $\chi(X\times Y)>n$. }
+\end{proof}
+
+A consequence of this theorem is that we can prove Hedetnemi's conjecture by proving that $\chi(K_n^X)\leq n$ if $\chi(X)>n$.  The next few results show what we know about the few cases where we know this to be true.
+
