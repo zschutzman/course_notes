@@ -86,7 +86,7 @@ For a fixed vertex $x\in V(X)$, the vertices $(x,y)$ for all $y\in V(Y)$ form an
 We use $Hom(X,Y)$ to denote the set of homomorphisms from $X$ to $Y$.
 
 \begin{corollary}
-	For any graphs $X,Y,Z$, we have that $$|\text{Hom}(Z,X\times Y)|=|\text{Hom}(Z,X)||\text{Hom}(Z,Y)|$$
+	For any graphs $X,Y,Z$, we have that $$|\mathrm{Hom}(Z,X\times Y)|=|\mathrm{Hom}(Z,X)||\mathrm{Hom}(Z,Y)|$$
 \end{corollary}
 \begin{proof}
 	Since any pair of homomorphisms from the right hand side corresponds to a unique $\phi$ from the left hand side, the result follows combinatorially.
@@ -149,7 +149,7 @@ Suppose $\psi$ is a homomorphism from $X$ to $Y$.   If $f$ is a function from $V
 \end{proof}
 
 \begin{corollary}
-	For any graphs $F,X,Y$, $|\text{Hom}(X\times Y,F)|=|\text{Hom}(Y,F^X)|$.
+	For any graphs $F,X,Y$, $|\mathrm{Hom}(X\times Y,F)|=|\mathrm{Hom}(Y,F^X)|$.
 \end{corollary}
 \begin{proof}
 	Since $(F^X)^Y$ and $F^{X\times Y}$ are isomorphic, they have the same number of loops, which also counts the number of homomorphisms.
@@ -169,13 +169,13 @@ Since there is a homomorphism $X\times F\rightarrow F$ (by projection), this cor
 \section*{Counting Homomorphisms}
 
 \begin{lemma}
-	Let $X,Y$ be graphs.  Suppose that for any graph $Z$, we have $|\text{Hom}(Z,X)|=|\text{Hom}(Z,Y)|$.  Then $X$ and $Y$ are isomorphic.
+	Let $X,Y$ be graphs.  Suppose that for any graph $Z$, we have $|\mathrm{Hom}(Z,X)|=|\mathrm{Hom}(Z,Y)|$.  Then $X$ and $Y$ are isomorphic.
 \end{lemma}
 
 \begin{proof}
-	Let $Inj(A,B)$ denote the set of injective homomorphisms from $A$ to $B$.  We start by showing that $|\text{Inj}(Z,X)|=|\text{Inj}(Z,Y)|$.  By letting $Z$ equal $X$ and then $Y$, we can see that the existence of injective homomorphisms $X\rightarrow Y$ and $Y\rightarrow X$ means that $X$ and $Y$ have the same number of vertices, so an injective homomorphism must also be surjective, thus demonstrating isomorphism.
+	Let $Inj(A,B)$ denote the set of injective homomorphisms from $A$ to $B$.  We start by showing that $|\mathrm{Inj}(Z,X)|=|\mathrm{Inj}(Z,Y)|$.  By letting $Z$ equal $X$ and then $Y$, we can see that the existence of injective homomorphisms $X\rightarrow Y$ and $Y\rightarrow X$ means that $X$ and $Y$ have the same number of vertices, so an injective homomorphism must also be surjective, thus demonstrating isomorphism.
 	
-	We proceed by induction on the number of vertices in $Z$.  If $Z$ has a single vertex, the claim must be true, as any homomorphism from a graph on one vertex is trivially injective.  Next, we partition the homomorphisms from $Z$ into any graph $W$ according to the kernel, so we get that $|\text{Hom}(Z,W)|=\sum\limits_\pi |\text{Inj}(Z/\pi,W)|$ as we let $\pi$ range over all possible partitions.  A homomorphism is an injection if and only if its kernel is the discrete partition (the one which puts each vertex into a singleton cell), which we call $\delta$.  Thus, $|\text{Inj}(Z,W)|=|\text{Hom}(Z,W)|-\sum\limits_{\pi\neq \delta}|\text{Inj}(Z/\pi,W)|$.  By the induction hypothesis, the terms on the right hand side are the same for $W=X$ and $W=Y$, so we have that $|\text{Inj}(Z,X)|=|\text{Inj}(Z,Y)|$, and we are done.
+	We proceed by induction on the number of vertices in $Z$.  If $Z$ has a single vertex, the claim must be true, as any homomorphism from a graph on one vertex is trivially injective.  Next, we partition the homomorphisms from $Z$ into any graph $W$ according to the kernel, so we get that $|\mathrm{Hom}(Z,W)|=\sum\limits_\pi |\mathrm{Inj}(Z/\pi,W)|$ as we let $\pi$ range over all possible partitions.  A homomorphism is an injection if and only if its kernel is the discrete partition (the one which puts each vertex into a singleton cell), which we call $\delta$.  Thus, $|\mathrm{Inj}(Z,W)|=|\mathrm{Hom}(Z,W)|-\sum\limits_{\pi\neq \delta}|\mathrm{Inj}(Z/\pi,W)|$.  By the induction hypothesis, the terms on the right hand side are the same for $W=X$ and $W=Y$, so we have that $|\mathrm{Inj}(Z,X)|=|\mathrm{Inj}(Z,Y)|$, and we are done.
 \end{proof}
 
 \begin{lemma}
@@ -185,12 +185,12 @@ Since there is a homomorphism $X\times F\rightarrow F$ (by projection), this cor
 \begin{proof}
 	For any graph $Z$, we have:
 	\begin{align*}
-	|\text{Hom}(Z,F^{X\cup Y})|&=|\text{Hom}(Z\times(X\cup Y),F)|\\
-	                    &=|\text{Hom}((Z\times X)\cup (Z\times Y),F)|\\
-	                    &=|\text{Hom}(Z\times X,F)||\text{Hom}(Z\times Y,F)|\\
-	                    &=|\text{Hom}(Z,F^X)||\text{Hom}(Z,F^Y)|
+	|\mathrm{Hom}(Z,F^{X\cup Y})|&=|\mathrm{Hom}(Z\times(X\cup Y),F)|\\
+	                    &=|\mathrm{Hom}((Z\times X)\cup (Z\times Y),F)|\\
+	                    &=|\mathrm{Hom}(Z\times X,F)||\mathrm{Hom}(Z\times Y,F)|\\
+	                    &=|\mathrm{Hom}(Z,F^X)||\mathrm{Hom}(Z,F^Y)|
 	\end{align*}
-	Since $|\text{Hom}(Z,X\times Y)|=|\text{Hom}(Z,X)||\text{Hom}(Z,Y)|$, the right hand side of the last line is the number of homomorphisms from $Z$ to $F^X\times F^Y$, and the result follows from the previous lemma.
+	Since $|\mathrm{Hom}(Z,X\times Y)|=|\mathrm{Hom}(Z,X)||\mathrm{Hom}(Z,Y)|$, the right hand side of the last line is the number of homomorphisms from $Z$ to $F^X\times F^Y$, and the result follows from the previous lemma.
 \end{proof}
 
 \section*{Products and Colorings}
@@ -205,10 +205,71 @@ Here we prove a statement which simplifies Hedetniemi's conjecture using the map
 	Let $\chi(X)>n$.  Then $K_n^X$ is $n$-colorable if and only if $\chi(X\times Y)>n$ for all graphs $Y$ such that $\chi(Y)>n$.
 \end{theorem}
 \begin{proof}
-	{By a previous corollary , we have that $$|\text{Hom}(X\times K_n^X,K_n)|=|\text{Hom}(K_n^X,K_n^X)|>0$$ as the identity homomorphism is certainly in the second set. So $X\times X_n^X$ is $n$-colorable.  Therefore, if $\chi(X)>n$ and $\chi(X\times Y)>n$ whenever $\chi(Y)>n$, then $K_n^X$ must be $n$-colorable.
+	{By a previous corollary , we have that $$|\mathrm{Hom}(X\times K_n^X,K_n)|=|\mathrm{Hom}(K_n^X,K_n^X)|>0$$ as the identity homomorphism is certainly in the second set. So $X\times X_n^X$ is $n$-colorable.  Therefore, if $\chi(X)>n$ and $\chi(X\times Y)>n$ whenever $\chi(Y)>n$, then $K_n^X$ must be $n$-colorable.
 	
-Assume then that $\chi(K_n^X)\leq n$ and let $Y$ be such that $\chi(Y)>n$.  Then there are no homomorphisms from $Y$ into any $n$-colorable graph, so $$0=|\text{Hom}(Y,K_n^X)|=|\text{Hom}(X\times Y,K_n)|$$ Therefore $\chi(X\times Y)>n$. }
+Assume then that $\chi(K_n^X)\leq n$ and let $Y$ be such that $\chi(Y)>n$.  Then there are no homomorphisms from $Y$ into any $n$-colorable graph, so $$0=|\mathrm{Hom}(Y,K_n^X)|=|\mathrm{Hom}(X\times Y,K_n)|$$ Therefore $\chi(X\times Y)>n$. }
 \end{proof}
 
 A consequence of this theorem is that we can prove Hedetnemi's conjecture by proving that $\chi(K_n^X)\leq n$ if $\chi(X)>n$.  The next few results show what we know about the few cases where we know this to be true.
 
+\begin{theorem}
+	The graph $K_n^{K_{n+1}}$ is $n$-colorable.
+\end{theorem}
+\begin{proof}
+	We will construct a proper $n$ coloring of this graph.  For any $f\in K_n^{K_{n+1}}$, there are two distinct vertices in $K_{n+1}$ such that $f(i)=f(j)$.  Define $\phi(f)$ to be the least value in the range of $f$ that is the image of at least two vertices.  If $\phi(f)=\phi(g)$, then for some distinct $i',j'$ we have $f(i)=f(j)=g(i')=g(j')$.  Since $i$ is not equal to both $i'$ and $j'$, we have that $f$ and $g$ are not adjacent.  Therefore, $\phi$ can assign the same color to both $f$ and $g$ and in fact this procedure generates a proper $n$-coloring of $K_n^{K_{n+1}}$.
+\end{proof}
+
+\begin{corollary}
+	Suppose $X$ contains an $(n+1)$-clique (and not one larger).  Then $K_n^X$ is $n$-colorable.
+\end{corollary}
+\begin{proof}
+	Since there exists a homomorphism $K_{n+1}\rightarrow X$, there is a homomorphism (via the adjoint) $K_n^X\rightarrow K_{n+1}^{K_{n+1}}$.  By the previous theorem, this graph is $n$-colorable, so $K_n^X$ is as well.
+\end{proof}
+
+\begin{theorem}
+	All of the loops in $K_n^{K_{n}}$ are isolated vertices.  The subgraph induced by the set of vertices without loops is $n$-colorable.
+\end{theorem}
+\begin{proof}
+	Suppose $f\in K_n^{K_n}$ and $f$ is a proper $n$-coloring of $K_n$.  If $g$ is adjacent to $f$, then $g(i)\neq f(j)$ for $i,j\in V(K_n)$, $i\neq j$.  This implies that $g(i)=f(i)$, so $g$ and $f$ are identical, hence a loop.
+	For any $f$ in the part of the graph with no loops, there are at least two distinct vertices $i,j$ such that $f(i)=f(j)$, and we can define a proper $n$-coloring of this part by the above theorem.
+\end{proof}
+
+\begin{theorem}
+	If $X$ is connected and not $n$-colorable, then $K_n^X$ contains a unique $n$-clique, corresponding to the constant functions.
+\end{theorem}
+
+\begin{proof}
+	The subgraph of $K_n^X$ induced by the constant functions is isomorphic to $K_n$, and is therefore an $n$-clique.  We need only to show that it is the only one.
+	
+	If $\chi(X)>n$ and $f$ is a homomorphism from $X$ to $K_n^{K_n}$, then, by the previous theorem, $f$ must send each vertex of $X$ onto the same loop of $K_n^{K_n}$.  Since $K_n$ has exactly $n!$ proper $n$-colorings, $K_n^{K_n}$ has exactly $n!$ loops, so, combinatorially,
+	\begin{align*}
+	n!&=|\mathrm{Hom}(X,K_n^{K_n})|\\
+	  &=|\mathrm{Hom}(K_n\times X,K_n)|\\
+	  &=|\mathrm{Hom}(X\times K_n,K_n)|\\
+	  &=|\mathrm{Hom}(K_n,K_n^X)|
+	\end{align*} 
+	
+	Since there are $n!$ homomorphisms from $K_n$ into $K_n^X$ and therefore $K_n^X$ must contain a unique $n$-clique, as there are $n!$ distinct colorings of an $n$-clique.
+\end{proof}
+
+This proof also tells us that if $\chi(X)>n$, there are exactly $n!$ homomorphisms from $X\times K_n$ into $K_n$.  Therefore $X\times K_n$ is uniquely $n$-colorable.
+
+\begin{theorem}
+	Let $n\geq 2$ and let $X$ and $Y$ be connected graphs which each contain an $n$-clique.  If $X$ and $Y$ are not $n$-colorable, neither is $X\times Y$.
+	
+\end{theorem}
+\begin{proof}
+	Let $x_1,x_2\dots, x_n$ and $y_1,y_2,\dots,y_n$ be the $n$-cliques in $X$ and $Y$, respectively.  Suppose, for the sake of contradiction, that there is some homomorphism $f$ from $X\times Y$ into $K_n$.  If we consider the induced homomorphism from $Y$ to $K_n^X$, the previous theorem tells us that the image of $y_1,\dots,y_n$ are the constant maps, as these form the unique $n$-clique, and symmetrically the image of $x_1,\dots,x_n$ are the constant maps in $K_n^Y$.  That is, $f(x,y_j)$ is constant for each $y_j$ and $f(x_i,y)$ is constant for each $x_i$.  Therefore, $f(x_1,y_1)=f(x_1,y_2)=f(x_2,y_2)$, so the vertices $(x_1,y_2)$ and $(x_2,y_2)$ are adjacent in $X\times Y$ but are mapped to the same vertex under our homomorphism into $K_n$, contradicting the assumption that this is a proper homomorphism.
+\end{proof}
+
+\begin{corollary}
+	If $X$ and $Y$ are not bipartite, then neither is $X\times Y$.
+\end{corollary}
+
+\begin{corollary}
+	Let $X$ be a graph such that every vertex lies in some $n$-clique and $\chi(X)>n$.  If $Y$ is a connected graph with $\chi(Y)>n$, then $\chi(X\times Y)>n$ as well.
+\end{corollary}
+
+\begin{proof}
+	Again, suppose for the sake of contradiction that there is a homomorphism $f$ from $X\times Y$ into $K_n$.  Consider the induced mapping $\Phi_f$ from $X$ into $K_n^Y$.  Because $K_n^Y$ has no loops, each $n$-clique in $X$ is mapped injectively onto the unique $n$-clique in $K_n^Y$.  Each vertex of $X$ lies in some $n$-clique so every vertex of $X$ is mapped onto this $n$-clique.  However, we assumed that $\chi(X)>n$, so there cannot exist a homomorphism from $X$ onto an $n$-clique.
+\end{proof}

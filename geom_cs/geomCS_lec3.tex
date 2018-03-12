@@ -1,0 +1,48 @@
+\classheader{2018-01-18}
+
+\section*{More on the Matrix Exponential}
+
+We know that if a matrix $A$ has eigenvalues $\lambda_1,\lambda_2,\dots,\lambda_n$ then $e^A$ has eigenvalues $e^{\lambda_1},e^{\lambda_2},\dots,e^{\lambda_n}$.
+
+\begin{claim}
+	$\det(e^A)=e^{Tr(A)}$.
+\end{claim}
+\begin{proof}
+	The left hand side expands as $e^{\lambda_1} e^{\lambda_2} \dots e^{\lambda_n}$ but this is equal to $e^{\lambda_1 + \lambda_2+\dots+\lambda_n}$, which is $e^{Tr(A)}$.
+\end{proof}
+\begin{corollary}
+	$e^A$ is invertible for all $A$, and its inverse is $e^{-A}$.
+\end{corollary}
+\begin{proof}
+	The first claim is obvious, as $e^x$ is non-zero for all $x$.  The second claim follows from the fact (which we may prove later) that $e^Ae^B=e^{A+B}$ if $A$ and $B$ commute.
+\end{proof}
+
+
+\definition{Given an $m\times n$ matrix $A=(a_{ij})$, the \textbf{transpose} $A^T=(a^T_{ij})$ is the $n\times m$ matrix such that $(a^T_{ij})=(a_{ji})$.}
+
+
+\definition{ A matrix $A$ is:
+
+\begin{enumerate}
+	\item[] \textbf{Normal} if $AA^T=A^TA$.  Normal matrices are diagonalizable with respect to a unitary matrix.
+	\item[] \textbf{Symmetric} if $A^T=A$.  Symmetric implies normal.
+	\item[] \textbf{Skew-symmetric} if $A^T=-A$.  This also implies normality.
+	\item[] \textbf{Orthogonal} if $A^TA=AA^T=I$.  This implies normality.  All eigenvalues of an orthogonal matrix are roots of unity.
+\end{enumerate}
+}
+
+\begin{theorem}
+	For any normal $A$, there exists an orthogonal matrix $P$ and a block diagonal matrix $D$ such that $A=PDP^T$ and each block of $D$ is either 1- or 2-dimensional, with the 2-dimensional blocks $D_j$ of the form $$D_j=\begin{pmatrix}
+	\lambda_j&-\mu_j\\\mu_j&\lambda_j\end{pmatrix}$$ such that $\lambda_j,\mu_j\in\R$, $\mu_j>0$.
+
+\end{theorem} 
+
+Let $A$ be a real matrix $$A=\begin{pmatrix}
+\lambda&-\mu\\\mu&\lambda
+\end{pmatrix}$$ with $\lambda,\mu\in\R$, $\mu>0$.  The eigenvalues of $A$ are the values which solve $0=(x-\lambda)^2+\mu^2$, which are $x=\lambda\pm i\mu$.
+	
+	
+	
+	
+	
+	
