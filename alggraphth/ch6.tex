@@ -103,7 +103,7 @@ We use $Hom(X,Y)$ to denote the set of homomorphisms from $X$ to $Y$.
 	Similarly, if $Z\rightarrow X$ and $Z\rightarrow Y$, then by the previous theorem we have $Z\rightarrow X\times Y$.  Hence $(X\times Y)^\bullet$ is the greatest lower bound of $X$ and $Y$. 
 \end{proof}
 
-Somewhat counterintuitively, the greatest lower bound often has more vertices than the least upper bound.\footnote{`Life can be surprising.' Thanks, sassy math book.}
+Somewhat counterintuitively, the greatest lower bound often has more vertices than the least upper bound.\footnote{`Life can be surprising.' Thanks, ssassy math book.}
 
 \definition{If $X$ is a graph then the vertices of $X\times X$ of the form $(x,x)$, where $x\in V(X)$ induce a subgraph of $X\times X$ isomorphic to $X$, called the \textbf{diagonal} of the product.}
 
@@ -273,3 +273,237 @@ This proof also tells us that if $\chi(X)>n$, there are exactly $n!$ homomorphis
 \begin{proof}
 	Again, suppose for the sake of contradiction that there is a homomorphism $f$ from $X\times Y$ into $K_n$.  Consider the induced mapping $\Phi_f$ from $X$ into $K_n^Y$.  Because $K_n^Y$ has no loops, each $n$-clique in $X$ is mapped injectively onto the unique $n$-clique in $K_n^Y$.  Each vertex of $X$ lies in some $n$-clique so every vertex of $X$ is mapped onto this $n$-clique.  However, we assumed that $\chi(X)>n$, so there cannot exist a homomorphism from $X$ onto an $n$-clique.
 \end{proof}
+
+
+
+\section*{Uniquely Colorable Graphs}
+
+A graph $X$ with chromatic number $n$ is partitioned into $n$ independent sets by any $n$-coloring, and conversely a partition into $n$ independent sets yields $n!$ proper $n$-colorings.  
+
+\begin{definition}
+	A graph is \textbf{uniquely $\boldsymbol{n}$-colorable if its chromatic number is $n$ and it admits a unique partition into $n$ independent sets.}
+\end{definition}
+
+It's straightforward to see that a graph on at least $n$ vertices is uniquely $n$-colorable if and only if it admits $n!$ homomorphisms onto $K_n$.  Connected bipartite graphs are such a class, being uniquely 2-colorable.
+
+\begin{theorem}
+	{If $X$ is a connected graph with $\chi(X)>n$, then $X\times K_n$ is uniquely $n$-colorable.}  The proof of this is immediate from the proof that $K^X_n$ contains a unique $n$-clique in the previous section.
+\end{theorem}
+
+\begin{theorem}
+	If $X$ is uniquely $n$-colorable, then each $n$-coloring, representing a homomorphism to $K_n$, is an isolated vertex in $K_n^X$.
+\end{theorem}
+\begin{proof}
+	Let $f$ be such a coloring and let $x\in V(X)$.  Since the coloring is unique, each of the other $n-1$ colors must appear on a neighbor of $x$.  Then, if $g$ is adjacent to $f$, it must be that $g(x)=f(x)$, so $f$ can only be adjacent to itself.
+\end{proof}
+
+Let $\lambda(K_n^X)$ denote the induced subgraph of $K_n^X$ on only the vertices without self-loops.  Then we state the following three conjectures:
+
+\begin{enumerate}
+	\item[($B_n$)] If $X$ is uniquely $n$-colorable, and $Y$ is a connected graph which is not $n$-colorable, then $X\times Y$ is uniquely $n$-colorable.
+	\item[($D_n$)] If $X$ is uniquely $n$-colorable, then so is $\lambda(K^X_n)$.
+	\item[($H_n$)] If $\chi(X)=\chi(Y)=n+1$, then $\chi(X\times Y)=n+1$  
+\end{enumerate}
+
+\begin{claim}
+The statement that ($H_n$) holds for all positive integers $n$ is equivalent to Hedetniemi's conjecture.  We will show that ($B_n$) is equivalent to ($D_n$) and either of these imply ($H_n$).
+\end{claim}
+
+We first need a lemma which will be used to show that ($D_n$) implies ($H_n$).
+
+\begin{lemma}
+	If $\chi(X)>n$ then there exists a homomorphism from $K^X_n$ into the subgraph of $K_n^{X\times K_n}$ induced by the vertices without self-loops.
+\end{lemma}
+\begin{proof}
+	Let $p_X$ be the projection map from $X\times K_n$ to $X$ and let $\phi$ be the induced mapping from $K^X_n$ to $K_n^{X\times K_n}$ (constructed from the adjoint of $p_X$).  If $g\in K^X_n$, then $g$ is not a proper coloring of $X$, so there are adjacent vertices $u,v$ in $X$ such that $g(u)=g(v)$.  But $\phi(g) = g\circ p_X$ and for any vertices $i,j$ in $K_n$, $\phi(g)$ maps $(u,i)$ and $(v,j)$ to $g(u)$, so $\phi(g)$ isn't a proper coloring of $X\times K_n$, so it doesn't appear as a loop in the map graph.
+\end{proof}
+
+We now prove the claim:
+
+\begin{proof}
+	Suppose ($B_n$) holds and let $X$ be a uniquely $n$-colorable graph and let $Y$ be any subgraph of $\lambda(K_n^X)$.  Then, there are more than $n!$ homomorphisms from $Y$ into $K_n^X$ (at the very least, one for each of the $n!$ self-loops and the identity), so $$|\mathrm{Hom}(X\times Y,K_n)|=|\mathrm{Hom}(Y,K^X_n)|\geq n!+1$$ so $X\times Y$ is not uniquely $n$-colorable, but ($B_n$) implies $\chi(Y)\leq n$, so ($B_n$) implies ($D_n$).
+	
+	The converse is true as well.  If $Y$ is connected and $\chi(Y)>n$ and $\lambda(K^X_n)$ is $n$-colorable, then the only homomorphisms from $Y$ into $K^X_n$ are the ones onto the self-loops, so $$n!=|\mathrm{Hom}(Y,K^X_n)|=|\mathrm{Hom}(X\times Y,K_n)|$$ which implies that $X\times Y$ is uniquely $n$-colorable.
+	
+	Now, suppose that ($D_n$) is true and let $X$ be such that $\chi(X)>n$.  By the earlier theorem, $X\times K_n$ is uniqely $n$-colorable, so ($D_n$) implies that $\lambda(K_n^{X\times K_n})$ is $n$-colorable, so by the lemma, $K^X_n$ is $n$-colorable, implying Hedetniemi's conjecture.
+\end{proof}
+
+
+\section*{Foldings and Covers}
+
+
+
+A homomorphism from $X$ to $Y$ is a \textbf{simple folding} if all its fibers are singletons except for one which consists of a pair of vertices in $X$ at distance 2.  For example, either of the homomorphisms from the 3-path to the 2-path ($K_2$) are simple foldings.  A homomorphism is a \textbf{folding} if it can be written as a composition of simple foldings.
+
+\begin{lemma}
+	A retraction $f$ from $X$ to a proper subgraph $Y$ is a folding.  
+\end{lemma}
+
+\begin{proof}
+We induct on the number of vertices in $X$.  Recall that a retraction is the identity map when restricted to $Y$, so if $X=Y$, $f$ is the empty composition of foldings.  Otherwise, there is a vertex in $y$ in $Y$ adjacent to a vertex $x$ not in $Y$.  Since $f$ fixes $y$, it must map $x$ to some neighbor of $y$ in $Y$, $z$.
+
+Let $\pi$ be the partition of the vertices of $X$ with $\{x,z\}$ as one cell and all other vertices as singleton cells.  Then there is a homomorphism $f_1$ from $X$ to a graph $X_1$ with $\pi$ as its kernel.  Since the kernel of $f_1$ is a refinement of the kernel of $f$, there is a homomorphism $f_2$ from $X_1$ to $Y$ such that $f_2\circ f_1=f$.  Since $f_1$ is the identity on $Y$, it must be that $Y$ is a subgraph of $X_1$ and thus $f_2$ is a retraction from $X_1$ to $Y$.  Finally, we observe that $f_1$ is a simple folding, and the lemma follows inductively.
+\end{proof}
+
+
+A \textit{local injection} is a homomorphism for which the minimum distance between any pair of vertices in the same fiber is at least three.  Any injection, including automorphisms, are clearly local injections.
+
+
+\begin{lemma}
+If $h$ is a homomorphism, then $h$ can be written as the composition $f\circ g=h$ where $g$ is a folding and $f$ is a local injection.
+\end{lemma}
+\begin{proof}
+	Let $\pi$ be the kernel of $h$ and let $u,v$ be vertices in $X$.  We write $u\approx v$ if $u$ and $v$ are in the same cell of $\pi$ and are either the same vertex or vertices at distance two in $X$.  This is symmetric and reflexive, so the transitive closure forms an equivalence relation, which induces a partition $\pi'$ on the vertices of $X$.  Thus we can define a homomorphism $g$ from $X$ to $X{/}\pi'$ with kernel $\pi'$ and a homomorphism $f$ from $X{/}\pi'$ to $Y$ such that $f\circ g=h$.
+	
+	The homomorphism $g$ is a folding by construction, and it remains to be shown that $f$ is a local injection.  Suppose, for the sake of contradiction, that it is not, and that there are vertices $\alpha,\beta$ in $X{/}\pi'$ at distance two such that $f(\alpha)=f(\beta)$.  Let $\gamma$ be a common neighbor of $\alpha$ and $\beta$ in $X{/}\pi'$  Then, there are vertices $u,u',v,v'$ in $X$ such that $u\in g^{-1}(\alpha)$, $v\in g^{-1}(\beta)$, $u',v'\in g^{-1}(\gamma)$, $u$ and $u'$ are adjacent, and $v$ and $v'$ are adjacent.  But $u'$ and $v'$ are the ends of  even path in $X$, so $u$ and $v$ are as well.  This implies that $u$ and $v$ lie in the same cell in $\pi'$, which is our contradiction.
+\end{proof}
+
+A homomorphism $f:X\rightarrow Y$ is a \textbf{local isomorphism} if, for each vertex $y$ in $Y$, the induced mapping from a the neighbors of a vertex in $f^{-1}(y)$ to the neighbors of $y$ is a bijection.  The map $f$ is a \textbf{covering map} if it is a surjective local isomorphism, and we sometimes say \textit{$X$ covers $Y$} in this case.  If $f$ is a local isomorphism, then each fiber is an independent set in $X$, and between any two fibers, there is either a perfect matching or no edges.  If the image of $X$ under a covering is connected, then each fiber must have the same size.  The size of the fiber is called the \textbf{index} of the map, and is usually denoted $r$, and we say that $X$ is an \textit{$r$-fold cover} of $Y$.  
+
+There may not be a unique covering map from $X$ to $Y$, so we can define the \textbf{covering graph} $X$ of $Y$ to be a pair $(X,f)$ where $f$ is a local isomorphism from $X$ to $Y$.  If $(X,f)$ is a cover of $Y$ and $Y_1$ is an induced subgraph of $Y$, then $f^{-1}(Y_1)$ must cover $Y_1$.  This tells us that we can talk about covers of a graph by examining covers of its components. If $Y$ is connected and $(X,f)$ is a cover of $Y$, then each component of $X$ must cover $Y$.
+
+The following is a fundamental property of covering maps.
+
+\begin{lemma}
+	If $X$ covers $Y$ and $Y$ is a tree, then $X$ is the disjoint union of a bunch of copies of $Y$.
+\end{lemma}
+\begin{proof}
+	Let $f$ be a covering map from $X$ to $Y$.  Since $f$ is a local isomorphism, if $x$ is a vertex in $X$, then the valency of $f(x)$ in $Y$ is equal to the valency of $x$ in $X$.  Inductively, this shows that the image of a cycle in $X$ is a cycle in $Y$, and since $Y$ is a tree, $X$ must be acyclic as well.
+	
+	Since a local isomorphism is a local surjection, if $f(x)=y$, each edge incident to $y$ is the image under $f$ of some edge incident to $x$.  Inductively, this shows that any path starting at $y$ is the image of a path starting at $x$ (and similarly for walks).  Therefore, $X$ contains a tree $T$ such that $f$ is an isomorphism from $T$ to $Y$.  Therefore $Y$ is a retract of $X$, and since each component of $X$ covers $Y$, we have that $f$ is a folding from each component of $X$ to $Y$, so $X$ must be a set of disjoint copies of $Y$.
+\end{proof}
+
+
+
+We call a cover $(X,f)$ \textit{trivial} if $X$ is isomorphic to $r$ disjoint copies of $Y$ and the restriction of $f$ to any copy is an isomorphism.  The previous lemma can be restated as `any cover of a tree is trivial.'
+
+There are lots of interesting covers.  Recall that the cube $Q$ has the property that each vertex $x$ has a unique vertex $x'$ at distance three, so we can naturally partition the vertex set into four pairs and let each pair be a fiber of a cover of $K_4$ to construct a 2-fold cover.
+
+Similarly, the dodecahedron forms a 2-fold cover of the Petersen graph, and the line graph of the Petersen graph covers $K_5$.  The 42 vertices at distance two from any fixed vertex in the Hoffman-Singleton graph define a 6-fold cover of $K_7$.  For any graph $X$, there is a natural 2-fold cover $X\times K_2$ of $X$.
+
+IF $(X,f)$ and $(Y,g)$ are covers of $F$, them so is their \textit{subdirect product}.
+
+
+
+
+\section*{Cores with no Triangles}
+
+We saw earlier that every graph has a core, but it's not easy to find good examples of cores.  A \textbf{critical graph} is one where deletion of any vertex decreases its chromatic number, and these are a class of graphs where it's straightforward to describe the core. The kinds of critical graphs we know about are the complete graphs and the odd cycles.  There are a lot of more interesting ones, but we're not going to talk about them because we don't have anything algebraic to say about them.
+
+Since any homomorphism must map triangles to triangles, it should be easy to construct cores with lots of triangles.  Here, we try to construct cores \textit{without} triangles.
+
+We start with a simple sufficient condition for a graph to be a core:
+
+\begin{lemma}
+	If $X$ is a connected, non-bipartite graph and every 2-arc in $X$ lies in some shortest odd cycle, then $X$ is a core.
+\end{lemma}
+\begin{proof}
+	Let $f$ be a homomorphism from $X$ onto itself.  This will necessarily send a shortest odd cycle in $X$ to  one of the same length, so any two vertices on that cycle will be mapped to different vertices under $f$.  Since we assume that every 2-arc lies on a shortest odd cycle, we have that $f$ is a local injection and it is not a folding, so by a lemma in the previous section, $f$ cannot map $X$ to a proper subgraph of itself.
+\end{proof}
+
+If two vertices $u,v$ in $X$ have identical neighborhoods, then $X$ isn't a core, since there is a retraction from $X$ to $X{\setminus}u$.  Thus we can define a \textbf{reduced graph} to be one with no isolated vertices and all pairs of vertices have distinct neighborhoods.
+
+Supposing that $X$ is triangle-free, then if $u,v$ are vertices at distance at least three, the graph obtained by adding an edge between $u$ and $v$ is also triangle-free.  Inductively, we can see that any triangle-free graph $X$ is a spanning subgraph of a triangle-free graph with diameter two.
+
+These graphs have a useful property:
+
+\begin{lemma}
+	Let $X$ be reduced, triangle-free, and of diameter two.  For any pair of distinct vertices $u$ and $v$, there is a vertex adjacent to $u$ but not $v$.
+\end{lemma}
+\begin{proof}
+	Suppose, for the sake of contradiction, that every neighbor of $u$ is a neighbor of $v$.  Since $X$ is reduced, there is a vertex $w$ adjacent to $v$ but not $u$, so the containment is proper.  Since $X$ has no triangles, $w$ can't be adjacent to any neighbor of $u$, which means the distance between $u$ and $w$ is at least three, contradicting the assumption on the diameter of $X$.
+\end{proof}
+
+
+We can now characterize a class of cores:
+
+\begin{lemma}
+	Let $X$ be triangle-free and of diameter two.  Then $X$ is a core if and only if it is reduced.
+\end{lemma}
+\begin{proof}
+	We have seen already that if a graph is not reduced then it is not a core.  We now assume that $X$ is reduced and show that each 2-arc lies in a 5-cycle, which demonstrates that it is a core by the earlier lemma.
+	
+	Let $(u,v,w)$ be a 2-arc, so $w$ is at distance two from $u$.  Since the neighborhood of $w$ is not contained in the neighborhood of $u$, there are neighbors $v',w'$ of $w$ such that $v'$ is a neighbor of $u$ and $w'$ is not (and therefore at distance two).  Since $X$ is triangle-free, we know that $v\neq v'$ so there is a 5-cycle $(u,v,w,w',v')$.
+\end{proof}
+
+This also shows that any reduced triangle-free graph of diameter two must be a core.  The graph obtained by deleting a vertex from the Petersen graph is triangle-free with diameter three, but any homomorphic image of it must contain a triangle, so the condition in the lemma is not necessary.
+
+\section*{Coloring Andr\'asfai Graphs}
+
+The \textbf{Andr\'asfai graphs}, denoted $\mathrm{And}(k)$, are a family of Cayley graphs which are reduced, triangle-free, and of diameter two.  For any integer $k\geq 1$, take $G$ to be the group $\mathbb{Z}_{3k-1}$ and let $C=\{g\in G \mid g\mod 3 \equiv 1\}$ be the generating set.  Then the graph $X(G,C)$ is $\mathrm{And}(k)$.  $\mathrm{And}(2)$ is isomorphic to the 5-cycle, $\mathrm{And}(3)$ is called the \textit{M\"obius ladder}, and $\mathrm{And}(4)$ is pictured:
+
+ \textbf{[figure here]}
+
+\begin{lemma}
+	For $k\geq 2$, $\mathrm{And}(k)$ is reduced, triangle-free, and of diameter two.
+\end{lemma}
+
+\begin{proof}
+	We start by showing that $\mathrm{And}(k)$ has diameter two, which is a simple arithmetic exercise.  Given any $0\leq m < 3k-1$, there is a path of length at most two from zero to $m$, since any such number is either congruent to $3k-1$ modulo 3 and is therefore at distance one (or zero), or congruent to $3k$ or $3k-2$, which are both at distance one from $3k-1$.  The result follows by symmetry.
+	
+	Next, we show that $\mathrm{And}(k)$ is reduced.  If $\mathrm{And}(k)$ has two distinct vertices with the same neighbors, then there is some $g\in G$ such that $g\neq 0$ and $g+C=C$, but then $g+1$ and $g-1$ must both be in $C$, which is not possible by the construction of the generating set.
+	
+	Finally, we show that $\mathrm{And}(k)$ is triangle-free by arguing that there is no triangle containing 0.  Take $g$ and $h$ to be two neighbors of 0.  Then $g,h\in C$, so $g-h$ must be congruent to 0 modulo 3, so $g$ and $h$ cannot be adjacent, and again by symmetry the whole graph must be triangle-free.
+	
+\end{proof}
+
+
+If $X$ is reduced, triangle-free, and of diameter two and $S$ is an independent set in $X$ which is maximal under the inclusion partial-ordering.  Then, every vertex in $X$ is adjacent to at least one vertex in $S$, and the graph created by making a new vertex adjacent to every vertex in $S$ is also triangle-free and of diameter two.  If $S$ is not the entire neighborhood of some vertex, then this new graph is also reduced.  This gives us a procedure for inductively constructing such graphs.  We can make the following observation about $\mathrm{And}(k)$ which shows that this procedure cannot be performed on this class of graphs.
+
+\begin{lemma}
+	{Each independent set of vertices in $\mathrm{And}(k)$ is contained in the neighborhood of some vertex.}
+\end{lemma}
+
+\begin{proof}
+	Take the $k-1$ pairs of adjacent vertices of the form $\{3i,3i-1\}$ where $1\leq i <k$.  Any vertex $g\in C$ is of the form $3q+1$ for some $q$.  If $q\geq i$, then $g$ is adjacent to $3i$ and not $3i-1$.  If $q<i$, then $g$ is adjacent to $3i-1$ and not $3i$.  Thus each vertex in $C$ is adjacent to exactly one vertex in each pair.
+	
+	Now, suppose for the sake of contradiction that there is an independent set in $\mathrm{And}(k)$ which is not contained in the neighborhood of some vertex.  Then we can take an independent set $S$ and a vertex $x$ such that $S\cup x$ is also independent, $S$ is contained in the neighborhood of a vertex, and $S\cup x$ is not.  By transitivity, we can assume without loss that $S$ is in the neighborhood of 0.  Then $x$ is not, so $x$ must be $3i$ or $3i-1$ for some $i$.  If $x$ is $3i$ then, by independence, every vertex of $S$ is not adjacent to $x$, and so is adjacent to $x-1$, which means that $S\cup x$ is in the neighborhood of $x-1$, which is a contradiction.  A symmetric argument holds for $x=3i-1$ making $S\cup x$ a subset of the neighborhood of $x+1$.
+\end{proof}
+
+
+\section*{Coloring Andr\'asfai Graphs}
+
+
+We can provide a characterization of Andr\'asfai graphs using some observations about their colorings.  
+
+\begin{lemma}
+	If $k\geq 2$, then the number of 3-colorings of $\mathrm{And}(k)$ is $6(3k-1)$ and they are all equivalent under the automorphism group of the graph.
+\end{lemma}
+
+\begin{proof}
+	In any coloring, there are an average of $k-\tfrac{1}{3}$ vertices in each color class.  Since the maximum size of a class is $k$, it must be that two classes are of size $k$ and one is of size $k-1$.  By the previous lemma, the two larger color classes must be neighborhoods of vertices, since a color class is an independent set, and these are maximal.
+	
+	Suppose we have a 3-coloring of $\mathrm{And}(k)$ and one of the big color classes is the neighborhood of 0.  This can be any of the three colors, and we make this assumption without loss.  Next, take the set of all vertices not adjacent to 0.  We can partition this into two sets: $A=\{2,5,\dots 3k-4  \}$ and $B=\{ 3,6,\dots, 3k-3 \}$.  These two sets are independent, and the $i$th vertex in $A$ is adjacent to the last $k-i$ vertices in $B$.  Thus $A\cup B$ is connected and bipartite, so it can be colored with two colors in exactly two ways.  We now have two choices of colors to assign to 0, so when the neighborhood of 0 is a big color class, there are 12 distinct colorings thus far -- corresponding to a choice of three colors for the neighborhood of 0, followed by two choices for the induced bipartite graph, followed by two choices for 0 itself.
+	
+	Since $\mathrm{And}(k)$ is transitive with $3k-1$ vertices, and each 3-coloring has two big color classes, we have the equivalence under transitivity of all 3-colorings of $\mathrm{And}(k)$.
+	
+	To finish off the combinatorial claim, observe that the permutation which exchanges $i$ with $-i$ modulo $3k-1$ is an automorphism of $\mathrm{And}(k)$ which exchanges the sets $A$ and $B$, so there are $(3k-1)/2$ additional choices of colorings.
+\end{proof}
+
+We note an additional property of $\mathrm{And}(k)$, that the subgraph induced by $\{ 0,1,2,\dots, 3(k-1)-2  \}$ is exactly $\mathrm{And}(k-1)$, meaning we can turn $\mathrm{And}(k)$ into $\mathrm{And}(k-1)$ by deleting the path $(3k-4,3k-2,3k-2)$.
+
+\begin{lemma}
+	Let $X$ be regular of valency $k\geq 2$ and triangle-free, and suppose $P$ is a path of length two in $X$.  If $X{\setminus}P \iso\mathrm{And}(k-1)$, then $X\iso \mathrm{And}(k)$.
+\end{lemma}
+
+\begin{proof}
+	Let $P$ be the path $(u,v,w)$ and let $Y$ denote $X{\setminus}P$.  Since $X$ is triangle-free and regular, the neighbors of $u$, $v$, and $w$ in $Y$ form independent sets of size $k-1$, $k-2$, and $k-1$, respectively.  Since $Y$ is regular of valency $k-1$, each vertex of $Y$ is adjacent to exactly one vertex in $P$.  Therefore, these independent sets form a 3-coloring of $Y$, and since all 3-colorings are equivalent under automorphisms of $Y$, the claim follows.
+\end{proof}
+
+
+\section*{A Characterization}
+
+It turns out that any reduced triangle-free graph where every independent set lies in the neighborhood of a vertex is one of the Cayley graphs $\mathrm{And}(k)$, which is cool because it is a simple combinatorial condition which yields a large amount of symmetry,
+
+\begin{theorem}
+	If $X$ is reduced, triangle-free, and has the property that every independent set is contained in the neighborhood of a vertex, then $X$ is isomomorphic to $\mathrm{And}(k)$ for the correct choice of $k$.
+\end{theorem}
+\begin{proof}
+	We proceed in steps:
+	
+	\textbf{Step 1:} If $u$ and $v$ are distinct and non-adjacent, then there must be a unique vertex $\sigma_u(v)$ adjacent to $v$ but not $u$ such that 
+\end{proof}
+\section*{Cores of Vertex-Transitive Graphs}
+
+\section*{Cores of Cubic Vertex-Transitive Graphs}
+
