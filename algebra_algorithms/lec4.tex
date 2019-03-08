@@ -1,0 +1,43 @@
+\classheader{2019-02-13}{Some Complexity Stuff}
+
+\section*{}
+
+\begin{definition}
+	Suppose $f$ is strongly one-way and $x=x_{n-1}x_{n-2}\dots x_0$ is a string of length $n$.  We say that a bit $b(x_{n-1}x_{n-2}\dots x_0)$ (i.e. a boolean function) is a \textbf{hard-core bit} if any probabilistic polytime algorithm can't do more than negligibly better than random guessing $b(x)$ given $f(x)$.
+\end{definition}
+
+How can we get a hard core bit?  
+
+\begin{theorem}
+Suppose we have such an $f$.  Then there exists a strong one-way function $g$ which has a hard core bit.
+\end{theorem}
+
+\begin{proof}
+	Our function will be $g(x,r) = (f(x),r)$ where $r$ is an $n$-bit string which gets `passed through'.  Clearly $g$ is one-way if $f$ is.  Our hard core bit will be $b(x,r) = (x\odot r)\mod 2$, i.e. the inner product mod 2 of $x$ and $r$.
+	
+	We can show that $b$ is hard core by showing that if an algorithm exists with a non-negligible advantage in computing $b$ then we can invert $f$ with non-negligible probability.
+	
+	Suppose, as a warm-up to build intuition, that  $A$ is an algorithm which takes $(f(x),r)$ and always outputs $b(x,r) = (x\oplus r)\mod 2$ correctly.  How can $A$ use this to break $g$ and find $x$? If we give $A$ the sequence 
+	\begin{enumerate}
+		\item $(f(x),1000\dots) = x_{n-1}$
+		\item $(f(x),0100\dots) = x_{n-2}$
+		\item $(f(x),0010\dots)= x_{n-3}$
+		\item $\dots$
+	\end{enumerate}
+
+Then $A$ can find which bits in $x$ are equal to 1, and therefore recover $x$.  Therefore such an $A$ cannot exist, as otherwise $g$ would not be strongly one-way.
+
+
+Let's now suppose that $A$ has a $\tfrac{3}{4}+\epsilon$ probability of correctly outputting $b(x,r)$, where $\epsilon$ is non-negligible.  Call an $x$ `good' if the probability that $A$ succeeds on it is at least $\tfrac{3}{4}+\tfrac{\epsilon}{2}$.  The set of `good' $x$'s has size at least   , which arises in the case where the set of good $x$'s are those which succeed with probability 1 and those which succeed with just barely enough probability.  I.e. the probability of success in this set is $1/p(n) \times 1 + (1-1/p(n))(3/4 \times \epsilon/2) \geq 3/4 + \epsilon$, and $1/p(n)$ is non-negligible. Therefore, if we can invert only the good $x$'s, that's enough to violate the assumption of strong one-wayness.
+
+Suppose $x$ is good.  We'll give a scheme to use $A$ to go from $f((x),r)$ to $(x,r)$.  We can find the $i$th bit of $x$ random choices of $r$.  Choose $r\in_R\{0,1\}^n$ and let $r_i$ be $r$ but with the $i$th bit flipped.  We then ask $A$ for $b(x,r)$ and $b(x,r_i)$.  Clearly both of these are independent.  The probability of $A$ failing on each is less than $1/4-\epsilon/2$ so by a union bound the probability of failing on both is no more than $1/2-\epsilon$.  The probability that $A$ is correct on both is at least $1/2+\epsilon$, so it has a non-negligible advantage over guessing, so we can use amplification and majority voting to amplify this arbitrarily.  We find $x_i$ by taking the xor of the two answers that $A$ gives for $r$ and $r_i$.
+
+We would finally like to construct a routine which can perform this task with only one call to $A$ for each bit, thereby letting us have a procedure which works overall with probability at least $1/2+\epsilon$.  We can do this by adjusting the definition of `good' and just making the query on $r$ and just making up an answer for the second query.  If we redefine `good' to mean the set of $x$'s where the probability of $A$ succeeding is greater than $1/2+\epsilon/2$ and the same argument as before shows that at least $\epsilon/2$ of the $x$'s are good.
+
+Then, given a good $x$, we'll need polynomially many $r$, $r_i$ as before, but we'll only ask the adversary about the $(x,r_i)$ pairs.  We only need the $r$'s to be \textit{pairwise} independent, rather than fully independent.  To do this, let $\ell =\log{p(n)}$ and let $r_1,r_2,\dots,r_\ell$ be uniformly random strings of length $n$.  Then, for all $J\subset[\ell]$, let $r_J = \bigoplus_{i\in J} r_i$.  There will be roughly $p(n)$ different $r_J$ strings.  The inner product of $x$ with any $r_J$ will be the xor of the inner product of $x$ with all of the $r_i$ used to construct $r_J$.  We can then ask the algorithm to run on the $r_i$ and this gives us some information about the $r_J$s.  Once we have each bit, we can verify it's correct by passing it to $f$.  We also need to use Chebyshev's inequality rather than Chernoff's to do the amplification by majority voting.  
+
+
+\end{proof}
+
+
+

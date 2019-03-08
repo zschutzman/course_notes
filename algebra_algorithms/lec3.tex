@@ -1,0 +1,83 @@
+\classheader{2019-02-06}{tdb}
+
+\section{Square Roots (modulo $\boldsymbol{p}$)}
+	
+	Consider a prime $p=3\mod 4$, and the equation $x^2-a=0\mod p$, i.e. $a$ is a \textit{square root} of $p$.
+	
+	By Fermat's Little Theorem, $a^{p-1}=1$, so $a^{p}=a$, and $a^{p+1} = a^2$, so $a^{\frac{p+1}{2}} = \pm a$.  We know it's $+a$ because $-a = -1 \times a$, and $-1$ is not a quadratic residue in $\Z_p^*$ when $p=3\mod 4$ because $(x)^\frac{p-1}{2}$ will be $1$ if and only if $x$ is a quadratic residue (i.e. is an even power of the generator $g$).  This is not the case for $-1$ because $\frac{p-1}{2}$ is odd since $p-1 = 2\mod 4$. Therefore, $-a$ is not a quadratic residue. Therefore $a^\frac{p+1}{4}$ is a square root of $a$.
+	
+	Furthermore, the set of quadratic residues in $\Z_p^*$ when $p=3\mod 4$ forms a group $Q_p$, since for quadratic residues $a,b$, since the product of the square roots of $a$ and $b$ is the square root of $ab$, and demonstrating closure suffices to prove that this is a group, since it's finite.  
+	
+	However, if $p=1\mod 4$, then we don't have a good formula for finding square roots.  Take such a $p$ and consider $\Z_p^*$ and an element $a$.  We have $a^{p-1}=1$ so $a^\frac{p-1}{2} = 1$ and $a^{p+1} = a^2$, but $p+1$ is not divisible by 4.
+	
+	Let's write $p=2^s\times m$ where $m$ is odd (this is easy).  We want to solve $x^2-a=0$ and we know $a^\frac{p-1}{2}=1$.  So we can write $a^{m(2^{s-1})} = 1$.  Let $a^m=u_0$.  We know that the order of $u_0$ divides $2^{s-1}$ and is therefore a power of 2.  If the order is 1, i.e. $u_0=1$, then $a^{m+1} = u_0a = a$.  Since $m+1$ is even, $a^\frac{m+1}{2}$ is a square root of $a$.  Otherwise, $a^\frac{m+1}{2}$ is a square root of $u_0a$, which we will call $v_0$.
+	
+	Construct two sequences, $u_0,u_1,\dots$ and $v_0,v_1,\dots$, such that $v_i^2 = u_ia$.  The $u_i$ will have orders which are powers of 2 and decreasing, so we eventually get a $u_j=1$, which will imply $v_j$ is a square root of $a$.
+	
+	We'll need some randomness to construct the $u_i$, since we'll need to find an element of $\Z_p^*$ which is not a residue.  We can do this by randomly testing, since half of the elements are non-residues.  Let $b$ be a randomly chosen non-residue in $\Z_p^*$, and let $c=b^m$.  By Fermat's Little Theorem, $b^{p-1}=b^{m2^s}=1$.  Furthermore, $c^{2^{s-1}} = b^\frac{p-1}{2} = -1$ because $b$ is a non-residue.
+	
+	Let $r_i$ denote the order of $u_i$.  Then $u_0^{2^{r_0}} = 1$ and $u_0^{2^{r_0-1}} = -1$, since it's the square root and not equal to 1.  Given this, we'll construct $u_1$ by taking the product $(c^{2^{s-1}})(u_0^{2^{r_0-1}}) = (u_0c^{2^{s-r_0}})^{2^{r_0-1}} = 1$ and we'll let the base $(u_0c^{2^{s-r_0}}) = u_1$.  Now, we want a $v_1$ such that $v_1^2 = u_1 a$.  
+	
+	We have $v_0^2=u_0a$, so let's try $v_1=v_0 c^{2^{s-r_0-1}}$, and so $$v_1^2 = v_0^2 c^{2^{s-r_0}} = u_0c^{2^{s-r_0}} a = u_1a$$
+	
+	which works.  We repeat this process until we find a $u_j$ of order 1.
+	
+	
+\begin{definition}
+	
+	The \textbf{Legendre symbol} of $a$ in $\Z_p^*$ is written as $\left(\frac{a}{p}\right)$ and is equal to $1$ if $a\in Q_p$ (i.e. is a quadratic residue) and $-1$ otherwise, and 0 if $a=0$.
+	
+\end{definition}
+
+What if we have $N=pq$ for primes $p$ and $q$.  Given $a\in \Z_N^*$, can we find a square root of $a$? If $a$ is a quadratic residue, then $a$ has exactly four square roots, by the Chinese Remainder Theorem, since we can write it as a pair which is a square modulo $p$ and a square modulo $q$, so if $(b_1,b_2)$ is a square root of $a$, then the four square roots are given by $(\pm b_1,\pm b_2)$.
+
+It turns out that finding a square root in $\Z_N^*$ is equivalent to factoring in the ring, given that a randomized polynomial time algorithm for finding square roots can be used to factor. [[see exercise 6.1 from Michael's CIS625 problem set]]
+
+This gives us a candidate \textit{one-way function}. Take $N=pq$ and $f(x)=x^2 \mod n$ for $x\in\Z_n^*$.  This gives an encryption scheme for messages over $\Z_n^*$.  Alice can encode $x$ with $f(x)$.  Bob can decode it using the factors of $N$ using the Chinese Remainder Theorem and finds the square roots with respect to $p$ and $q$ (quickly).  This is actually a \textit{trapdoor function} since it is easy to compute the forward direction and easy to compute the backward direction only if you know a certain secret.
+
+As a cryptosystem, this is called the \textit{Rabin} cryptosystem. It's relatively simple, but not widely used.  One drawback is that it gives four possible decryptions (assuming $N$ is the product of two primes).  We can restrict the message space to numbers less than $N/2$.
+
+Another cryptosystem, which is very well-known and used a lot in practice is the \textit{Rivest-Shamir-Adelman} (RSA) cryptosystem.  In this system, Bob picks $N=pq$ and an encryption exponent $e$.  He then publishes $N$ and $e$.  The secret will be knowledge of $p$ and $q$ as well as a decryption exponent $d$.  When Alice sends a message $x$, she sends $f(x) = m^e \mod N$ (observe that the Rabin cryptosystem has $e=2$).  Bob needs to choose $d$ such that $m^{ed}=m$, so $m^{ed-1}=1$, so the order of $m$ divides $ed-1$.  It also divides $(p-1)(q-1) = \phi(N)$ by Lagrange's theorem. Then $m^{\phi(N)} = 1$, so we might want to pick $d$ such that $ed-1=k\phi(N)$.  We know the GCD of $e$ and $\phi(N)$ must be 1, so Bob should pick $e$ according to that.  He should pick $d$ by using the extended GCD on $e,\phi(N)$ which gives an $xe+y\phi(N) = 1$, and let $d=x$.  This will guarantee the uniqueness of the decryption.
+
+Interestingly, there is no result equating the difficulty of RSA decryption to the difficulty of factoring.  It may be easier, though it is certainly not harder.  If Eve can factor $N$, she can use the same process that Bob used to pick $d$ and use the same process as Bob to decrypt the message.  Even knowing $\phi(N)$ is sufficient to decrypt.  
+
+\section{Primality Testing}
+
+The first randomized algorithms for primality testing were developed in the 1970s: Solovay-Strassen and Miller-Rabin.  Both therefore show that $\mathrm{COMPOSITES}\in\mathrm{RP}$ ($\mathrm{PRIMES}\in\mathrm{Co-RP}$, equivalently).  A paper in the early 2000s shows that $\mathrm{PRIMES}\in P$, but it's a much more complicated algorithm than either of these.
+
+How does it work?  We discussed earlier that we can use Fermat's Little Theorem as an almost-test, because for all $a<p$, $a^{p-1}=1\mod p$.  For any $N$, the set of numbers $a<N$, the set of things which satisfy $a^{N-1}=1\mod N$ form a group.  For primes, this group is all of the numbers less than $N$.  For a composite $N$, we'll consider $a\in\Z_N^*$.  The group $G=\{  a\vert a^{N-1}=1\mod N   \} < \Z_N^*$.  If this subgroup is proper, it's at most half the size.
+
+This suggests an algorithm.  Given $N$, pick $a\in_R\{1,2,\dots,N-1\}$ and check if $a\in G$.  If no, say that $a$ is composite and if yes, say that $a$ is prime.  If $G$ is a proper subgroup, this has probability of success at least half.  However, there are composite numbers $N$ (the Carmichael numbers) for which $G$ is not a proper subgroup.  This means the algorithm is incorrect, since it is always wrong about Carmichael numbers (unless you pick a number not in $\Z_N^*$).
+
+The Miller-Rabin algorithm works as follows, leveraging the property of primes that the sequence (modulo $N$) $x,x^2,x^4,x^8,\dots,1$ has as its second-last term -1 if $N$ is prime and sometimes $-1$ and sometimes something else if $N$ is composite.  Given an input $N$, write $N-1 = m(2^s)$ where $m$ is odd.  Then, pick $a\in_R[N-1]$  If $a^{N-1}\neq 1 \mod N$, output composite.  If $a^m=1\mod N$, output prime.  Otherwise, let $b=a^m$ and compute the sequence $b,b^2,\dots,b^{2^s} $ and look at the term before the first one.  If this is not $-1$, output composite. Otherwise, output prime.
+
+If the number is composite, it will return composite with probability at least one half.  If the number is prime, it will return prime always.
+
+
+
+\begin{definition}
+	A \textbf{strongly one-way (length-preserving) function} $f$ is a function such for all $x$, $|x|=|f(x)|$ and for any probabilistic polynomial-time adversaries $A$, there is a sufficiently large $n$ such that $\Pr\limits_{x\in U_n}\left[ f(A(f(x)))  = f(x)       \right]$ is negligible.  I.e. the probability of an adversary successfully inverting $f$ is exponentially small.
+	
+	A \textbf{weakly one-way (length-preserving) function} if there exists a polynomial $p(n)$ such that for any probabilistic polynomial-time adversary $A$, $\Pr\limits_{x\in U_n}\left[f(A(f(x))) \neq f(x)\right] \geq \frac{1}{p(n)}$.  I.e. any adversary which finds a sort of inverse of $f$  fails sufficiently often.
+\end{definition}
+
+
+\begin{lemma}
+	
+	The existence of a weak one-way function implies the existence of a strong one.
+	
+	
+\end{lemma}
+
+
+\begin{proof}
+	Suppose that $f$ is weakly one-way with polynomial $p(n)$.  Define $g(x_1,x_2,\dots,x_{np(n)}) = (f(x_1),f(x_2),\dots f(x_{np(n)}))$ where each $x_i$ has $n$ bits.  We'll show that $g$ is strongly one-way.
+	
+	Assume, for the sake of contradiction, that $g$ is not strongly one-way.  Let $B$ be an algorithm that inverts $g$ with non-negligible probability, at least $\frac{1}{q(n)}$ for some polynomial $q(n)$.  We'll use $B$ to invert $f$.
+	
+	This algorithm $I$ takes a string $y$ and finds a string $x$ such that $f(x) = y$.  Given a $y$, $I$ chooses an $x_i$ to be equal to $y$ and sets the rest of the $x_j$ to be uniformly random, will try $y$ in each position $i$, and calls $B$ on $(f(x_1),\dots, y, \dots,f(x_{np(n)})$.
+	
+	Let $S_n$ be the set of $n$-bit strings such that $I$ succeeds in inverting $f(x)$ with probability at least $\frac{n}{p(n)}$.  For any $x$ in this set, we can boost the success probability to be exponentially close to one by repeating $I$ on it enough times.  In order for $f$ to be weakly one-way, $S_n$ can't have more than $(1-\frac{1}{p(n_)})2^n$ strings in it.  We'll show that $|S_n| \geq (1-\frac{1}{2p(n)})2^n$, which is our contradiction.
+	
+	Consider the success probability of $I$ on two cases.  First, when all inputs are in $S_n$ and second when at least one input is outside of $S_n$. The probability of all the inputs being in $S_n$ is exponentially small.  The probability that $B$ succeeds on an input where at least one block is outside of $S_n$ is also exponentially small, because otherwise the whole thing would have been in $S_n$.  But the success probability of $B$ is like the sum of these two probabilities, which is exponentially small, contradicting the assumption that $B$ succeeds often enough.
+\end{proof}

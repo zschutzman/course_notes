@@ -1,0 +1,180 @@
+\classheader{2019-01-23}{Algebra Basics and Some Applications}
+
+\section{Groups}
+
+What is a group?
+
+A group is a set $G$ together with an operation $\cdot : G\times G \rightarrow G$ such that:
+
+\begin{itemize}
+	\item There is an identity element $e$ such that $eg = ge = g$ for all $g\in G$
+	\item $\cdot$ is associative.  That is, $g(hk) = (gh)k$ for all $g,h,k\in G$
+	\item For any $g\in G$, there exists a unique $g^{-1}$ such that $gg^{-1}=g^{-1}g= e$
+\end{itemize}
+
+
+\begin{definition}
+	{A group is called \textbf{abelian} or \textbf{commutative} if $gh=gh$ for all $g,h\in G$.}
+\end{definition}
+
+\begin{definition}
+	A group $G$ is \textbf{finite} if $|G|$ is finite. It is \textbf{infinite} otherwise.
+\end{definition}
+
+Some examples of groups:
+\begin{enumerate}
+	\item The integers $\Z$ with the operation $+$ is an abelian group
+	\item The integers modulo $n$ ($\Z_n$) is a finite abelian group under addition modulo $n$
+	\item $\Z_p^*$, the elements of $\Z_n$ which are relatively prime to $p$ is a finite abelian group under multiplication modulo $p$. If $p$ is prime, its elements are $\{1,2,\dots,p-1\}$.
+	\item The set of permutations of $n$ letters is the \textit{symmetric group} $S_n$ under the operation of composition. It has $n!$ elements and is non-abelian (unless $n=1$ or $n=2$).
+	\item Sets of square invertible matrices (of a fixed size) under matrix multiplication are non-abelian, sometimes infinite groups.
+	\item The group of symmetries of a regular polygon with $n$ vertices is the dihedral group $D_{2n}$ and it is non-abelian (it's the semidirect product of $\Z_2$ with $\Z_n$)
+\end{enumerate}
+
+
+\begin{definition}
+	A \textbf{subgroup} $H$ of a group $G$ is a set of elements $H\subset G$ which themselves form a group with respect to the operation of $G$.  The identity element $e\in G$ is the identity in $H$. We denote this as $H<G$
+\end{definition}
+
+
+
+We can prove our first theorem about groups!
+\begin{theorem}[Lagrange's Theorem]
+	If $G$ is a finite group and $H<G$, then $|H|$ divides $|G|$.
+\end{theorem}
+
+\begin{proof}
+	We begin by constructing an equivalence relation $\sim$ on $G$ where $g\sim h$ if $gh^{-1}\in H$.  We can easily verify this is a proper equivalence relation.  It is reflexive because $gg^{-1}=e\in H$.  It is symmetric because $gh^{-1}\in H$ implies $(gh^{-1})^{-1}\in H$, but this is equal to $hg^{-1}$.  Transitivity follows from the cancellation property.  If $gh^{-1}\in H$ and $hk^{-1}\in H$, then their product is also in $H$. The product is $gh^{-1}hk^{-1} = gk^{-1}$, which shows transitivity.
+	
+	This equivalence relation partitions the group into disjoint subsets (called cosets). The set of things equivalent to $a$ (written $[a]$) is exactly the set $Ha$, which is the set of things which are the product of something in $H$ with $a$.  Then, we can see that $|Ha|=|H|$, since for distinct elements $h_1,h_2\in H$, $h_1a\neq h_2a$, meaning that each element in $Ha$ can be written as the product of a unique element in $H$ with $a$.  Thus, $|G| = |H|\text{number of equivalence classes}$ and $|H|$ divides $|G|$.  This number of equivalence classes is called the \textit{index of $H$ in $G$}.
+\end{proof}
+
+This has a corollary:
+\begin{corollary}
+	If $H\subsetneq G$, $|H|$ is at most half of $|G|$, since $|H|$ is a proper factor of $|G|$ (or 1...).
+\end{corollary}
+
+We can use this to do a randomized thingy!
+
+\begin{example}
+	\textbf{Freivald's Matrix Multiplication Checker} is an algorithm which does the following.  Suppose, for the sake of ease of exposition, everything here is done over $\F_2$.  It takes in 3 $n\times n$ matrices $A,B,C$ such that we are trying to verify $AB\overset{?}{=}C$.  We can do this efficiently by taking a uniformly random binary vector $v$ and checking that $ABv = Cv$.  If the multiplication was correct, the test will always pass.  If there is an error in $C$, what is the probability we detect it? Call $v$ a \textit{witness} if $ABv\neq Cv$ and a \textit{non-witness} otherwise.  We can observe that the set of non-witnesses forms a group under componentwise addition (mod 2), since for two non-witnesses $v_1,v_2$, then $(AB-C)v_1 = (AB-C)v_2 = 0$, so $(AB-C)(v_1+v_2)=0$ (closure), and the inverse of a non-witness is a non-witness since everything here is self-inverse.\footnote{This is true in general, too.}  Since this is a subgroup of the group of all binary vectors, the set of non-witnesses has set at most half of $2^n$ as long as a witness exists.  This means that if we pick a random $v$, with probability at least $.5$ we can detect an error.
+	
+	To see that a witness must exist, consider again $AB-C$, which is non-zero if $AB\neq C$.  Let $ij$ be a non-zero entry in $AB-C$ and let $v$ be a non-witness. Then $(AB-C)v=0$ and the $i$th position of $(AB-C)v$ is the $i$th row of $AB-C$ times $v$.  Therefore, the vector which is all zeroes except a $1$ in the $j$th position constitutes a witness.
+	
+	The test is efficient because we can compute $A(Bv)$ in $n^2$ time rather than $(AB)v$ which takes more.  
+\end{example}
+
+The idea of this, and many other applications, is that the set of bad examples forms a group and a proper subgroup of the set of all examples, so there aren't too many of them.
+
+\begin{definition}
+	A mapping $\varphi:G\rightarrow H$ from a group $G$ to a group $H$ is a \textbf{homomorphism} if $\varphi(xy) = \varphi(x)\varphi(y)$ for all $x,y\in G$, where the operation on the left is with respect to $G$ and on the right with respect to $H$.
+	
+	In particular $\varphi(e_G) = e_H$ and $\varphi(x^{-1}) = \varphi(x)^{-1}$.
+\end{definition}
+
+\begin{definition}
+	The \textbf{kernel} of a homomorphism $\varphi$ is the set $K\subset G$ such that $\varphi(k)=e$ for all $k\in K$.
+\end{definition}
+
+\begin{example}
+	Take $\varphi:\Z_2\rightarrow Z_7$ where $x\mapsto  x{\mod{7}}$.  The kernel is the set of all multiples of 7 in  $\Z$, i.e. $7\Z$.
+\end{example}
+
+\begin{lemma}
+	{The kernel of a homomorphism $K$ forms a subgroup of $G$.}  By definition, $e\in K$, and if $x,y\in K$, then $\varphi(x)=\varphi(y)=e$ and so $\varphi(ab) = \varphi(a)\varphi(b)=e$.
+\end{lemma}
+
+\begin{definition}
+Let $G$ be an abelian group and $K$ a subgroup. Then the quotient $G/K$ is a group whose elements are in correspondence with the equivalence classes (cosets) of $K$ as defined in the proof of Lagrange's theorem.
+\end{definition}
+
+
+\begin{example}
+	Take $G=\Z$ and $K=7\Z$. Then the elements of $G/K$ are equivalence classes of $[0],[1],\dots,[6]$ which is isomorphic to $\Z_7$, where we mapped each element to its remainder modulo 7.
+\end{example}
+
+\begin{theorem}[First Isomorphism Theorem]
+	If $\varphi$ is a surjective homomorphism from $G$ to $H$ with kernel $K$, then $G/K \iso H$.
+\end{theorem}
+
+We can apply this in proving the Chinese Remainder Theorem:
+
+\begin{theorem}[Chinese Remainder Theorem]
+	Let $m_1,m_2$ be two coprime numbers. Then $\Z_{m_1m_2}\iso \Z_{m_1}\times \Z_{m_2}$.
+\end{theorem}
+
+
+\begin{proof}
+	First, it's clear that  $\Z_{m_1}\times \Z_{m_2}$ is a group, where everything just happens componentwise.  We'll prove this by showing that there is a homomorphism  $\varphi: \Z_{m_1m_2}\rightarrow \Z_{m_1}\times \Z_{m_2}$ with trivial kernel.  We check that $x\mapsto(x\mod{m_1},x\mod{m_2})$ suffices.  It's a homomorphism by checking it across the factors, and $0\mapsto(0,0)$ is the entirety of the kernel.
+\end{proof}
+
+The Chinese Remainder Theorem is a special case of the following statement:
+
+\begin{lemma}
+	Let $\varphi: G\rightarrow H$ be a surjective homomorphism with trivial kernel.  Then $G\iso H$.
+\end{lemma}
+
+Here's an application to communication complexity:
+
+\begin{example}[The Man on the Moon Problem]
+Let Alice be on the Moon and Bob on Earth.  Alice has a string $x$ of length $n$ and Bob has a copy $y$, and they want to make sure that they have the same string. We want a communication protocol to check $x\overset{?}{=}y$.  We can assume without loss that $y$ is also of length $n$, since checking this only requires $\log{n}$ bits of communication.  We'll assume as well that the communication channel is reliable.
+
+We can have a dumb algorithm where Alice sends all of $x$ to Bob, which requires $n$ bits of communication.  If the potential corruption is adversarial, then this is the best deterministic procedure.  To see this, observe that Alice and Bob are trying to compute a function together which can be viewed as mapping $X\times Y\rightarrow \{0,1\}$, where $|X|=|Y|=2^n$.  We can write this down in a table which looks like the $2^n\times 2^n$ identity.  Suppose further, without loss, that the protocol is alternating.  That is, the transcript of the communication will have things sent by Alice in odd positions and Bob in even positions.  
+
+If for any two pairs $(x^i,y^i)$ and $(x^j,y^j)$ we demand that the transcripts differ, in order for the $2^n$ matching pairs to have different transcripts, we need to communicate $n$ bits.  To see this, suppose that $(x^i,y^i)$ and $(x^j,y^j)$ do have the same transcript, but represent different pairs of matching strings.  We'll show that this implies that the transcripts of $(x^i,y^j)$ and $(x^i,y^j)$ are identical, leading Alice and Bob to reach the incorrect decision.  We can prove this by induction.  Alice has $x^i$ and sends the first bit accordingly.  Bob has $y^j$ and sees this first bit, which is consistent with the case where he has $y^j$ and Alice has $x^j$, so he continues accordingly. Alice proceeds, given that everything she sees is consistent with Bob having $y^i$.
+
+We can give a randomized algorithm which does better.  A witness here will be a prime $p$ such that $x\mod p\neq y \mod p$.  First, note that if two primes $p_1$ and $p_2$ both divide a number $x-y$, then $p_1p_2$ does as well.  Since the product of $n$ distinct primes is at least $2^n$, since $x$, $y$, and $x-y$ are all at most $2^n$, then there are at most $n$ primes which divide $x-y$ (i.e. are non-witnesses).  Alice can write down the first $2n$ primes and picks one of them $p$ at random.  She can then send Bob $p$ $x\mod p$.  Since there are at most $n$ non-witnesses, the probability that $p$ is a non-witness is at most $.5$.  It takes $\log{n}$ bits to communicate $p$ and another $\log{n}$ bits to send $x\mod p$.
+\end{example}
+
+
+
+
+\begin{definition}
+	Let $G$ be a group and $g,h,\dots\in G$.  We denote by $\langle g,h,\dots \rangle$ the \textbf{group generated by $g,h,\dots$}.  That is, the set of all elements of $G$ which can be written as a finite product of $g$.  Equivalently, $\langle g,h,\dots \rangle$ is the smallest subset of $G$ which is closed under the operation and contains the \textbf{generators} $g,h,\dots$.  We sometimes replace the elements with a set $S\subset G$ and write $\langle S \rangle$.
+\end{definition}
+
+
+\begin{definition}
+	Thee \textbf{order} of an element $g$ is the size of the group generated by $g$.  Equivalently, it is the smallest number $k$ such that $g^k=e$.
+\end{definition}
+
+\begin{example}
+	In $\Z_7^*$, the order of $2$ is 3, since $2\times 2 = 4$, $4\times 2=2^3=1$.
+\end{example}
+
+\begin{definition}
+	A group is \textbf{cyclic} if it can be generated by a single element.
+\end{definition}
+
+\begin{lemma}
+	If $G$ is a group with  $|G|=n$, then $G$ can be generated by at most $\log{n}$ generators.
+\end{lemma}
+\begin{proof}
+	We proceed inductively. Let $|G|\geq 2$ and choose $a_1\neq e$ as the first generator.  We look at $|\langle a_1 \rangle |\geq 2$.  Choose some $a_2\notin \langle a_1 \rangle $.  This is a strict supergroup of $\langle a_1 \rangle $, so $|\langle a_1,a_2 \rangle | \geq 2|\langle a_1 \rangle |$.  Since adding each generator at least doubles the size of the resultant group, we only need $\log{n}$ generators to reach order $n$.
+\end{proof}
+
+\begin{example}
+ The \textit{group isomorphism problem} asks (algorithmically) whether two group $G$ and $H$ are isomorphic.  One way to present a group to a computer is to list out the $n^2$ entries in the multiplication table of a group, so we can phrase the problem as asking whether the table for $G$ is a permutation of the table of $H$.
+ 
+ There is an $O(n^{\log{n}})$ algorithm for this which works by finding a set of $\log{n}$ generators for $G$ and match against every set of the same size in $H$ to check if there is an isomorphic mapping among the generators. 
+\end{example}
+
+
+A consequence of this and Lagrange's theorem is Fermat's Little Theorem.
+
+\begin{theorem}[Fermat's Little Theorem]
+
+If $p$ is a prime then $a^{p-1} \cong 1\mod{p}$ for all $a$ relatively prime to $p$.	
+
+\end{theorem}
+\begin{proof}
+	Consider $\Z_p^*$, which has size $p-1$.  Then the order of $\langle a \rangle $ is $\ell$, which divides $p-1$.  Thus $a^{p-1} = (a^{\ell})^q = e$.
+\end{proof}
+
+\begin{example}
+This was proposed as a (wrong) primality test.  To test if $n$ is prime, pick $a$ at random from $1,2,\dots, n$ and compute $a^{n-1}\mod n$.  If this is equal to 1, say that $n$ is prime. Otherwise, say that it isn't.  This is good because it will always be 1 if $n$ is prime.  This algorithm actually works on most inputs, but not all.  The ones that fail are called the \textit{Carmichael numbers}.  These are composite numbers which satisfy Fermat's Little Theorem.
+\end{example}
+
+\begin{example}
+	Given $a\in\Z_p^*$, how can we find $a^{-1}$.  We know that $a$ is relatively prime to $p$, so we know that $\gcd(a,p)=1$.  To compute a GCD, we can use the \textit{extended Euclid's algorithm}, which takes in an $x$ and $y$ and produces the GCD $d$ as well as the two integers $q_1$ and $q_2$ such that $xq_1+yq_2=d$.  Using this, we can get the $q_1,q_2$ such that $aq_1+pq_2 = 1$.  Since modulo $p$, $pq_1=0$, $q_1=a^{-1}$.
+\end{example}

@@ -56,7 +56,7 @@ We will think of corruption of $x$ as adversarial.  If the length of $x$ and $y$
 	
 	Without loss of generality, assume that Alice transmits the first bit, assuming the protocol for $(x_1,x_1)$.  When Bob receives this, it's consistent with the transcript for $(x_2,x_2)$, so Bob sends the next bit assuming the input is $(x_2,x_2)$.  This repeats and neither side has any information at any point to contradict their assumptions that they are working on $(x_1,x_1)$ and $(x_2,x_2)$, respectively.
 	
-	We therefore need $2^n$ different transcripts to correspond to the $2^n$ possible $n$-bit strings they have.  By the pigeonhole principle, at least one of these must have length $2^n$, because the number of binary strings of length strictly less than $2^n$ is $2^n -1$.
+	We therefore need $2^n$ different transcripts to correspond to the $2^n$ possible $n$-bit strings they have.  By the pigeonhole principle, at least one of these must have length $2^n$, because the number of binary strings of length strictly less than $n$ is $2^n -1$.
 	
 	
 	

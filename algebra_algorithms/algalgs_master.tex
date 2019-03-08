@@ -29,11 +29,11 @@
 %  Specfies basic information.
 %  In the metadata section of the preamble, you can specify the subject and a list of keywords for the PDF.
 %
-\newcommand{\coursetitle}{Math 500 - Topology and Geometry}
-\newcommand{\lecturer}{Brian Weber}
+\newcommand{\coursetitle}{CIS 677 - Complexity, Randomness, and Algebra in Counting and Cryptography}
+\newcommand{\lecturer}{Sampath Kannan}
 \newcommand{\notetaker}{Zach Schutzman}
 \newcommand{\notetakersemail}{ianzach+notes@seas.upenn.edu}
-\newcommand{\courseterm}{Fall 2017}
+\newcommand{\courseterm}{Spring 2019}
 \newcommand{\institution}{University of Pennsylvania}
 
 
@@ -300,8 +300,8 @@
 
 
 %  Defines headings for each day's notes.
-\newcommand{\classheader}[1]{\stepcounter{lecture}\newpage\section*{Lecture \arabic{lecture} (#1)}
-	\phantomsection \addcontentsline{toc}{section}{Lecture \arabic{lecture} (#1)}}
+\newcommand{\classheader}[2]{\stepcounter{lecture}\newpage\section*{Lecture \arabic{lecture}: #2  (#1)}
+	\phantomsection \addcontentsline{toc}{section}{Lecture \arabic{lecture}: {#2} (#1)}}
 
 
 %---------------------------------------%
@@ -351,7 +351,7 @@
 	pdftitle={\coursetitle},
 	pdfproducer={LaTeX},
 	%pdfcopyright={Copyright (C) \the\year\ \notetaker. This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. All attribution should be to \lecturer\ as the lecturer, and to \notetaker\ as the person taking these notes.},
-	pdfsubject={differential topology},
+	pdfsubject={complexity},
 	pdfkeywords={},
 	%pdflicenseurl={http://creativecommons.org/licenses/by-sa/3.0/},
 	colorlinks=true,
@@ -368,8 +368,6 @@
 \renewcommand{\R}{\mathbb{R}}
 \newcommand{\thrm}[1]{\theorem{#1}}
 \newcommand{\innprod}[2]{\left\langle #1,#1 \right\rangle}
-
-\usepackage{cleveref}
 
 %------------%
 %  Document  %
@@ -419,7 +417,7 @@
 	%  Introduction
 	%
 	\section*{Introduction}
-	Math 500 is a Masters-level first-course in Topology and Geometry.  The course follows James Munkres' \textit{Topology, 2ed.} and this set of notes is based on the Fall 2017 offering.
+	CIS 677 is a doctoral-level seminar in the theory and applications of Complexity, Randomness, and Algebra in Counting and Cryptography.  
 	
 	These notes are being live-TeXed, though I edit for typos and add diagrams requiring the Ti\textit{k}Z package separately. I am using the editor TeXstudio.  The template for these notes was created by Zev Chonoles and is made available (and being used here) under a Creative Commons License. 
 	
@@ -461,39 +459,7 @@
 	\include{lec2}
 	\include{lec3}
 	\include{lec4}
-	\include{lec5}
-	\include{lec6}
-	\include{lec7}
-	\include{lec8}
-	\include{lec9}
-	\include{lec10}
-	\include{lec11}
-	\include{lec12}
-	\include{lec13}
-	\include{lec14}
-	\include{lec15}
-	\include{lec16}
-	\include{lec17}
-	\include{lec18}
-	\include{lec19}
-	\include{lec20}
-	\include{lec21}
-	\include{lec22}
-	\include{lec23}
-	\include{lec24}
-	\include{lec25}
-	\include{lec26}
-\include{lec27}
-\include{lec28}
-\include{lec29}
-\include{lec30}
-\include{lec31}
-\include{lec32}
-\include{lec33}
-\include{lec34}
-\include{lec35}
-\include{lec36}
-\include{lec37}
+
 	
 	\end{document}
 	
